@@ -54,6 +54,7 @@ Data\Storylines\MankriksWifeData.lua
 Data\Storylines\ShadyRestInnData.lua
 Data\ClassQuests\ClassicClassQuestData.lua
 Data\Forever\ForeverQuestIDs.lua
+Data\Forever\ForeverQuestText.lua
 Code\Core\Compatibility.lua
 Code\Core\SavedVariables.lua
 Code\Core\Scheduler.lua
@@ -69,6 +70,7 @@ Code\Dev\ForeverQuestScan.lua
 Code\UI\Tooltip.lua
 Code\UI\Pools.lua
 Code\UI\Style.lua
+Code\UI\ForeverWindow.lua
 Code\UI\AdventureCover.lua
 Code\UI\Banners.lua
 Code\UI\MinimapButton.lua

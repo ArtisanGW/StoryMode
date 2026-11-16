@@ -145,7 +145,172 @@ function SM.RefreshQuestCardTooltip(card, requestQuestData)
     SMTooltip:Show()
 end
 
+-- WoW Forever: quest cards are the Legacy window's challenge cards
+-- (LegacyChallengeTemplate), at its size and with its state art: a finished
+-- quest is a brown card with a brown ribbon, any other a dark card with a dark
+-- ribbon, and the quest to do now gets the gold outline. Field names match the
+-- usual card, so the click and tooltip code below works for both.
+SM.LegacyQuestCardWidth, SM.LegacyQuestCardHeight = 516, 122
+SM.LegacyQuestCardGap = 5
+
+local LEGACY = {
+    card = "Legacy-Challenge-Cards",
+    cardOpen = "Legacy-Challenge-Cards-Disable",
+    selected = "Legacy-Challenge-Cards-selected",
+    ribbon = "Legacy-Challenge-Cards-Ribbon-Brown",
+    ribbonOpen = "Legacy-Challenge-Cards-Ribbon-Brown-disable",
+    iconFrame = "Legacy-Tree-Frame-icon-frame",
+    iconMask = "UI-Frame-IconMask",
+    statusBackground = "Legacy-Challenge-Cards-Date-BG",
+    check = "worldquest-tracker-checkmark",
+    shield = "Legacy-Tree-Frame-Points-icon",
+}
+local WHITE = { 1, 1, 1 }
+local GRAY = { 0.5, 0.5, 0.5 }
+
+-- The objective line from the quest cache (Data/Forever/ForeverQuestText.lua,
+-- English), with the game's $ tokens filled in.
+local function GetQuestCardText(questID)
+    local text = SM.ForeverQuestText and questID and SM.ForeverQuestText[questID]
+    if not text or GetLocale() ~= "enUS" then return nil end
+    text = text:gsub("%$[Gg]([^:;]*):([^;]*);", function(male, female)
+        return (UnitSex and UnitSex("player") == 3) and female or male
+    end)
+    text = text:gsub("%$%d+o[a-z]%s*", "")
+    text = text:gsub("%$[Nn]", UnitName and UnitName("player") or "")
+    text = text:gsub("%$[Cc]", UnitClass and (UnitClass("player")) or "")
+    text = text:gsub("%$[Rr]", UnitRace and (UnitRace("player")) or "")
+    text = text:gsub("%$[Bb]", " "):gsub("%s+", " ")
+    return text
+end
+
+local function CreateLegacyQuestCard(parent)
+    local SetAtlas = SM.ForeverWindow.SetAtlas
+    local card = CreateFrame("Button", nil, parent)
+    card:EnableMouse(true)
+    card:SetSize(SM.LegacyQuestCardWidth, SM.LegacyQuestCardHeight)
+    card.isLegacyCard = true
+
+    card.bg = card:CreateTexture(nil, "BACKGROUND")
+    card.bg:SetAllPoints()
+
+    card.selected = card:CreateTexture(nil, "BORDER")
+    card.selected:SetAllPoints()
+    SetAtlas(card.selected, LEGACY.selected)
+    card.selected:Hide()
+
+    local highlight = card:CreateTexture(nil, "HIGHLIGHT")
+    highlight:SetAllPoints()
+    SetAtlas(highlight, LEGACY.selected)
+    highlight:SetAlpha(0.35)
+
+    card.ribbon = card:CreateTexture(nil, "ARTWORK")
+    card.ribbon:SetPoint("TOPLEFT", card, "TOPLEFT", 5, -4)
+    card.ribbon:SetPoint("TOPRIGHT", card, "TOPRIGHT", -80, -4)
+    card.ribbon:SetHeight(46)
+
+    -- Quest giver portrait in the Legacy icon frame (LegacyChallengeIconFrameTemplate).
+    local iconHolder = CreateFrame("Frame", nil, card)
+    iconHolder:SetSize(60, 60)
+    iconHolder:SetPoint("TOPLEFT", card, "TOPLEFT", 12, -18)
+    card.portrait = iconHolder:CreateTexture(nil, "ARTWORK")
+    card.portrait:SetSize(50, 50)
+    card.portrait:SetPoint("CENTER")
+    local mask = iconHolder:CreateMaskTexture()
+    mask:SetAllPoints(card.portrait)
+    if SetAtlas(mask, LEGACY.iconMask) then card.portrait:AddMaskTexture(mask) end
+    local iconFrame = iconHolder:CreateTexture(nil, "OVERLAY")
+    SetAtlas(iconFrame, LEGACY.iconFrame, true)
+    iconFrame:SetPoint("CENTER")
+
+    card.title = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+    card.title:SetPoint("TOPLEFT", card.ribbon, "TOPLEFT", 70, -18)
+    card.title:SetPoint("RIGHT", card, "RIGHT", -80, 0)
+    card.title:SetJustifyH("LEFT")
+    card.title:SetWordWrap(false)
+
+    card.npcLabel = card:CreateFontString(nil, "OVERLAY", "SystemFont_Shadow_Med1")
+    card.npcLabel:SetPoint("TOPLEFT", card.ribbon, "BOTTOMLEFT", 72, -2)
+    card.npcLabel:SetPoint("RIGHT", card, "RIGHT", -80, 0)
+    card.npcLabel:SetJustifyH("LEFT")
+    card.npcLabel:SetJustifyV("TOP")
+    card.npcLabel:SetMaxLines(4)
+
+    -- Top-right corner, where Legacy shows the date a challenge was done.
+    card.statusBackground = card:CreateTexture(nil, "OVERLAY")
+    SetAtlas(card.statusBackground, LEGACY.statusBackground, true)
+    card.statusBackground:SetPoint("TOPRIGHT", card, "TOPRIGHT", -6, -3)
+    card.check = card:CreateTexture(nil, "OVERLAY", nil, 1)
+    SetAtlas(card.check, LEGACY.check, true)
+    card.check:SetScale(0.5)
+    card.check:SetPoint("TOPRIGHT", card, "TOPRIGHT", -20, -8)  -- in the check's half scale
+    card.status = card:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    card.status:SetJustifyH("RIGHT")
+
+    -- The step's place in the chapter, on the Legacy points shield.
+    card.shield = card:CreateTexture(nil, "ARTWORK")
+    SetAtlas(card.shield, LEGACY.shield)
+    card.shield:SetSize(35, 51)
+    card.shield:SetPoint("TOPRIGHT", card, "TOPRIGHT", -14, -26)
+    card.step = card:CreateFontString(nil, "OVERLAY", "GameFontNormalMed3")
+    card.step:SetPoint("CENTER", card.shield, "CENTER", -1, -4)
+
+    -- Kept so shared code that touches card.icon still works.
+    card.icon = card:CreateTexture(nil, "OVERLAY")
+    card.icon:Hide()
+
+    -- state: "done", "active" (in the quest log), "next", "optional",
+    -- "locked" (has a requirement) or "later".
+    function card:SetLegacyState(state, stepNumber, data, chapter, quest)
+        local done = state == "done"
+        local current = state == "active" or state == "next"
+        SetAtlas(self.bg, done and LEGACY.card or LEGACY.cardOpen)
+        SetAtlas(self.ribbon, done and LEGACY.ribbon or LEGACY.ribbonOpen)
+        self.selected:SetShown(current)
+
+        local displayID = data and data.npcDisplayIDs and quest and data.npcDisplayIDs[quest.npc]
+        local iconPath = data and ((data.chapterIcons and chapter and data.chapterIcons[chapter.chapter]) or data.icon)
+        SM.SetChapterPortrait(self.portrait, displayID, iconPath, quest and quest.id)
+        self.portrait:SetDesaturated(not done and not current)
+
+        -- The quest's own objective; without one, who gives it and where.
+        local text = GetQuestCardText(quest and quest.id)
+        if not text then
+            local npc = quest and quest.npc or ""
+            local location = quest and (quest.location
+                or (data and data.npcLocations and data.npcLocations[quest.npc] and data.npcLocations[quest.npc].location))
+            text = (location and location ~= "") and (npc .. ", " .. location) or npc
+        end
+        self.npcLabel:SetText(text)
+
+        local statusText = (done and L["Quest Status Completed"])
+            or (state == "active" and L["Quest Status In Progress"])
+            or (state == "optional" and L["Quest Status Optional"]) or nil
+        self.status:SetText(statusText or "")
+        self.status:ClearAllPoints()
+        self.status:SetPoint("RIGHT", self.statusBackground, "RIGHT", done and -24 or -8, 0)
+        self.status:SetTextColor(done and 0.45 or 1, done and 0.9 or 0.82, done and 0.35 or 0)
+        self.statusBackground:SetShown(statusText ~= nil)
+        self.check:SetShown(done)
+
+        self.step:SetText(stepNumber and tostring(stepNumber) or "")
+        self.shield:SetShown(stepNumber ~= nil)
+        self.step:SetShown(stepNumber ~= nil)
+
+        local color = (done or current) and WHITE or GRAY
+        self.title:SetTextColor(color[1], color[2], color[3])
+        self.npcLabel:SetTextColor(color[1], color[2], color[3])
+    end
+
+    return card
+end
+
 function SM.CreateQuestCard(parent)
+    if SM.ForeverWindow then
+        local card = CreateLegacyQuestCard(parent)
+        SM.AttachQuestCardScripts(card)
+        return card
+    end
     local card = CreateFrame("Button", nil, parent, (SM.IsMainlineClient()) and nil or "BackdropTemplate")
     card:EnableMouse(true)
     card:SetHeight(QCARD_H)
@@ -211,6 +376,12 @@ function SM.CreateQuestCard(parent)
     npcLabel:SetWordWrap(false)
     card.npcLabel = npcLabel
 
+    SM.AttachQuestCardScripts(card)
+    return card
+end
+
+-- Tooltip, chat link and tracking clicks, shared by both card styles.
+function SM.AttachQuestCardScripts(card)
     -- Tooltip — refreshes in place when Blizzard finishes loading quest data.
     card:SetScript("OnEnter", function(self)
         if not self.questID then return end
@@ -250,6 +421,4 @@ function SM.CreateQuestCard(parent)
 
         SM.ExecuteTrackButton(self.storyData, self.questEntry)
     end)
-
-    return card
 end

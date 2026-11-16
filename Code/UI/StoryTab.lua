@@ -1,6 +1,20 @@
 local _, SM = ...
 local L = SM.L
 
+-- WoW Forever hides Lua errors unless scriptErrors is on, so a button that
+-- fails there just seems to do nothing. There its errors go to chat too.
+local function RunTrackButton(data, quest)
+    if not SM.Client.isForever then
+        SM.ExecuteTrackButton(data, quest)
+        return
+    end
+    local ok, err = pcall(SM.ExecuteTrackButton, data, quest)
+    if not ok then
+        print(L["Addon Prefix"] .. tostring(err))
+        geterrorhandler()(err)
+    end
+end
+
 function SM.LayoutStoryTab(data, w, contentW, visibleContentW)
     local ui = SM.DetailUI
     local detailChild = ui.detailChild
@@ -78,10 +92,14 @@ function SM.LayoutStoryTab(data, w, contentW, visibleContentW)
                 sTrackBtn.lockReason = gateReason
             else
                 sTrackBtn:SetText(done > 0 and L["Button Continue Story"] or L["Button Begin Story"])
-                if SM.IsClassicClient() then
+                -- The secure overlay runs its action through /run. Clients
+                -- with user scripts off ignore that, and on WoW Forever the
+                -- overlay's click did nothing in game, so Forever always
+                -- takes the plain click, as Classic does.
+                if SM.IsClassicClient() or SM.Client.isForever or not SM.CanRunMacroScripts() then
                     SM.SetSecureOverlayActive(false)
                     sTrackBtn:SetScript("OnClick", function()
-                        ExecuteTrackButton(data, quest)
+                        RunTrackButton(data, quest)
                     end)
                 else
                     -- PreClick on the secure overlay queues the action BEFORE the

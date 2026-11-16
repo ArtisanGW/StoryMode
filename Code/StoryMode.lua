@@ -56,8 +56,18 @@ local HEADER_H = 68
 -- Outer container  (invisible, handles dragging + ESC close)
 -- ════════════════════════════════════════════════════════════════════════════
 
-local storyFrame = CreateFrame("Frame", "StoryModeFrame", UIParent)
-storyFrame:SetSize(FRAME_W, FRAME_H)
+-- On WoW Forever the window is built like Forever's own windows
+-- (ForeverWindow.lua); the sections below go where its layout says.
+local storyFrame, skinLayout
+if SM.ForeverWindow then
+    storyFrame, skinLayout = SM.ForeverWindow.Create("StoryModeFrame")
+end
+if skinLayout then
+    LEFT_W, RIGHT_W, FRAME_H, GAP, HEADER_H = skinLayout.listW, skinLayout.detailW, skinLayout.detailH, 0, skinLayout.headerH
+else
+    storyFrame = CreateFrame("Frame", "StoryModeFrame", UIParent)
+    storyFrame:SetSize(FRAME_W, FRAME_H)
+end
 storyFrame:SetPoint("CENTER")
 storyFrame:SetMovable(true); storyFrame:EnableMouse(true)
 storyFrame:RegisterForDrag("LeftButton")
@@ -73,28 +83,47 @@ tinsert(UISpecialFrames, "StoryModeFrame")
 -- ════════════════════════════════════════════════════════════════════════════
 
 local leftSection = CreateFrame("Frame", nil, storyFrame)
-leftSection:SetSize(LEFT_W, FRAME_H)
-leftSection:SetPoint("TOPLEFT", storyFrame, "TOPLEFT", 0, 0)
+if skinLayout then
+    leftSection:SetSize(LEFT_W, skinLayout.listH)
+    leftSection:SetPoint("TOPLEFT", skinLayout.anchor, "TOPLEFT", skinLayout.listX, -skinLayout.listTop)
+else
+    leftSection:SetSize(LEFT_W, FRAME_H)
+    leftSection:SetPoint("TOPLEFT", storyFrame, "TOPLEFT", 0, 0)
+end
 SM.CreateStoryPanel(leftSection)
 
 -- Scrollable card list (no scrollbar — mousewheel only)
 local leftScrollTopInset = SM.PanelScrollTopInset - (SM.IsMainlineClient() and 2 or 0)
 local leftScrollBottomInset = SM.PanelScrollBottomInset - (SM.IsMainlineClient() and 2 or 0)
+-- The Forever window shows a scroll bar right of the list, as Legacy's
+-- category list does; elsewhere the list scrolls with the mouse wheel only.
+local leftScrollRight = skinLayout and 20 or 12
 local leftScroll = CreateFrame("ScrollFrame", nil, leftSection, "ScrollFrameTemplate")
 leftScroll:SetPoint("TOPLEFT",     leftSection, "TOPLEFT",     12, -leftScrollTopInset)
-leftScroll:SetPoint("BOTTOMRIGHT", leftSection, "BOTTOMRIGHT", -12, leftScrollBottomInset)
-if leftScroll.ScrollBar then leftScroll.ScrollBar:Hide() end
+leftScroll:SetPoint("BOTTOMRIGHT", leftSection, "BOTTOMRIGHT", -leftScrollRight, leftScrollBottomInset)
+if leftScroll.ScrollBar then
+    if skinLayout then
+        leftScroll.ScrollBar:ClearAllPoints()
+        leftScroll.ScrollBar:SetPoint("TOPLEFT", leftScroll, "TOPRIGHT", 2, 0)
+        leftScroll.ScrollBar:SetPoint("BOTTOMLEFT", leftScroll, "BOTTOMRIGHT", 2, 0)
+        leftScroll:HookScript("OnScrollRangeChanged", function(self)
+            C_Timer.After(0, function() SM.UpdateScrollbarVisibility(self) end)
+        end)
+    else
+        leftScroll.ScrollBar:Hide()
+    end
+end
 local leftChild = CreateFrame("Frame", nil, leftScroll)
-leftChild:SetWidth(LEFT_W - 24)
+leftChild:SetWidth(LEFT_W - 12 - leftScrollRight)
 leftScroll:SetScrollChild(leftChild)
 SM.LeftScroll = leftScroll
 SM.LeftStoryChild = leftChild
-SM.LeftWidth = LEFT_W
+SM.LeftWidth = LEFT_W - (leftScrollRight - 12)  -- LeftContextPanel takes 24 off for the insets
 SM.LeftPanelMode = "story"
 SM.LeftStoryScrollOffset = 0
 SM.EnableMouseWheelScroll(leftScroll)
 SM.LeftContextChild = CreateFrame("Frame", nil, leftScroll)
-SM.LeftContextChild:SetWidth(LEFT_W - 24)
+SM.LeftContextChild:SetWidth(LEFT_W - 12 - leftScrollRight)
 SM.LeftContextChild:Hide()
 SM.InitializeLeftContextPanel()
 
@@ -104,13 +133,18 @@ SM.InitializeLeftContextPanel()
 
 local rightSection = CreateFrame("Frame", nil, storyFrame)
 rightSection:SetSize(RIGHT_W, FRAME_H)
-rightSection:SetPoint("TOPLEFT", leftSection, "TOPRIGHT", GAP, 0)
+if skinLayout then
+    rightSection:SetPoint("TOPLEFT", skinLayout.anchor, "TOPLEFT", skinLayout.detailX, -skinLayout.detailTop)
+else
+    rightSection:SetPoint("TOPLEFT", leftSection, "TOPRIGHT", GAP, 0)
+end
 SM.CreateStoryPanel(rightSection)
 
 -- ── Close button (standard Blizzard X) ──────────────────────────────────────
 local closeBtn = CreateFrame("Button", nil, rightSection, "UIPanelCloseButton")
 closeBtn:SetPoint("TOPRIGHT", rightSection, "TOPRIGHT", -4, -4)
 closeBtn:SetScript("OnClick", function() storyFrame:Hide() end)
+if skinLayout then closeBtn:Hide() end  -- the portrait frame has its own
 
 -- ── Right header  (68px, title + selected story name) ────────────────────────
 local rightHeader = CreateFrame("Frame", nil, rightSection)
@@ -178,10 +212,19 @@ smHeaderSub:SetJustifyH("RIGHT")
 local headerDiv = SM.CreateMajorDivider(rightSection)
 headerDiv:SetPoint("LEFT",  rightHeader, "BOTTOMLEFT",  28, 0)
 headerDiv:SetPoint("RIGHT", rightHeader, "BOTTOMRIGHT", -36, 0)
+if skinLayout then
+    -- The Forever window has side tabs and a progress bar in the header band
+    -- instead (ForeverWindow.lua); the band keeps its height above the detail.
+    headerDiv:Hide()
+    rightHeader:Hide()
+end
 
 -- ── Tab container  (fills right section below header) ────────────────────────
+-- Anchored to the section, not to the header's bottom: the Forever window's
+-- header is 0 high, and WoW treats a 0 height as no size, so a frame hung
+-- from its bottom never gets placed and the whole detail pane disappears.
 local tabContainer = CreateFrame("Frame", nil, rightSection)
-tabContainer:SetPoint("TOPLEFT",     rightHeader,  "BOTTOMLEFT",  0,  0)
+tabContainer:SetPoint("TOPLEFT",     rightSection, "TOPLEFT",     0, -HEADER_H)
 tabContainer:SetPoint("BOTTOMRIGHT", rightSection, "BOTTOMRIGHT", 0,  0)
 
 -- ════════════════════════════════════════════════════════════════════════════
@@ -203,7 +246,12 @@ SM.EnableMouseWheelScroll(detailScroll)
 -- Move scrollbar inside the panel. Classic uses the options/settings scroll art.
 local detailScrollbar = SM.GetScrollBar(detailScroll)
 if detailScrollbar then
-    if SM.IsMainlineClient() then
+    if skinLayout then
+        -- Just outside the detail pane, where the Legacy page puts its scroll bar.
+        detailScrollbar:ClearAllPoints()
+        detailScrollbar:SetPoint("TOPLEFT",    detailScroll, "TOPRIGHT",    6, -8)
+        detailScrollbar:SetPoint("BOTTOMLEFT", detailScroll, "BOTTOMRIGHT", 6,  6)
+    elseif SM.IsMainlineClient() then
         detailScrollbar:ClearAllPoints()
         detailScrollbar:SetPoint("TOPRIGHT",    detailScroll, "TOPRIGHT",    -10, -16)
         detailScrollbar:SetPoint("BOTTOMRIGHT", detailScroll, "BOTTOMRIGHT", -10,  16)
@@ -217,7 +265,7 @@ if detailScrollbar then
 end
 
 local DP  = 32   -- divider padding (left/right)
-local CP  = 80   -- content padding (left/right) — narrower than dividers
+local CP  = SM.ForeverWindow and 40 or 80   -- content padding (left/right); the Forever window's detail is narrower
 
 -- ── Intro (visible when no story is selected) ──────────────────────────────
 local INTRO = {
@@ -1075,6 +1123,7 @@ function SM.CreateTrackNode(parent)
         SMTooltip:Hide()
     end)
 
+    if SM.ForeverWindow then SM.ForeverWindow.DecorateChapterNode(btn) end
     return btn
 end
 
@@ -1406,6 +1455,9 @@ LayoutSelectedChapter = function()
                 end
             end
         end
+        if node.isLegacyNode then
+            SM.ForeverWindow.StyleChapterNode(node, isComp, isAct, i == dSelectedChapter)
+        end
     end
 
     -- Chapter title + summary
@@ -1523,6 +1575,7 @@ LayoutSelectedChapter = function()
     -- Quest cards — skipped for replayable chapters (button is the sole interaction point)
     local nextQuest = SM.FindNextQuest(data)
     local nextQuestID = nextQuest and nextQuest.id
+    local stepNumber = 0
 
     for i, q in ipairs(ch.quests) do
         if not dQuestCards[i] then
@@ -1568,6 +1621,14 @@ LayoutSelectedChapter = function()
             end
             card.tooltipRequirement = lockReason
 
+            if card.SetLegacyState then
+                -- WoW Forever's Legacy cards draw their state themselves.
+                stepNumber = stepNumber + 1
+                card:SetLegacyState((qDoneDisplay and "done") or (qInLog and "active")
+                    or (qIsNextRecommended and "next") or (qOptional and "optional")
+                    or (lockReason and "locked") or "later", stepNumber, data, ch, q)
+                card:Show()
+            else
             card.icon:SetSize(14, 14)
             card.icon:SetDesaturation(0)
             if qDoneDisplay then
@@ -1598,12 +1659,14 @@ LayoutSelectedChapter = function()
                 card:SetAlpha(0.8)
             end
             card:Show()
+            end
         end
     end
     for i = #ch.quests + 1, #dQuestCards do dQuestCards[i]:Hide() end
 
     -- For chapters with no quests, show a full achievement card instead.
-    local CARD_W = 280
+    local CARD_W = SM.ForeverWindow and SM.LegacyQuestCardWidth or 280
+    local cardGap = SM.ForeverWindow and SM.LegacyQuestCardGap or QCARD_GAP
     if #ch.quests == 0 and ch.achievementID then
         local _, achName, _, achDone, _,_,_,_,_, achIcon = GetAchievementInfo(ch.achievementID)
         if achName then
@@ -1644,7 +1707,7 @@ LayoutSelectedChapter = function()
                             or dChapterTitle
                 card:SetPoint("TOP", anchor, "BOTTOM", 0, -20)
             else
-                card:SetPoint("TOP", prevCard, "BOTTOM", 0, -QCARD_GAP)
+                card:SetPoint("TOP", prevCard, "BOTTOM", 0, -cardGap)
             end
             -- Center horizontally: anchor LEFT relative to detailChild center
             card:SetPoint("LEFT", detailChild, "CENTER", -CARD_W / 2, 0)
@@ -1742,6 +1805,7 @@ end
 
 function SM.SetActiveTab(tab)
     activeTab = tab
+    if SM.ForeverWindow then SM.ForeverWindow.SetDetailTab(tab) end
     tabStoryLabel:SetTextColor(C_GOLD[1], C_GOLD[2], C_GOLD[3])
     tabProgressLabel:SetTextColor(C_GOLD[1], C_GOLD[2], C_GOLD[3])
     tabJournalLabel:SetTextColor(C_GOLD[1], C_GOLD[2], C_GOLD[3])
@@ -1803,20 +1867,26 @@ function SM.LayoutDetailTab()
 end
 
 -- ── Tab hover + click handlers ──────────────────────────────────────────────
+-- silent: the caller already played the tab sound (the Forever side tabs do).
+function SM.SelectDetailTab(tab, silent)
+    if activeTab == tab or not currentStoryData then return end
+    if not silent then PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB) end
+    SM.SetActiveTab(tab)
+    detailScroll:SetVerticalScroll(0)
+    SM.LayoutDetailTab()
+end
+
+if skinLayout then
+    SM.ForeverWindow.AddDetailTabs(storyFrame, function(tab) SM.SelectDetailTab(tab, true) end)
+end
+
 tabStoryHit:SetScript("OnEnter", function()
     if activeTab ~= "story" then tabStoryLabel:SetTextColor(1, 1, 1) end
 end)
 tabStoryHit:SetScript("OnLeave", function()
     if activeTab ~= "story" then tabStoryLabel:SetTextColor(C_GOLD[1], C_GOLD[2], C_GOLD[3]) end
 end)
-tabStoryHit:SetScript("OnClick", function()
-    if activeTab ~= "story" and currentStoryData then
-        PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
-        SM.SetActiveTab("story")
-        detailScroll:SetVerticalScroll(0)
-        SM.LayoutDetailTab()
-    end
-end)
+tabStoryHit:SetScript("OnClick", function() SM.SelectDetailTab("story") end)
 
 tabProgressHit:SetScript("OnEnter", function()
     if activeTab ~= "progress" then tabProgressLabel:SetTextColor(1, 1, 1) end
@@ -1824,14 +1894,7 @@ end)
 tabProgressHit:SetScript("OnLeave", function()
     if activeTab ~= "progress" then tabProgressLabel:SetTextColor(C_GOLD[1], C_GOLD[2], C_GOLD[3]) end
 end)
-tabProgressHit:SetScript("OnClick", function()
-    if activeTab ~= "progress" and currentStoryData then
-        PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
-        SM.SetActiveTab("progress")
-        detailScroll:SetVerticalScroll(0)
-        SM.LayoutDetailTab()
-    end
-end)
+tabProgressHit:SetScript("OnClick", function() SM.SelectDetailTab("progress") end)
 
 tabJournalHit:SetScript("OnEnter", function()
     if activeTab ~= "journal" then tabJournalLabel:SetTextColor(1, 1, 1) end
@@ -1839,14 +1902,7 @@ end)
 tabJournalHit:SetScript("OnLeave", function()
     if activeTab ~= "journal" then tabJournalLabel:SetTextColor(C_GOLD[1], C_GOLD[2], C_GOLD[3]) end
 end)
-tabJournalHit:SetScript("OnClick", function()
-    if activeTab ~= "journal" and currentStoryData then
-        PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
-        SM.SetActiveTab("journal")
-        detailScroll:SetVerticalScroll(0)
-        SM.LayoutDetailTab()
-    end
-end)
+tabJournalHit:SetScript("OnClick", function() SM.SelectDetailTab("journal") end)
 
 tabScarletHit:SetScript("OnEnter", function()
     if activeTab ~= "scarlet" then tabScarletLabel:SetTextColor(1, 1, 1) end
@@ -1854,14 +1910,7 @@ end)
 tabScarletHit:SetScript("OnLeave", function()
     if activeTab ~= "scarlet" then tabScarletLabel:SetTextColor(C_SCARLET[1], C_SCARLET[2], C_SCARLET[3]) end
 end)
-tabScarletHit:SetScript("OnClick", function()
-    if activeTab ~= "scarlet" and currentStoryData then
-        PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
-        SM.SetActiveTab("scarlet")
-        detailScroll:SetVerticalScroll(0)
-        SM.LayoutDetailTab()
-    end
-end)
+tabScarletHit:SetScript("OnClick", function() SM.SelectDetailTab("scarlet") end)
 
 -- ── Main entry point ────────────────────────────────────────────────────────
 function SM.UpdateStoryDetail(data)
@@ -1891,6 +1940,7 @@ function SM.UpdateStoryDetail(data)
         tabStoryLabel:Hide(); tabProgressLabel:Hide(); tabJournalLabel:Hide()
         tabStoryHit:Hide(); tabProgressHit:Hide(); tabJournalHit:Hide()
         tabScarletLabel:Hide(); tabScarletHit:Hide()
+        if SM.ForeverWindow then SM.ForeverWindow.ShowStory(nil) end
         LayoutIntro()
         C_Timer.After(0, function()
             local w = detailScroll:GetWidth()
@@ -1916,6 +1966,7 @@ function SM.UpdateStoryDetail(data)
     if activeTab == "scarlet" and not showScarletTab then
         SM.SetActiveTab("story")
     end
+    if SM.ForeverWindow then SM.ForeverWindow.ShowStory(data, showScarletTab) end
 
     -- Portrait icon (creature portrait or texture)
     heroIcon:SetTexture(nil)
@@ -2066,3 +2117,4 @@ SM.MinimapButton_Init = SM.CreateMinimapButton(storyFrame, SMTooltip, C_BODY)
 SM.ShowStoryBanner, SM.ShowStoryComplete = SM.CreateBanners()
 SM.InitializeSlashCommands()
 SM.InitializeCoreEvents(storyFrame)
+if skinLayout then SM.ForeverWindow.Attach(storyFrame) end

@@ -476,3 +476,18 @@ function SM.UseClientQuestTitle(quest)
     end
     waiting[#waiting + 1] = quest
 end
+
+-- Whether a secure button's macro can use /run. WoW Forever turns user
+-- scripts off with a game rule (UserScriptsDisabled), and /run then does
+-- nothing, so buttons that rely on it need a plain click there.
+function SM.CanRunMacroScripts()
+    if C_AddOns and C_AddOns.GetScriptsDisallowedForBeta and C_AddOns.GetScriptsDisallowedForBeta() then
+        return false
+    end
+    local rules = Enum and Enum.GameRule
+    if C_GameRules and C_GameRules.IsGameRuleActive and rules and rules.UserScriptsDisabled then
+        local ok, active = pcall(C_GameRules.IsGameRuleActive, rules.UserScriptsDisabled)
+        if ok and active then return false end
+    end
+    return true
+end

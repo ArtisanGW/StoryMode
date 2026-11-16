@@ -226,20 +226,37 @@ function SM.GetAdventureCoverTexture(data)
     return data.adventureFallbackTexture or data.icon
 end
 
+-- Every cover crop is framed for the Adventure tab's cover, ADVENTURE_COVER_W
+-- by ADVENTURE_COVER_H. A texture of another shape shows the middle of that
+-- crop at its own shape instead, so the art is never stretched.
+local function FitCoverCrop(left, right, top, bottom, width, height)
+    if not (width and height and width > 0 and height > 0) then
+        return left, right, top, bottom
+    end
+    local coverAspect = ADVENTURE_COVER_W / ADVENTURE_COVER_H
+    local aspect = width / height
+    if aspect >= coverAspect then
+        local middle = (top + bottom) / 2
+        local half = (bottom - top) * coverAspect / aspect / 2
+        return left, right, middle - half, middle + half
+    end
+    local middle = (left + right) / 2
+    local half = (right - left) * aspect / coverAspect / 2
+    return middle - half, middle + half, top, bottom
+end
+
 local function ApplyAdventureCoverTexCoords(tex, data, useFullTexCoords)
+    local left, right, top, bottom
     local texCoords = data and data.adventureCoverTexCoords
     if texCoords then
-        tex:SetTexCoord(texCoords[1], texCoords[2], texCoords[3], texCoords[4])
+        left, right, top, bottom = texCoords[1], texCoords[2], texCoords[3], texCoords[4]
     elseif useFullTexCoords then
-        tex:SetTexCoord(0, 1, SM.AdventureLoadingScreenTexTop, SM.AdventureLoadingScreenTexBottom)
+        left, right, top, bottom = 0, 1, SM.AdventureLoadingScreenTexTop, SM.AdventureLoadingScreenTexBottom
     else
-        tex:SetTexCoord(
-            ADVENTURE_COVER_TEX_LEFT,
-            ADVENTURE_COVER_TEX_RIGHT,
-            ADVENTURE_COVER_TEX_TOP,
-            ADVENTURE_COVER_TEX_BOTTOM
-        )
+        left, right, top, bottom = ADVENTURE_COVER_TEX_LEFT, ADVENTURE_COVER_TEX_RIGHT,
+            ADVENTURE_COVER_TEX_TOP, ADVENTURE_COVER_TEX_BOTTOM
     end
+    tex:SetTexCoord(FitCoverCrop(left, right, top, bottom, tex:GetWidth(), tex:GetHeight()))
 end
 
 function SM.ApplyAdventureCoverFrame(cover, data, displayTitle)
@@ -278,6 +295,13 @@ function SM.SetAdventureCoverTexture(tex, data)
     end
 
     ApplyAdventureCoverTexCoords(tex, data, useFullTexCoords)
+    -- A texture that isn't laid out yet has no size to crop for; crop again
+    -- once it has one.
+    if (tex:GetWidth() or 0) <= 0 and C_Timer then
+        C_Timer.After(0, function()
+            ApplyAdventureCoverTexCoords(tex, data, useFullTexCoords)
+        end)
+    end
 
     if SM.SafeSetTexture(tex, texture) then
         return true

@@ -3,6 +3,7 @@ local _, SM = ...
 local SOLID = "Interface\\Buttons\\WHITE8x8"
 SM.SOLID_TEXTURE = SOLID
 SM.StoryModeIconTexture = "Interface\\AddOns\\StoryMode\\Art\\Icons\\storymode_icon"
+SM.StoryModeAvatarTexture = "Interface\\AddOns\\StoryMode\\Art\\Icons\\storymode_avatar"
 SM.StoryModeBgTexture = "Interface\\AddOns\\StoryMode\\Art\\Hero\\storymode_bg"
 SM.StoryModeLayoutTexture = "Interface\\AddOns\\StoryMode\\Art\\Hero\\storymode_layout"
 SM.CoverFadeMaskTexture = "Interface\\AddOns\\StoryMode\\Art\\Masks\\CoverFadeMask"
@@ -237,6 +238,13 @@ local PERKS_LAYOUT = {
 }
 
 function SM.CreateStoryPanel(section)
+    -- The WoW Forever window draws one background for the whole window, so
+    -- its sections stay bare.
+    if SM.ForeverWindow then
+        local f = CreateFrame("Frame", nil, section)
+        f:SetAllPoints(section)
+        return f
+    end
     local useRetailArt = SM.IsMainlineClient()
     local template = (useRetailArt and NineSliceUtil) and "NineSlicePanelTemplate" or "BackdropTemplate"
     local f = CreateFrame("Frame", nil, section, template)

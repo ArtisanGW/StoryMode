@@ -38,7 +38,8 @@ function SM.LayoutProgressTab(data, w, contentW, visibleContentW)
         dProgSummary:SetText(string.format(L["Progress Summary Format"], chapDone, #chapters, done, total))
         dProgSummary:ClearAllPoints()
         dProgSummary:SetPoint("TOP", dTitle, "BOTTOM", 0, -4)
-        dProgSummary:Show()
+        -- The Forever window shows this in its header bar already.
+        dProgSummary:SetShown(not SM.ForeverWindow)
 
         -- ── Horizontal chapter track + quest cards ────────────────────
         local GREEN_R, GREEN_G, GREEN_B = RING_GREEN[1], RING_GREEN[2], RING_GREEN[3]
@@ -156,6 +157,10 @@ function SM.LayoutProgressTab(data, w, contentW, visibleContentW)
                     node.ring:Hide()
                 end
                 SM.SetSimpleBorder(node.portraitBorder, node.borderR, node.borderG, node.borderB, node.hasRingAtlas and 0 or node.borderA)
+            end
+
+            if node.isLegacyNode then
+                SM.ForeverWindow.StyleChapterNode(node, isComplete, isActive, false)
             end
 
             -- Position
