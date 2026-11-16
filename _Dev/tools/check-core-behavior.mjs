@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import { spawnSync } from "node:child_process";
 
 const root = process.argv[2] || process.cwd();
-const tocFiles = ["StoryMode.toc", "StoryMode_Vanilla.toc", "StoryMode_TBC.toc"];
+const tocFiles = ["StoryMode.toc", "StoryMode_Vanilla.toc", "StoryMode_TBC.toc", "StoryMode_Camelot.toc"];
 const requiredModules = [
   "Code\\Core\\Scheduler.lua",
   "Code\\Core\\StoryState.lua",
@@ -44,6 +44,15 @@ if (!eventsLua.includes("|Hquest:(%d+)")) {
 }
 if (!eventsLua.includes("NormalizeQuestAcceptedMessageQuestName")) {
   findings.push("Code/Core/Events.lua quest accepted system-message filter does not normalize linked quest names");
+}
+
+// The Retail engine (Retail and WoW Forever) forbids addons the combat log;
+// registering it raises the "blocked from an action" popup.
+for (const match of eventsLua.matchAll(/RegisterEvent\(\s*["']COMBAT_LOG_EVENT(?:_UNFILTERED)?["']/g)) {
+  const guard = eventsLua.slice(Math.max(0, match.index - 400), match.index);
+  if (!/if\s+SM\.IsClassicClient\(\)/.test(guard)) {
+    findings.push("Code/Core/Events.lua registers the combat log outside an SM.IsClassicClient() check");
+  }
 }
 
 const tooltipLua = await readFile(`${root}/Code/UI/Tooltip.lua`, "utf8");

@@ -48,6 +48,7 @@ SM.MankriksWifeData = {
             recap = "Mankrik's request was painfully plain: find his wife. The Barrens offered little direction and less mercy, only a long road south of the Crossroads and quillboar waiting in the dust. When Olgra was found, the search became grief. Mankrik had asked for hope and received a body. What followed was the only answer his pain could bear: Bristleback tusks, brought back one by one.",
             quests = {
                 { id = 4921, name = "Lost in Battle", npc = "Mankrik" },
+                { id = 95774, name = "Her Name Is Olgra", npc = "Mankrik", gameVersions = { forever = true } },
                 { id = 899, name = "Consumed by Hatred", npc = "Mankrik" },
             },
         },

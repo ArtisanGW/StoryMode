@@ -1,0 +1,667 @@
+// WoW Forever quest scan (proof of concept).
+//
+//   node _Dev/tools/forever-quest-scan.mjs ids [root] [--build 1.60.1.70938]
+//     Writes Data/Forever/ForeverQuestIDs.lua: every quest ID in Forever's
+//     QuestV2 table (wago.tools), which /sm scan asks the server for.
+//
+//   node _Dev/tools/forever-quest-scan.mjs report [root] [--wdb path] [--saved path] [--offline]
+//     Reads the Forever client's quest cache (Cache/WDB/<locale>/questcache.wdb),
+//     plus StoryModeDB.foreverScan if /sm scan ran, and writes
+//     _Dev/reports/forever-quest-scan.md and .json: per Classic story, which
+//     quests Forever renamed or dropped, where Forever's chain leaves the
+//     story's order, and new Forever quests in the same zones that name the
+//     story's characters.
+//
+// The quest cache only holds quests the client has asked the server about.
+// Run /sm scan in game and log out first, or the report only covers the quests
+// you have already seen.
+
+import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
+import path from "node:path";
+import { parseDataFile } from "./story-data-utils.mjs";
+
+const args = process.argv.slice(2);
+const command = args[0];
+const VALUE_OPTIONS = new Set(["--wdb", "--saved", "--build", "--era-build", "--locale"]);
+const positional = args.slice(1).filter((arg, index, list) => !arg.startsWith("--") && !VALUE_OPTIONS.has(list[index - 1]));
+const root = path.resolve(positional[0] || process.cwd());
+const gameDir = path.resolve(root, "..", "..", "..");
+const cacheDir = path.join(root, ".forever-scan-cache");
+const reportDir = path.join(root, "_Dev", "reports");
+const TOC = "StoryMode_Camelot.toc";
+
+function option(name) {
+  const index = args.indexOf(`--${name}`);
+  return index >= 0 ? args[index + 1] : null;
+}
+
+async function exists(file) {
+  try {
+    await readFile(file);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// wago.tools tables
+// ---------------------------------------------------------------------------
+
+async function fetchText(url) {
+  const response = await fetch(url, { headers: { "User-Agent": "StoryMode-dev-tools" } });
+  if (!response.ok) throw new Error(`${url}: HTTP ${response.status}`);
+  return response.text();
+}
+
+async function latestBuilds() {
+  const builds = JSON.parse(await fetchText("https://wago.tools/api/builds"));
+  return {
+    forever: option("build") || builds.wowf?.[0]?.version,
+    classicEra: option("era-build") || builds.wow_classic_era?.[0]?.version,
+  };
+}
+
+async function questIdsForBuild(build) {
+  const file = path.join(cacheDir, `QuestV2-${build}.csv`);
+  let csv;
+  if (await exists(file)) {
+    csv = await readFile(file, "utf8");
+  } else {
+    csv = await fetchText(`https://wago.tools/db2/QuestV2/csv?build=${build}`);
+    await mkdir(cacheDir, { recursive: true });
+    await writeFile(file, csv);
+  }
+  const ids = new Set();
+  for (const line of csv.split(/\r?\n/).slice(1)) {
+    const id = Number(line.split(",")[0]);
+    if (id > 0) ids.add(id);
+  }
+  return ids;
+}
+
+async function cachedQuestIdSets() {
+  let files = [];
+  try {
+    files = (await readdir(cacheDir)).filter((name) => name.startsWith("QuestV2-"));
+  } catch {
+    return null;
+  }
+  const forever = files.filter((name) => name.startsWith("QuestV2-1.6")).sort().pop();
+  const era = files.filter((name) => name.startsWith("QuestV2-1.15")).sort().pop();
+  if (!forever || !era) return null;
+  return {
+    forever: await questIdsForBuild(forever.slice(8, -4)),
+    classicEra: await questIdsForBuild(era.slice(8, -4)),
+  };
+}
+
+async function questIdSets() {
+  if (args.includes("--offline")) return cachedQuestIdSets();
+  try {
+    const builds = await latestBuilds();
+    return {
+      builds,
+      forever: await questIdsForBuild(builds.forever),
+      classicEra: await questIdsForBuild(builds.classicEra),
+    };
+  } catch (error) {
+    console.warn(`wago.tools unavailable (${error.message}); using cached tables if any.`);
+    return cachedQuestIdSets();
+  }
+}
+
+function toRanges(ids) {
+  const sorted = [...ids].sort((a, b) => a - b);
+  const parts = [];
+  for (let i = 0; i < sorted.length; i++) {
+    const first = sorted[i];
+    while (i + 1 < sorted.length && sorted[i + 1] === sorted[i] + 1) i++;
+    parts.push(first === sorted[i] ? `${first}` : `${first}-${sorted[i]}`);
+  }
+  return parts.join(",");
+}
+
+async function writeIdList() {
+  const sets = await questIdSets();
+  if (!sets?.builds) throw new Error("Could not read Forever's QuestV2 table from wago.tools.");
+  const newIds = [...sets.forever].filter((id) => !sets.classicEra.has(id));
+  const ranges = toRanges(sets.forever);
+  const lines = [];
+  for (let i = 0; i < ranges.length; i += 100) lines.push(ranges.slice(i, i + 100));
+  const lua = [
+    "local addonName, SM = ...",
+    "",
+    "-- AUTO-GENERATED by _Dev/tools/forever-quest-scan.mjs ids. Do not edit by hand.",
+    `-- Every quest in WoW Forever ${sets.builds.forever}'s QuestV2 table (wago.tools), as ID ranges:`,
+    `-- ${sets.forever.size} quests, ${newIds.length} of them not in Classic Era ${sets.builds.classicEra}.`,
+    "-- /sm scan asks the server for each of them.",
+    "",
+    `SM.ForeverQuestIDs = table.concat({`,
+    ...lines.map((line) => `    "${line}",`),
+    "})",
+    "",
+  ].join("\n");
+  const out = path.join(root, "Data", "Forever", "ForeverQuestIDs.lua");
+  await mkdir(path.dirname(out), { recursive: true });
+  await writeFile(out, lua);
+  console.log(`Wrote ${path.relative(root, out)}: ${sets.forever.size} quests from Forever ${sets.builds.forever}, ${newIds.length} new since Classic Era.`);
+}
+
+// ---------------------------------------------------------------------------
+// questcache.wdb
+// ---------------------------------------------------------------------------
+
+// Fixed fields at the start of each record, as far as the Forever 1.60 layout
+// has been worked out: level, minimum level, zone (QuestSortID: an AreaTable
+// ID, or negative for a class or profession sort) and the quest the game
+// offers next in the chain.
+const FIELD = { id: 0, type: 1, level: 2, minLevel: 4, sortID: 6, infoID: 7, nextQuest: 9 };
+const STRING_BITS = [9, 12, 12, 9, 10, 8, 10, 8, 11];
+const STRING_NAMES = ["title", "objectivesText", "description", "areaDescription", "giverText", "giverName", "turnInText", "turnInName", "completionLog"];
+
+function readBits(buffer, byteOffset, widths) {
+  const values = [];
+  let bit = byteOffset * 8;
+  for (const width of widths) {
+    let value = 0;
+    for (let i = 0; i < width; i++, bit++) {
+      value = (value << 1) | ((buffer[bit >> 3] >> (7 - (bit & 7))) & 1);
+    }
+    values.push(value);
+  }
+  return values;
+}
+
+const utf8 = new TextDecoder("utf-8", { fatal: true });
+
+function decodeText(bytes) {
+  try {
+    const text = utf8.decode(bytes);
+    return /[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(text) ? null : text;
+  } catch {
+    return null;
+  }
+}
+
+// The strings sit at the end of the record, right after a 12-byte header of
+// bit-packed lengths. Find the header whose lengths account for exactly the
+// bytes that follow it.
+function readRecordStrings(body) {
+  for (let header = body.length - 12; header >= 0; header--) {
+    const lengths = readBits(body, header, STRING_BITS);
+    if (lengths[0] === 0) continue;
+    const start = header + 12;
+    const total = lengths.reduce((sum, length) => sum + length, 0);
+    if (start + total !== body.length) continue;
+    const strings = {};
+    let offset = start;
+    let valid = true;
+    lengths.forEach((length, index) => {
+      if (!valid) return;
+      const text = decodeText(body.subarray(offset, offset + length));
+      if (text === null) valid = false;
+      strings[STRING_NAMES[index]] = text;
+      offset += length;
+    });
+    if (valid && /^\p{L}|^\d|^["'(]/u.test(strings.title)) return strings;
+  }
+  return null;
+}
+
+async function readQuestCache(file) {
+  const buffer = await readFile(file);
+  if (buffer.toString("latin1", 0, 4) !== "TSQW") throw new Error(`${file} is not a quest cache`);
+  const build = buffer.readUInt32LE(4);
+  const locale = buffer.toString("latin1", 8, 12).split("").reverse().join("");
+  const quests = new Map();
+  let unreadable = 0;
+  let retired = 0;
+  let offset = 24;
+  while (offset + 8 <= buffer.length) {
+    const id = buffer.readUInt32LE(offset);
+    const length = buffer.readUInt32LE(offset + 4);
+    if (id === 0 && length === 0) break;
+    const body = buffer.subarray(offset + 8, offset + 8 + length);
+    offset += 8 + length;
+    const field = (index) => body.readInt32LE(index * 4);
+    const strings = readRecordStrings(body);
+    if (!strings) unreadable++;
+    // Blizzard marks retired quests "zzOLD …" or "[DEPRECATED] …"; they never show in game.
+    if (strings && /^(zz|\[DEPRECATED\]|\[DNT\]|<UNUSED>)/i.test(strings.title)) {
+      retired++;
+      continue;
+    }
+    quests.set(id, {
+      id,
+      level: field(FIELD.level),
+      minLevel: field(FIELD.minLevel),
+      sortID: field(FIELD.sortID),
+      nextQuest: field(FIELD.nextQuest) || null,
+      ...(strings || {}),
+    });
+  }
+  return { build, locale, quests, unreadable, retired };
+}
+
+// ---------------------------------------------------------------------------
+// StoryModeDB.foreverScan
+// ---------------------------------------------------------------------------
+
+async function findSavedVariables() {
+  if (option("saved")) return option("saved");
+  const accountDir = path.join(gameDir, "WTF", "Account");
+  let accounts = [];
+  try {
+    accounts = await readdir(accountDir, { withFileTypes: true });
+  } catch {
+    return null;
+  }
+  for (const account of accounts) {
+    if (!account.isDirectory()) continue;
+    const file = path.join(accountDir, account.name, "SavedVariables", "StoryMode.lua");
+    if (await exists(file)) return file;
+  }
+  return null;
+}
+
+async function readScanTitles() {
+  const file = await findSavedVariables();
+  if (!file) return null;
+  const text = await readFile(file, "utf8");
+  const start = text.indexOf('["foreverScan"]');
+  if (start < 0) return null;
+  const titlesStart = text.indexOf('["titles"]', start);
+  if (titlesStart < 0) return null;
+  const titles = new Map();
+  const entry = /\[(\d+)\] = (false|"((?:[^"\\]|\\.)*)")/g;
+  entry.lastIndex = titlesStart;
+  let depth = 0;
+  for (let i = text.indexOf("{", titlesStart); i < text.length; i++) {
+    if (text[i] === "{") depth++;
+    else if (text[i] === "}" && --depth === 0) {
+      const block = text.slice(titlesStart, i);
+      for (const match of block.matchAll(entry)) {
+        titles.set(Number(match[1]), match[2] === "false" ? false : match[3].replace(/\\"/g, '"').replace(/\\\\/g, "\\"));
+      }
+      break;
+    }
+  }
+  const build = text.slice(start).match(/\["build"\] = "([^"]+)"/)?.[1] || null;
+  return { file, build, titles };
+}
+
+// ---------------------------------------------------------------------------
+// Stories
+// ---------------------------------------------------------------------------
+
+// Forever shows what Classic Era shows, unless gameVersions names forever.
+function foreverIncludes(versions) {
+  if (/\bforever\s*=\s*true/.test(versions)) return true;
+  if (/\bforever\s*=\s*false/.test(versions)) return false;
+  return /\bclassicEra\s*=\s*true/.test(versions);
+}
+
+// Drop the chapters and quests whose own gameVersions leave Forever out, as
+// SM.IsContentAvailableForClient does in game.
+function foreverLines(text, hidden = []) {
+  const out = [];
+  let inChapter = false;
+  let chapterExcluded = false;
+  let chapterHeader = false;
+  for (const line of text.split(/\r?\n/)) {
+    if (/\bchapter\s*=\s*"/.test(line)) {
+      inChapter = true;
+      chapterHeader = true;
+      chapterExcluded = false;
+    }
+    if (inChapter && /\bquests\s*=\s*\{/.test(line)) chapterHeader = false;
+    const versions = line.match(/gameVersions\s*=\s*\{([^}]*)\}/)?.[1];
+    const isQuest = /\bid\s*=\s*\d+/.test(line);
+    if (versions !== undefined && inChapter && chapterHeader && !isQuest) chapterExcluded = !foreverIncludes(versions);
+    if (isQuest && inChapter && (chapterExcluded || (versions !== undefined && !foreverIncludes(versions)))) {
+      hidden.push(line);
+      continue;
+    }
+    out.push(line);
+  }
+  return out.join("\n");
+}
+
+function questIdsOf(line) {
+  const ids = [];
+  const id = line.match(/\bid\s*=\s*(\d+)/)?.[1];
+  if (id) ids.push(Number(id));
+  const alt = line.match(/\baltIds\s*=\s*\{([^}]*)\}/)?.[1];
+  if (alt) ids.push(...[...alt.matchAll(/\d+/g)].map((match) => Number(match[0])));
+  return ids;
+}
+
+async function loadForeverStories(hiddenQuests = []) {
+  const toc = await readFile(path.join(root, TOC), "utf8");
+  const files = toc.split(/\r?\n/)
+    .map((line) => line.trim().replace(/\\/g, "/"))
+    .filter((line) => /^Data\/(Storylines|ClassQuests)\/.*\.lua$/.test(line));
+  const stories = [];
+  for (const rel of files) {
+    const text = await readFile(path.join(root, rel), "utf8");
+    // ClassicClassQuestData.lua holds one dataset per class.
+    const blocks = text.split(/\n(?=SM\.\w+Data\s*=\s*\{)/).filter((block) => /^SM\.\w+Data\s*=/.test(block));
+    for (const block of blocks.length ? blocks : [text]) {
+      const hiddenLines = [];
+      const story = parseDataFile(root, path.join(root, rel), foreverLines(block, hiddenLines));
+      const storyVersions = block.split(/\n\s*(?:startQuest|chapters|prereqs)\s*=/)[0].match(/gameVersions\s*=\s*\{([^}]*)\}/)?.[1];
+      if (storyVersions !== undefined && !foreverIncludes(storyVersions)) {
+        for (const quest of story.quests) hiddenQuests.push({ story: story.title, id: quest.id, name: quest.name, ids: questIdsOf(quest.line) });
+        continue;
+      }
+      for (const line of hiddenLines) {
+        const name = line.match(/\bname\s*=\s*"((?:[^"\\]|\\.)*)"/)?.[1];
+        hiddenQuests.push({ story: story.title, id: questIdsOf(line)[0], name, ids: questIdsOf(line) });
+      }
+      // Lines with foreverId use that ID on Forever, as SM.ApplyClientQuestIDs does.
+      for (const quest of story.quests) {
+        quest.ids = questIdsOf(quest.line);
+        const foreverId = quest.line.match(/\bforeverId\s*=\s*(\d+)/)?.[1];
+        if (foreverId) {
+          quest.classicId = quest.id;
+          quest.id = Number(foreverId);
+          quest.ids[0] = quest.id;
+        }
+      }
+      const seen = new Set();
+      story.quests = story.quests.filter((quest) => !seen.has(quest.id) && seen.add(quest.id));
+      stories.push(story);
+    }
+  }
+  return stories;
+}
+
+function norm(value) {
+  return (value || "").toLowerCase().replace(/[‘’]/g, "'").replace(/\s+/g, " ").trim();
+}
+
+function storyNames(story) {
+  const names = new Set();
+  for (const quest of story.quests) if (quest.npc && !/poster|wanted|sign|board/i.test(quest.npc)) names.add(quest.npc);
+  for (const name of story.npcLocations.keys()) if (!/poster|wanted|sign|board/i.test(name)) names.add(name);
+  return [...names].filter((name) => name.length >= 5);
+}
+
+function questText(quest) {
+  return [quest.title, quest.objectivesText, quest.description, quest.completionLog].filter(Boolean).join(" ");
+}
+
+function nameMentions(text, names) {
+  const lower = norm(text);
+  return names.filter((name) => {
+    const full = norm(name);
+    if (lower.includes(full)) return true;
+    // "Vanessa VanCleef" is often just "VanCleef" in quest text.
+    const last = full.split(" ").pop();
+    return last.length >= 6 && full.includes(" ") && new RegExp(`\\b${last.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`).test(lower);
+  });
+}
+
+// ---------------------------------------------------------------------------
+// Report
+// ---------------------------------------------------------------------------
+
+function label(id, quests, newIds) {
+  const quest = quests.get(id);
+  const title = quest?.title ? `"${quest.title}"` : "(not in cache)";
+  const tag = newIds?.has(id) ? " **new in Forever**" : "";
+  return `${id} ${title}${tag}`;
+}
+
+function analyzeStory(story, context) {
+  const { quests, titles, sets, newIds, previousOf } = context;
+  const storyIds = new Set(story.quests.flatMap((quest) => quest.ids || [quest.id]));
+  const findings = { renamed: [], missing: [], unconfirmed: [], notCached: [], chain: [], nearby: [] };
+
+  for (const quest of story.quests) {
+    // A line with altIds is there on Forever if any of its quests is.
+    const presentId = (quest.ids || [quest.id]).find((id) => quests.has(id) || titles?.get(id)) ?? quest.id;
+    const cached = quests.get(presentId);
+    const scanned = titles?.get(presentId);
+    if (scanned === false && !cached) {
+      findings.missing.push({ id: quest.id, name: quest.name });
+      continue;
+    }
+    // QuestV2 isn't a full quest list (Classic Era's lacks quests too), so
+    // only /sm scan can say a quest is gone.
+    if (sets && !sets.forever.has(quest.id) && !cached && scanned === undefined) {
+      findings.unconfirmed.push({ id: quest.id, name: quest.name });
+    }
+    const title = cached?.title || scanned;
+    if (!title) {
+      findings.notCached.push(quest.id);
+      continue;
+    }
+    // Story data numbers repeated titles ("The Tower of Althalaxx part 7").
+    const bare = (value) => norm(value).replace(/\s+\(?part \d+\)?$/, "");
+    if (quest.name && bare(title) !== bare(quest.name) && bare(title) !== bare(quest.displayName)) {
+      findings.renamed.push({ id: quest.id, data: quest.name, forever: title });
+    }
+  }
+
+  // Forever's chain: follow each story quest's follow-up through quests the
+  // story doesn't list, until it reaches the story again or ends.
+  const seenDetours = new Set();
+  for (const quest of story.quests) {
+    const detour = [];
+    let next = quests.get(quest.id)?.nextQuest;
+    while (next && !storyIds.has(next) && !detour.includes(next) && detour.length < 8) {
+      detour.push(next);
+      next = quests.get(next)?.nextQuest;
+    }
+    if (!detour.length) continue;
+    const key = `${quest.id}:${detour.join(",")}`;
+    if (seenDetours.has(key)) continue;
+    seenDetours.add(key);
+    findings.chain.push({
+      after: quest.id,
+      afterName: quest.name,
+      quests: detour,
+      rejoins: next && storyIds.has(next) ? next : null,
+    });
+  }
+  for (const quest of story.quests) {
+    for (const previous of previousOf.get(quest.id) || []) {
+      if (storyIds.has(previous)) continue;
+      if (findings.chain.some((entry) => entry.quests.includes(previous))) continue;
+      findings.chain.push({ before: quest.id, beforeName: quest.name, quests: [previous] });
+    }
+  }
+  // A link through a quest Forever added is a Forever change; any other
+  // link the story skips was already there on Classic.
+  for (const entry of findings.chain) entry.addedByForever = Boolean(newIds && entry.quests.some((id) => newIds.has(id)));
+  findings.chain.sort((a, b) => Number(b.addedByForever) - Number(a.addedByForever));
+
+  // Forever often gives a reworked quest a new ID with the old title.
+  const byTitle = context.byTitle;
+  for (const entry of [...findings.missing, ...findings.unconfirmed]) {
+    entry.sameTitle = (byTitle.get(norm(entry.name)) || []).filter((id) => !storyIds.has(id));
+  }
+
+  // New quests in the story's zones that name its characters.
+  const zones = new Set(story.quests.map((quest) => quests.get(quest.id)?.sortID).filter((id) => id > 0));
+  const names = storyNames(story);
+  const chained = new Set(findings.chain.flatMap((entry) => entry.quests));
+  for (const quest of quests.values()) {
+    if (storyIds.has(quest.id) || chained.has(quest.id)) continue;
+    if (newIds && !newIds.has(quest.id)) continue;
+    if (!zones.has(quest.sortID)) continue;
+    const mentions = nameMentions(questText(quest), names);
+    if (mentions.length) findings.nearby.push({ id: quest.id, mentions });
+  }
+  findings.nearby.sort((a, b) => b.mentions.length - a.mentions.length || a.id - b.id);
+  findings.zones = [...zones];
+  return findings;
+}
+
+function sameTitleNote(entry) {
+  if (!entry.sameTitle?.length) return "";
+  const ids = entry.sameTitle.slice(0, 20).join(", ") + (entry.sameTitle.length > 20 ? ", …" : "");
+  return `; Forever has the same title as ${ids}`;
+}
+
+function renderReport(stories, results, context, meta) {
+  const { quests, newIds } = context;
+  const lines = [
+    "# WoW Forever quest scan",
+    "",
+    `Quest cache: ${meta.cacheFile} (build ${meta.cacheBuild}, ${meta.cacheLocale}), ${quests.size} quests` + (meta.unreadable ? `, ${meta.unreadable} with unreadable text` : "") + (meta.retired ? `, ${meta.retired} retired (zzOLD) quests left out` : "") + ".",
+    "Missing means the server refused the quest during /sm scan. That's also how it answers for content that isn't out yet, such as Ahn'Qiraj.",
+    meta.scan ? `/sm scan: build ${meta.scan.build}, ${meta.scan.titles.size} quests.` : "/sm scan: not run yet. The quest cache only holds quests this client has seen, so most chains below are incomplete.",
+    meta.sets ? `Forever has ${meta.sets.forever.size} quests, ${newIds.size} of them new since Classic Era.` : "Forever's quest table: not loaded (offline).",
+    "",
+    `Story quests in the cache: ${meta.storyCached} of ${meta.storyTotal}.`,
+    "",
+    "| Story | Quests | Cached | Renamed | Missing | Forever chain changes | Skipped links | New quests nearby |",
+    "|---|---:|---:|---:|---:|---:|---:|---:|",
+  ];
+  stories.forEach((story, index) => {
+    const result = results[index];
+    const forever = result.chain.filter((entry) => entry.addedByForever).length;
+    const cached = story.quests.filter((quest) => quests.has(quest.id)).length;
+    lines.push(`| ${story.title} | ${story.quests.length} | ${cached} | ${result.renamed.length} | ${result.missing.length} | ${forever} | ${result.chain.length - forever} | ${result.nearby.length} |`);
+  });
+
+  stories.forEach((story, index) => {
+    const result = results[index];
+    if (!result.renamed.length && !result.missing.length && !result.unconfirmed.length && !result.chain.length && !result.nearby.length) return;
+    lines.push("", `## ${story.title}`, "", `${story.rel}${story.faction ? `, ${story.faction}` : ""}. ${result.notCached.length + result.missing.length ? `${result.notCached.length + result.missing.length} of its quests aren't in the cache.` : "Every quest is in the cache."}`);
+    if (result.missing.length) {
+      lines.push("", "Missing on Forever (the server didn't know them during /sm scan):");
+      for (const entry of result.missing) lines.push(`- ${entry.id} "${entry.name}"` + sameTitleNote(entry));
+    }
+    if (result.unconfirmed.length) {
+      lines.push("", "Not in Forever's QuestV2 table, so /sm scan should check them:");
+      for (const entry of result.unconfirmed) lines.push(`- ${entry.id} "${entry.name}"` + sameTitleNote(entry));
+    }
+    if (result.renamed.length) {
+      lines.push("", "Different title on Forever:");
+      for (const entry of result.renamed) lines.push(`- ${entry.id} "${entry.data}" is "${entry.forever}"`);
+    }
+    for (const [heading, entries] of [
+      ["Forever added quests to the chain:", result.chain.filter((entry) => entry.addedByForever)],
+      ["Chain links the story skips (not new in Forever, so probably on Classic too):", result.chain.filter((entry) => !entry.addedByForever)],
+    ]) {
+      if (!entries.length) continue;
+      lines.push("", heading);
+      for (const entry of entries) {
+        const list = entry.quests.map((id) => label(id, quests, newIds)).join(", then ");
+        if (entry.after) {
+          lines.push(`- After ${entry.after} "${entry.afterName}", Forever offers ${list}` + (entry.rejoins ? `, which leads back to ${entry.rejoins}.` : "."));
+        } else {
+          lines.push(`- ${list} leads into ${entry.before} "${entry.beforeName}".`);
+        }
+      }
+    }
+    if (result.nearby.length) {
+      lines.push("", "New Forever quests in the same zones that name the story's characters:");
+      for (const entry of result.nearby.slice(0, 12)) {
+        const quest = quests.get(entry.id);
+        lines.push(`- ${label(entry.id, quests, null)}, level ${quest.level}: names ${entry.mentions.join(", ")}`);
+      }
+      if (result.nearby.length > 12) lines.push(`- …and ${result.nearby.length - 12} more in the JSON report.`);
+    }
+  });
+
+  return lines.join("\n") + "\n";
+}
+
+async function writeReport() {
+  const locale = option("locale") || "enUS";
+  const cacheFile = option("wdb") || path.join(gameDir, "Cache", "WDB", locale, "questcache.wdb");
+  const cache = await readQuestCache(cacheFile);
+  const scan = await readScanTitles();
+  const sets = await questIdSets();
+  const newIds = sets ? new Set([...sets.forever].filter((id) => !sets.classicEra.has(id))) : null;
+  const hiddenQuests = [];
+  const stories = await loadForeverStories(hiddenQuests);
+  const hiddenAnswered = hiddenQuests.filter((quest) => quest.ids.some((id) => cache.quests.has(id) || scan?.titles.get(id)));
+
+  const previousOf = new Map();
+  for (const quest of cache.quests.values()) {
+    if (!quest.nextQuest) continue;
+    if (!previousOf.has(quest.nextQuest)) previousOf.set(quest.nextQuest, []);
+    previousOf.get(quest.nextQuest).push(quest.id);
+  }
+
+  const byTitle = new Map();
+  for (const quest of cache.quests.values()) {
+    if (!quest.title) continue;
+    const key = norm(quest.title);
+    if (!byTitle.has(key)) byTitle.set(key, []);
+    byTitle.get(key).push(quest.id);
+  }
+
+  const context = { quests: cache.quests, titles: scan?.titles, sets, newIds, previousOf, byTitle };
+  const results = stories.map((story) => analyzeStory(story, context));
+  const storyTotal = stories.reduce((sum, story) => sum + story.quests.length, 0);
+  const storyCached = stories.reduce((sum, story) => sum + story.quests.filter((quest) => cache.quests.has(quest.id)).length, 0);
+  const meta = {
+    cacheFile: path.relative(root, cacheFile),
+    cacheBuild: cache.build,
+    cacheLocale: cache.locale,
+    unreadable: cache.unreadable,
+    retired: cache.retired,
+    scan,
+    sets,
+    storyTotal,
+    storyCached,
+  };
+
+  await mkdir(reportDir, { recursive: true });
+  let markdown = renderReport(stories, results, context, meta);
+  if (hiddenAnswered.length) {
+    markdown += "\n## Hidden on Forever, but the server answered\n\nThese lines have `forever = false` (or sit in a story or chapter that does), yet the server sent their quest. Check whether they can come back.\n\n";
+    markdown += hiddenAnswered.map((quest) => `- ${quest.story}: ${quest.id} "${quest.name}"`).join("\n") + "\n";
+  }
+  await writeFile(path.join(reportDir, "forever-quest-scan.md"), markdown);
+  await writeFile(path.join(reportDir, "forever-quest-scan.json"), JSON.stringify({
+    cache: { file: meta.cacheFile, build: cache.build, locale: cache.locale, quests: cache.quests.size },
+    scan: scan ? { build: scan.build, quests: scan.titles.size } : null,
+    stories: stories.map((story, index) => ({ title: story.title, file: story.rel, ...results[index] })),
+    hidden: hiddenQuests.map((quest) => ({ ...quest, answered: hiddenAnswered.includes(quest) })),
+  }, null, 2));
+
+  const changed = results.filter((result) => result.renamed.length || result.missing.length || result.chain.some((entry) => entry.addedByForever) || result.nearby.length).length;
+  console.log(`Read ${cache.quests.size} quests from ${meta.cacheFile} (build ${cache.build}).`);
+  console.log(`Story quests in the cache: ${storyCached} of ${storyTotal}. Stories Forever changed so far: ${changed} of ${stories.length}.`);
+  console.log(`Wrote _Dev/reports/forever-quest-scan.md and .json.`);
+  if (!scan) console.log("Tip: run /sm scan in WoW Forever and log out, then run this again for every quest.");
+}
+
+// Print cached quests, and which quests lead into them, for writing story data.
+async function printQuests() {
+  const locale = option("locale") || "enUS";
+  const cacheFile = option("wdb") || path.join(gameDir, "Cache", "WDB", locale, "questcache.wdb");
+  const cache = await readQuestCache(cacheFile);
+  const previousOf = new Map();
+  for (const quest of cache.quests.values()) {
+    if (quest.nextQuest) previousOf.set(quest.nextQuest, [...(previousOf.get(quest.nextQuest) || []), quest.id]);
+  }
+  const ids = args.slice(1).filter((arg) => /^\d+$/.test(arg)).map(Number);
+  for (const id of ids) {
+    const quest = cache.quests.get(id);
+    if (!quest) {
+      console.log(`${id}: not in the quest cache`);
+      continue;
+    }
+    console.log(`${id} "${quest.title}" level ${quest.level} (min ${quest.minLevel}), zone ${quest.sortID}, next ${quest.nextQuest || "-"}, from ${(previousOf.get(id) || []).join(", ") || "-"}`);
+    if (quest.objectivesText) console.log(`  Objectives: ${quest.objectivesText}`);
+    if (quest.description) console.log(`  Text: ${quest.description.replace(/\$B/gi, " ")}`);
+    if (quest.completionLog) console.log(`  Completion: ${quest.completionLog}`);
+  }
+}
+
+if (command === "ids") await writeIdList();
+else if (command === "quest") await printQuests();
+else if (command === "report") await writeReport();
+else {
+  console.log("Usage: node _Dev/tools/forever-quest-scan.mjs ids|report|quest [root] [questID…] [--wdb file] [--saved file] [--offline]");
+  process.exitCode = 1;
+}

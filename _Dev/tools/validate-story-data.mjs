@@ -5,7 +5,7 @@ const root = process.argv.find((arg, index) => index > 1 && !arg.startsWith("--"
 const showAllFindings = process.argv.includes("--all-findings");
 const showSuppressedFindings = process.argv.includes("--show-suppressed");
 const dataRoot = path.join(root, "Data");
-const tocFiles = ["StoryMode.toc", "StoryMode_TBC.toc", "StoryMode_Vanilla.toc"];
+const tocFiles = ["StoryMode.toc", "StoryMode_TBC.toc", "StoryMode_Vanilla.toc", "StoryMode_Camelot.toc"];
 const exceptionsPath = path.join(root, "_Dev", "story-data-exceptions.json");
 
 async function readExceptions() {

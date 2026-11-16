@@ -121,6 +121,29 @@ Story Mode uses one shared codebase with client-specific TOCs:
 - `StoryMode.toc` for Retail.
 - `StoryMode_Vanilla.toc` for Classic Era.
 - `StoryMode_TBC.toc` for Burning Crusade Classic and compatible Anniversary-era installs.
+- `StoryMode_Camelot.toc` for WoW Forever (proof of concept): the Classic Era stories on the Retail API and design.
+
+### WoW Forever
+
+WoW Forever runs the Retail engine with Classic content, so `SM.IsMainlineClient()` is true there and the journal uses the Retail look and quest APIs, while content checks treat it like Classic Era. A story shows on Forever when its `gameVersions` has `classicEra = true`, unless it sets `forever = false`. Story data keeps Retail map IDs; `SM.GetClientMapID()` translates them to Forever's Classic zone maps.
+
+Forever added quests to the original chains, so the stories need a quest scan:
+
+1. `node _Dev/tools/forever-quest-scan.mjs ids .` refreshes `Data/Forever/ForeverQuestIDs.lua` from Forever's quest table on wago.tools.
+2. In game, `/sm scan` asks the server for every Forever quest and story quest (about 2 minutes), then saves titles and missing or renamed story quests to `StoryModeDB.foreverScan`.
+3. Log out so the client writes `Cache/WDB/enUS/questcache.wdb`.
+4. `node _Dev/tools/forever-quest-scan.mjs report .` writes `_Dev/reports/forever-quest-scan.md` with each story's renamed and missing quests, the quests Forever added to its chain, and new quests nearby that name its characters.
+
+`/sm scan retry` asks again, more slowly, for only the quests the last scan didn't get, to tell quests the server holds back from dropped requests. `node _Dev/tools/forever-quest-scan.mjs quest . <id> …` prints a cached quest's level, zone, text, follow-up and the quests that lead into it.
+
+Story data marks Forever differences per line:
+
+- `gameVersions = { forever = true }` for a quest only Forever has.
+- `gameVersions = { classicEra = true, tbc = true, forever = false }` for one Forever's server refuses. The report lists any such line once the server answers for it.
+- `foreverId = 84148` where Forever reworked a quest under a new ID; on Forever the line takes that ID.
+- `altIds` for a second Forever version of the same step.
+
+Forever-only quests have no translated names yet, so on other locales they take the game's own title.
 
 Client, faction, race, class, level, and quest availability are checked before stories appear, so the journal should stay relevant to the character you are playing.
 

@@ -3,13 +3,8 @@ local L = SM.L
 
 function SM.IsClassicLevelGuideShown(data)
     if not (data and SM.Client) then return false end
-    local versions = data.gameVersions
-    if SM.Client.isClassicEra then
-        return type(versions) == "table" and versions.classicEra == true
-    elseif SM.Client.isTBC then
-        return type(versions) == "table" and versions.tbc == true
-    end
-    return false
+    if SM.Client.isRetail then return false end
+    return SM.IsForClientGameVersion(data.gameVersions) == true
 end
 
 function SM.GetRecommendedLevelText(data)

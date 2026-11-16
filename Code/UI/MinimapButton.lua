@@ -61,13 +61,13 @@ function SM.CreateMinimapButton(storyFrame, tooltip, bodyColor)
     RegisterDataBrokerLauncher(storyFrame)
 
     local minimapBtn = CreateFrame("Button", MINIMAP_BUTTON_NAME, Minimap)
-    local borderlessButtonSize = (SM.IsRetailClient()) and 42 or 38
-    local borderlessIconSize = (SM.IsRetailClient()) and 36 or 32
-    local defaultButtonSize = (SM.IsRetailClient()) and 32 or 30
-    local defaultIconSize = (SM.IsRetailClient()) and 25 or 22
-    local defaultBorderSize = (SM.IsRetailClient()) and 50 or 53
-    local defaultIconOffsetX = (SM.IsRetailClient()) and 0 or 1
-    local edgeOffset = (SM.IsRetailClient()) and 8 or 5
+    local borderlessButtonSize = (SM.IsMainlineClient()) and 42 or 38
+    local borderlessIconSize = (SM.IsMainlineClient()) and 36 or 32
+    local defaultButtonSize = (SM.IsMainlineClient()) and 32 or 30
+    local defaultIconSize = (SM.IsMainlineClient()) and 25 or 22
+    local defaultBorderSize = (SM.IsMainlineClient()) and 50 or 53
+    local defaultIconOffsetX = (SM.IsMainlineClient()) and 0 or 1
+    local edgeOffset = (SM.IsMainlineClient()) and 8 or 5
     minimapBtn:SetSize(borderlessButtonSize, borderlessButtonSize)
     minimapBtn:SetFrameStrata("MEDIUM")
     minimapBtn:SetFrameLevel(9)
@@ -79,7 +79,7 @@ function SM.CreateMinimapButton(storyFrame, tooltip, bodyColor)
 
     local minimapIcon = minimapBtn:CreateTexture(nil, "ARTWORK", nil, 2)
     minimapIcon:SetSize(borderlessIconSize, borderlessIconSize)
-    minimapIcon:SetPoint("CENTER", 0, (SM.IsRetailClient()) and 2 or 1)
+    minimapIcon:SetPoint("CENTER", 0, (SM.IsMainlineClient()) and 2 or 1)
     minimapIcon:SetTexture(STORYMODE_ICON_TEXTURE)
     minimapBtn.icon = minimapIcon
     minimapBtn.Icon = minimapIcon
@@ -120,10 +120,10 @@ function SM.CreateMinimapButton(storyFrame, tooltip, bodyColor)
         else
             minimapBtn:SetSize(borderlessButtonSize, borderlessButtonSize)
             minimapIcon:SetSize(borderlessIconSize, borderlessIconSize)
-            minimapIcon:SetPoint("CENTER", minimapBtn, "CENTER", 0, (SM.IsRetailClient()) and 2 or 1)
+            minimapIcon:SetPoint("CENTER", minimapBtn, "CENTER", 0, (SM.IsMainlineClient()) and 2 or 1)
             minimapIcon:SetTexture(STORYMODE_ICON_TEXTURE)
             minimapIconGlow:SetSize(borderlessButtonSize, borderlessButtonSize)
-            minimapIconGlow:SetPoint("CENTER", minimapBtn, "CENTER", 0, (SM.IsRetailClient()) and 2 or 1)
+            minimapIconGlow:SetPoint("CENTER", minimapBtn, "CENTER", 0, (SM.IsMainlineClient()) and 2 or 1)
             defaultBorder:Hide()
         end
         UpdateIconGlow()

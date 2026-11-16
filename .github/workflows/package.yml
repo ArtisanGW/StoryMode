@@ -36,7 +36,7 @@ jobs:
           if ! git diff --quiet; then
             echo "::error::Release tag ${GITHUB_REF_NAME} does not match the committed TOC/changelog metadata."
             echo "::error::Run 'node _Dev/tools/prepare-release.mjs ${version}' locally, commit the result, then retag."
-            git diff -- StoryMode.toc StoryMode_Vanilla.toc StoryMode_TBC.toc CHANGELOG.md
+            git diff -- StoryMode.toc StoryMode_Vanilla.toc StoryMode_TBC.toc StoryMode_Camelot.toc CHANGELOG.md
             exit 1
           fi
           node _Dev/tools/prepare-release.mjs "$version"

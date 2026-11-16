@@ -36,12 +36,12 @@ SM.ClassicDruidQuestData = {
             recap = "You answered the call to Moonglade and learned from the Great Bear Spirit. When the final trial was done, the strength of the bear was yours to call upon in battle.",
             quests = {
                 { id = 5923, name = "Heeding the Call", npc = "Kal", faction = "Alliance", mapID = 57, x = 0.5595, y = 0.6156, location = "Kal, Teldrassil" },
-                { id = 5921, name = "Moonglade", npc = "Mathrengyl Bearwalker", faction = "Alliance", mapID = 89, x = 0.3537, y = 0.0840, location = "Mathrengyl Bearwalker, Darnassus" },
+                { id = 5921, altIds = { 94914 }, name = "Moonglade", npc = "Mathrengyl Bearwalker", faction = "Alliance", mapID = 89, x = 0.3537, y = 0.0840, location = "Mathrengyl Bearwalker, Darnassus" },
                 { id = 5929, name = "Great Bear Spirit", npc = "Dendrite Starblaze", faction = "Alliance", mapID = 80, x = 0.5621, y = 0.3064, location = "Dendrite Starblaze, Nighthaven, Moonglade" },
                 { id = 5931, name = "Back to Darnassus", npc = "Dendrite Starblaze", faction = "Alliance", mapID = 80, x = 0.5621, y = 0.3064, location = "Dendrite Starblaze, Nighthaven, Moonglade" },
                 { id = 6001, name = "Body and Heart", npc = "Mathrengyl Bearwalker", faction = "Alliance", mapID = 89, x = 0.3537, y = 0.0840, location = "Mathrengyl Bearwalker, Darnassus" },
                 { id = 5926, name = "Heeding the Call", npc = "Gennia Runetotem", faction = "Horde", mapID = 7, x = 0.4848, y = 0.5964, location = "Gennia Runetotem, Mulgore" },
-                { id = 5922, name = "Moonglade", npc = "Turak Runetotem", faction = "Horde", mapID = 88, x = 0.7648, y = 0.2722, location = "Turak Runetotem, Thunder Bluff" },
+                { id = 5922, altIds = { 94913 }, name = "Moonglade", npc = "Turak Runetotem", faction = "Horde", mapID = 88, x = 0.7648, y = 0.2722, location = "Turak Runetotem, Thunder Bluff" },
                 { id = 5930, name = "Great Bear Spirit", npc = "Dendrite Starblaze", faction = "Horde", mapID = 80, x = 0.5621, y = 0.3064, location = "Dendrite Starblaze, Nighthaven, Moonglade" },
                 { id = 5932, name = "Back to Thunder Bluff", npc = "Dendrite Starblaze", faction = "Horde", mapID = 80, x = 0.5621, y = 0.3064, location = "Dendrite Starblaze, Nighthaven, Moonglade" },
                 { id = 6002, name = "Body and Heart", npc = "Turak Runetotem", faction = "Horde", mapID = 88, x = 0.7648, y = 0.2722, location = "Turak Runetotem, Thunder Bluff" },
@@ -143,9 +143,10 @@ SM.ClassicHunterQuestData = {
             recap = "The Ancient Petrified Leaf proved to be a summons. The ancients named the demons, and by hunting them alone you earned the right to carry Rhok'delar.",
             quests = {
                 { id = 7632, name = "The Ancient Leaf", npc = "Ancient Petrified Leaf", mapID = 77, x = 0.4800, y = 0.2400, location = "Irontree Woods, Felwood" },
-                { id = 7636, name = "Stave of the Ancients", npc = "Vartrus the Ancient", mapID = 77, x = 0.4800, y = 0.2400, location = "Vartrus the Ancient, Irontree Woods, Felwood" },
-                { id = 7635, name = "A Proper String", npc = "Stoma the Ancient", mapID = 77, x = 0.4800, y = 0.2400, location = "Stoma the Ancient, Irontree Woods, Felwood" },
-                { id = 7634, name = "Ancient Sinew Wrapped Lamina", npc = "Hastat the Ancient", mapID = 77, x = 0.4800, y = 0.2400, location = "Hastat the Ancient, Irontree Woods, Felwood" },
+                -- WoW Forever's server refused these three in the 1.60.1.70938 quest scan; the scan report flags them once it answers.
+                { id = 7636, name = "Stave of the Ancients", npc = "Vartrus the Ancient", gameVersions = { classicEra = true, tbc = true, forever = false }, mapID = 77, x = 0.4800, y = 0.2400, location = "Vartrus the Ancient, Irontree Woods, Felwood" },
+                { id = 7635, name = "A Proper String", npc = "Stoma the Ancient", gameVersions = { classicEra = true, tbc = true, forever = false }, mapID = 77, x = 0.4800, y = 0.2400, location = "Stoma the Ancient, Irontree Woods, Felwood" },
+                { id = 7634, name = "Ancient Sinew Wrapped Lamina", npc = "Hastat the Ancient", gameVersions = { classicEra = true, tbc = true, forever = false }, mapID = 77, x = 0.4800, y = 0.2400, location = "Hastat the Ancient, Irontree Woods, Felwood" },
             },
         },
     },
@@ -197,6 +198,7 @@ SM.ClassicMageQuestData = {
             recap = "Krellian's magic broke apart in curious ways, and Xylem knew what to make of it. The result was odd, useful, and unmistakably a mage's lesson.",
             quests = {
                 { id = 9362, name = "Warlord Krellian", npc = "Archmage Xylem", mapID = 76, x = 0.2971, y = 0.4052, location = "Archmage Xylem, Azshara" },
+                { id = 90789, name = "Scalebeard", npc = "Archmage Xylem", optional = true, mapID = 76, x = 0.2971, y = 0.4052, location = "Archmage Xylem, Azshara", gameVersions = { forever = true } },
                 { id = 9364, name = "Fragmented Magic", npc = "Archmage Xylem", mapID = 76, x = 0.2971, y = 0.4052, location = "Archmage Xylem, Azshara" },
             },
         },
@@ -292,7 +294,8 @@ SM.ClassicPriestQuestData = {
     zone = "Molten Core / Eastern Plaguelands",
     expansion = "Classic",
     class = "PRIEST",
-    gameVersions = { classicEra = true, tbc = true },
+    -- Hidden on WoW Forever: its server refused this quest in the 1.60.1.70938 scan. The scan report flags it once the server answers.
+    gameVersions = { classicEra = true, tbc = true, forever = false },
     color = { 1.00, 1.00, 1.00 },
     icon = 135940,
     adventureCoverTexture = 131851, -- Molten Core: source of the Eye of Divinity before the Benediction trial

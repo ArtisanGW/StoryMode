@@ -7,9 +7,18 @@ local WOW_PROJECT_CLASSIC = _G.WOW_PROJECT_CLASSIC or 2
 local WOW_PROJECT_BURNING_CRUSADE_CLASSIC = _G.WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5
 
 local projectID = _G.WOW_PROJECT_ID or WOW_PROJECT_MAINLINE
-local isClassicEra = projectID == WOW_PROJECT_CLASSIC
-local isTBC = projectID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-local isRetail = projectID == WOW_PROJECT_MAINLINE
+local interfaceVersion = select(4, GetBuildInfo()) or 0
+
+-- WoW Forever (project "Camelot", interface 16xxx) runs the Retail engine and
+-- API with Classic-era content. isMainline covers Retail and Forever for API
+-- and design paths; content checks use isRetail, isClassicEra, isTBC and
+-- isForever directly.
+local isForever = (_G.WOW_PROJECT_CAMELOT ~= nil and projectID == _G.WOW_PROJECT_CAMELOT)
+    or (interfaceVersion >= 16000 and interfaceVersion < 17000)
+local isClassicEra = not isForever and projectID == WOW_PROJECT_CLASSIC
+local isTBC = not isForever and projectID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+local isRetail = not isForever and projectID == WOW_PROJECT_MAINLINE
+local isMainline = isRetail or isForever
 
 local expansionLevels = {
     Classic = 0,
@@ -27,7 +36,7 @@ local expansionLevels = {
 }
 
 local maxExpansionLevel
-if isClassicEra then
+if isClassicEra or isForever then
     maxExpansionLevel = expansionLevels.Classic
 elseif isTBC then
     maxExpansionLevel = expansionLevels["The Burning Crusade"]
@@ -39,18 +48,36 @@ end
 
 SM.Client = {
     projectID = projectID,
+    interfaceVersion = interfaceVersion,
     isRetail = isRetail,
+    isForever = isForever,
+    isMainline = isMainline,
     isClassicEra = isClassicEra,
     isTBC = isTBC,
     maxExpansionLevel = maxExpansionLevel,
 }
 
-function SM.IsRetailClient()
-    return SM.Client and SM.Client.isRetail
+-- Retail-style API and design: Retail and WoW Forever.
+function SM.IsMainlineClient()
+    return SM.Client and SM.Client.isMainline
 end
 
 function SM.IsClassicClient()
-    return not SM.IsRetailClient()
+    return not SM.IsMainlineClient()
+end
+
+-- The gameVersions key that decides which stories this client shows. Forever
+-- shows the Classic Era set unless a story sets gameVersions.forever itself.
+function SM.IsForClientGameVersion(versions)
+    if type(versions) ~= "table" then return nil end
+    if isRetail then return versions.retail == true end
+    if isTBC then return versions.tbc == true end
+    if isClassicEra then return versions.classicEra == true end
+    if isForever then
+        if versions.forever ~= nil then return versions.forever == true end
+        return versions.classicEra == true
+    end
+    return false
 end
 
 if not CopyTable then
@@ -297,10 +324,7 @@ end
 
 function SM.IsContentAvailableForClient(data)
     if type(data) == "table" and type(data.gameVersions) == "table" then
-        if isRetail and data.gameVersions.retail then return true end
-        if isClassicEra and data.gameVersions.classicEra then return true end
-        if isTBC and data.gameVersions.tbc then return true end
-        return false
+        return SM.IsForClientGameVersion(data.gameVersions)
     end
 
     if isRetail then
@@ -309,4 +333,146 @@ function SM.IsContentAvailableForClient(data)
 
     local contentLevel = SM.GetContentExpansionLevel(data)
     return not contentLevel or contentLevel <= maxExpansionLevel
+end
+
+-- Story data stores Retail uiMapIDs. WoW Forever keeps the Classic zone maps
+-- (Elwynn Forest is 1429, not 37) and has no dungeon maps, so dungeon
+-- locations have no Forever map and return nil.
+local foreverMapIDs = {
+    [1] = 1411,   -- Durotar
+    [7] = 1412,   -- Mulgore
+    [10] = 1413,  -- Northern Barrens -> The Barrens
+    [14] = 1417,  -- Arathi Highlands
+    [15] = 1418,  -- Badlands
+    [17] = 1419,  -- Blasted Lands
+    [18] = 1420,  -- Tirisfal Glades
+    [21] = 1421,  -- Silverpine Forest
+    [22] = 1422,  -- Western Plaguelands
+    [23] = 1423,  -- Eastern Plaguelands
+    [25] = 1424,  -- Hillsbrad Foothills
+    [26] = 1425,  -- The Hinterlands
+    [27] = 1426,  -- Dun Morogh
+    [32] = 1427,  -- Searing Gorge
+    [36] = 1428,  -- Burning Steppes
+    [37] = 1429,  -- Elwynn Forest
+    [42] = 1430,  -- Deadwind Pass
+    [47] = 1431,  -- Duskwood
+    [48] = 1432,  -- Loch Modan
+    [49] = 1433,  -- Redridge Mountains
+    [50] = 1434,  -- Northern Stranglethorn -> Stranglethorn Vale
+    [224] = 1434, -- Stranglethorn Vale
+    [210] = 1434, -- The Cape of Stranglethorn -> Stranglethorn Vale
+    [51] = 1435,  -- Swamp of Sorrows
+    [52] = 1436,  -- Westfall
+    [56] = 1437,  -- Wetlands
+    [57] = 1438,  -- Teldrassil
+    [62] = 1439,  -- Darkshore
+    [63] = 1440,  -- Ashenvale
+    [64] = 1441,  -- Thousand Needles
+    [65] = 1442,  -- Stonetalon Mountains
+    [66] = 1443,  -- Desolace
+    [69] = 1444,  -- Feralas
+    [70] = 1445,  -- Dustwallow Marsh
+    [71] = 1446,  -- Tanaris
+    [76] = 1447,  -- Azshara
+    [77] = 1448,  -- Felwood
+    [78] = 1449,  -- Un'Goro Crater
+    [80] = 1450,  -- Moonglade
+    [81] = 1451,  -- Silithus
+    [83] = 1452,  -- Winterspring
+    [84] = 1453,  -- Stormwind City
+    [85] = 1454,  -- Orgrimmar
+    [87] = 1455,  -- Ironforge
+    [88] = 1456,  -- Thunder Bluff
+    [89] = 1457,  -- Darnassus
+    [90] = 1458,  -- Undercity
+    [199] = 1413, -- Southern Barrens -> The Barrens
+}
+
+function SM.GetClientMapID(mapID)
+    if not mapID or not isForever then return mapID end
+    return foreverMapIDs[mapID]
+end
+
+-- A copy of a data location with its map translated for this client, or nil
+-- when this client has no map for it.
+function SM.GetClientLocation(loc)
+    if type(loc) ~= "table" or not loc.mapID or not isForever then return loc end
+    local mapID = foreverMapIDs[loc.mapID]
+    if not mapID then return nil end
+    local copy = {}
+    for key, value in pairs(loc) do copy[key] = value end
+    copy.mapID = mapID
+    return copy
+end
+
+-- A quest line can name the ID WoW Forever uses for it (foreverId), where
+-- Forever reworked a quest under a new ID. On Forever the line takes that ID
+-- and keeps the Classic one in classicId.
+local function ApplyForeverQuestID(quest)
+    if type(quest) ~= "table" then return end
+    if quest.foreverId and not quest.classicId then
+        quest.classicId = quest.id
+        quest.id = quest.foreverId
+    end
+    ApplyForeverQuestID(quest.guidanceQuest)
+    for _, guidanceQuest in ipairs(quest.guidanceQuests or {}) do
+        ApplyForeverQuestID(guidanceQuest)
+    end
+end
+
+function SM.ApplyClientQuestIDs(data)
+    if not isForever or type(data) ~= "table" then return end
+    ApplyForeverQuestID(data.startQuest)
+    for _, section in ipairs({ data.prereqs or {}, data.chapters or {}, data.insurrection or {} }) do
+        for _, chapter in ipairs(section) do
+            for _, quest in ipairs(chapter.quests or {}) do
+                ApplyForeverQuestID(quest)
+            end
+        end
+    end
+end
+
+-- Quests that only exist on WoW Forever have no translations in Locales:
+-- Blizzard publishes no localized names for them. On other locales they take
+-- the game's own title once the client has it.
+local pendingTitleQuests
+local titleFrame
+
+local function IsForeverOnly(quest)
+    local versions = type(quest) == "table" and quest.gameVersions
+    return type(versions) == "table" and versions.forever == true
+        and not versions.classicEra and not versions.tbc and not versions.retail
+end
+
+function SM.UseClientQuestTitle(quest)
+    if not isForever or not IsForeverOnly(quest) or not quest.id then return end
+    if GetLocale() == "enUS" or not (C_QuestLog and C_QuestLog.GetTitleForQuestID) then return end
+    local title = C_QuestLog.GetTitleForQuestID(quest.id)
+    if title and title ~= "" then
+        quest.name = title
+        return
+    end
+    if not C_QuestLog.RequestLoadQuestByID then return end
+    if not titleFrame then
+        pendingTitleQuests = {}
+        titleFrame = CreateFrame("Frame")
+        titleFrame:RegisterEvent("QUEST_DATA_LOAD_RESULT")
+        titleFrame:SetScript("OnEvent", function(_, _, questID, success)
+            local waiting = pendingTitleQuests[questID]
+            if not waiting then return end
+            pendingTitleQuests[questID] = nil
+            local loaded = success and C_QuestLog.GetTitleForQuestID(questID)
+            if loaded and loaded ~= "" then
+                for _, entry in ipairs(waiting) do entry.name = loaded end
+            end
+        end)
+    end
+    local waiting = pendingTitleQuests[quest.id]
+    if not waiting then
+        waiting = {}
+        pendingTitleQuests[quest.id] = waiting
+        C_QuestLog.RequestLoadQuestByID(quest.id)
+    end
+    waiting[#waiting + 1] = quest
 end

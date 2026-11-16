@@ -365,6 +365,8 @@ function SM.InitializeSlashCommands()
                 end
             end
             print(L["Addon Legacy Prefix"] .. L["Slash All Complete"])
+        elseif msg:match("^scan") and SM.HandleScanCommand then
+            SM.HandleScanCommand(msg)
         elseif msg:match("^debug") then
             local filter = msg:match("^debug%s+(.+)$")
             local found = false
@@ -412,7 +414,10 @@ function SM.InitializeCoreEvents(storyFrame)
     -- The Scarlet secret lives where its host story lives: on clients where
     -- The Scarlet Crusade isn't registered (e.g. retail), never count kills —
     -- otherwise the reveal would announce a tab that cannot exist.
-    if SM.ScarletCrusadeData and SM.IsContentAvailableForClient
+    -- The Retail engine (Retail and WoW Forever) forbids addons the combat
+    -- log: registering it raises the "blocked from an action" popup, so the
+    -- named-kill ledger only counts on Classic clients.
+    if SM.IsClassicClient() and SM.ScarletCrusadeData and SM.IsContentAvailableForClient
         and SM.IsContentAvailableForClient(SM.ScarletCrusadeData) then
         eventFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
         eventFrame:RegisterEvent("UNIT_PET")

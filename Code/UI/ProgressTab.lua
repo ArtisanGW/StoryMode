@@ -94,32 +94,32 @@ function SM.LayoutProgressTab(data, w, contentW, visibleContentW)
                 node.isDimmed = true
                 node.portrait:SetVertexColor(0.80, 0.80, 0.80)
                 node.portrait:SetDesaturation(0.4)
-                node.ring:SetVertexColor((SM.IsRetailClient()) and 0.55 or 1, (SM.IsRetailClient()) and 0.48 or 1, (SM.IsRetailClient()) and 0.38 or 1)
-                node.ring:SetAlpha((SM.IsRetailClient()) and 0.55 or 1.0)
+                node.ring:SetVertexColor((SM.IsMainlineClient()) and 0.55 or 1, (SM.IsMainlineClient()) and 0.48 or 1, (SM.IsMainlineClient()) and 0.38 or 1)
+                node.ring:SetAlpha((SM.IsMainlineClient()) and 0.55 or 1.0)
                 SM.SetSimpleBorder(node.portraitBorder, 0.55, 0.48, 0.38, node.hasRingAtlas and 0 or 0.55)
                 node.checkmark:Hide()
             elseif isComplete then
                 node.isDimmed = false
                 node.portrait:SetVertexColor(1, 1, 1)
                 node.portrait:SetDesaturation(0)
-                node.ring:SetVertexColor((SM.IsRetailClient()) and GREEN_R or 1, (SM.IsRetailClient()) and GREEN_G or 1, (SM.IsRetailClient()) and GREEN_B or 1)
-                node.ring:SetAlpha((SM.IsRetailClient()) and 0.8 or 1.0)
+                node.ring:SetVertexColor((SM.IsMainlineClient()) and GREEN_R or 1, (SM.IsMainlineClient()) and GREEN_G or 1, (SM.IsMainlineClient()) and GREEN_B or 1)
+                node.ring:SetAlpha((SM.IsMainlineClient()) and 0.8 or 1.0)
                 SM.SetSimpleBorder(node.portraitBorder, GREEN_R, GREEN_G, GREEN_B, node.hasRingAtlas and 0 or 0.8)
                 node.checkmark:Show()
             elseif isActive then
                 node.isDimmed = false
                 node.portrait:SetVertexColor(1, 1, 1)
                 node.portrait:SetDesaturation(0)
-                node.ring:SetVertexColor((SM.IsRetailClient()) and GOLD_R or 1, (SM.IsRetailClient()) and GOLD_G or 1, (SM.IsRetailClient()) and GOLD_B or 1)
-                node.ring:SetAlpha((SM.IsRetailClient()) and 0.9 or 1.0)
+                node.ring:SetVertexColor((SM.IsMainlineClient()) and GOLD_R or 1, (SM.IsMainlineClient()) and GOLD_G or 1, (SM.IsMainlineClient()) and GOLD_B or 1)
+                node.ring:SetAlpha((SM.IsMainlineClient()) and 0.9 or 1.0)
                 SM.SetSimpleBorder(node.portraitBorder, GOLD_R, GOLD_G, GOLD_B, node.hasRingAtlas and 0 or 0.9)
                 node.checkmark:Hide()
             else
                 node.isDimmed = true
                 node.portrait:SetVertexColor(0.6, 0.6, 0.6)
                 node.portrait:SetDesaturation(0.7)
-                node.ring:SetVertexColor((SM.IsRetailClient()) and 0.4 or 1, (SM.IsRetailClient()) and 0.35 or 1, (SM.IsRetailClient()) and 0.30 or 1)
-                node.ring:SetAlpha((SM.IsRetailClient()) and 0.5 or 1.0)
+                node.ring:SetVertexColor((SM.IsMainlineClient()) and 0.4 or 1, (SM.IsMainlineClient()) and 0.35 or 1, (SM.IsMainlineClient()) and 0.30 or 1)
+                node.ring:SetAlpha((SM.IsMainlineClient()) and 0.5 or 1.0)
                 SM.SetSimpleBorder(node.portraitBorder, 0.4, 0.35, 0.30, node.hasRingAtlas and 0 or 0.5)
                 node.checkmark:Hide()
             end
@@ -130,7 +130,7 @@ function SM.LayoutProgressTab(data, w, contentW, visibleContentW)
             -- ch.prerequisites = explicit quest gate; ch.gated = manual flag for
             -- chapters locked behind progress that can't be expressed as a quest ID.
             local CIRC = "Interface/CHARACTERFRAME/TempPortraitAlphaMask"
-            local isGated = SM.IsRetailClient()
+            local isGated = SM.IsMainlineClient()
                 and (ch.prerequisites ~= nil or ch.gated == true or ch.chapterNodeStyle == "rectangle")
             node.isGated = isGated
             if isGated then

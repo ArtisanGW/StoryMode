@@ -70,6 +70,8 @@ SM.ArugalData = {
                 { id = 423, name = "Arugal's Folly", displayName = "Moonrage Shackles", npc = "Dalar Dawnweaver" },
                 { id = 424, name = "Arugal's Folly", displayName = "Grimson the Pale", npc = "Dalar Dawnweaver" },
                 { id = 99, name = "Arugal's Folly", displayName = "Pyrewood Shackles", npc = "Dalar Dawnweaver" },
+                { id = 98298, name = "Arugal's Folly", npc = "Dalar Dawnweaver", gameVersions = { forever = true } },
+                { id = 98299, name = "Stop the Spread", npc = "Dalar Dawnweaver", optional = true, gameVersions = { forever = true } },
             },
         },
         {
@@ -82,6 +84,7 @@ SM.ArugalData = {
                 { id = 481, name = "Dalar's Analysis", npc = "Shadow Priest Allister" },
                 { id = 482, name = "Dalaran's Intentions", npc = "Dalar Dawnweaver" },
                 { id = 479, name = "Ambermill Investigations", npc = "Shadow Priest Allister" },
+                { id = 95981, name = "Watching the Roads", npc = "Shadow Priest Allister", parallel = true, gameVersions = { forever = true } },
                 { id = 480, name = "The Weaver", npc = "Shadow Priest Allister" },
             },
         },

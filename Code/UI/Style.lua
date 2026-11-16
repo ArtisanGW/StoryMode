@@ -85,7 +85,7 @@ function SM.SetStoryArrowTexture(tex, direction, large)
         return
     end
 
-    if large or (SM.IsRetailClient()) then
+    if large or (SM.IsMainlineClient()) then
         if direction == "left" and SM.IsClassicClient() then
             if SM.SafeSetTexture(tex, "Interface\\Buttons\\UI-SpellbookIcon-PrevPage-Up") then
                 return
@@ -237,7 +237,7 @@ local PERKS_LAYOUT = {
 }
 
 function SM.CreateStoryPanel(section)
-    local useRetailArt = SM.IsRetailClient()
+    local useRetailArt = SM.IsMainlineClient()
     local template = (useRetailArt and NineSliceUtil) and "NineSlicePanelTemplate" or "BackdropTemplate"
     local f = CreateFrame("Frame", nil, section, template)
     f:SetAllPoints(section)
@@ -298,7 +298,7 @@ function SM.UpdateScrollbarVisibility(scrollFrame)
     if not scrollbar then return end
 
     local range = scrollFrame:GetVerticalScrollRange() or 0
-    if SM.IsRetailClient() then
+    if SM.IsMainlineClient() then
         if range > 1 then
             scrollbar:Show()
         else
@@ -343,9 +343,9 @@ end
 
 function SM.CreateMajorDivider(parent)
     local f = CreateFrame("Frame", nil, parent)
-    f:SetHeight((SM.IsRetailClient()) and 16 or 8)
+    f:SetHeight((SM.IsMainlineClient()) and 16 or 8)
     local tex = f:CreateTexture(nil, "ARTWORK")
-    if SM.IsRetailClient() and tex.SetAtlas then
+    if SM.IsMainlineClient() and tex.SetAtlas then
         pcall(tex.SetAtlas, tex, "ui-journeys-renown-divider", false)
         tex:SetPoint("LEFT",  f, "LEFT",  0, 0)
         tex:SetPoint("RIGHT", f, "RIGHT", 0, 0)

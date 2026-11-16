@@ -119,7 +119,7 @@ SM.OnyxiaData = {
             recap = "Marshal Windsor's return turned suspicion into spectacle. At the gates of Stormwind, he gathered himself for one last duty and marched through the city toward the keep. The guards, nobles, and courtiers saw what the dragon had hidden from them: Lady Katrana Prestor was no noble advisor. She was Onyxia, broodmother of the black dragonflight. Windsor died exposing her, but his sacrifice broke the illusion around Bolvar and gave the Alliance a clear enemy at last.",
             quests = {
                 { id = 6402, name = "Stormwind Rendezvous", npc = "Marshal Maxwell" },
-                { id = 6403, name = "The Great Masquerade", npc = "Reginald Windsor" },
+                { id = 6403, altIds = { 99435 }, name = "The Great Masquerade", npc = "Reginald Windsor" },
             },
         },
         {

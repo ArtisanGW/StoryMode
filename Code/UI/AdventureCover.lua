@@ -306,7 +306,7 @@ function SM.SetChapterPortrait(portraitTex, displayID, iconPath, questID)
     local tryID = nil
     if displayID and displayID ~= 0 then
         tryID = displayID
-    elseif (SM.IsRetailClient()) and fallbackID then
+    elseif (SM.IsMainlineClient()) and fallbackID then
         tryID = fallbackID
     end
     if tryID then

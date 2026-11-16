@@ -40,6 +40,7 @@ local function LocalizeQuest(quest)
     if type(quest) ~= "table" then return end
 
     LocalizeField(quest, "name")
+    if SM.UseClientQuestTitle then SM.UseClientQuestTitle(quest) end
     LocalizeField(quest, "displayName")
     LocalizeField(quest, "npc")
     LocalizeField(quest, "location")

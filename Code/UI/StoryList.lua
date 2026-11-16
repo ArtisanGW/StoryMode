@@ -89,7 +89,7 @@ SM.StoryCardBorderSelected = {1.00, 0.70, 0.12, 0.90}
 
 function SM.ApplyStoryCardBorderState(row, isHover)
     if not row or not row.btn then return end
-    if SM.IsRetailClient() then
+    if SM.IsMainlineClient() then
         if row.isSelected then
             row.btn:LockHighlight()
         else
@@ -179,7 +179,7 @@ function SM.SelectStory(index, chapterIndex)
         local sel = (i == index)
         if row.btn then row.btn:UnlockHighlight() end
         if row.coverTex then
-            if SM.IsRetailClient() then
+            if SM.IsMainlineClient() then
                 local hasCover = SM.SetAdventureCoverTexture(row.coverTex, row.data)
                 row.coverTex:SetShown(hasCover)
                 row.coverTex:SetAlpha(1)
@@ -289,7 +289,7 @@ function SM.RefreshStoryListState(data)
 end
 
 local function CreateListCardFrame(cardHeight, cardPadding, yOffset, backgroundSublevel, classicShadeInset)
-    local card = RememberStoryListFrame(CreateFrame("Button", nil, SM.LeftStoryChild, (SM.IsRetailClient()) and nil or "BackdropTemplate"))
+    local card = RememberStoryListFrame(CreateFrame("Button", nil, SM.LeftStoryChild, (SM.IsMainlineClient()) and nil or "BackdropTemplate"))
     card:SetHeight(cardHeight)
     card:SetPoint("TOPLEFT", SM.LeftStoryChild, "TOPLEFT", cardPadding, yOffset)
     card:SetPoint("TOPRIGHT", SM.LeftStoryChild, "TOPRIGHT", -cardPadding, yOffset)
@@ -299,7 +299,7 @@ local function CreateListCardFrame(cardHeight, cardPadding, yOffset, backgroundS
     end
 
     local bg = card:CreateTexture(nil, "BACKGROUND", nil, backgroundSublevel)
-    if SM.IsRetailClient() then
+    if SM.IsMainlineClient() then
         bg:SetAtlas("housefinder_neighborhood-list-item-default", false)
         bg:SetAllPoints()
     else
@@ -310,7 +310,7 @@ local function CreateListCardFrame(cardHeight, cardPadding, yOffset, backgroundS
         card.shade = SM.CreateInsetCardShade(card, 0.38, classicShadeInset)
     end
 
-    if SM.IsRetailClient() then
+    if SM.IsMainlineClient() then
         card:SetHighlightAtlas("housefinder_neighborhood-list-item-highlight")
         card:GetHighlightTexture():SetAllPoints()
     else
@@ -399,7 +399,7 @@ end
 
 local function CreateCardCompletionRibbon(parent)
     local checkmark = SM.CreateCompletionRibbon(parent)
-    if SM.IsRetailClient() then
+    if SM.IsMainlineClient() then
         checkmark:SetPoint("TOPRIGHT", parent, "TOPRIGHT", -15, -1)
     else
         checkmark:SetPoint("RIGHT", parent, "RIGHT", -18, 0)
@@ -462,8 +462,8 @@ end
 local function CreateStoryListCard(data, idx, cardHeight, cardPadding, yOffset)
     local card, bg = CreateListCardFrame(cardHeight, cardPadding, yOffset, 2, 4)
 
-    local coverTex = card:CreateTexture(nil, "BACKGROUND", nil, (SM.IsRetailClient()) and 0 or 2)
-    if SM.IsRetailClient() then
+    local coverTex = card:CreateTexture(nil, "BACKGROUND", nil, (SM.IsMainlineClient()) and 0 or 2)
+    if SM.IsMainlineClient() then
         coverTex:SetPoint("TOPLEFT", card, "TOPLEFT", 7, -7)
         coverTex:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -7, 7)
         coverTex:SetAlpha(0.78)
@@ -592,7 +592,7 @@ function SM.BuildStoryWindow()
     activeStoriesSignature = GetActiveStoriesSignature(activeQuestlines)
     local displayCategories = BuildDisplayCategories(activeQuestlines)
 
-    local CARD_H   = (SM.IsRetailClient()) and 78 or 70
+    local CARD_H   = (SM.IsMainlineClient()) and 78 or 70
     local CARD_PAD = 4
     local yOffset  = -16
     local globalIdx = 0

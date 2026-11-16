@@ -165,21 +165,22 @@ local function GetTrackedQuestID(quest)
 end
 
 local function GetQuestLocation(data, quest)
-    local questLocation = quest.mapID and quest.x and quest.y and { mapID = quest.mapID, x = quest.x, y = quest.y } or nil
+    local questLocation = quest.mapID and quest.x and quest.y
+        and SM.GetClientLocation({ mapID = quest.mapID, x = quest.x, y = quest.y }) or nil
+    local npcLocation = data.npcLocations and SM.GetClientLocation(data.npcLocations[quest.npc]) or nil
     local mapHint = (questLocation and questLocation.mapID)
-        or (data.npcLocations and data.npcLocations[quest.npc] and data.npcLocations[quest.npc].mapID)
-        or data.startMapID
+        or (npcLocation and npcLocation.mapID)
+        or SM.GetClientMapID(data.startMapID)
     local qid = GetTrackedQuestID(quest)
     local live = GetLiveQuestLocation(qid, mapHint)
     if live then return live end
 
     if questLocation then return questLocation end
 
-    local loc = data.npcLocations and data.npcLocations[quest.npc]
-    if loc then return loc end
+    if npcLocation then return npcLocation end
 
     if data.startQuest and quest.id == data.startQuest.id and data.startMapID and data.startX and data.startY then
-        return { mapID = data.startMapID, x = data.startX, y = data.startY }
+        return SM.GetClientLocation({ mapID = data.startMapID, x = data.startX, y = data.startY })
     end
 
     return nil
@@ -279,8 +280,9 @@ function SM.SetWaypointForQuest(data, quest)
         return TrackResult("waypoint_approx", qid, loc, false, guidanceQuest)
     end
 
-    if data.startMapID then
-        OpenStoryMap(data.startMapID)
+    local startMapID = SM.GetClientMapID(data.startMapID)
+    if startMapID then
+        OpenStoryMap(startMapID)
     end
     return TrackResult("no_location", qid, nil, false, guidanceQuest)
 end

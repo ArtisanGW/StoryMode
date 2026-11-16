@@ -123,6 +123,8 @@ local function ForEachContentRegistryData(callback)
     end
 end
 
+SM.ForEachContentData = ForEachContentRegistryData
+
 local function RefreshPlayerContext()
     local raceName
     local className
@@ -278,6 +280,7 @@ end
 function SM.LocalizeContentRegistry()
     ForEachContentRegistryData(function(data)
         AssignStableQuestlineID(data)
+        SM.ApplyClientQuestIDs(data)
         SM.LocalizeContentData(data)
     end)
 end

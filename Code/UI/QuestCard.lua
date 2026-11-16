@@ -146,7 +146,7 @@ function SM.RefreshQuestCardTooltip(card, requestQuestData)
 end
 
 function SM.CreateQuestCard(parent)
-    local card = CreateFrame("Button", nil, parent, (SM.IsRetailClient()) and nil or "BackdropTemplate")
+    local card = CreateFrame("Button", nil, parent, (SM.IsMainlineClient()) and nil or "BackdropTemplate")
     card:EnableMouse(true)
     card:SetHeight(QCARD_H)
     if SM.IsClassicClient() then
@@ -155,7 +155,7 @@ function SM.CreateQuestCard(parent)
 
     -- Housing endeavor-style card background
     local bg = card:CreateTexture(nil, "BACKGROUND")
-    if SM.IsRetailClient() then
+    if SM.IsMainlineClient() then
         bg:SetAtlas("housing-dashboard-initiatives-tasks-listitem-bg", false)
     else
         SM.ClearCardFillTexture(bg)
@@ -174,7 +174,7 @@ function SM.CreateQuestCard(parent)
     card.bgMask = cardMask
 
     -- Hover highlight
-    if SM.IsRetailClient() then
+    if SM.IsMainlineClient() then
         card:SetHighlightAtlas("housing-dashboard-initiatives-tasks-listitem-bg")
         card:GetHighlightTexture():SetAllPoints()
         card:GetHighlightTexture():SetAlpha(0.3)

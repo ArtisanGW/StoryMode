@@ -172,7 +172,7 @@ function FactionUI:Create(parent)
         card.fullRing:SetAllPoints(card.button.IconFrame)
         card.fullRing:Hide()
         if card.button.IconFrame.Border then
-            if SM.IsRetailClient() then
+            if SM.IsMainlineClient() then
                 card.button.IconFrame.Border:SetAtlas("ui-journeys-renown-radial-bar", false)
             elseif not SM.SafeSetAtlas(card.button.IconFrame.Border, "ui-journeys-renown-radial-bar", false) then
                 card.button.IconFrame.Border:Hide()
@@ -390,7 +390,7 @@ function FactionUI:ApplyArt(card, expansionID, textureKit)
     self:SetCardAtlas(card, self:GetCardAtlas(card, false))
 
     if card.button and card.button.IconFrame and card.button.IconFrame.Border then
-        if SM.IsRetailClient() then
+        if SM.IsMainlineClient() then
             card.button.IconFrame.Border:SetAtlas("ui-journeys-renown-radial-bar", false)
         elseif not self:SetAtlas(card.button.IconFrame.Border, "ui-journeys-renown-radial-bar", false) then
             card.button.IconFrame.Border:Hide()

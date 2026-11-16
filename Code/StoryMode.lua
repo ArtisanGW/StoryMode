@@ -78,8 +78,8 @@ leftSection:SetPoint("TOPLEFT", storyFrame, "TOPLEFT", 0, 0)
 SM.CreateStoryPanel(leftSection)
 
 -- Scrollable card list (no scrollbar — mousewheel only)
-local leftScrollTopInset = SM.PanelScrollTopInset - (SM.IsRetailClient() and 2 or 0)
-local leftScrollBottomInset = SM.PanelScrollBottomInset - (SM.IsRetailClient() and 2 or 0)
+local leftScrollTopInset = SM.PanelScrollTopInset - (SM.IsMainlineClient() and 2 or 0)
+local leftScrollBottomInset = SM.PanelScrollBottomInset - (SM.IsMainlineClient() and 2 or 0)
 local leftScroll = CreateFrame("ScrollFrame", nil, leftSection, "ScrollFrameTemplate")
 leftScroll:SetPoint("TOPLEFT",     leftSection, "TOPLEFT",     12, -leftScrollTopInset)
 leftScroll:SetPoint("BOTTOMRIGHT", leftSection, "BOTTOMRIGHT", -12, leftScrollBottomInset)
@@ -188,9 +188,9 @@ tabContainer:SetPoint("BOTTOMRIGHT", rightSection, "BOTTOMRIGHT", 0,  0)
 -- Detail pane  (scrollable, lives inside tabContainer)
 -- ════════════════════════════════════════════════════════════════════════════
 
-local detailScrollTemplate = (SM.IsRetailClient()) and "ScrollFrameTemplate" or "UIPanelScrollFrameTemplate"
-local detailScrollName = (SM.IsRetailClient()) and nil or "StoryModeDetailScrollFrame"
-local detailScrollBottomInset = SM.PanelScrollBottomInset - (SM.IsRetailClient() and 2 or 0)
+local detailScrollTemplate = (SM.IsMainlineClient()) and "ScrollFrameTemplate" or "UIPanelScrollFrameTemplate"
+local detailScrollName = (SM.IsMainlineClient()) and nil or "StoryModeDetailScrollFrame"
+local detailScrollBottomInset = SM.PanelScrollBottomInset - (SM.IsMainlineClient() and 2 or 0)
 local detailScroll = CreateFrame("ScrollFrame", detailScrollName, tabContainer, detailScrollTemplate)
 detailScroll:SetPoint("TOPLEFT",     tabContainer, "TOPLEFT",      2,  -2)
 detailScroll:SetPoint("BOTTOMRIGHT", tabContainer, "BOTTOMRIGHT", -2, detailScrollBottomInset)
@@ -203,7 +203,7 @@ SM.EnableMouseWheelScroll(detailScroll)
 -- Move scrollbar inside the panel. Classic uses the options/settings scroll art.
 local detailScrollbar = SM.GetScrollBar(detailScroll)
 if detailScrollbar then
-    if SM.IsRetailClient() then
+    if SM.IsMainlineClient() then
         detailScrollbar:ClearAllPoints()
         detailScrollbar:SetPoint("TOPRIGHT",    detailScroll, "TOPRIGHT",    -10, -16)
         detailScrollbar:SetPoint("BOTTOMRIGHT", detailScroll, "BOTTOMRIGHT", -10,  16)
@@ -695,7 +695,7 @@ local TRACK_NODE_SIZE = 48      -- portrait circle diameter
 local TRACK_ARROW_GAP = 24      -- space between nodes (contains arrow)
 local TRACK_STEP = TRACK_NODE_SIZE + TRACK_ARROW_GAP  -- 72px per step
 local TRACK_H = 72              -- track container height
-SM.TrackArrowSize = (SM.IsRetailClient()) and 14 or 18
+SM.TrackArrowSize = (SM.IsMainlineClient()) and 14 or 18
 
 local QCARD_GAP = 3            -- gap between cards
 
@@ -929,7 +929,7 @@ function SM.CreateTrackNode(parent)
             or SM.SafeSetTexture(ring, "Interface\\Buttons\\UI-ActionButton-Border")
     end
     if hasRingAtlas then
-        if SM.IsRetailClient() then
+        if SM.IsMainlineClient() then
             ring:SetPoint("TOPLEFT", portrait, "TOPLEFT", -3, 3)
             ring:SetPoint("BOTTOMRIGHT", portrait, "BOTTOMRIGHT", 3, -3)
         else
@@ -1013,8 +1013,8 @@ function SM.CreateTrackNode(parent)
     -- Down-arrow indicator (below node, points to quest cards)
     local downArrow = btn:CreateTexture(nil, "OVERLAY", nil, 3)
     SM.SetStoryArrowTexture(downArrow, "down", false)
-    local downArrowSize = (SM.IsRetailClient()) and 16 or 22
-    local downArrowOffsetY = (SM.IsRetailClient()) and 3 or 6
+    local downArrowSize = (SM.IsMainlineClient()) and 16 or 22
+    local downArrowOffsetY = (SM.IsMainlineClient()) and 3 or 6
     downArrow:SetSize(downArrowSize, downArrowSize)
     downArrow:SetPoint("TOP", portrait, "BOTTOM", 0, downArrowOffsetY)
     downArrow:SetVertexColor(C_GOLD[1], C_GOLD[2], C_GOLD[3])
@@ -1348,12 +1348,12 @@ LayoutSelectedChapter = function()
     -- Deselected nodes get their completion-state ring color restored.
     -- Retail gated nodes (with prerequisites) use squareBorder instead of ring.
     local function SetNodeBorder(node, r, g, b, a)
-        if SM.IsRetailClient() then
+        if SM.IsMainlineClient() then
             node.ring:SetVertexColor(r, g, b)
         else
             node.ring:SetVertexColor(1, 1, 1)
         end
-        local ringAlpha = (SM.IsRetailClient()) and a or 1.0
+        local ringAlpha = (SM.IsMainlineClient()) and a or 1.0
         node.ring:SetAlpha(ringAlpha)
         node.borderR, node.borderG, node.borderB, node.borderA = r, g, b, ringAlpha
         if node.isGated then

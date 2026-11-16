@@ -110,12 +110,25 @@ const contentEntries = extractLocaleEntries(contentStart >= 0 ? enText.slice(con
 const sourceKeys = new Set(enEntries.keys());
 const dataFiles = await walk(`${root}/Data`);
 const dataKeysMissingFromEnglish = new Set();
+// Quest names that only WoW Forever lines use: the game supplies their
+// translation (SM.UseClientQuestTitle), since Blizzard publishes none.
+const foreverOnlyNames = new Set();
+const otherNames = new Set();
 for (const dataFile of dataFiles) {
-  for (const key of extractDataStrings(await readFile(dataFile, "utf8"))) {
+  const dataText = await readFile(dataFile, "utf8");
+  for (const key of extractDataStrings(dataText)) {
     sourceKeys.add(key);
     if (!enEntries.has(key)) dataKeysMissingFromEnglish.add(key);
   }
+  for (const line of dataText.split(/\r?\n/)) {
+    const name = line.match(/\bname\s*=\s*"((?:[^"\\]|\\.)*)"/)?.[1];
+    if (!name || !/\bid\s*=\s*\d+/.test(line)) continue;
+    const versions = line.match(/gameVersions\s*=\s*\{([^}]*)\}/)?.[1] || "";
+    const foreverOnly = /\bforever\s*=\s*true/.test(versions) && !/\b(classicEra|tbc|retail)\s*=\s*true/.test(versions);
+    (foreverOnly ? foreverOnlyNames : otherNames).add(unescapeLuaString(name));
+  }
 }
+for (const name of otherNames) foreverOnlyNames.delete(name);
 
 const report = {};
 const findings = [];
@@ -152,7 +165,7 @@ for (const locale of localeFiles) {
   report[locale] = {
     overrides: localeEntries.size,
     contentOverrides,
-    englishFallback: enEntries.size - localeEntries.size,
+    englishFallback: [...enEntries.keys()].filter((key) => !localeEntries.has(key) && !foreverOnlyNames.has(key)).length,
   };
   if (report[locale].englishFallback > 0) {
     findings.push(`${localePath}: ${report[locale].englishFallback} keys fall back to English`);
