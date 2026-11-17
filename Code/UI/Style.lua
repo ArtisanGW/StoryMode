@@ -210,6 +210,13 @@ function SM.CreateCompletionRibbon(parent)
     end
 
     local check = ribbon:CreateTexture(nil, "OVERLAY", nil, 2)
+    -- WoW Forever uses Legacy's own green check, untinted (40 x 35), at the
+    -- size Legacy's objective rows draw it.
+    if SM.Client and SM.Client.isForever and SM.SafeSetAtlas(check, "worldquest-tracker-checkmark", false) then
+        check:SetSize(16, 14)
+        check:SetPoint("CENTER", ribbon, "CENTER", 0, hasFlag and 3 or 0)
+        return ribbon
+    end
     if not SM.SafeSetAtlas(check, "common-icon-checkmark", false) then
         SM.SafeSetTexture(check, "Interface\\Buttons\\UI-CheckBox-Check")
     end

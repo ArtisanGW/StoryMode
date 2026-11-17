@@ -84,9 +84,11 @@ function SM.LayoutProgressTab(data, w, contentW, visibleContentW)
             if hasDataBackedPortrait then questPortraitID = nil end
             SM.SetChapterPortrait(node.portrait, displayID, chapterIcon, questPortraitID)
 
-            -- Tooltip
+            -- Tooltip. Forever keeps a chapter's summary to itself until
+            -- the player reaches the chapter, as it does under the track.
+            local showSummary = not SM.ForeverWindow or SM.IsChapterReached(data, ch)
             node.tooltipTitle = ch.chapter
-            node.tooltipBody = ch.summary or nil
+            node.tooltipBody = showSummary and ch.summary or nil
             node.tooltipProgress = cDone .. " / " .. cTotal .. " quests"
             node.tooltipAchievementID = ch.achievementID or nil
 
@@ -180,8 +182,12 @@ function SM.LayoutProgressTab(data, w, contentW, visibleContentW)
 
             node:Show()
 
-            -- Arrow between nodes (except after last)
-            if i < #chapters then
+            -- Arrow between nodes (except after last). The Forever window
+            -- uses the Legacy tree's arrow, placed once the next node exists.
+            if i < #chapters and SM.ForeverWindow then
+                dTrackArrows[i] = dTrackArrows[i] or SM.ForeverWindow.CreateChapterArrow(dTrackInner)
+                dTrackArrows[i].chapterDone = isComplete
+            elseif i < #chapters then
                 if not dTrackArrows[i] then
                     dTrackArrows[i] = dTrackInner:CreateTexture(nil, "ARTWORK")
                     SM.SetStoryArrowTexture(dTrackArrows[i], "right", false)
@@ -201,12 +207,25 @@ function SM.LayoutProgressTab(data, w, contentW, visibleContentW)
                 arrow:Show()
             end
         end
+        if SM.ForeverWindow then
+            for i = 1, #chapters - 1 do
+                local arrow = dTrackArrows[i]
+                SM.ForeverWindow.PlaceChapterArrow(arrow, dTrackNodes[i], dTrackNodes[i + 1], arrow.chapterDone)
+            end
+        end
         for i = #chapters + 1, #dTrackNodes do dTrackNodes[i]:Hide() end
         for i = #chapters, #dTrackArrows do if dTrackArrows[i] then dTrackArrows[i]:Hide() end end
 
-        -- Position track container
+        -- Position track container. The Forever window has no story or
+        -- chapter name above the quests (they'd only repeat the list card and
+        -- the chapter's node), so its track starts at the top of the pane.
         dTrackContainer:ClearAllPoints()
-        dTrackContainer:SetPoint("TOP", dProgSummary, "BOTTOM", 0, -18)
+        if SM.ForeverWindow then
+            dTitle:Hide()
+            dTrackContainer:SetPoint("TOP", detailChild, "TOP", 0, -12)
+        else
+            dTrackContainer:SetPoint("TOP", dProgSummary, "BOTTOM", 0, -18)
+        end
         dTrackContainer:SetPoint("LEFT", detailChild, "LEFT", 0, 0)
         dTrackContainer:SetPoint("RIGHT", detailChild, "RIGHT", 0, 0)
         dTrackContainer:Show()
@@ -219,18 +238,32 @@ function SM.LayoutProgressTab(data, w, contentW, visibleContentW)
             dTrackRightBtn:Show()
         end)
 
-        -- Chapter title + summary below track
+        -- Chapter title + summary below track. On Forever the title is
+        -- hidden and marks the track's foot, for what goes below it when the
+        -- summary is hidden too.
         dChapterTitle:ClearAllPoints()
-        dChapterTitle:SetPoint("TOPLEFT", dTrackContainer, "BOTTOMLEFT", CP, -10)
-        dChapterTitle:SetPoint("TOPRIGHT", dTrackContainer, "BOTTOMRIGHT", -CP, -10)
+        if SM.ForeverWindow then
+            dChapterTitle:SetPoint("BOTTOMLEFT", dTrackContainer, "BOTTOMLEFT", CP, 0)
+            dChapterTitle:SetPoint("BOTTOMRIGHT", dTrackContainer, "BOTTOMRIGHT", -CP, 0)
+        else
+            dChapterTitle:SetPoint("TOPLEFT", dTrackContainer, "BOTTOMLEFT", CP, -10)
+            dChapterTitle:SetPoint("TOPRIGHT", dTrackContainer, "BOTTOMRIGHT", -CP, -10)
+        end
 
         dChapterSummary:ClearAllPoints()
-        dChapterSummary:SetPoint("TOPLEFT", dChapterTitle, "BOTTOMLEFT", 0, -4)
-        dChapterSummary:SetPoint("TOPRIGHT", dChapterTitle, "BOTTOMRIGHT", 0, -4)
+        if SM.ForeverWindow then
+            dChapterSummary:SetPoint("TOPLEFT", dTrackContainer, "BOTTOMLEFT", CP, -10)
+            dChapterSummary:SetPoint("TOPRIGHT", dTrackContainer, "BOTTOMRIGHT", -CP, -10)
+        else
+            dChapterSummary:SetPoint("TOPLEFT", dChapterTitle, "BOTTOMLEFT", 0, -4)
+            dChapterSummary:SetPoint("TOPRIGHT", dChapterTitle, "BOTTOMRIGHT", 0, -4)
+        end
 
-        dChapterNote:ClearAllPoints()
-        dChapterNote:SetPoint("TOPLEFT", dChapterSummary, "BOTTOMLEFT", 0, -8)
-        dChapterNote:SetPoint("TOPRIGHT", dChapterSummary, "BOTTOMRIGHT", 0, -8)
+        if not SM.ForeverWindow then  -- Forever places it with the chapter
+            dChapterNote:ClearAllPoints()
+            dChapterNote:SetPoint("TOPLEFT", dChapterSummary, "BOTTOMLEFT", 0, -8)
+            dChapterNote:SetPoint("TOPRIGHT", dChapterSummary, "BOTTOMRIGHT", 0, -8)
+        end
 
         -- Render quest cards for selected chapter
         SM.LayoutSelectedChapter()

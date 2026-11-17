@@ -13,6 +13,16 @@ function SM.LayoutJournalTab(data, w, contentW, visibleContentW)
     local sFactionHeader = ui.sFactionHeader
     local sJournalEntries = ui.sJournalEntries
     local FactionUI = SM.FactionUI
+    -- On WoW Forever the journal is a spellbook page (ForeverWindow.lua): its
+    -- text is the spellbook's ink, and each chapter title sits on the left
+    -- above the spellbook's divider.
+    local foreverWindow = SM.ForeverWindow
+    local ink = foreverWindow and foreverWindow.JournalInk
+    if ink then
+        for _, text in ipairs({ sJournalHeader, sJournalSubline, sJournalEmptyTitle, sJournalEmptyText }) do
+            text:SetTextColor(ink[1], ink[2], ink[3])
+        end
+    end
         -- ── JOURNAL TAB layout ──────────────────────────────────────────
         -- Show recap for each completed chapter (no spoilers for future ones)
         local chapters = SM.GetAllChapters(data)
@@ -58,10 +68,20 @@ function SM.LayoutJournalTab(data, w, contentW, visibleContentW)
                 entry.title:SetPoint("RIGHT", detailChild, "RIGHT", -CP, 0)
                 entry.title:SetText(ch.chapter)
                 entry.title:Show()
+                if ink then
+                    entry.title:SetJustifyH("LEFT")
+                    entry.title:SetTextColor(ink[1], ink[2], ink[3])
+                    entry.body:SetTextColor(ink[1], ink[2], ink[3])
+                end
+                local divider = ink and foreverWindow.PlaceJournalDivider(journalIdx, entry.title, contentW)
 
                 -- Recap body
                 entry.body:ClearAllPoints()
-                entry.body:SetPoint("TOP", entry.title, "BOTTOM", 0, -6)
+                if divider then
+                    entry.body:SetPoint("TOP", divider, "BOTTOM", 0, -8)
+                else
+                    entry.body:SetPoint("TOP", entry.title, "BOTTOM", 0, -6)
+                end
                 entry.body:SetPoint("LEFT", detailChild, "LEFT", CP, 0)
                 entry.body:SetPoint("RIGHT", detailChild, "RIGHT", -CP, 0)
                 entry.body:SetText(ch.recap)
@@ -70,6 +90,7 @@ function SM.LayoutJournalTab(data, w, contentW, visibleContentW)
                 lastAnchor = entry.body
             end
         end
+        if ink then foreverWindow.HideJournalDividers(journalIdx + 1) end
 
         if not hasAnyRecap then
             sJournalHeader:Hide()

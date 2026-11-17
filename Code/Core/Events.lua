@@ -251,6 +251,7 @@ end
 function SM.CheckQuestCompletion(completedQuestID)
     local data, quest, chapter = SM.FindQuestStory(completedQuestID)
     if not (data and quest and chapter) then return end
+    if SM.Client.isForever then SM.RecordQuestTurnInDate(completedQuestID) end
 
     local questName = quest.name
     local questNpc = quest.npc

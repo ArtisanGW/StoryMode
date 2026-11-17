@@ -92,9 +92,10 @@ else
 end
 SM.CreateStoryPanel(leftSection)
 
--- Scrollable card list (no scrollbar — mousewheel only)
-local leftScrollTopInset = SM.PanelScrollTopInset - (SM.IsMainlineClient() and 2 or 0)
-local leftScrollBottomInset = SM.PanelScrollBottomInset - (SM.IsMainlineClient() and 2 or 0)
+-- Scrollable card list (no scrollbar — mousewheel only). On the Forever
+-- window it fills its column, which ForeverWindow.lua fits to the frame.
+local leftScrollTopInset = skinLayout and 0 or SM.PanelScrollTopInset - (SM.IsMainlineClient() and 2 or 0)
+local leftScrollBottomInset = skinLayout and 0 or SM.PanelScrollBottomInset - (SM.IsMainlineClient() and 2 or 0)
 -- The Forever window shows a scroll bar right of the list, as Legacy's
 -- category list does; elsewhere the list scrolls with the mouse wheel only.
 local leftScrollRight = skinLayout and 20 or 12
@@ -233,7 +234,7 @@ tabContainer:SetPoint("BOTTOMRIGHT", rightSection, "BOTTOMRIGHT", 0,  0)
 
 local detailScrollTemplate = (SM.IsMainlineClient()) and "ScrollFrameTemplate" or "UIPanelScrollFrameTemplate"
 local detailScrollName = (SM.IsMainlineClient()) and nil or "StoryModeDetailScrollFrame"
-local detailScrollBottomInset = SM.PanelScrollBottomInset - (SM.IsMainlineClient() and 2 or 0)
+local detailScrollBottomInset = skinLayout and 0 or SM.PanelScrollBottomInset - (SM.IsMainlineClient() and 2 or 0)
 local detailScroll = CreateFrame("ScrollFrame", detailScrollName, tabContainer, detailScrollTemplate)
 detailScroll:SetPoint("TOPLEFT",     tabContainer, "TOPLEFT",      2,  -2)
 detailScroll:SetPoint("BOTTOMRIGHT", tabContainer, "BOTTOMRIGHT", -2, detailScrollBottomInset)
@@ -338,6 +339,7 @@ local function SetIntroVisible(show)
         introCoverFrame:Hide()
         introText:Hide()
     end
+    if SM.ForeverWindow then SM.ForeverWindow.ShowQuestModeChoice(show) end
 end
 
 SetIntroVisible(false)
@@ -366,7 +368,9 @@ local function LayoutIntro()
     if contentW > 20 then introText:SetWidth(contentW) end
 
     local textH = introText:GetStringHeight() or 0
-    detailChild:SetHeight(math.max(coverH + textH + INTRO.textGap + 40, 400))
+    -- The Forever window puts its Guided/Explorer choice under the text.
+    local choiceH = SM.ForeverWindow and SM.ForeverWindow.PlaceQuestModeChoice(introText) or 0
+    detailChild:SetHeight(math.max(coverH + textH + INTRO.textGap + 40 + choiceH, 400))
 end
 
 -- ══════════════════════════════════════════════════════════════════════════════
@@ -740,7 +744,7 @@ dProgSummary:SetTextColor(C_BODY[1], C_BODY[2], C_BODY[3])
 -- Horizontal chapter track with quest detail cards below
 
 local TRACK_NODE_SIZE = 48      -- portrait circle diameter
-local TRACK_ARROW_GAP = 24      -- space between nodes (contains arrow)
+local TRACK_ARROW_GAP = SM.ForeverWindow and SM.ForeverWindow.ChapterArrowGap or 24  -- space between nodes (contains arrow); wider for Legacy's arrow
 local TRACK_STEP = TRACK_NODE_SIZE + TRACK_ARROW_GAP  -- 72px per step
 local TRACK_H = 72              -- track container height
 SM.TrackArrowSize = (SM.IsMainlineClient()) and 14 or 18
@@ -1463,9 +1467,11 @@ LayoutSelectedChapter = function()
     -- Chapter title + summary
     dChapterTitle:SetText(ch.chapter)
     dChapterTitle:SetTextColor(C_GOLD[1], C_GOLD[2], C_GOLD[3])
-    dChapterTitle:Show()
+    dChapterTitle:SetShown(not SM.ForeverWindow)  -- Forever names it on its node only
 
-    if ch.summary then
+    -- Forever keeps the summary of a chapter the player hasn't reached yet
+    -- to itself, so it doesn't give the story away.
+    if ch.summary and not (SM.ForeverWindow and not SM.IsChapterReached(data, ch)) then
         dChapterSummary:SetText(ch.summary)
         dChapterSummary:Show()
     else
@@ -1478,6 +1484,9 @@ LayoutSelectedChapter = function()
         dChapterNote:SetText(string.format(L["Lock Required Level Format"], chapterRequiredLevel))
         dChapterNote:SetTextColor(C_GOLD[1], C_GOLD[2], C_GOLD[3])
         dChapterNote:Show()
+    elseif SM.ForeverWindow then
+        -- The Forever window keeps only the level lock above the quests.
+        dChapterNote:Hide()
     elseif ch.note then
         dChapterNote:SetText(ch.note)
         dChapterNote:SetTextColor(C_GOLD[1], C_GOLD[2], C_GOLD[3])
@@ -1498,6 +1507,14 @@ LayoutSelectedChapter = function()
         end
     else
         dChapterNote:Hide()
+    end
+
+    if SM.ForeverWindow then
+        -- The level lock sits under the summary, or right under the track
+        -- when the summary is hidden (the hidden title marks the track's foot).
+        dChapterNote:ClearAllPoints()
+        dChapterNote:SetPoint("TOPLEFT", dChapterSummary:IsShown() and dChapterSummary or dChapterTitle, "BOTTOMLEFT", 0, -8)
+        dChapterNote:SetPoint("TOPRIGHT", dChapterSummary:IsShown() and dChapterSummary or dChapterTitle, "BOTTOMRIGHT", 0, -8)
     end
 
     local cdNote, ctNote = SM.GetChapterProgress(ch)
@@ -1625,6 +1642,7 @@ LayoutSelectedChapter = function()
                 -- WoW Forever's Legacy cards draw their state themselves.
                 stepNumber = stepNumber + 1
                 card:SetLegacyState((qDoneDisplay and "done") or (qInLog and "active")
+                    or (qPassed and "passed")
                     or (qIsNextRecommended and "next") or (qOptional and "optional")
                     or (lockReason and "locked") or "later", stepNumber, data, ch, q)
                 card:Show()

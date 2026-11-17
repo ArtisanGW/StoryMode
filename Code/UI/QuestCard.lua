@@ -15,6 +15,20 @@ function SM.ExecuteTrackButton(data, quest)
     if storyFrame then storyFrame:Hide() end
 end
 
+-- WoW Forever hides Lua errors unless scriptErrors is on, so a button that
+-- fails there just seems to do nothing. There its errors go to chat too.
+function SM.RunTrackButton(data, quest)
+    if not SM.Client.isForever then
+        SM.ExecuteTrackButton(data, quest)
+        return
+    end
+    local ok, err = pcall(SM.ExecuteTrackButton, data, quest)
+    if not ok then
+        print(L["Addon Prefix"] .. tostring(err))
+        geterrorhandler()(err)
+    end
+end
+
 local activeQuestTooltipCard = nil
 local questTooltipRefreshToken = 0
 
@@ -112,7 +126,8 @@ function SM.RefreshQuestCardTooltip(card, requestQuestData)
     -- quests no longer keep live counters, which makes old objective lines stale.
     local qComplete = SM.IsQuestFlaggedCompleted(card.questID)
     local hasObjectives = false
-    if not qComplete then
+    -- In Explorer mode the next quest names its giver, not what they'll ask.
+    if not qComplete and not card.offerOnly then
         local objectives = SM.GetQuestObjectives(card.questID)
         if objectives and #objectives > 0 then
             SMTooltip:AddLine(" ")
@@ -146,27 +161,64 @@ function SM.RefreshQuestCardTooltip(card, requestQuestData)
 end
 
 -- WoW Forever: quest cards are the Legacy window's challenge cards
--- (LegacyChallengeTemplate), at its size and with its state art: a finished
--- quest is a brown card with a brown ribbon, any other a dark card with a dark
--- ribbon, and the quest to do now gets the gold outline. Field names match the
--- usual card, so the click and tooltip code below works for both.
+-- (LegacyChallengeTemplate), at its size and with its state art. A finished
+-- quest is a brown card with a brown ribbon; any other is dimmed, as an
+-- unfinished challenge is: a dark card and ribbon, grey text, grey portrait.
+--
+-- A quest with two or more objectives gets Legacy's plus/minus, and clicking
+-- its card opens it, as on the Legacy page. The open card is the selected
+-- one: gold outline and full colour, the whole objective text, the quest's
+-- objectives two to a row on Legacy's criteria bars, and who gives the
+-- quest, with a button to track it. One card is open at a time. Any other
+-- card stays plain and tracks its quest when clicked. Field names match the
+-- usual card, so the tooltip and chat link code below works for both.
 SM.LegacyQuestCardWidth, SM.LegacyQuestCardHeight = 516, 122
 SM.LegacyQuestCardGap = 5
 
 local LEGACY = {
     card = "Legacy-Challenge-Cards",
-    cardOpen = "Legacy-Challenge-Cards-Disable",
+    cardDim = "Legacy-Challenge-Cards-Disable",
+    top = "Legacy-Challenge-Cards-tiled-top",
+    topDim = "Legacy-Challenge-Cards-tiled-top-Disable",
+    middle = "Legacy-Challenge-Cards-tiled-vertical",
+    middleDim = "Legacy-Challenge-Cards-tiled-vertical-Disable",
+    bottom = "Legacy-Challenge-Cards-tiled-bottom",
+    bottomDim = "Legacy-Challenge-Cards-tiled-bottom-disable",
     selected = "Legacy-Challenge-Cards-selected",
     ribbon = "Legacy-Challenge-Cards-Ribbon-Brown",
-    ribbonOpen = "Legacy-Challenge-Cards-Ribbon-Brown-disable",
+    ribbonDim = "Legacy-Challenge-Cards-Ribbon-Brown-disable",
     iconFrame = "Legacy-Tree-Frame-icon-frame",
     iconMask = "UI-Frame-IconMask",
     statusBackground = "Legacy-Challenge-Cards-Date-BG",
     check = "worldquest-tracker-checkmark",
     shield = "Legacy-Tree-Frame-Points-icon",
+    criteria = "Legacy-Challenge-Cards-Bar",
+    plus = "128-redbutton-plus",
+    minus = "128-redbutton-minus",
+}
+local UNDISCOVERED_ICON = "Interface\\Icons\\INV_Misc_QuestionMark"
+
+-- Offsets from the Legacy card (Blizzard_LegacyChallengeButton.lua and
+-- LegacyChallengeTemplate), from the card's top left.
+local CARD = {
+    descriptionX = 77,        -- the ribbon's left (5) + 72
+    descriptionXOpenable = 100, -- 5 + 95, right of the plus/minus
+    descriptionTop = 52,      -- below the ribbon: 4 + 46 + 2
+    descriptionRight = 436,   -- 80 short of the right edge, clear of the shield
+    collapsedLines = 3,
+    objectivesGap = 23,       -- from the description to the first row
+    rowHeight = 30,
+    rowGapX = 10,
+    rowGapY = 5,
+    rowInset = 20,
+    footerGap = 12,
+    footerHeight = 22,
+    bottom = 16,
+    outlineEdge = 12,         -- rows of the outline art that keep their size
 }
 local WHITE = { 1, 1, 1 }
 local GRAY = { 0.5, 0.5, 0.5 }
+local REQUIREMENT = { 1.0, 0.82, 0.35 }
 
 -- The objective line from the quest cache (Data/Forever/ForeverQuestText.lua,
 -- English), with the game's $ tokens filled in.
@@ -184,25 +236,234 @@ local function GetQuestCardText(questID)
     return text
 end
 
+-- A turn-in day the way Legacy writes a challenge's date (13/11/26 or
+-- 11/13/26, by the client's region).
+local function FormatTurnInDate(stamp)
+    local day = date("*t", stamp)
+    if FormatShortDate then return FormatShortDate(day.day, day.month, day.year % 100) end
+    return string.format("%d/%d/%02d", day.day, day.month, day.year % 100)
+end
+
+-- Who gives the quest and where, from the story data.
+local function GetQuestGiverText(data, quest)
+    local npc = quest and quest.npc or ""
+    local location = quest and (quest.location
+        or (data and data.npcLocations and data.npcLocations[quest.npc] and data.npcLocations[quest.npc].location))
+    if location and location ~= "" then
+        return npc ~= "" and (npc .. ", " .. location) or location
+    end
+    return npc
+end
+
+-- The selected outline is a thin gold frame with round corners. An open card
+-- is taller than the art, so the outline is drawn in three slices: the top
+-- and bottom rows keep their size and only the straight sides stretch.
+local function CreateOutline(card, layer, alpha)
+    local info = C_Texture.GetAtlasInfo(LEGACY.selected)
+    local file = info and (info.file or info.filename)
+    local outline = {}
+    if not (file and info.height and info.height > 0) then
+        local whole = card:CreateTexture(nil, layer)
+        whole:SetAllPoints()
+        SM.ForeverWindow.SetAtlas(whole, LEGACY.selected)
+        whole:SetAlpha(alpha)
+        outline[1] = whole
+        return outline
+    end
+    local left, right = info.leftTexCoord, info.rightTexCoord
+    local top, bottom = info.topTexCoord, info.bottomTexCoord
+    local edge = (bottom - top) * CARD.outlineEdge / info.height
+    local slices = {
+        { "TOPLEFT", "TOPRIGHT", top, top + edge },
+        { "BOTTOMLEFT", "BOTTOMRIGHT", bottom - edge, bottom },
+    }
+    for i, slice in ipairs(slices) do
+        local tex = card:CreateTexture(nil, layer)
+        tex:SetTexture(file)
+        tex:SetTexCoord(left, right, slice[3], slice[4])
+        tex:SetHeight(CARD.outlineEdge)
+        tex:SetPoint(slice[1])
+        tex:SetPoint(slice[2])
+        tex:SetAlpha(alpha)
+        outline[i] = tex
+    end
+    local sides = card:CreateTexture(nil, layer)
+    sides:SetTexture(file)
+    sides:SetTexCoord(left, right, top + edge, bottom - edge)
+    sides:SetPoint("TOPLEFT", outline[1], "BOTTOMLEFT")
+    sides:SetPoint("BOTTOMRIGHT", outline[2], "TOPRIGHT")
+    sides:SetAlpha(alpha)
+    outline[3] = sides
+    return outline
+end
+
+local function SetOutlineShown(outline, shown)
+    for _, tex in ipairs(outline) do tex:SetShown(shown) end
+end
+
+-- One objective on Legacy's criteria bar (LegacyChallengeCriteriaTemplate).
+local function CreateObjectiveRow(card)
+    local SetAtlas = SM.ForeverWindow.SetAtlas
+    local row = CreateFrame("Frame", nil, card)
+    row:SetHeight(CARD.rowHeight)
+    row.background = row:CreateTexture(nil, "BACKGROUND")
+    row.background:SetAllPoints()
+    SetAtlas(row.background, LEGACY.criteria)
+    row.check = row:CreateTexture(nil, "ARTWORK")
+    SetAtlas(row.check, LEGACY.check, true)
+    row.check:SetScale(0.4)
+    row.check:SetPoint("RIGHT", row, "RIGHT", -6, 0)
+    row.text = row:CreateFontString(nil, "ARTWORK", "SystemFont_Small2")
+    row.text:SetPoint("LEFT", row, "LEFT", 6, 0)
+    row.text:SetJustifyH("LEFT")
+    row.text:SetMaxLines(2)
+    return row
+end
+
+-- Which card is open, by its quest, so it stays open while the chapter
+-- lays itself out again.
+local expandedQuest, expandedCard
+local legacyCards = {}
+
+local function RelayoutChapter()
+    if SM.LayoutSelectedChapter then SM.LayoutSelectedChapter() end
+end
+
+local function AnyLegacyCardVisible()
+    for _, card in ipairs(legacyCards) do
+        if card:IsVisible() then return true end
+    end
+    return false
+end
+
+-- Quests the game had to load, and live counts on the open card, lay the
+-- chapter out again. Several events in a row cause one layout.
+local loadingObjectives = {}
+local cardEvents
+local function EnsureCardEvents()
+    if cardEvents then return end
+    cardEvents = CreateFrame("Frame")
+    cardEvents:RegisterEvent("QUEST_LOG_UPDATE")
+    pcall(cardEvents.RegisterEvent, cardEvents, "QUEST_DATA_LOAD_RESULT")
+    local queued = false
+    cardEvents:SetScript("OnEvent", function(_, event, questID)
+        if event == "QUEST_DATA_LOAD_RESULT" then
+            if not loadingObjectives[questID] then return end
+            loadingObjectives[questID] = nil
+        else
+            local card = expandedCard
+            if not (card and card.expanded and card.liveObjectives and card:IsVisible()) then return end
+        end
+        if queued or not AnyLegacyCardVisible() then return end
+        queued = true
+        C_Timer.After(0.2, function()
+            queued = false
+            if AnyLegacyCardVisible() then RelayoutChapter() end
+        end)
+    end)
+end
+
+-- The quest's objectives. A quest in the log has live counts; a turned-in
+-- quest keeps none, so its counts show full. The game may need to load a
+-- quest first: it's asked once, and the chapter lays itself out again when
+-- the data arrives.
+local requestedObjectives = {}
+local function GetCardObjectives(card, done)
+    local inLog, activeID = SM.IsQuestEntryInLog(card.questEntry)
+    local questID = activeID or card.questID
+    local list = {}
+    local objectives = questID and SM.GetQuestObjectives(questID)
+    for _, objective in ipairs(type(objectives) == "table" and objectives or {}) do
+        local text = objective.text
+        if text and text ~= "" then
+            local finished = objective.finished and true or false
+            if done then
+                text = text:gsub("(%d+)%s*/%s*(%d+)", "%2/%2")
+                finished = true
+            end
+            list[#list + 1] = { text = text, finished = finished }
+        end
+    end
+    card.liveObjectives = inLog
+    if #list == 0 and questID and not requestedObjectives[questID]
+        and C_QuestLog and C_QuestLog.RequestLoadQuestByID then
+        requestedObjectives[questID] = true
+        if pcall(C_QuestLog.RequestLoadQuestByID, questID) then
+            loadingObjectives[questID] = true
+            EnsureCardEvents()
+        end
+    end
+    return list
+end
+
+local function LayoutObjectives(card, list, top)
+    local width = SM.LegacyQuestCardWidth - 2 * CARD.rowInset
+    local cellWidth = (width - CARD.rowGapX) / 2
+    local numRows = math.ceil(#list / 2)
+    for i, objective in ipairs(list) do
+        local row = card.rows[i] or CreateObjectiveRow(card)
+        card.rows[i] = row
+        local line = math.floor((i - 1) / 2)
+        local y = -(top + line * (CARD.rowHeight + CARD.rowGapY))
+        row:ClearAllPoints()
+        if #list == 1 then
+            -- A lone objective spans the card instead of half of it.
+            row:SetWidth(width)
+            row:SetPoint("TOPLEFT", card, "TOPLEFT", CARD.rowInset, y)
+        elseif i % 2 == 1 then
+            row:SetWidth(cellWidth)
+            row:SetPoint("TOPLEFT", card, "TOPLEFT", CARD.rowInset, y)
+        else
+            row:SetWidth(cellWidth)
+            row:SetPoint("TOPRIGHT", card, "TOPRIGHT", -CARD.rowInset, y)
+        end
+        row.text:SetWidth(row:GetWidth() - 30)
+        row.text:SetText(objective.text)
+        local color = objective.finished and WHITE or GRAY
+        row.text:SetTextColor(color[1], color[2], color[3])
+        row.check:SetShown(objective.finished)
+        row:Show()
+    end
+    for i = #list + 1, #card.rows do card.rows[i]:Hide() end
+    if numRows == 0 then return 0 end
+    return numRows * CARD.rowHeight + (numRows - 1) * CARD.rowGapY
+end
+
+-- Only a card with two or more objectives opens; any other stays a plain
+-- card that tracks its quest when clicked.
+local function ToggleLegacyQuestCard(card)
+    expandedQuest = (expandedQuest ~= card.questEntry) and card.questEntry or nil
+    SMTooltip:Hide()
+    PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
+    RelayoutChapter()
+end
+
 local function CreateLegacyQuestCard(parent)
     local SetAtlas = SM.ForeverWindow.SetAtlas
     local card = CreateFrame("Button", nil, parent)
     card:EnableMouse(true)
     card:SetSize(SM.LegacyQuestCardWidth, SM.LegacyQuestCardHeight)
     card.isLegacyCard = true
+    card.rows = {}
+    legacyCards[#legacyCards + 1] = card
 
+    -- Closed: one card piece. Open: a top, a bottom and a middle that tiles
+    -- down between them, so the card grows without stretching.
     card.bg = card:CreateTexture(nil, "BACKGROUND")
     card.bg:SetAllPoints()
+    card.middle = card:CreateTexture(nil, "BACKGROUND", nil, -1)
+    card.middle:SetPoint("TOPLEFT", card, "TOPLEFT", 0, -10)
+    card.middle:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", 0, 10)
+    card.top = card:CreateTexture(nil, "BACKGROUND")
+    card.top:SetPoint("TOPLEFT")
+    card.top:SetPoint("TOPRIGHT")
+    card.bottom = card:CreateTexture(nil, "BACKGROUND")
+    card.bottom:SetPoint("BOTTOMLEFT")
+    card.bottom:SetPoint("BOTTOMRIGHT")
 
-    card.selected = card:CreateTexture(nil, "BORDER")
-    card.selected:SetAllPoints()
-    SetAtlas(card.selected, LEGACY.selected)
-    card.selected:Hide()
-
-    local highlight = card:CreateTexture(nil, "HIGHLIGHT")
-    highlight:SetAllPoints()
-    SetAtlas(highlight, LEGACY.selected)
-    highlight:SetAlpha(0.35)
+    card.selected = CreateOutline(card, "BORDER", 1)
+    SetOutlineShown(card.selected, false)
+    CreateOutline(card, "HIGHLIGHT", 0.35)
 
     card.ribbon = card:CreateTexture(nil, "ARTWORK")
     card.ribbon:SetPoint("TOPLEFT", card, "TOPLEFT", 5, -4)
@@ -229,12 +490,15 @@ local function CreateLegacyQuestCard(parent)
     card.title:SetJustifyH("LEFT")
     card.title:SetWordWrap(false)
 
+    -- Open or closed, as on the Legacy card.
+    card.plusMinus = card:CreateTexture(nil, "OVERLAY")
+    card.plusMinus:SetSize(20, 20)
+    card.plusMinus:SetPoint("TOPLEFT", card, "TOPLEFT", 76, -49)
+
+    -- The description: the quest's objective, or who gives it and where.
     card.npcLabel = card:CreateFontString(nil, "OVERLAY", "SystemFont_Shadow_Med1")
-    card.npcLabel:SetPoint("TOPLEFT", card.ribbon, "BOTTOMLEFT", 72, -2)
-    card.npcLabel:SetPoint("RIGHT", card, "RIGHT", -80, 0)
     card.npcLabel:SetJustifyH("LEFT")
     card.npcLabel:SetJustifyV("TOP")
-    card.npcLabel:SetMaxLines(4)
 
     -- Top-right corner, where Legacy shows the date a challenge was done.
     card.statusBackground = card:CreateTexture(nil, "OVERLAY")
@@ -255,6 +519,22 @@ local function CreateLegacyQuestCard(parent)
     card.step = card:CreateFontString(nil, "OVERLAY", "GameFontNormalMed3")
     card.step:SetPoint("CENTER", card.shield, "CENTER", -1, -4)
 
+    -- The open card's last line: who gives the quest (or what it needs
+    -- first), and a button to track it.
+    card.footer = card:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    card.footer:SetJustifyH("LEFT")
+    card.footer:SetWordWrap(false)
+    card.trackButton = CreateFrame("Button", nil, card, "UIPanelButtonTemplate")
+    card.trackButton:SetText(TRACK_QUEST or "Track Quest")
+    local trackLabel = card.trackButton:GetFontString()
+    card.trackButton:SetSize(math.max(110, (trackLabel and trackLabel:GetStringWidth() or 0) + 32), CARD.footerHeight)
+    card.trackButton:SetScript("OnClick", function(self)
+        local owner = self:GetParent()
+        SM.RunTrackButton(owner.storyData, owner.questEntry)
+    end)
+    card.footer:Hide()
+    card.trackButton:Hide()
+
     -- Kept so shared code that touches card.icon still works.
     card.icon = card:CreateTexture(nil, "OVERLAY")
     card.icon:Hide()
@@ -263,43 +543,114 @@ local function CreateLegacyQuestCard(parent)
     -- "locked" (has a requirement) or "later".
     function card:SetLegacyState(state, stepNumber, data, chapter, quest)
         local done = state == "done"
-        local current = state == "active" or state == "next"
-        SetAtlas(self.bg, done and LEGACY.card or LEGACY.cardOpen)
-        SetAtlas(self.ribbon, done and LEGACY.ribbon or LEGACY.ribbonOpen)
-        self.selected:SetShown(current)
+        -- Explorer mode: a quest counts as discovered once it's done, in the
+        -- log or passed, or it's the one the story sends the player to next.
+        -- Until then its card keeps its place and step, nothing else; the
+        -- next quest names its giver but not what they'll ask.
+        local explorer = SM.IsExplorerMode and SM.IsExplorerMode()
+        local undiscovered = explorer and not (done or state == "active" or state == "passed" or state == "next")
+        local offerOnly = explorer and state == "next"
+        self.undiscovered, self.offerOnly = undiscovered, offerOnly
+        local objectives = (undiscovered or offerOnly) and {} or GetCardObjectives(self, done)
+        local expandable = #objectives > 1
+        local expanded = expandable and quest ~= nil and quest == expandedQuest
+        -- Legacy has two looks, finished and not. A quest in the log keeps
+        -- the unfinished art but is in full colour, so it doesn't read as not
+        -- started yet.
+        local dimmed = not done and not expanded and state ~= "active"
+        self.expandable = expandable
+        self.expanded = expanded
+        if expanded then
+            expandedCard = self
+            EnsureCardEvents()
+        end
+
+        SetAtlas(self.bg, done and LEGACY.card or LEGACY.cardDim)
+        SetAtlas(self.top, done and LEGACY.top or LEGACY.topDim, true)
+        SetAtlas(self.middle, done and LEGACY.middle or LEGACY.middleDim)
+        self.middle:SetVertTile(true)  -- SetAtlas resets the wrap mode
+        SetAtlas(self.bottom, done and LEGACY.bottom or LEGACY.bottomDim, true)
+        self.bg:SetShown(not expanded)
+        self.top:SetShown(expanded)
+        self.middle:SetShown(expanded)
+        self.bottom:SetShown(expanded)
+        SetAtlas(self.ribbon, done and LEGACY.ribbon or LEGACY.ribbonDim)
+        SetOutlineShown(self.selected, expanded)
+        SetAtlas(self.plusMinus, expanded and LEGACY.minus or LEGACY.plus)
+        self.plusMinus:SetShown(expandable)
 
         local displayID = data and data.npcDisplayIDs and quest and data.npcDisplayIDs[quest.npc]
         local iconPath = data and ((data.chapterIcons and chapter and data.chapterIcons[chapter.chapter]) or data.icon)
-        SM.SetChapterPortrait(self.portrait, displayID, iconPath, quest and quest.id)
-        self.portrait:SetDesaturated(not done and not current)
-
-        -- The quest's own objective; without one, who gives it and where.
-        local text = GetQuestCardText(quest and quest.id)
-        if not text then
-            local npc = quest and quest.npc or ""
-            local location = quest and (quest.location
-                or (data and data.npcLocations and data.npcLocations[quest.npc] and data.npcLocations[quest.npc].location))
-            text = (location and location ~= "") and (npc .. ", " .. location) or npc
+        if undiscovered then
+            self.portrait:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+            self.portrait:SetTexture(UNDISCOVERED_ICON)
+            self.title:SetText(L["Quest Undiscovered Title"])
+            self.tooltipTitle, self.tooltipNPC = L["Quest Undiscovered Title"], nil
+            self.tooltipStatus, self.tooltipRequirement = nil, nil
+        else
+            SM.SetChapterPortrait(self.portrait, displayID, iconPath, quest and quest.id)
         end
-        self.npcLabel:SetText(text)
+        self.portrait:SetDesaturated(dimmed)
 
-        local statusText = (done and L["Quest Status Completed"])
+        local objectiveText = not (undiscovered or offerOnly) and GetQuestCardText(quest and quest.id) or nil
+        local giverText = undiscovered and L["Quest Undiscovered Text"] or GetQuestGiverText(data, quest)
+        local descriptionX = expandable and CARD.descriptionXOpenable or CARD.descriptionX
+        self.npcLabel:ClearAllPoints()
+        self.npcLabel:SetPoint("TOPLEFT", self, "TOPLEFT", descriptionX, -CARD.descriptionTop)
+        self.npcLabel:SetWidth(CARD.descriptionRight - descriptionX)
+        self.npcLabel:SetMaxLines(expanded and 0 or CARD.collapsedLines)
+        self.npcLabel:SetText(objectiveText or giverText)
+
+        -- Done: the day it was turned in and a check, as Legacy dates a
+        -- finished challenge (just the check if the day isn't known).
+        local turnedIn = done and SM.GetQuestTurnInDate and SM.GetQuestTurnInDate(quest)
+        local statusText = (turnedIn and FormatTurnInDate(turnedIn))
             or (state == "active" and L["Quest Status In Progress"])
-            or (state == "optional" and L["Quest Status Optional"]) or nil
+            or (state == "optional" and not undiscovered and L["Quest Status Optional"]) or nil
         self.status:SetText(statusText or "")
         self.status:ClearAllPoints()
-        self.status:SetPoint("RIGHT", self.statusBackground, "RIGHT", done and -24 or -8, 0)
-        self.status:SetTextColor(done and 0.45 or 1, done and 0.9 or 0.82, done and 0.35 or 0)
-        self.statusBackground:SetShown(statusText ~= nil)
+        if done then
+            self.status:SetPoint("RIGHT", self.check, "LEFT", 0, 0)
+        else
+            self.status:SetPoint("RIGHT", self.statusBackground, "RIGHT", -8, 0)
+        end
+        self.status:SetTextColor(1, 0.82, 0)
+        self.statusBackground:SetShown(done or statusText ~= nil)
         self.check:SetShown(done)
 
         self.step:SetText(stepNumber and tostring(stepNumber) or "")
         self.shield:SetShown(stepNumber ~= nil)
         self.step:SetShown(stepNumber ~= nil)
 
-        local color = (done or current) and WHITE or GRAY
+        local color = dimmed and GRAY or WHITE
         self.title:SetTextColor(color[1], color[2], color[3])
         self.npcLabel:SetTextColor(color[1], color[2], color[3])
+
+        local height = SM.LegacyQuestCardHeight
+        local y = CARD.descriptionTop + math.ceil(self.npcLabel:GetStringHeight() or 0)
+        local objectivesHeight = LayoutObjectives(self, expanded and objectives or {}, y + CARD.objectivesGap)
+        if objectivesHeight > 0 then y = y + CARD.objectivesGap + objectivesHeight end
+
+        local requirement = self.tooltipRequirement
+        local footerText = requirement or (objectiveText and giverText ~= "" and giverText) or nil
+        local canTrack = expanded and not done and not requirement
+        self.footer:SetShown(expanded and footerText ~= nil)
+        self.trackButton:SetShown(canTrack)
+        if expanded then
+            local footerY = -(y + CARD.footerGap)
+            self.trackButton:ClearAllPoints()
+            self.trackButton:SetPoint("TOPRIGHT", self, "TOPRIGHT", -CARD.rowInset, footerY)
+            self.footer:ClearAllPoints()
+            self.footer:SetPoint("LEFT", self, "TOPLEFT", CARD.rowInset + 6, footerY - CARD.footerHeight / 2)
+            self.footer:SetWidth(SM.LegacyQuestCardWidth - 2 * CARD.rowInset - 6
+                - (canTrack and self.trackButton:GetWidth() + 12 or 0))
+            self.footer:SetText(footerText or "")
+            local footerColor = requirement and REQUIREMENT or C_GOLD
+            self.footer:SetTextColor(footerColor[1], footerColor[2], footerColor[3])
+            if footerText or canTrack then y = y + CARD.footerGap + CARD.footerHeight end
+            height = math.max(height, y + CARD.bottom)
+        end
+        self:SetHeight(height)
     end
 
     return card
@@ -380,11 +731,21 @@ function SM.CreateQuestCard(parent)
     return card
 end
 
--- Tooltip, chat link and tracking clicks, shared by both card styles.
+-- Tooltip, chat link and tracking clicks, shared by both card styles. A
+-- Legacy card opens on a click instead, and tracks from its own button.
 function SM.AttachQuestCardScripts(card)
     -- Tooltip — refreshes in place when Blizzard finishes loading quest data.
+    -- An open Legacy card already shows all of it.
     card:SetScript("OnEnter", function(self)
-        if not self.questID then return end
+        if self.undiscovered then
+            SMTooltip:SetOwner(self, "ANCHOR_RIGHT")
+            SMTooltip:ClearLines()
+            SMTooltip:AddLine(L["Quest Undiscovered Title"], 1, 1, 1)
+            SMTooltip:AddLine(L["Quest Undiscovered Text"], C_BODY[1], C_BODY[2], C_BODY[3], true)
+            SMTooltip:Show()
+            return
+        end
+        if not self.questID or self.expanded then return end
         activeQuestTooltipCard = self
         EnsureQuestTooltipEvents()
         SM.RefreshQuestCardTooltip(self, true)
@@ -397,10 +758,14 @@ function SM.AttachQuestCardScripts(card)
         SMTooltip:Hide()
     end)
     card:SetScript("OnClick", function(self, button)
-        if not self.questEntry then return end
+        if not self.questEntry or self.undiscovered then return end
 
         local questName = self.tooltipTitle or self.questEntry.name or L["Quest"]
         if button == "LeftButton" and IsShiftKeyDown() and SM.InsertQuestChatLink(self.questEntry, self.questID, questName) then
+            return
+        end
+        if self.isLegacyCard and self.expandable then
+            ToggleLegacyQuestCard(self)
             return
         end
 

@@ -20,6 +20,16 @@ local function EnsureTrivialQuestsVisible()
     end
 end
 
+-- On WoW Forever the player decides whether Story Mode marks the map: it
+-- adds a waypoint, makes a quest the tracked one or turns on trivial quest
+-- tracking only while the world map's Quest Objectives filter is on.
+-- Track Quest still watches the quest and opens the map at the spot.
+local function MapPinsWanted()
+    if not (SM.Client and SM.Client.isForever) then return true end
+    local value = GetCVar and GetCVar("questPOI")
+    return value == nil or value == "1"
+end
+
 -- Map data provider for the "begin tracking" ping. We can't parent an insecure
 -- frame to WorldMapFrame.ScrollContainer.Child directly — that taints the secure
 -- canvas and propagates into AreaPOI tooltip widgets. Going through a proper
@@ -239,19 +249,21 @@ function SM.SetWaypointForQuest(data, quest)
         return TrackResult("classic_guidance", GetTrackedQuestID(quest))
     end
 
-    EnsureTrivialQuestsVisible()
+    local pinsWanted = MapPinsWanted()
+    if pinsWanted then EnsureTrivialQuestsVisible() end
 
     if SM.IsQuestEntryInLog(quest) then
         local qid = GetTrackedQuestID(quest)
         SM.AddQuestWatch(qid)
-        if C_SuperTrack and C_SuperTrack.SetSuperTrackedQuestID then
+        if pinsWanted and C_SuperTrack and C_SuperTrack.SetSuperTrackedQuestID then
             C_SuperTrack.SetSuperTrackedQuestID(qid)
         end
         local loc = GetQuestLocation(data, quest)
         if loc then
             PingOnWorldMap(loc.mapID, loc.x, loc.y)
         end
-        return TrackResult("supertracked", qid, loc)
+        -- Not followed without map pins, so it points to the quest log.
+        return TrackResult(pinsWanted and "supertracked" or "classic_in_log", qid, loc)
     end
 
     local guidanceQuest = GetQuestGuidanceOverride(quest)
@@ -259,12 +271,12 @@ function SM.SetWaypointForQuest(data, quest)
     local loc = GetQuestLocation(data, trackQuest)
     local qid = GetTrackedQuestID(trackQuest)
 
-    if qid and C_SuperTrack and C_SuperTrack.SetSuperTrackedMapPin
+    if pinsWanted and qid and C_SuperTrack and C_SuperTrack.SetSuperTrackedMapPin
         and Enum and Enum.SuperTrackingMapPinType and Enum.SuperTrackingMapPinType.QuestOffer then
         C_SuperTrack.SetSuperTrackedMapPin(Enum.SuperTrackingMapPinType.QuestOffer, qid)
     end
 
-    if loc and C_Map and C_Map.CanSetUserWaypointOnMap and C_Map.CanSetUserWaypointOnMap(loc.mapID)
+    if pinsWanted and loc and C_Map and C_Map.CanSetUserWaypointOnMap and C_Map.CanSetUserWaypointOnMap(loc.mapID)
         and UiMapPoint and C_Map.SetUserWaypoint then
         local point = UiMapPoint.CreateFromCoordinates(loc.mapID, loc.x, loc.y)
         C_Map.SetUserWaypoint(point)

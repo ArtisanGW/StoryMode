@@ -413,7 +413,8 @@ local function GetStoryCardSubline(data)
     for part in zoneText:gmatch("[^/]+") do
         parts[#parts + 1] = part:match("^%s*(.-)%s*$")
     end
-    if SM.IsClassicClient() and #parts > 1 then
+    -- Classic and WoW Forever name only the zone the story starts in.
+    if (SM.IsClassicClient() or SM.Client.isForever) and #parts > 1 then
         return parts[1]
     elseif #parts > 2 then
         return parts[1] .. " / " .. parts[2]

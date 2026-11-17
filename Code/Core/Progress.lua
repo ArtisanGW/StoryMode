@@ -520,3 +520,19 @@ function SM.FindNextQuest(data)
     progressCache.nextQuest[data] = { quest = nil, chapter = nil, chapterData = nil }
     return nil, nil
 end
+
+-- Whether the player has reached a chapter: it's done or under way (a quest
+-- turned in or in the log), or it's where the story sends them next. Chapters
+-- you watch or replay instead of quest through always count, since their
+-- summary says what to do.
+function SM.IsChapterReached(data, ch)
+    if not (data and ch) then return false end
+    if ch.loreOnly or ch.replayable then return true end
+    if SM.GetChapterProgress(ch) > 0 then return true end
+    for _, q in ipairs(ch.quests or {}) do
+        if SM.IsQuestForPlayer(q) and SM.IsQuestEntryInLog(q) then return true end
+    end
+    local _, _, nextChapter = SM.FindNextQuest(data)
+    if nextChapter then return nextChapter == ch end
+    return SM.GetAllChapters(data)[1] == ch
+end
