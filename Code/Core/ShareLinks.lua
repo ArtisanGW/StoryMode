@@ -1,5 +1,13 @@
 local _, SM = ...
 
+-- Newer clients hand some chat lines to addons as secret values: addon code
+-- may pass them on, but reading one (find, gsub, even comparing it) is an
+-- error. Story Mode only links lines it is allowed to read.
+local function IsReadableMessage(message)
+    if issecretvalue and issecretvalue(message) then return false end
+    return type(message) == "string"
+end
+
 local function EncodeStoryLinkID(storyID)
     storyID = tostring(storyID or "")
     return storyID:gsub(".", function(char)
@@ -62,7 +70,7 @@ local function FindStoryByTitle(title)
 end
 
 function SM.LinkifyStoryShares(message)
-    if type(message) ~= "string" or not message:find("%[Story Mode: ") then return false, message end
+    if not IsReadableMessage(message) or not message:find("%[Story Mode: ") then return false, message end
     if message:find("|Hstorymode:", 1, true) then return false, message end
 
     local changed = false
@@ -121,7 +129,7 @@ function SM.InsertScarletLedgerChatLink()
 end
 
 function SM.LinkifyScarletShares(message)
-    if type(message) ~= "string" or not message:find("%[Story Mode: A Private War") then return false, message end
+    if not IsReadableMessage(message) or not message:find("%[Story Mode: A Private War") then return false, message end
     if not (SM.IsScarletCrusaderRevealed and SM.IsScarletCrusaderRevealed()) then return false, message end
     -- Both the CHAT_MSG filter and the AddMessage wrapper run this; a second
     -- pass over already-linkified text must not nest another |H...|h layer.
@@ -185,7 +193,7 @@ function SM.InsertQuestChatLink(questEntry, questID, questName)
 end
 
 function SM.LinkifyQuestShares(message)
-    if type(message) ~= "string" or not message:find("%(%d+%)") then return false, message end
+    if not IsReadableMessage(message) or not message:find("%(%d+%)") then return false, message end
     if message:find("|Hstorymodequest:", 1, true) then return false, message end
 
     local changed = false
@@ -231,6 +239,7 @@ function SM.OpenQuestLink(questID)
 end
 
 local function DispatchItemRef(link)
+    if not IsReadableMessage(link) then return false end
     local encodedStoryID = link and link:match("^storymode:(%x+):")
     if encodedStoryID and SM.OpenStoryLink and SM.OpenStoryLink(encodedStoryID) then
         return true
@@ -253,15 +262,34 @@ local function DispatchItemRef(link)
     return false
 end
 
-if not SM.shareLinkItemRefInstalled and SetItemRef then
-    local OriginalSetItemRef = SetItemRef
-    SetItemRef = function(link, text, button, chatFrame)
-        if DispatchItemRef(link) then
-            return
+-- Story Mode's own link types. Newer clients let an addon register a handler
+-- per link type; replacing SetItemRef there would taint every link click and,
+-- through the chat frames, the game's chat code (in battlegrounds most of all).
+local STORY_MODE_LINK_TYPES = { "storymode", "storymodequest", "storymodescarlet", "storymodescarlettab" }
+
+if not SM.shareLinkItemRefInstalled then
+    if LinkUtil and LinkUtil.RegisterLinkHandler then
+        for _, linkType in ipairs(STORY_MODE_LINK_TYPES) do
+            if not (LinkUtil.IsLinkHandlerRegistered and LinkUtil.IsLinkHandlerRegistered(linkType)) then
+                LinkUtil.RegisterLinkHandler(linkType, function(link)
+                    DispatchItemRef(link)
+                    -- Ours either way: the game has no tooltip for these links.
+                    return LinkProcessorResponse and LinkProcessorResponse.Handled or nil
+                end)
+            end
         end
-        return OriginalSetItemRef(link, text, button, chatFrame)
+        SM.shareLinkItemRefInstalled = true
+    elseif SetItemRef then
+        -- Older clients have no handler registry: wrap SetItemRef as before.
+        local OriginalSetItemRef = SetItemRef
+        SetItemRef = function(link, text, button, chatFrame)
+            if DispatchItemRef(link) then
+                return
+            end
+            return OriginalSetItemRef(link, text, button, chatFrame)
+        end
+        SM.shareLinkItemRefInstalled = true
     end
-    SM.shareLinkItemRefInstalled = true
 end
 
 local SHARE_EVENTS = {
@@ -322,16 +350,27 @@ local function WrapChatFrameAddMessage(chatFrame)
 
     local originalAddMessage = chatFrame.AddMessage
     chatFrame.AddMessage = function(self, message, ...)
-        local originalMessage = message
-        local changed
-        changed, message = LinkifyShareMessage(message)
-        if message == nil then message = originalMessage end
+        -- A secret line goes through untouched: not even compared.
+        if IsReadableMessage(message) then
+            local changed, linked = LinkifyShareMessage(message)
+            if changed and linked ~= nil then message = linked end
+        end
         return originalAddMessage(self, message, ...)
     end
     chatFrame._storyModeShareWrapped = true
 end
 
+-- Clients that guard chat from addons (secret values) run the message filters
+-- above securely and only for lines addons may read. Replacing a chat frame's
+-- AddMessage there taints the game's own chat handling ("attempted to iterate
+-- a table that cannot be accessed while tainted"), so the filters do it all.
+local function ChatIsGuarded()
+    return canaccessvalue ~= nil or issecretvalue ~= nil
+end
+SM.ChatIsGuarded = ChatIsGuarded
+
 function SM.RegisterShareDisplayHooks()
+    if ChatIsGuarded() then return end
     for i = 1, (NUM_CHAT_WINDOWS or 10) do
         WrapChatFrameAddMessage(_G["ChatFrame" .. i])
     end

@@ -227,6 +227,10 @@ function SM.ShouldSuppressQuestAcceptedSystemMessage(message)
 end
 
 function SM.QuestAcceptedSystemMessageFilter(_, _, message, ...)
+    -- A secret system line (newer clients) can't be read: pass it on as is.
+    if (issecretvalue and issecretvalue(message)) or type(message) ~= "string" then
+        return false, message, ...
+    end
     if SM.ShouldSuppressQuestAcceptedSystemMessage(message) then
         return true
     end
@@ -235,8 +239,11 @@ end
 
 function SM.RegisterQuestAcceptedSystemMessageFilter()
     if SM.questAcceptedSystemMessageFilterRegistered then return end
-    if ChatFrame_AddMessageEventFilter then
-        ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", SM.QuestAcceptedSystemMessageFilter)
+    -- The game's filter registry (newer clients run filters securely), or the
+    -- older global.
+    local addFilter = ChatFrameUtil and ChatFrameUtil.AddMessageEventFilter or ChatFrame_AddMessageEventFilter
+    if addFilter then
+        addFilter("CHAT_MSG_SYSTEM", SM.QuestAcceptedSystemMessageFilter)
         SM.questAcceptedSystemMessageFilterRegistered = true
     end
 end
