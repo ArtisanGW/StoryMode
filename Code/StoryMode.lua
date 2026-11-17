@@ -104,9 +104,11 @@ leftScroll:SetPoint("TOPLEFT",     leftSection, "TOPLEFT",     12, -leftScrollTo
 leftScroll:SetPoint("BOTTOMRIGHT", leftSection, "BOTTOMRIGHT", -leftScrollRight, leftScrollBottomInset)
 if leftScroll.ScrollBar then
     if skinLayout then
+        -- Same spacing as the detail's scroll bar: 8 below the gold line, 6
+        -- above the frame's bottom border.
         leftScroll.ScrollBar:ClearAllPoints()
-        leftScroll.ScrollBar:SetPoint("TOPLEFT", leftScroll, "TOPRIGHT", 2, 0)
-        leftScroll.ScrollBar:SetPoint("BOTTOMLEFT", leftScroll, "BOTTOMRIGHT", 2, 0)
+        leftScroll.ScrollBar:SetPoint("TOPLEFT", leftScroll, "TOPRIGHT", 2, -8)
+        leftScroll.ScrollBar:SetPoint("BOTTOMLEFT", leftScroll, "BOTTOMRIGHT", 2, 6)
         leftScroll:HookScript("OnScrollRangeChanged", function(self)
             C_Timer.After(0, function() SM.UpdateScrollbarVisibility(self) end)
         end)
@@ -248,9 +250,10 @@ SM.EnableMouseWheelScroll(detailScroll)
 local detailScrollbar = SM.GetScrollBar(detailScroll)
 if detailScrollbar then
     if skinLayout then
-        -- Just outside the detail pane, where the Legacy page puts its scroll bar.
+        -- Just outside the detail pane, where the Legacy page puts its scroll
+        -- bar, level with the list's (the pane starts 1 lower than the list).
         detailScrollbar:ClearAllPoints()
-        detailScrollbar:SetPoint("TOPLEFT",    detailScroll, "TOPRIGHT",    6, -8)
+        detailScrollbar:SetPoint("TOPLEFT",    detailScroll, "TOPRIGHT",    6, -7)
         detailScrollbar:SetPoint("BOTTOMLEFT", detailScroll, "BOTTOMRIGHT", 6,  6)
     elseif SM.IsMainlineClient() then
         detailScrollbar:ClearAllPoints()
@@ -437,6 +440,8 @@ aCoverTexture:SetTexCoord(
     ADVENTURE_COVER_TEX_TOP,
     ADVENTURE_COVER_TEX_BOTTOM
 )
+-- Darkened a little so the title and level read on bright or busy covers.
+aCoverTexture:SetVertexColor(0.6, 0.6, 0.6)
 
 -- Soft-edge fade mask: alpha-channel rounded rect that fades to transparent on
 -- all four sides. Authored in Figma, exported as 32-bit TGA. The mask stretches
@@ -456,8 +461,7 @@ do
     local font, _, flags = aCoverTitle:GetFont()
     aCoverTitle:SetFont(font, 30, flags)
 end
--- Soft shadow so the title stays readable on bright/busy parts of the cover.
-aCoverTitle:SetShadowColor(0, 0, 0, 0.55)
+aCoverTitle:SetShadowColor(0, 0, 0, 1)
 aCoverTitle:SetShadowOffset(2, -2)
 
 -- Gold gradient divider under the title (matches achievements page style).
@@ -483,8 +487,8 @@ aCoverDividerR:SetGradient("HORIZONTAL",
 local aCoverLevel = SM.NoShadow(aCoverFrame:CreateFontString(nil, "OVERLAY", "QuestFont"))
 aCoverLevel:SetJustifyH("CENTER")
 aCoverLevel:SetWordWrap(false)
-aCoverLevel:SetTextColor(C_GOLD[1], C_GOLD[2], C_GOLD[3])
-aCoverLevel:SetShadowColor(0, 0, 0, 0.55)
+aCoverLevel:SetTextColor(C_BODY[1], C_BODY[2], C_BODY[3])
+aCoverLevel:SetShadowColor(0, 0, 0, 1)
 aCoverLevel:SetShadowOffset(1, -1)
 aCoverLevel:Hide()
 
@@ -1460,7 +1464,9 @@ LayoutSelectedChapter = function()
             end
         end
         if node.isLegacyNode then
-            SM.ForeverWindow.StyleChapterNode(node, isComp, isAct, i == dSelectedChapter)
+            -- The chapter the story sends the player to next is marked selected.
+            SM.ForeverWindow.StyleChapterNode(node, isComp, isAct, i == dSelectedChapter,
+                thCh ~= nil and select(3, SM.FindNextQuest(data)) == thCh)
         end
     end
 

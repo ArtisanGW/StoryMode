@@ -6,7 +6,7 @@ local L = SM.L
 --
 -- On WoW Forever the Story Mode window is the Legacy window's challenge page:
 -- Blizzard's PortraitFrameTemplate shell at the Legacy window's size, opened
--- where the talent window opens, with the Legacy background, divider, points
+-- where the Legacy window opens, with the Legacy background, divider, points
 -- shield and bar, side tabs, and cards for quests. Every size and offset is
 -- copied from Forever's own Blizzard_LegacySystem XML (1.60.1), and every
 -- atlas is named by its element name, which is what SetAtlas resolves.
@@ -47,7 +47,9 @@ local DIVIDER = { x = 328, top = 72, w = 12, h = 503 }           -- VerticalDivi
 local SUMMARY = { x = 280, top = 25, w = 520, h = 36 }           -- LegacyChallengePointSummary
 local OVER_FRAME_LEVEL = 800                                     -- the divider and shield sit over the frame's border
 local TOP_OFFSET = -116                                          -- Blizzard's UI panel TOP_OFFSET
+local LEFT_OFFSET = 16                                           -- its LEFT_OFFSET
 local BOTTOM_CLAMP = 140                                         -- and its bottom clamp
+local LEGACY_XOFFSET = 35                                        -- Blizzard_LegacySystemRegistration.lua
 
 local window = {}
 SM.ForeverWindow = window
@@ -80,14 +82,20 @@ local function SetAtlasCover(tex, atlas, w, h)
     tex:SetTexCoord(left + cropX, right - cropX, top, top + (bottom - top) * keepH)
 end
 
--- The talent window opens centred, 116 below the top of the screen, and moves
--- up when its bottom would come within 140 of the screen's bottom.
-local function PlaceLikeTalentWindow(frame)
-    local yOffset = TOP_OFFSET
+local function PanelLayoutAttribute(name, fallback)
     if GetUIPanelLayoutAttribute then
-        local ok, value = pcall(GetUIPanelLayoutAttribute, "TOP_OFFSET")
-        if ok and type(value) == "number" then yOffset = value end
+        local ok, value = pcall(GetUIPanelLayoutAttribute, name)
+        if ok and type(value) == "number" then return value end
     end
+    return fallback
+end
+
+-- The Legacy window opens as a left-side UI panel 35 right of the panel
+-- area's left edge, 116 below the top of the screen, and moves up when its
+-- bottom would come within 140 of the screen's bottom.
+local function PlaceLikeLegacyWindow(frame)
+    local yOffset = PanelLayoutAttribute("TOP_OFFSET", TOP_OFFSET)
+    local xOffset = PanelLayoutAttribute("LEFT_OFFSET", LEFT_OFFSET) + LEGACY_XOFFSET
     local top = UIParent:GetTop()
     if top then
         local bottom = top + yOffset - frame:GetHeight() * frame:GetScale()
@@ -95,7 +103,7 @@ local function PlaceLikeTalentWindow(frame)
         if yOffset > -10 then yOffset = -10 end
     end
     frame:ClearAllPoints()
-    frame:SetPoint("TOP", UIParent, "TOP", 0, yOffset / frame:GetScale())
+    frame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", xOffset / frame:GetScale(), yOffset / frame:GetScale())
 end
 
 -- ── Journal page ────────────────────────────────────────────────────────────
@@ -215,7 +223,21 @@ end
 -- (QuestCard.lua). Two buttons under the intro text, the chosen one lit;
 -- each says what it does in its tooltip.
 
-local MODE_CHOICE = { gap = 24, buttonW = 150, buttonH = 26, spacing = 12 }
+-- Buttons look like the Friends window's Add New Friend button: Forever draws
+-- that with the red three-slice button art (128-RedButton, its c60 brass
+-- frame), which SharedButtonSmallTemplate uses, at the size it shows.
+local RED_BUTTON = { template = "SharedButtonSmallTemplate", fallback = "UIPanelButtonTemplate", height = 26 }
+
+function window.CreateRedButton(parent, width)
+    local template = C_XMLUtil and C_XMLUtil.GetTemplateInfo and C_XMLUtil.GetTemplateInfo(RED_BUTTON.template)
+        and RED_BUTTON.template or RED_BUTTON.fallback
+    local button = CreateFrame("Button", nil, parent, template)
+    button:SetSize(width, RED_BUTTON.height)
+    return button
+end
+window.RedButtonHeight = RED_BUTTON.height
+
+local MODE_CHOICE = { gap = 24, buttonW = 156, buttonH = RED_BUTTON.height, spacing = 12 }
 local MODES = {
     { key = "guided", label = "Quest Mode Guided", text = "Quest Mode Guided Text" },
     { key = "explorer", label = "Quest Mode Explorer", text = "Quest Mode Explorer Text" },
@@ -245,8 +267,7 @@ local function CreateModeChoice(parent)
     local frame = CreateFrame("Frame", nil, parent)
     frame:SetHeight(MODE_CHOICE.buttonH)
     for i, mode in ipairs(MODES) do
-        local button = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
-        button:SetSize(MODE_CHOICE.buttonW, MODE_CHOICE.buttonH)
+        local button = window.CreateRedButton(frame, MODE_CHOICE.buttonW)
         button:SetText(L[mode.label])
         button.mode = mode
         if i == 1 then
@@ -284,6 +305,104 @@ end
 function window.ShowQuestModeChoice(shown)
     modeChoice.shown = shown
     if modeChoice.frame then modeChoice.frame:SetShown(shown) end
+end
+
+-- ── Story list cards ────────────────────────────────────────────────────────
+-- The story list uses the Group Finder's category cards
+-- (LFGListingCategoryTemplate in Blizzard_GroupFinder_VanillaStyle, drawn with
+-- Forever's c60 art): the card frame over the story's art, its pressed and
+-- hover frames, the selected card lit, and the name on the left in gold.
+-- The frame is 418 x 67 and the list is narrower, so a card shows the frame at
+-- its own size: its left end (the dark fade behind the name) and its right
+-- end, meeting in the plain middle, which nothing is missing from. Nothing is
+-- scaled or stretched, and the story art fills the frame's window, cropped.
+
+local LIST_CARD = {
+    frame = "groupfinder-button-cover",
+    pressed = "groupfinder-button-cover-down",
+    hover = "groupfinder-button-cover-hover",
+    leftEnd = 190,                                       -- the frame is plain from here to 380
+    art = { left = 5, top = 7, right = 5, bottom = 5 },  -- the frame's window
+    textLeft = 20,                                       -- the Group Finder's label inset
+    artShade = 0.6,                                      -- its pictures are dimmed a little
+    ribbonScale = 0.85, ribbonRight = 14, ribbonTop = 2, -- the finished flag, hung from the top edge
+}
+local GOLD = { 1, 0.82, 0 }
+local WHITE = { 1, 1, 1 }
+
+function window.ListCardHeight()
+    local info = C_Texture.GetAtlasInfo(LIST_CARD.frame)
+    return info and info.height or 67
+end
+
+-- Draws atlas across width at its own size, as two pieces on layer: its left
+-- end and as much of its right end as the rest of the width needs.
+local function DrawFrame(card, layer, sublevel, atlas, width)
+    local info, file = GetAtlasFile(atlas)
+    if not info then return nil end
+    local leftW = math.min(LIST_CARD.leftEnd, width)
+    local rightW = width - leftW
+    local u = (info.rightTexCoord - info.leftTexCoord) / info.width
+    local pieces = {}
+    for i, piece in ipairs({ { 0, leftW, "TOPLEFT" }, { info.width - rightW, rightW, "TOPRIGHT" } }) do
+        local tex = card:CreateTexture(nil, layer, nil, sublevel)
+        tex:SetTexture(file)
+        tex:SetSize(piece[2], info.height)
+        tex:SetPoint(piece[3])
+        tex:SetTexCoord(info.leftTexCoord + piece[1] * u, info.leftTexCoord + (piece[1] + piece[2]) * u,
+            info.topTexCoord, info.bottomTexCoord)
+        pieces[i] = tex
+    end
+    return pieces
+end
+
+local function ShowPieces(pieces, shown)
+    for _, tex in ipairs(pieces or {}) do tex:SetShown(shown) end
+end
+
+-- Gives card (a list Button, width wide) the Group Finder card's look. art is
+-- the story's art texture, nameLabel and subLabel its two lines, ribbon the
+-- finished flag; any of them may be nil. Returns the colours for the lines.
+-- card:SetListCardLit(lit) shows the hover frame, for the selected card too.
+function window.StyleListCard(card, width, art, nameLabel, subLabel, ribbon)
+    local inset = LIST_CARD.art
+    if art then
+        art:ClearAllPoints()
+        art:SetPoint("TOPLEFT", card, "TOPLEFT", inset.left, -inset.top)
+        art:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -inset.right, inset.bottom)
+        art:SetAlpha(1)
+        art:SetVertexColor(LIST_CARD.artShade, LIST_CARD.artShade, LIST_CARD.artShade)
+    end
+    DrawFrame(card, "ARTWORK", 0, LIST_CARD.frame, width)
+    local pressed = DrawFrame(card, "ARTWORK", 1, LIST_CARD.pressed, width)
+    local hover = DrawFrame(card, "ARTWORK", 2, LIST_CARD.hover, width)
+    ShowPieces(pressed, false)
+    ShowPieces(hover, false)
+    card:HookScript("OnMouseDown", function() ShowPieces(pressed, true) end)
+    card:HookScript("OnMouseUp", function() ShowPieces(pressed, false) end)
+    function card:SetListCardLit(lit) ShowPieces(hover, lit) end
+
+    if nameLabel then
+        nameLabel:SetFontObject(GameFontNormalMed3 or GameFontNormal)
+        nameLabel:SetTextColor(GOLD[1], GOLD[2], GOLD[3])
+        -- A hard shadow keeps the name readable on bright pictures.
+        nameLabel:SetShadowColor(0, 0, 0, 1)
+        nameLabel:SetShadowOffset(1, -1)
+        if art then nameLabel:SetPoint("LEFT", card, "LEFT", LIST_CARD.textLeft, 0) end
+    end
+    if subLabel then
+        subLabel:SetFontObject(GameFontHighlightSmall)
+        subLabel:SetTextColor(WHITE[1], WHITE[2], WHITE[3])
+        subLabel:SetShadowColor(0, 0, 0, 1)
+        subLabel:SetShadowOffset(1, -1)
+    end
+    if ribbon then
+        ribbon:SetScale(LIST_CARD.ribbonScale)
+        ribbon:ClearAllPoints()
+        ribbon:SetPoint("TOPRIGHT", card, "TOPRIGHT",
+            -LIST_CARD.ribbonRight / LIST_CARD.ribbonScale, -LIST_CARD.ribbonTop / LIST_CARD.ribbonScale)
+    end
+    return GOLD, WHITE
 end
 
 local BuildProgressSummary  -- defined with the story progress below
@@ -395,7 +514,9 @@ end
 -- ── Chapter track ───────────────────────────────────────────────────────────
 -- Chapters are square portraits in the Legacy icon frame instead of circles:
 -- green when the chapter is done, brown while it's under way, grey before.
--- The selected chapter is always in full colour, with no arrow under it.
+-- The selected chapter is always in full colour, with no arrow under it, and
+-- the chapter the story sends the player to next looks the same, even before
+-- any of its quests are done.
 -- Between chapters sits the Legacy tree's arrow, so the track spaces its
 -- chapters wider than usual to fit it.
 
@@ -417,7 +538,7 @@ function window.DecorateChapterNode(node)
     node.legacyFrame:SetPoint("BOTTOMRIGHT", node.portrait, "BOTTOMRIGHT", inset, -inset)
 end
 
-function window.StyleChapterNode(node, complete, active, selected)
+function window.StyleChapterNode(node, complete, active, selected, current)
     node.ring:Hide()
     node.squareBorder:Hide()
     SM.SetSimpleBorder(node.portraitBorder, 0, 0, 0, 0)
@@ -426,14 +547,18 @@ function window.StyleChapterNode(node, complete, active, selected)
         if mask then mask:SetAtlas(ICON_MASK) end
     end
 
-    local frameKey = complete and "done" or ((active or selected) and "open") or "later"
+    local open = active or selected or current
+    local frameKey = complete and "done" or (open and "open") or "later"
     node.legacyFrame:SetAtlas(CHAPTER_FRAME[frameKey])
-    local colored = complete or active or selected
+    local colored = complete or open
     node.isDimmed = not colored
     node.portrait:SetDesaturation(colored and 0 or 0.8)
     local shade = colored and 1 or 0.7
     node.portrait:SetVertexColor(shade, shade, shade)
     if node.downArrow then node.downArrow:Hide() end
+    -- The selected chapter's warm tint over the portrait, on the current one too.
+    if node.activeGlow then node.activeGlow:SetShown((selected or current) == true) end
+    node.isCurrentChapter = current == true
 end
 
 -- The Legacy tree's arrow (LegacyTreeTraitEdgeArrowTemplate: the talent
@@ -448,12 +573,13 @@ local ARROW = {
     thickness = 6,
     headW = 28, headH = 24,
     tip = 5.5,   -- the head's point, from the art's centre
+    tuck = 2,    -- how far the line starts under the chapter's frame
 }
 
 function window.CreateChapterArrow(parent)
     local arrow = CreateFrame("Frame", nil, parent)
     arrow:SetAllPoints(parent)
-    -- Under the chapters, so the line starts beneath the first one.
+    -- Under the chapters, so the line's start tucks under the frame.
     arrow:SetFrameLevel(parent:GetFrameLevel())
     arrow.isLegacyArrow = true
     arrow.line = arrow:CreateLine(nil, "OVERLAY", nil, -2)
@@ -470,7 +596,10 @@ function window.PlaceChapterArrow(arrow, fromNode, toNode, done)
     window.SetAtlas(arrow.head, ARROW.head[key])
     local frameHalf = toNode.portrait:GetWidth() * 60 / 50 / 2
     local headX = -(frameHalf + ARROW.tip * ARROW.scale + 1)
-    arrow.line:SetStartPoint("CENTER", fromNode.portrait)
+    -- From the edge of the chapter's frame, not its middle: a chapter at the
+    -- track's edge fades out, and the line would show through its portrait.
+    local startX = fromNode.portrait:GetWidth() * 60 / 50 / 2 - ARROW.tuck
+    arrow.line:SetStartPoint("CENTER", fromNode.portrait, startX, 0)
     arrow.line:SetEndPoint("CENTER", toNode.portrait, headX, 0)
     arrow.head:ClearAllPoints()
     arrow.head:SetPoint("CENTER", toNode.portrait, "CENTER", headX, 0)
@@ -558,16 +687,16 @@ function window.ShowStory(data, showScarletTab)
     UpdateJournalPage()
 end
 
--- Opens the window where the talent window opens, until it's dragged
+-- Opens the window where the Legacy window opens, until it's dragged
 -- somewhere else. Called once StoryMode.lua has set the window's scripts,
 -- since SetScript drops earlier hooks.
 function window.Attach(frame)
     local moved = false
     frame:HookScript("OnDragStop", function() moved = true end)
     frame:HookScript("OnShow", function(self)
-        if not moved then PlaceLikeTalentWindow(self) end
+        if not moved then PlaceLikeLegacyWindow(self) end
     end)
-    PlaceLikeTalentWindow(frame)
+    PlaceLikeLegacyWindow(frame)
 end
 
 -- Creates the window. If anything in it fails, the Forever window turns

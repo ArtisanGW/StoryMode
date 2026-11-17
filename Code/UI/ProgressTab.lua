@@ -162,7 +162,8 @@ function SM.LayoutProgressTab(data, w, contentW, visibleContentW)
             end
 
             if node.isLegacyNode then
-                SM.ForeverWindow.StyleChapterNode(node, isComplete, isActive, false)
+                SM.ForeverWindow.StyleChapterNode(node, isComplete, isActive, false,
+                    select(3, SM.FindNextQuest(data)) == ch)
             end
 
             -- Position

@@ -252,18 +252,24 @@ function SM.SetWaypointForQuest(data, quest)
     local pinsWanted = MapPinsWanted()
     if pinsWanted then EnsureTrivialQuestsVisible() end
 
-    if SM.IsQuestEntryInLog(quest) then
+    local inLog, logQuestID = SM.IsQuestEntryInLog(quest)
+    if inLog then
         local qid = GetTrackedQuestID(quest)
         SM.AddQuestWatch(qid)
         if pinsWanted and C_SuperTrack and C_SuperTrack.SetSuperTrackedQuestID then
             C_SuperTrack.SetSuperTrackedQuestID(qid)
         end
+        -- On WoW Forever the quest opens in the quest log beside the map, as
+        -- it does on Classic. Its details turn the map to the quest's zone and
+        -- close when the map moves on, so the ping only goes on that map.
+        local opened = SM.Client.isForever and SM.OpenQuestLogToQuest(logQuestID or qid) or false
         local loc = GetQuestLocation(data, quest)
-        if loc then
+        local shownMapID = opened and WorldMapFrame and WorldMapFrame.GetMapID and WorldMapFrame:GetMapID()
+        if loc and (not opened or shownMapID == loc.mapID) then
             PingOnWorldMap(loc.mapID, loc.x, loc.y)
         end
         -- Not followed without map pins, so it points to the quest log.
-        return TrackResult(pinsWanted and "supertracked" or "classic_in_log", qid, loc)
+        return TrackResult(pinsWanted and "supertracked" or "classic_in_log", qid, loc, opened)
     end
 
     local guidanceQuest = GetQuestGuidanceOverride(quest)

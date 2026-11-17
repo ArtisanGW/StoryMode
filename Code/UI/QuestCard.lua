@@ -212,7 +212,7 @@ local CARD = {
     rowGapY = 5,
     rowInset = 20,
     footerGap = 12,
-    footerHeight = 22,
+    footerHeight = 26,  -- the red button's height (ForeverWindow.CreateRedButton)
     bottom = 16,
     outlineEdge = 12,         -- rows of the outline art that keep their size
 }
@@ -238,6 +238,20 @@ end
 
 -- A turn-in day the way Legacy writes a challenge's date (13/11/26 or
 -- 11/13/26, by the client's region).
+-- The game's own tag for a quest done in a dungeon or raid ("Dungeon",
+-- "Raid", in the player's language), or nil. QuestInfo 81 and 62.
+local INSTANCE_QUEST_TAGS = { [81] = true, [62] = true }
+local function GetInstanceQuestTag(quest)
+    if not (quest and C_QuestLog and C_QuestLog.GetQuestTagInfo) then return nil end
+    for _, questID in ipairs(SM.GetQuestIDs(quest)) do
+        local info = C_QuestLog.GetQuestTagInfo(questID)
+        if info and INSTANCE_QUEST_TAGS[info.tagID] and info.tagName and info.tagName ~= "" then
+            return info.tagName
+        end
+    end
+    return nil
+end
+
 local function FormatTurnInDate(stamp)
     local day = date("*t", stamp)
     if FormatShortDate then return FormatShortDate(day.day, day.month, day.year % 100) end
@@ -250,7 +264,10 @@ local function GetQuestGiverText(data, quest)
     local location = quest and (quest.location
         or (data and data.npcLocations and data.npcLocations[quest.npc] and data.npcLocations[quest.npc].location))
     if location and location ~= "" then
-        return npc ~= "" and (npc .. ", " .. location) or location
+        -- Class quest lines already name the giver in their location
+        -- ("Myrokos Silentform, Ravenholdt Manor, Alterac Mountains").
+        if npc == "" or location:sub(1, #npc) == npc then return location end
+        return npc .. ", " .. location
     end
     return npc
 end
@@ -438,6 +455,47 @@ local function ToggleLegacyQuestCard(card)
     RelayoutChapter()
 end
 
+-- The open card's middle runs from 10 below the top to 10 above the bottom,
+-- as in Legacy, but as whole copies of the tile with the last one cut short
+-- rather than the texture's wrap mode: the high-res tile sits in a file 4 rows
+-- taller than it, and the wrap repeats those empty rows as a black line
+-- across the card every tile.
+local MIDDLE_INSET = 10
+local function LayoutMiddle(card, atlas, height)
+    local tiles = card.middleTiles
+    local used = 0
+    if atlas then
+        local info = C_Texture.GetAtlasInfo(atlas)
+        local tileH = (info and info.height and info.height > 0) and info.height or 62
+        local y, bottom = MIDDLE_INSET, height - MIDDLE_INSET
+        while bottom - y > 0.01 do
+            used = used + 1
+            local tile = tiles[used]
+            if not tile then
+                tile = card:CreateTexture(nil, "BACKGROUND", nil, -1)
+                tiles[used] = tile
+            end
+            SM.ForeverWindow.SetAtlas(tile, atlas)
+            local h = math.min(tileH, bottom - y)
+            if h < tileH then
+                -- Cut from the art the game picked (normal or high-res).
+                local left, top, _, tileBottom, right = tile:GetTexCoord()
+                if left and tileBottom then
+                    tile:SetTexCoord(left, right, top, top + (tileBottom - top) * h / tileH)
+                end
+            end
+            tile:ClearAllPoints()
+            tile:SetPoint("TOPLEFT", card, "TOPLEFT", 0, -y)
+            tile:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, -y)
+            tile:SetHeight(h)
+            tile:Show()
+            y = y + tileH
+        end
+    end
+    for i = used + 1, #tiles do tiles[i]:Hide() end
+    card.middleAtlas = atlas
+end
+
 local function CreateLegacyQuestCard(parent)
     local SetAtlas = SM.ForeverWindow.SetAtlas
     local card = CreateFrame("Button", nil, parent)
@@ -451,9 +509,7 @@ local function CreateLegacyQuestCard(parent)
     -- down between them, so the card grows without stretching.
     card.bg = card:CreateTexture(nil, "BACKGROUND")
     card.bg:SetAllPoints()
-    card.middle = card:CreateTexture(nil, "BACKGROUND", nil, -1)
-    card.middle:SetPoint("TOPLEFT", card, "TOPLEFT", 0, -10)
-    card.middle:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", 0, 10)
+    card.middleTiles = {}
     card.top = card:CreateTexture(nil, "BACKGROUND")
     card.top:SetPoint("TOPLEFT")
     card.top:SetPoint("TOPRIGHT")
@@ -524,10 +580,12 @@ local function CreateLegacyQuestCard(parent)
     card.footer = card:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     card.footer:SetJustifyH("LEFT")
     card.footer:SetWordWrap(false)
-    card.trackButton = CreateFrame("Button", nil, card, "UIPanelButtonTemplate")
+    -- The same red button as Add New Friend and the start page's choice.
+    card.trackButton = SM.ForeverWindow.CreateRedButton and SM.ForeverWindow.CreateRedButton(card, 120)
+        or CreateFrame("Button", nil, card, "UIPanelButtonTemplate")
     card.trackButton:SetText(TRACK_QUEST or "Track Quest")
     local trackLabel = card.trackButton:GetFontString()
-    card.trackButton:SetSize(math.max(110, (trackLabel and trackLabel:GetStringWidth() or 0) + 32), CARD.footerHeight)
+    card.trackButton:SetSize(math.max(120, (trackLabel and trackLabel:GetStringWidth() or 0) + 40), CARD.footerHeight)
     card.trackButton:SetScript("OnClick", function(self)
         local owner = self:GetParent()
         SM.RunTrackButton(owner.storyData, owner.questEntry)
@@ -567,19 +625,16 @@ local function CreateLegacyQuestCard(parent)
 
         SetAtlas(self.bg, done and LEGACY.card or LEGACY.cardDim)
         SetAtlas(self.top, done and LEGACY.top or LEGACY.topDim, true)
-        SetAtlas(self.middle, done and LEGACY.middle or LEGACY.middleDim)
-        self.middle:SetVertTile(true)  -- SetAtlas resets the wrap mode
         SetAtlas(self.bottom, done and LEGACY.bottom or LEGACY.bottomDim, true)
         self.bg:SetShown(not expanded)
         self.top:SetShown(expanded)
-        self.middle:SetShown(expanded)
         self.bottom:SetShown(expanded)
         SetAtlas(self.ribbon, done and LEGACY.ribbon or LEGACY.ribbonDim)
         SetOutlineShown(self.selected, expanded)
         SetAtlas(self.plusMinus, expanded and LEGACY.minus or LEGACY.plus)
         self.plusMinus:SetShown(expandable)
 
-        local displayID = data and data.npcDisplayIDs and quest and data.npcDisplayIDs[quest.npc]
+        local displayID = quest and SM.GetQuestGiverDisplayID(data, quest.npc)
         local iconPath = data and ((data.chapterIcons and chapter and data.chapterIcons[chapter.chapter]) or data.icon)
         if undiscovered then
             self.portrait:SetTexCoord(0.07, 0.93, 0.07, 0.93)
@@ -603,8 +658,13 @@ local function CreateLegacyQuestCard(parent)
 
         -- Done: the day it was turned in and a check, as Legacy dates a
         -- finished challenge (just the check if the day isn't known).
+        -- An unfinished dungeon or raid quest says so in the corner instead.
         local turnedIn = done and SM.GetQuestTurnInDate and SM.GetQuestTurnInDate(quest)
+        local instanceTag = not done and not undiscovered and GetInstanceQuestTag(quest)
+        -- WoW keeps no completion dates, so quests finished before Story
+        -- Mode started saving them say Completed instead.
         local statusText = (turnedIn and FormatTurnInDate(turnedIn))
+            or (done and L["Quest Status Completed"]) or instanceTag
             or (state == "active" and L["Quest Status In Progress"])
             or (state == "optional" and not undiscovered and L["Quest Status Optional"]) or nil
         self.status:SetText(statusText or "")
@@ -651,6 +711,7 @@ local function CreateLegacyQuestCard(parent)
             height = math.max(height, y + CARD.bottom)
         end
         self:SetHeight(height)
+        LayoutMiddle(self, expanded and (done and LEGACY.middle or LEGACY.middleDim) or nil, height)
     end
 
     return card

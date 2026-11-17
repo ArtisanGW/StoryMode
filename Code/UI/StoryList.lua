@@ -89,6 +89,11 @@ SM.StoryCardBorderSelected = {1.00, 0.70, 0.12, 0.90}
 
 function SM.ApplyStoryCardBorderState(row, isHover)
     if not row or not row.btn then return end
+    if row.btn.SetListCardLit then
+        -- The Forever window's Group Finder cards light on hover and when selected.
+        row.btn:SetListCardLit(isHover or row.isSelected)
+        return
+    end
     if SM.IsMainlineClient() then
         if row.isSelected then
             row.btn:LockHighlight()
@@ -194,8 +199,10 @@ function SM.SelectStory(index, chapterIndex)
         if row.bg then row.bg:SetAlpha(1.0) end
         if row.portBorder then row.portBorder:SetAlpha(sel and 1.0 or 0.5) end
         if i == 0 then SM.ApplyIntroCompletionState(row) end
-        if row.nameLabel then row.nameLabel:SetTextColor(1.0, 1.0, 1.0) end
-        if row.zoneLabel then row.zoneLabel:SetTextColor(1.0, 0.82, 0.36) end
+        local nameColor = row.nameColor or { 1.0, 1.0, 1.0 }
+        local zoneColor = row.zoneColor or { 1.0, 0.82, 0.36 }
+        if row.nameLabel then row.nameLabel:SetTextColor(nameColor[1], nameColor[2], nameColor[3]) end
+        if row.zoneLabel then row.zoneLabel:SetTextColor(zoneColor[1], zoneColor[2], zoneColor[3]) end
         local state = row.data and SM.GetStoryState(row.data) or nil
         local gateReason = state and state.gateReason or nil
         if row.btn then row.btn.lockReason = gateReason end
@@ -299,7 +306,9 @@ local function CreateListCardFrame(cardHeight, cardPadding, yOffset, backgroundS
     end
 
     local bg = card:CreateTexture(nil, "BACKGROUND", nil, backgroundSublevel)
-    if SM.IsMainlineClient() then
+    if SM.ForeverWindow then
+        bg:Hide()  -- the Group Finder card (ForeverWindow.StyleListCard) replaces it
+    elseif SM.IsMainlineClient() then
         bg:SetAtlas("housefinder_neighborhood-list-item-default", false)
         bg:SetAllPoints()
     else
@@ -310,7 +319,9 @@ local function CreateListCardFrame(cardHeight, cardPadding, yOffset, backgroundS
         card.shade = SM.CreateInsetCardShade(card, 0.38, classicShadeInset)
     end
 
-    if SM.IsMainlineClient() then
+    if SM.ForeverWindow then
+        -- StyleListCard sets the Group Finder card's highlight.
+    elseif SM.IsMainlineClient() then
         card:SetHighlightAtlas("housefinder_neighborhood-list-item-highlight")
         card:GetHighlightTexture():SetAllPoints()
     else
@@ -436,6 +447,12 @@ local function CreateIntroStoryCard(cardHeight, cardPadding, yOffset)
 
     introCard.checkmark = CreateCardCompletionRibbon(introCard)
     introCard.checkmark:SetShown(SM.AreAllStoriesFinished())
+    local nameColor
+    if SM.ForeverWindow then
+        -- A Group Finder card, still with Story Mode's icon and no picture.
+        nameColor = SM.ForeverWindow.StyleListCard(introCard, SM.LeftStoryChild:GetWidth() - 2 * cardPadding,
+            nil, introName, nil, introCard.checkmark)
+    end
 
     local row = {
         btn       = introCard,
@@ -445,6 +462,7 @@ local function CreateIntroStoryCard(cardHeight, cardPadding, yOffset)
         zoneLabel = nil,
         checkmark = introCard.checkmark,
         isIntro   = true,
+        nameColor = nameColor,
     }
     storyLeftRows[0] = row
 
@@ -506,6 +524,12 @@ local function CreateStoryListCard(data, idx, cardHeight, cardPadding, yOffset)
     zoneLabel:SetTextColor(1.0, 0.82, 0.36)
 
     local cardCheckmark = CreateCardCompletionRibbon(card)
+    local nameColor, zoneColor
+    if SM.ForeverWindow then
+        nameColor, zoneColor = SM.ForeverWindow.StyleListCard(card, SM.LeftStoryChild:GetWidth() - 2 * cardPadding,
+            coverTex, nameLabel, zoneLabel, cardCheckmark)
+        coverTex:SetShown(SM.SetAdventureCoverTexture(coverTex, data))
+    end
     local state = SM.GetStoryState(data)
     local gateReason = state and state.gateReason or nil
     card.lockReason = gateReason
@@ -526,6 +550,8 @@ local function CreateStoryListCard(data, idx, cardHeight, cardPadding, yOffset)
         nameLabel = nameLabel,
         zoneLabel = zoneLabel,
         checkmark = cardCheckmark,
+        nameColor = nameColor,
+        zoneColor = zoneColor,
     }
     storyLeftRows[idx] = row
 
@@ -593,8 +619,9 @@ function SM.BuildStoryWindow()
     activeStoriesSignature = GetActiveStoriesSignature(activeQuestlines)
     local displayCategories = BuildDisplayCategories(activeQuestlines)
 
-    local CARD_H   = (SM.IsMainlineClient()) and 78 or 70
     local CARD_PAD = 4
+    local CARD_H   = SM.ForeverWindow and SM.ForeverWindow.ListCardHeight()
+        or (SM.IsMainlineClient()) and 78 or 70
     local yOffset  = -16
     local globalIdx = 0
 
