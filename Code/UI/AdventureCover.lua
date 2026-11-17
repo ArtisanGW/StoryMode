@@ -39,9 +39,44 @@ SM.AdventureCover = {
     texTop = ADVENTURE_COVER_TEX_TOP,
     texBottom = ADVENTURE_COVER_TEX_BOTTOM,
 }
-SM.AdventureLoadingScreenTexHeight = (16 / 9) / (ADVENTURE_COVER_W / ADVENTURE_COVER_H)
-SM.AdventureLoadingScreenTexTop = (1 - SM.AdventureLoadingScreenTexHeight) / 2
-SM.AdventureLoadingScreenTexBottom = SM.AdventureLoadingScreenTexTop + SM.AdventureLoadingScreenTexHeight
+local COVER_ASPECT = ADVENTURE_COVER_W / ADVENTURE_COVER_H
+
+-- Loading screens up to Mists of Pandaria hold 4:3 art squeezed into a
+-- square file, which the game shows at 4:3. Later ones are 16:9.
+local NARROW_ASPECT, WIDE_ASPECT = 4 / 3, 16 / 9
+local NARROW_LOADING_SCREENS = {
+    [236058] = true, [318964] = true, [397151] = true, [418218] = true,
+    [633148] = true, [633149] = true, [645156] = true, [903869] = true, [1034725] = true,
+    [6213069] = true, [6213070] = true, [6213071] = true, [6422642] = true,
+    [6514589] = true, [6650900] = true, [6730949] = true,
+}
+for fileID = 131818, 131886 do NARROW_LOADING_SCREENS[fileID] = true end  -- Classic and TBC
+
+function SM.GetLoadingScreenAspect(texture)
+    return NARROW_LOADING_SCREENS[texture] and NARROW_ASPECT or WIDE_ASPECT
+end
+
+-- The middle of a crop that shows at sourceAspect, cut to targetAspect, so
+-- the art keeps its shape.
+local function CropToAspect(left, right, top, bottom, sourceAspect, targetAspect)
+    if targetAspect >= sourceAspect then
+        local middle = (top + bottom) / 2
+        local half = (bottom - top) * sourceAspect / targetAspect / 2
+        return left, right, middle - half, middle + half
+    end
+    local middle = (left + right) / 2
+    local half = (right - left) * targetAspect / sourceAspect / 2
+    return middle - half, middle + half, top, bottom
+end
+
+-- The middle of a loading screen (or of texCoords, a part of it) at
+-- width x height, without stretching.
+function SM.GetLoadingScreenTexCoords(texture, width, height, texCoords)
+    local left, right, top, bottom = 0, 1, 0, 1
+    if texCoords then left, right, top, bottom = texCoords[1], texCoords[2], texCoords[3], texCoords[4] end
+    local shown = SM.GetLoadingScreenAspect(texture) * (right - left) / (bottom - top)
+    return CropToAspect(left, right, top, bottom, shown, width / height)
+end
 
 local adventureGuideImageCache = {}
 SM.AdventureGuideLoadingScreenByMapID = {
@@ -195,10 +230,17 @@ function SM.FindAdventureGuideInstanceID(instanceName)
     return nil
 end
 
+-- Returns the cover texture, whether it's a loading screen, and the part of
+-- the file that holds the picture (nil for all of it). On WoW Forever a
+-- story's foreverCover, Forever's own art, comes first.
 function SM.GetAdventureCoverTexture(data)
     if not data then return nil end
+    local forever = SM.Client and SM.Client.isForever and data.foreverCover
+    if forever then
+        return forever.texture, true, forever.texCoords
+    end
     if data.adventureCoverTexture then
-        return data.adventureCoverTexture, data.adventureCoverIsLoadingScreen
+        return data.adventureCoverTexture, data.adventureCoverIsLoadingScreen, data.adventureCoverTexCoords
     end
 
     local instanceID = data.adventureGuideInstanceID
@@ -233,25 +275,17 @@ local function FitCoverCrop(left, right, top, bottom, width, height)
     if not (width and height and width > 0 and height > 0) then
         return left, right, top, bottom
     end
-    local coverAspect = ADVENTURE_COVER_W / ADVENTURE_COVER_H
-    local aspect = width / height
-    if aspect >= coverAspect then
-        local middle = (top + bottom) / 2
-        local half = (bottom - top) * coverAspect / aspect / 2
-        return left, right, middle - half, middle + half
-    end
-    local middle = (left + right) / 2
-    local half = (right - left) * aspect / coverAspect / 2
-    return middle - half, middle + half, top, bottom
+    return CropToAspect(left, right, top, bottom, COVER_ASPECT, width / height)
 end
 
-local function ApplyAdventureCoverTexCoords(tex, data, useFullTexCoords)
+-- A loading screen's cover crop is the middle of its picture (texCoords, when
+-- the data names the picture's part of the file) at the cover's shape.
+local function ApplyAdventureCoverTexCoords(tex, texture, isLoadingScreen, texCoords)
     local left, right, top, bottom
-    local texCoords = data and data.adventureCoverTexCoords
-    if texCoords then
+    if isLoadingScreen then
+        left, right, top, bottom = SM.GetLoadingScreenTexCoords(texture, ADVENTURE_COVER_W, ADVENTURE_COVER_H, texCoords)
+    elseif texCoords then
         left, right, top, bottom = texCoords[1], texCoords[2], texCoords[3], texCoords[4]
-    elseif useFullTexCoords then
-        left, right, top, bottom = 0, 1, SM.AdventureLoadingScreenTexTop, SM.AdventureLoadingScreenTexBottom
     else
         left, right, top, bottom = ADVENTURE_COVER_TEX_LEFT, ADVENTURE_COVER_TEX_RIGHT,
             ADVENTURE_COVER_TEX_TOP, ADVENTURE_COVER_TEX_BOTTOM
@@ -275,9 +309,9 @@ function SM.ApplyAdventureCoverFrame(cover, data, displayTitle)
         end
     end
 
-    local texture, useFullTexCoords = SM.GetAdventureCoverTexture(data)
+    local texture, isLoadingScreen, texCoords = SM.GetAdventureCoverTexture(data)
     if texture then
-        ApplyAdventureCoverTexCoords(cover.texture, data, useFullTexCoords)
+        ApplyAdventureCoverTexCoords(cover.texture, texture, isLoadingScreen, texCoords)
         if not SM.SafeSetTexture(cover.texture, texture) then
             cover.texture:SetColorTexture(0.08, 0.07, 0.06, 1)
         end
@@ -288,18 +322,18 @@ end
 
 function SM.SetAdventureCoverTexture(tex, data)
     if not tex then return false end
-    local texture, useFullTexCoords = SM.GetAdventureCoverTexture(data)
+    local texture, isLoadingScreen, texCoords = SM.GetAdventureCoverTexture(data)
     if not texture then
         tex:SetTexture(nil)
         return false
     end
 
-    ApplyAdventureCoverTexCoords(tex, data, useFullTexCoords)
+    ApplyAdventureCoverTexCoords(tex, texture, isLoadingScreen, texCoords)
     -- A texture that isn't laid out yet has no size to crop for; crop again
     -- once it has one.
     if (tex:GetWidth() or 0) <= 0 and C_Timer then
         C_Timer.After(0, function()
-            ApplyAdventureCoverTexCoords(tex, data, useFullTexCoords)
+            ApplyAdventureCoverTexCoords(tex, texture, isLoadingScreen, texCoords)
         end)
     end
 
@@ -386,14 +420,25 @@ function SM.SetChapterPortrait(portraitTex, displayID, iconPath, questID)
     end
 end
 
+-- A quest giver's model: on WoW Forever the one the game itself uses (from
+-- the creature cache, Data/Forever/ForeverNPCDisplayIDs.lua) comes first,
+-- then the story's own.
+function SM.GetQuestGiverDisplayID(data, npc)
+    if not npc then return nil end
+    local id = SM.Client and SM.Client.isForever and SM.ForeverNPCDisplayIDs and SM.ForeverNPCDisplayIDs[npc]
+    if not id and data and data.npcDisplayIDs then id = data.npcDisplayIDs[npc] end
+    if id and id ~= 0 then return id end
+    return nil
+end
+
 local function GetFirstQuestGiverDisplayID(data, chapter, playerFaction)
-    if not data or not data.npcDisplayIDs or not chapter or not chapter.quests then
+    if not data or not chapter or not chapter.quests then
         return nil
     end
     for _, q in ipairs(chapter.quests) do
         if not q.faction or q.faction == playerFaction then
-            local id = q.npc and data.npcDisplayIDs[q.npc]
-            if id and id ~= 0 then
+            local id = SM.GetQuestGiverDisplayID(data, q.npc)
+            if id then
                 return id
             end
         end

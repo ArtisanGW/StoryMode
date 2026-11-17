@@ -55,6 +55,7 @@ Data\Storylines\ShadyRestInnData.lua
 Data\ClassQuests\ClassicClassQuestData.lua
 Data\Forever\ForeverQuestIDs.lua
 Data\Forever\ForeverQuestText.lua
+Data\Forever\ForeverNPCDisplayIDs.lua
 Code\Core\Compatibility.lua
 Code\Core\SavedVariables.lua
 Code\Core\Scheduler.lua
