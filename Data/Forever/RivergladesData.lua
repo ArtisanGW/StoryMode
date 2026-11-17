@@ -1,0 +1,146 @@
+local addonName, SM = ...
+
+-- =============================================================================
+-- WoW Forever: Twilight in the Riverglades
+-- Farholde Keep and Rog'mar each face the Twilight's Hammer, from burned
+-- Sunnyglade to the Twilight's Shroud and the hidden Krol'dok Stronghold.
+-- =============================================================================
+
+SM.ForeverRivergladesData = {
+    title = "Twilight in the Riverglades",
+    description = "No one has held the Riverglades for long. The humans of Farholde Keep, who feel Stormwind has forgotten them, and the orcs of Rog'mar have fought each other across the river for years. Now the Twilight's Hammer has burned the village of Sunnyglade and started digging under the hills.\n\nFarholde and Rog'mar both need to know what the cult is looking for. For the Horde, the answer may lie with ogres who have already turned their backs on it.",
+    zone = "Riverglades",
+    expansion = "Classic",
+    recommendedLevel = { min = 36, max = 47 },
+    requiredLevel = 36,
+    gameVersions = { forever = true },
+    achievements = {},
+    color = { 0.46, 0.38, 0.64 },
+    icon = "Interface\\Icons\\Spell_Shadow_ShadowWordPain",
+    adventureCoverTexture = 7963780,  -- Krol'dok Stronghold's loading screen, in the Riverglades
+    adventureCoverTexCoords = { 0, 1, 0.1592, 0.8408 },  -- the picture, between its transparent bands
+    adventureCoverIsLoadingScreen = true,
+
+    startQuest = { id = 95059, name = "Frazzlespark's Crate", npc = "Friz Frazzlespark", location = "Powderfuse Port, Riverglades", faction = "Alliance" },
+    startMapID = 2548,
+    startX = 0.7720,
+    startY = 0.5280,
+
+    npcLocations = {
+        ["Friz Frazzlespark"] = { mapID = 2548, x = 0.7720, y = 0.5280, location = "Powderfuse Port, Riverglades" },
+        ["Demar Brant"] = { mapID = 2548, x = 0.6660, y = 0.8100, location = "Farholde Keep, Riverglades" },
+        ["Ashe Amberhall"] = { mapID = 2548, x = 0.6660, y = 0.8100, location = "Farholde Keep, Riverglades" },
+        ["Farmer Elbrim"] = { mapID = 2548, x = 0.5260, y = 0.4240, location = "Elbrim's Farm, Riverglades" },
+        ["Apprentice Claire"] = { mapID = 2548, x = 0.4760, y = 0.4740, location = "the caves beneath Sunnyglade, Riverglades" },
+        ["Sergeant Riftan"] = { mapID = 2548, x = 0.3060, y = 0.4900, location = "outside the Twilight's Shroud, Riverglades" },
+        ["Marshal Ryan"] = { mapID = 2548, x = 0.2620, y = 0.4060, location = "the Twilight's Shroud, Riverglades" },
+        ["Alphonse Dumas"] = { mapID = 2548, x = 0.6440, y = 0.8200, location = "Farholde Keep, Riverglades" },
+        ["Krom'rosh"] = { mapID = 2548, x = 0.5940, y = 0.4540, location = "Rog'mar, Riverglades" },
+        ["Tran'gul"] = { mapID = 2548, x = 0.5940, y = 0.4400, location = "Rog'mar, Riverglades" },
+        ["Kreza Darkthorn"] = { mapID = 2548, x = 0.5980, y = 0.4600, location = "Rog'mar, Riverglades" },
+        ["Clubtoe"] = { mapID = 2548, x = 0.4990, y = 0.4700, location = "the caves beneath Sunnyglade, Riverglades" },
+        ["Clugfist"] = { mapID = 2548, x = 0.6440, y = 0.1480, location = "Bolder'ok, Riverglades" },
+        ["Da'grosh"] = { mapID = 2548, x = 0.3340, y = 0.3800, location = "the hills west of Rog'mar, Riverglades" },
+        ["Crag'rog"] = { mapID = 2548, x = 0.2740, y = 0.3700, location = "near the Twilight's Shroud, Riverglades" },
+    },
+
+    chapters = {
+        {
+            chapter = "The Fall of Sunnyglade",
+            summary = "A goblin at Powderfuse Port sends you inland with a crate for your faction's commander. Sunnyglade, a human village in the glades, has fallen to the Twilight's Hammer, and your side wants to know why the cult has come.",
+            recap = "Farholde and Rog'mar had spent years fighting over the Riverglades, but Sunnyglade showed them a worse enemy. The Twilight's Hammer had burned the village, killed its farmers and settled in among the ruins. For Farholde, Demar Brant sent you to fight while Ashe Amberhall pored over the pages and charms you carried back, and Farmer Elbrim asked you to go into the barn where his family had hidden and bring back what was left of them. For Rog'mar, Tran'gul read the shadowmancers' missives and sent you to make one of the cult's miners talk. Ashe came to suspect that a single hand was guiding every attack, and Tran'gul was certain the cult had come to dig for something.",
+            quests = {
+                { id = 95059, name = "Frazzlespark's Crate", npc = "Friz Frazzlespark", faction = "Alliance", gameVersions = { forever = true } },
+                { id = 94877, name = "Saving Sunnyglade", npc = "Demar Brant", faction = "Alliance", gameVersions = { forever = true } },
+                { id = 94879, name = "Scraps of Knowledge", npc = "Ashe Amberhall", faction = "Alliance", gameVersions = { forever = true } },
+                { id = 94881, name = "Curious Trinkets", npc = "Ashe Amberhall", faction = "Alliance", gameVersions = { forever = true } },
+                { id = 94829, name = "What We Lost", npc = "Farmer Elbrim", faction = "Alliance", gameVersions = { forever = true } },
+                { id = 94858, name = "All That's Left", npc = "Farmer Elbrim", faction = "Alliance", gameVersions = { forever = true } },
+                { id = 95062, name = "Frazzlespark's Crate", npc = "Friz Frazzlespark", faction = "Horde", gameVersions = { forever = true } },
+                { id = 94672, name = "Encroaching Twilight", npc = "Tran'gul", faction = "Horde", gameVersions = { forever = true } },
+                { id = 94680, name = "Twilight Missives", npc = "Tran'gul", faction = "Horde", gameVersions = { forever = true } },
+                { id = 94727, name = "Digging for Answers", npc = "Tran'gul", faction = "Horde", gameVersions = { forever = true } },
+            },
+        },
+        {
+            chapter = "Beneath Sunnyglade",
+            summary = "Go down into the caves under Sunnyglade, where the cult works its ogres in the dark and draws glowing circles in the stone. Someone down there has been waiting for help.",
+            recap = "The caves beneath Sunnyglade held the cult's real work. Its ritualists were pouring void power into ogres, making a few of them monstrous and killing far more. Farholde's adventurers found Claire, Ashe Amberhall's apprentice, trapped beneath what had once been her home; you filled her crystal catalyst with the cult's magic, cut down the empowered brutes and killed Chogg'Zac, then carried the samples home. The Horde found Clubtoe, an ogre miner searching for his missing friends, and helped him smash the ritual circles and kill Chogg'Zac. Clubtoe was finished with the Twilight's Hammer. He meant to join Clugfist, the ogre who had already left the cult, and he gave you a head to carry back to Rog'mar.",
+            quests = {
+                { id = 95642, name = "Abominable Magics", npc = "Apprentice Claire", faction = "Alliance", gameVersions = { forever = true } },
+                { id = 95643, name = "Indiscriminate Purge", npc = "Apprentice Claire", faction = "Alliance", gameVersions = { forever = true } },
+                { id = 95562, name = "Cut Off the Heads", npc = "Apprentice Claire", faction = "Alliance", gameVersions = { forever = true } },
+                { id = 94884, name = "An Unsettling Discovery", npc = "Apprentice Claire", faction = "Alliance", gameVersions = { forever = true } },
+                { id = 95417, name = "The Purple Ones", npc = "Clubtoe", faction = "Horde", gameVersions = { forever = true } },
+                { id = 95601, name = "The Purple Ones", faction = "Horde", location = "the caves beneath Sunnyglade, Riverglades", gameVersions = { forever = true } },
+                { id = 95602, name = "Sickening Lights", npc = "Clubtoe", faction = "Horde", gameVersions = { forever = true } },
+                { id = 95427, name = "Twilight No More!", npc = "Clubtoe", faction = "Horde", gameVersions = { forever = true } },
+                { id = 95418, name = "Spread the Word", npc = "Clubtoe", faction = "Horde", gameVersions = { forever = true } },
+            },
+        },
+        {
+            chapter = "Land of Giants",
+            faction = "Horde",
+            summary = "Carry Chogg'Zac's head north to Bolder'ok, where the ogres who broke from the Twilight's Hammer live by strength alone. Their leader, Clugfist, will want proof that the Horde is worth his time.",
+            recap = "Tran'gul heard an old alliance in Clubtoe's story. Orcs had fought beside ogres before, and Chogg'Zac's head made a fitting gift. At Bolder'ok, Clugfist measured you by what you could smash: the weak ogres who had slunk back to the cult, and Klunk, the champion who had fled with Clugfist's own weapon. When you brought Skullthumper home, Clugfist allowed that the Horde might be stronger than he had thought, and he sent you to tell Krom'rosh that they would spill blood together soon.",
+            quests = {
+                { id = 95420, name = "Land of Giants", npc = "Tran'gul", faction = "Horde", gameVersions = { forever = true } },
+                { id = 95424, name = "Might Makes Right", npc = "Clugfist", faction = "Horde", gameVersions = { forever = true } },
+                { id = 95425, name = "Unworthy Champion", npc = "Clugfist", faction = "Horde", gameVersions = { forever = true } },
+                { id = 95428, name = "Clugfist's Decree", npc = "Clugfist", faction = "Horde", gameVersions = { forever = true } },
+            },
+        },
+        {
+            chapter = "The Twilight's Shroud",
+            summary = "West of Sunnyglade the cult has raised a fortress called the Twilight's Shroud. Join the soldiers your side sent ahead into the hills outside it, free those the cult has taken, and find the overlord who commands it.",
+            recap = "The Twilight's Shroud was where the cult's campaign was run. Sergeant Riftan had held Farholde's western border with no word from home, and Da'grosh, Krom'rosh's impulsive brother, had charged in ahead and watched his warriors dragged into the cult's cages. You freed the prisoners, cut down the cult's champions and struck at the ogre miners it kept outside its walls. For the Horde, the Bolder'ok ogre Crag'rog rallied those miners against their masters, and Executioner Morg, the ogre who had once stood in Clugfist's way, finally fell. Deep in the keep, Overlord Kilgar died, and his head went back to the ones who had sent you.",
+            quests = {
+                { id = 94886, name = "The Western Front", npc = "Demar Brant", faction = "Alliance", gameVersions = { forever = true } },
+                { id = 94888, name = "No Soldier Left Behind", npc = "Sergeant Riftan", faction = "Alliance", gameVersions = { forever = true } },
+                { id = 94889, name = "Carving a Path", npc = "Sergeant Riftan", faction = "Alliance", gameVersions = { forever = true } },
+                { id = 96015, name = "A Miner Problem", npc = "Sergeant Riftan", faction = "Alliance", gameVersions = { forever = true } },
+                { id = 94890, name = "Bring Me His Head", npc = "Sergeant Riftan", faction = "Alliance", gameVersions = { forever = true } },
+                { id = 94891, name = "News to Farholde", npc = "Sergeant Riftan", faction = "Alliance", gameVersions = { forever = true } },
+                { id = 94744, name = "The Wayward Warrior", npc = "Krom'rosh", faction = "Horde", gameVersions = { forever = true } },
+                { id = 94745, name = "Carving a Path", npc = "Da'grosh", faction = "Horde", gameVersions = { forever = true } },
+                { id = 94748, name = "Break Their Chains", npc = "Da'grosh", faction = "Horde", gameVersions = { forever = true } },
+                { id = 95431, name = "Rumblings of Discontent", faction = "Horde", location = "Riverglades", gameVersions = { forever = true } },
+                { id = 95432, name = "Rise Up!", npc = "Crag'rog", faction = "Horde", gameVersions = { forever = true } },
+                { id = 95433, name = "Death to the Executioner", faction = "Horde", location = "Riverglades", gameVersions = { forever = true } },
+                { id = 94768, name = "Bring Me His Head", npc = "Da'grosh", faction = "Horde", gameVersions = { forever = true } },
+            },
+        },
+        {
+            chapter = "Krol'dok Stronghold",
+            summary = "The cult keeps coming, and its trail leads to a stronghold hidden in the mountains north of Sunnyglade. Forge a key from a cultist's mould, find the way in, and strike at whoever leads them.",
+            recap = "Even with Kilgar dead, the Twilight's Hammer kept coming. For Farholde, Ashe Amberhall's soulstone caught a thrall at one of the Shroud's conduits, and under her questioning it gave up Nar'gurk and a hidden stronghold north of Sunnyglade. Alphonse Dumas at Farholde, or Kreza Darkthorn at Rog'mar, turned a crude mould into a working key. Inside Krol'dok you took the cult's tokens, recovered the Tome of Twilight and brought back the Eye of Mugg as proof that the stronghold's leader was dead.",
+            quests = {
+                { id = 94907, name = "A Small Favor", npc = "Ashe Amberhall", faction = "Alliance", gameVersions = { forever = true } },
+                { id = 94980, name = "Krol'dok Moulding", faction = "Alliance", location = "Krol'dok Stronghold, Riverglades", gameVersions = { forever = true } },
+                { id = 94981, name = "Key Ingredients", npc = "Alphonse Dumas", faction = "Alliance", gameVersions = { forever = true } },
+                { id = 94983, name = "Twilight Mementos", faction = "Alliance", location = "Riverglades", gameVersions = { forever = true } },
+                { id = 94997, name = "Lingering Essence", faction = "Alliance", location = "Riverglades", gameVersions = { forever = true } },
+                { id = 94984, name = "Tome of Twilight", npc = "Ashe Amberhall", faction = "Alliance", gameVersions = { forever = true } },
+                { id = 94982, name = "Eye of Mugg", npc = "Demar Brant", faction = "Alliance", gameVersions = { forever = true } },
+                { id = 94973, name = "Krol'dok Moulding", faction = "Horde", location = "Krol'dok Stronghold, Riverglades", gameVersions = { forever = true } },
+                { id = 94974, name = "Key Ingredients", npc = "Kreza Darkthorn", faction = "Horde", gameVersions = { forever = true } },
+                { id = 94975, name = "A Token of Vengeance", faction = "Horde", location = "Riverglades", gameVersions = { forever = true } },
+                { id = 94972, name = "Tome of Twilight", faction = "Horde", location = "Riverglades", gameVersions = { forever = true } },
+                { id = 94968, name = "Eye of Mugg", npc = "Krom'rosh", faction = "Horde", gameVersions = { forever = true } },
+            },
+        },
+        {
+            chapter = "Word to Stormwind",
+            faction = "Alliance",
+            summary = "Farholde has asked Stormwind for help for years without an answer. Carry Kilgar's head to Bolvar Fordragon, then follow a field marshal's log to the man who wrote it and has not come home.",
+            recap = "Demar Brant hoped that Kilgar's head would make Stormwind listen where his letters had not, and you carried it to Bolvar Fordragon in Stormwind Keep. A field marshal's log, full of the cult's movements, led you back into the Twilight's Shroud to find its author. Marshal Ryan was dying when you reached him. He gave you his crest, a warning he could not finish and a name: Abigail. Brant asked you to take the crest to her in Stormwind's Cathedral Square himself, because he did not think his own face would be welcome there.",
+            quests = {
+                { id = 94894, name = "The Twilight Threat", faction = "Alliance", location = "Farholde Keep, Riverglades", gameVersions = { forever = true } },
+                { id = 94885, name = "Field Marshal's Log", faction = "Alliance", location = "Riverglades", gameVersions = { forever = true } },
+                { id = 94887, name = "Saving Marshal Ryan", npc = "Demar Brant", faction = "Alliance", gameVersions = { forever = true } },
+                { id = 94892, name = "Dying Wish", npc = "Marshal Ryan", faction = "Alliance", gameVersions = { forever = true } },
+                { id = 94893, name = "Delivering Closure", npc = "Demar Brant", faction = "Alliance", gameVersions = { forever = true } },
+            },
+        },
+    },
+}

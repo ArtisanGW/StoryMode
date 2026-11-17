@@ -6,7 +6,8 @@ local addonName, SM = ...
 -- =============================================================================
 
 SM.MaraudonData = {
-    title = "Maraudon",
+    id = "maraudon",  -- from its earlier title, "Maraudon": saved progress and share links use it
+    title = "Legends of Maraudon",
     description = "The crystal caverns beneath Desolace are holy ground, burial ground, and wound all at once. Satyrs, centaur spirits, corrupted plants, and an earth princess all pull at the same buried story.\n\nEnter Maraudon from the orange and purple passages, recover the Scepter of Celebras, and follow the descent to Princess Theradras and the remains of Zaetar.",
     zone = "Desolace / Maraudon / Moonglade",
     expansion = "Classic",
@@ -16,7 +17,7 @@ SM.MaraudonData = {
     color = { 0.46, 0.66, 0.42 },
     icon = 134186,
     adventureGuideInstanceName = "Maraudon",
-    adventureCoverTexture = 131882, -- Wailing Caverns: closest Classic cave-and-corruption loading screen
+    adventureCoverTexture = 131850, -- Maraudon loading screen
     adventureCoverIsLoadingScreen = true,
 
     startQuest = { id = 7067, name = "The Pariah's Instructions", npc = "Centaur Pariah", location = "southern Desolace" },

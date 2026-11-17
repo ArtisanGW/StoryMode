@@ -20,31 +20,34 @@ local playerClass
 local playerFaction
 local playerRace
 
+-- Stories are sorted by how many quests one character does in them (the
+-- longer faction's path): Short Stories up to 9, Stories 10 to 29, Epic
+-- Stories 30 or more. The Retail stories keep their earlier places.
 local contentRegistry = {
-    { key = "DefiasBrotherhoodData", category = "Stories" },
     { key = "ArugalData", category = "Stories" },
     { key = "ANewPlagueData", category = "Stories" },
-    { key = "AlthalaxxData", category = "Stories" },
-    { key = "DuskwoodData", category = "Stories" },
-    { key = "ScytheOfEluneData", category = "Stories" },
     { key = "RaenesCleansingData", category = "Stories" },
-    { key = "BattleOfHillsbradData", category = "Stories" },
-    { key = "SavingYennikuData", category = "Stories" },
     { key = "MissingDiplomatData", category = "Stories" },
-    { key = "PrincessMoiraData", category = "Stories" },
-    { key = "MaraudonData", category = "Stories" },
+    { key = "DarrowshireData", category = "Stories" },
+    { key = "FallenHeroData", category = "Stories" },
+    { key = "OnyxiaData", category = "Stories" },
+    { key = "DungeonSetTwoData", category = "Stories" },
+    { key = "ScholomanceData", category = "Stories" },
+    { key = "LinkenData", category = "Stories" },
+    { key = "MissingCourierData", category = "Stories" },
     { key = "UldamanData", category = "Stories" },
+    { key = "ShadyRestInnData", category = "Stories" },
+    { key = "BattleOfHillsbradData", category = "Stories" },
     { key = "RheasLastEggData", category = "Stories" },
     { key = "RunasTheShamedData", category = "Stories" },
     { key = "MourningRiseData", category = "Stories" },
+    -- WoW Forever's own questlines (Data/Forever).
+    { key = "ForeverRivergladesData", category = "Stories" },
+    { key = "ForeverAlcazPrisonData", category = "Stories" },
 
+    { key = "DefiasBrotherhoodData", category = "Epic Stories" },
+    { key = "DuskwoodData", category = "Epic Stories" },
     { key = "ScarletCrusadeData", category = "Epic Stories" },
-    { key = "DarrowshireData", category = "Epic Stories" },
-    { key = "FallenHeroData", category = "Epic Stories" },
-    { key = "OnyxiaData", category = "Epic Stories" },
-    { key = "DungeonSetTwoData", category = "Epic Stories" },
-    { key = "HakkariTrailData", category = "Epic Stories" },
-    { key = "ScholomanceData", category = "Epic Stories" },
     { key = "ShiftingSandsData", category = "Epic Stories" },
     { key = "FrozenThroneData", category = "Epic Stories" },
     { key = "JadeForestData", category = "Epic Stories" },
@@ -53,19 +56,27 @@ local contentRegistry = {
     { key = "NazmirData", category = "Epic Stories" },
     { key = "RevendrethData", category = "Epic Stories" },
     { key = "BlueDragonflightData", category = "Epic Stories" },
+    { key = "ForeverShendralasData", category = "Epic Stories" },
+    { key = "ForeverAzsharaData", category = "Epic Stories" },
+    { key = "ForeverMountHyjalData", category = "Epic Stories" },
 
     { key = "VeritistraszData", category = "Short Stories" },
     { key = "TeddiesAndTeaData", category = "Short Stories" },
-    { key = "LinkenData", category = "Short Stories" },
+    { key = "AlthalaxxData", category = "Short Stories" },
+    { key = "ScytheOfEluneData", category = "Short Stories" },
+    { key = "SavingYennikuData", category = "Short Stories" },
+    { key = "PrincessMoiraData", category = "Short Stories" },
+    { key = "MaraudonData", category = "Short Stories" },
+    { key = "HakkariTrailData", category = "Short Stories" },
     { key = "CortellosRiddleData", category = "Short Stories" },
-    { key = "MissingCourierData", category = "Short Stories" },
     { key = "HoggerData", category = "Short Stories" },
     { key = "PoorOldBlanchyData", category = "Short Stories" },
     { key = "AgamandFamilyData", category = "Short Stories" },
     { key = "KingsTributeData", category = "Short Stories" },
     { key = "MankriksWifeData", category = "Short Stories" },
-    { key = "ShadyRestInnData", category = "Short Stories" },
     { key = "NothingButTheTruthData", category = "Short Stories" },
+    -- WoW Forever's own questlines (Data/Forever).
+    { key = "ForeverCozySleepingBagData", category = "Short Stories" },
 
     { key = "SylvanasData", category = "Character Stories" },
     { key = "JainaData", category = "Character Stories" },
@@ -106,6 +117,7 @@ local contentRegistry = {
     { key = "DraeneiHeritageData", category = "Identity" },
     { key = "PandarenHeritageData", category = "Identity" },
     { key = "DarkIronHeritageData", category = "Identity" },
+    { key = "ForeverZephrasIsleData", category = "Identity" },  -- the Skyborne's starting story
 }
 
 local function GetContentRegistryData(entry)
@@ -190,6 +202,25 @@ local function NormalizeQuestlineData(data)
     data._storyModeNormalized = true
 end
 
+-- Whether a story holds anything for this character. The class stories mix
+-- lines for many race and class pairs across clients (WoW Forever adds
+-- Forsaken paladins and dwarf shamans), so a pair with none of them, such as
+-- a TBC blood elf paladin, would otherwise get an empty story.
+local function HasContentForPlayer(data)
+    if not (data.prereqs or data.chapters or data.insurrection) then return true end
+    for _, section in ipairs({ data.prereqs or {}, data.chapters or {}, data.insurrection or {} }) do
+        for _, ch in ipairs(section) do
+            if SM.IsContentAvailableForClient(ch) and (not ch.faction or ch.faction == playerFaction) then
+                if ch.loreOnly or ch.replayable or not ch.quests then return true end
+                for _, q in ipairs(ch.quests) do
+                    if SM.IsQuestForPlayer(q) then return true end
+                end
+            end
+        end
+    end
+    return false
+end
+
 local function CanShowQuestline(data)
     RefreshPlayerContext()
     if not data then return false end
@@ -197,7 +228,7 @@ local function CanShowQuestline(data)
     if data.class and data.class ~= playerClass then return false end
     if data.faction and data.faction ~= playerFaction then return false end
     if data.race and data.race ~= playerRace then return false end
-    return true
+    return HasContentForPlayer(data)
 end
 
 local function RegisterQuestline(data, categoryName)

@@ -6,7 +6,8 @@ local addonName, SM = ...
 -- =============================================================================
 
 SM.ScholomanceData = {
-    title = "Scholomance",
+    id = "scholomance",  -- from its earlier title, "Scholomance": saved progress and share links use it
+    title = "The Key to Scholomance",
     description = "Caer Darrow's ruined school is locked behind more than a door. The Scourge has made Scholomance a place of experiments, ghosts, noble inheritance, and old betrayals that refuse to stay buried.\n\nForge the Skeleton Key, then follow the stories waiting inside: Eva Sarkhoff's revenge, Kirtonos, Ras Frostwhisper's lost humanity, and the Barov family's poisoned fortune.",
     zone = "Western Plaguelands / Tanaris / Un'Goro Crater / Scholomance",
     zoneByFaction = {

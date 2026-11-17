@@ -84,6 +84,7 @@ SM.DuskwoodData = {
     chapterDisplayIDs = {
         ["Darkshire Holds"] = 4322,
         ["Raven Hill"] = 4272,
+        ["The Valor Family"] = 4324,
         ["Morgan Ladimore"] = 612,
         ["The Legend of Stalvan"] = 1562,
         ["Worgen in the Woods"] = 2027,
@@ -131,6 +132,20 @@ SM.DuskwoodData = {
                 { id = 325, name = "Armed and Ready", npc = "Grimand Elmore" },
                 { id = 101, name = "The Totem of Infliction", npc = "Madame Eva" },
                 { id = 55, name = "Morbent Fel", npc = "Sven Yorgen" },
+            },
+        },
+        {
+            chapter = "The Valor Family",
+            gameVersions = { forever = true },
+            summary = "Sirra Von'Indi wants Raven Hill's lost heroes remembered. Search the ruined village for anything that still speaks of them and bring it to her library.",
+            recap = "Raven Hill's history had been wiped out with its people, but Sirra Von'Indi would not let its heroes go unremembered. A tome from the ruins named the Valor family, and their restless spirits left behind the weapons they had carried in life: Grant's shield, Silvia's sword, Ira's dagger, and Merrick's bow. Each weapon pointed to unfinished work, from the dead in the cemetery to the worgs in the woods, the Defias at Addle's Stead, and the ogres south of town. When the hauntings still did not stop, you carried the family's weapons back to Raven Hill to find the single night that had bound them all to it.",
+            quests = {
+                { id = 96139, name = "The Valor Family", npc = "Sirra Von'Indi", gameVersions = { forever = true } },
+                { id = 79362, name = "Grant's Shield", location = "Raven Hill, Duskwood", gameVersions = { forever = true } },
+                { id = 79363, name = "Silvia's Sword", location = "Raven Hill, Duskwood", parallel = true, gameVersions = { forever = true } },
+                { id = 96137, name = "Ira's Dagger", location = "Raven Hill, Duskwood", parallel = true, gameVersions = { forever = true } },
+                { id = 96138, name = "Merrick's Bow", location = "Raven Hill, Duskwood", parallel = true, gameVersions = { forever = true } },
+                { id = 98447, name = "The Valor Family", npc = "Sirra Von'Indi", gameVersions = { forever = true } },
             },
         },
         {

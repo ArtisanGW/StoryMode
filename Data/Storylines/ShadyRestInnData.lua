@@ -30,6 +30,7 @@ SM.ShadyRestInnData = {
         ["Captain Darill"] = { mapID = 70, x = 0.4700, y = 0.2400, location = "North Point Tower, Dustwallow Marsh" },
         ["Captain Garran Vimes"] = { mapID = 70, x = 0.6820, y = 0.4860, location = "Foothold Citadel, Theramore Isle" },
         ["Caz Twosprocket"] = { mapID = 70, x = 0.6450, y = 0.5040, location = "the Theramore blacksmith, Dustwallow Marsh" },
+        ["Grunt Logmar"] = { mapID = 10, x = 0.4460, y = 0.5920, location = "Camp Taurajo, The Barrens" },
         ["Do'gol"] = { mapID = 70, x = 0.3600, y = 0.3100, location = "Brackenwall Village, Dustwallow Marsh" },
         ["Guard Byron"] = { mapID = 70, x = 0.6620, y = 0.4560, location = "Theramore Isle, Dustwallow Marsh" },
         ["Hoofprints"] = { mapID = 70, x = 0.2970, y = 0.4770, location = "outside the ruins of the Shady Rest Inn, Dustwallow Marsh" },
@@ -103,8 +104,13 @@ SM.ShadyRestInnData = {
             chapter = "The Ruins",
             faction = "Horde",
             summary = "Krog has orders to investigate the burned inn, but the real clues are waiting in the ash.",
+            -- On WoW Forever the news reaches the Barrens first, with the Alliance soldiers it brought.
+            foreverText = {
+                summary = "Word of a burned tavern has reached Camp Taurajo, and with it Alliance soldiers who blame the Horde. Krog has orders to investigate the inn, but the real clues are waiting in the ash.",
+            },
             recap = "The ruins were not merely Alliance grief. Hoofprints, a scorched shield, and a Theramore badge could all be read as accusations, and Krog wanted the Horde's answers before Theramore wrote the story for everyone. The evidence pointed at tauren ironwork and Paval Reethe, but neither trail felt complete.",
             quests = {
+                { id = 97250, name = "Wrongly Blamed, Justly Corrected", npc = "Grunt Logmar", gameVersions = { forever = true } },
                 { id = 11124, name = "Inspecting the Ruins", npc = "Krog", gameVersions = { tbc = true } },
                 { id = 1268, name = "Suspicious Hoofprints", npc = "Hoofprints" },
             },

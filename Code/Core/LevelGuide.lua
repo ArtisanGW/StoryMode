@@ -10,6 +10,15 @@ end
 function SM.GetRecommendedLevelText(data)
     if not SM.IsClassicLevelGuideShown(data) then return nil end
 
+    -- WoW Forever: the range of the story's own quests on Forever
+    -- (Data/Forever/ForeverStoryLevels.lua), which counts its new quests.
+    -- Keyed by the English title; data.title is translated in place.
+    local forever = SM.Client.isForever and SM.ForeverStoryLevels
+        and SM.ForeverStoryLevels[data._originalTitle or data.title]
+    if forever then
+        return forever[1] == forever[2] and tostring(forever[1]) or string.format("%d-%d", forever[1], forever[2])
+    end
+
     local level = data.recommendedLevel
     if type(level) == "number" then
         return tostring(level)

@@ -6,7 +6,8 @@ local addonName, SM = ...
 -- =============================================================================
 
 SM.ArugalData = {
-    title = "Arugal and Shadowfang Keep",
+    id = "arugal-and-shadowfang-keep",  -- from its earlier title, "Arugal and Shadowfang Keep": saved progress and share links use it
+    title = "Arugal's Folly",
     description = "The Sepulcher needs help holding Silverpine Forest. Worgen stalk the roads, Dalaran mages keep their own counsel at Ambermill, and rumors from Shadowfang Keep have not grown quieter.\n\nTake the Forsaken orders one by one and learn why the forest still refuses to be claimed.",
     zone = "Silverpine Forest / Shadowfang Keep",
     expansion = "Classic",

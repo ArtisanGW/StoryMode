@@ -112,7 +112,9 @@ SM.UldamanData = {
             recap = "Behind Archaedas, the Discs of Norgannon spoke with the calm weight of titan memory. They named the Creators, the Earthen, and the deep history beneath dwarven stone. The portable discs went from Uldaman to Ironforge or Thunder Bluff, where scholars understood that the find was not only treasure. It was origin.",
             quests = {
                 { id = 2278, name = "The Platinum Discs", npc = "Discs of Norgannon" },
+                { id = 2279, name = "The Platinum Discs", npc = "Discs of Norgannon", faction = "Alliance" },
                 { id = 2439, name = "The Platinum Discs", npc = "High Explorer Magellas", faction = "Alliance" },
+                { id = 2280, name = "The Platinum Discs", npc = "Discs of Norgannon", faction = "Horde" },
                 { id = 2440, name = "The Platinum Discs", npc = "Sage Truthseeker", faction = "Horde" },
             },
         },

@@ -55,7 +55,15 @@ Data\Storylines\ShadyRestInnData.lua
 Data\ClassQuests\ClassicClassQuestData.lua
 Data\Forever\ForeverQuestIDs.lua
 Data\Forever\ForeverQuestText.lua
+Data\Forever\ForeverStoryLevels.lua
 Data\Forever\ForeverNPCDisplayIDs.lua
+Data\Forever\AlcazPrisonData.lua
+Data\Forever\ZephrasIsleData.lua
+Data\Forever\MountHyjalData.lua
+Data\Forever\RivergladesData.lua
+Data\Forever\ShendralasData.lua
+Data\Forever\AzsharaData.lua
+Data\Forever\CozySleepingBagData.lua
 Code\Core\Compatibility.lua
 Code\Core\SavedVariables.lua
 Code\Core\Scheduler.lua

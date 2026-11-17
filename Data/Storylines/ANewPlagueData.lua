@@ -37,6 +37,7 @@ SM.ANewPlagueData = {
         ["Nethander Stead"] = { mapID = 25, x = 0.6400, y = 0.6200, location = "Nethander Stead, Hillsbrad Foothills" },
         ["Dun Garok"] = { mapID = 25, x = 0.7100, y = 0.8000, location = "Dun Garok, southeastern Hillsbrad Foothills" },
         ["Dusty Rug"] = { mapID = 25, x = 0.6200, y = 0.1800, location = "upstairs in the Tarren Mill inn" },
+        ["Theodore Griffs"] = { mapID = 1458, x = 0.4640, y = 0.7140, location = "the Apothecarium, Undercity" },
     },
 
     npcDisplayIDs = {
@@ -107,6 +108,15 @@ SM.ANewPlagueData = {
                 { id = 515, name = "Elixir of Agony", displayName = "Faranell's Mixture", npc = "Master Apothecary Faranell" },
                 { id = 517, name = "Elixir of Agony", displayName = "Shindigger Stout", npc = "Apothecary Lydon" },
                 { id = 524, name = "Elixir of Agony", displayName = "Tainted Keg", npc = "Apothecary Lydon" },
+            },
+        },
+        {
+            chapter = "The Apothecarium",
+            gameVersions = { forever = true },
+            summary = "Return to the Apothecarium, where Theodore Griffs wants a sample from a spider in the ruins above whose venom is said to eat through undead flesh.",
+            recap = "The plague work came home to the Apothecarium, where Theodore Griffs had heard of a spider in the ruins overhead. Witherfang's venom was said to eat through even undead flesh, and Griffs wanted proof more than he wanted caution. Witherfang fell in the Ruins of Lordaeron, and its Highly Toxic Strain went down into the city for study. Every sample before it had taught the Society how to kill the living. This one was about what could still kill the dead.",
+            quests = {
+                { id = 95216, name = "The New Plague", npc = "Theodore Griffs", gameVersions = { forever = true } },
             },
         },
     },

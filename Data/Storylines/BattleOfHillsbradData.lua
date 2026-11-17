@@ -6,7 +6,8 @@ local addonName, SM = ...
 -- =============================================================================
 
 SM.BattleOfHillsbradData = {
-    title = "Battle of Hillsbrad",
+    id = "battle-of-hillsbrad",  -- from its earlier title, "Battle of Hillsbrad": saved progress and share links use it
+    title = "The Battle of Hillsbrad",
     description = "High Executor Darthalia has work for anyone willing to serve Tarren Mill. The humans of Hillsbrad still farm, trade, and guard the roads as if the Forsaken claim means nothing.\n\nReport for orders and carry the campaign from the fields to the mines and beyond. Darthalia will tell you who must fall next.",
     zone = "Hillsbrad Foothills",
     expansion = "Classic",
@@ -19,6 +20,8 @@ SM.BattleOfHillsbradData = {
     portraitDisplayID = 1645,
     adventureCoverTexture = 131867, -- Ruins of Lordaeron battleground loading screen
     adventureCoverIsLoadingScreen = true,
+    -- WoW Forever redrew the Ruins of Lordaeron screen in full resolution.
+    foreverCover = { texture = 7963782, texCoords = { 0, 1, 0.1592, 0.8408 } },
 
     startQuest = { id = 527, name = "Battle of Hillsbrad", npc = "High Executor Darthalia", location = "Tarren Mill, Hillsbrad Foothills" },
     startMapID = 25,
@@ -80,6 +83,9 @@ SM.BattleOfHillsbradData = {
             summary = "March on Dun Garok and bring Darthalia the victory she needs for her sealed commendation.",
             recap = "Dun Garok stood as the last hard point in Darthalia's campaign. When its mountaineers, priests, riflemen, and Captain Ironhill were dead, her commendation could be carried to Varimathras.",
             quests = {
+                -- WoW Forever scouts the dwarves first: orders for Deathstalker Masoj outside Dun Garok.
+                { id = 98094, name = "Scout Support", npc = "High Executor Darthalia", gameVersions = { forever = true } },
+                { id = 98095, name = "Valuable Vantages", npc = "Deathstalker Masoj", location = "Dun Garok, Hillsbrad Foothills", gameVersions = { forever = true } },
                 { id = 541, name = "Battle of Hillsbrad", displayName = "Dun Garok", npc = "High Executor Darthalia" },
                 { id = 550, name = "Battle of Hillsbrad", displayName = "Darthalia's Commendation", npc = "High Executor Darthalia" },
             },

@@ -72,6 +72,7 @@ SM.RaenesCleansingData = {
                 { id = 1026, name = "Raene's Cleansing", displayName = "Iron Shaft", npc = "Shael'dryn" },
                 { id = 1027, name = "Raene's Cleansing", displayName = "Iron Pommel", npc = "Shael'dryn" },
                 { id = 1028, name = "Raene's Cleansing", displayName = "Hidden Shrine", npc = "Shael'dryn" },
+                { id = 1055, name = "Raene's Cleansing", displayName = "Return to Shael'dryn", location = "the hidden shrine, Ashenvale" },
                 { id = 1029, name = "Raene's Cleansing", displayName = "Return to Raene", npc = "Shael'dryn" },
             },
         },

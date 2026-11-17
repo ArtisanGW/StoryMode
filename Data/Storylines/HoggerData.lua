@@ -6,7 +6,8 @@ local addonName, SM = ...
 -- =============================================================================
 
 SM.HoggerData = {
-    title = "Hogger",
+    id = "hogger",  -- from its earlier title, "Hogger": saved progress and share links use it
+    title = "Wanted: Hogger",
     description = "Marshal Dughan has posted a bounty at Westbrook Garrison. A Riverpaw brute named Hogger is prowling the woods, and Stormwind wants proof that the roads are safer.\n\nTake the warrant, follow the ridge southwest, and see why the locals speak his name with more concern than a single gnoll should earn.",
     zone = "Elwynn Forest",
     expansion = "Classic",

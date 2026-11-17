@@ -133,8 +133,9 @@ end
 
 function SM.IsQuestEffectivelyComplete(questIndex, chapterQuests)
     local q = chapterQuests[questIndex]
-    -- Quests for the opposing faction are irrelevant.
-    if not SM.IsQuestForPlayer(q) then return true end
+    -- Quests for the opposing faction, or hidden by a choice the player made
+    -- (hideIf / showIf), are irrelevant.
+    if not SM.IsQuestForPlayer(q) or SM.ShouldHideQuest(q) then return true end
 
     if SM.IsQuestEntryInLog(q) then return false end
     if SM.IsQuestEntryComplete(q) then return true end
@@ -147,7 +148,8 @@ function SM.IsQuestEffectivelyComplete(questIndex, chapterQuests)
 
     for i = questIndex + 1, #chapterQuests do
         local laterQuest = chapterQuests[i]
-        if laterQuest and not laterQuest.parallel and SM.IsQuestForPlayer(laterQuest) and SM.IsQuestEntryComplete(laterQuest) then
+        if laterQuest and not laterQuest.parallel and SM.IsQuestForPlayer(laterQuest) and not SM.ShouldHideQuest(laterQuest)
+            and SM.IsQuestEntryComplete(laterQuest) then
             return true
         end
     end
@@ -452,8 +454,8 @@ function SM.FindNextQuest(data)
                     local section = ch._section or 1
 
                     for j, q in ipairs(ch.quests or {}) do
-                        if not SM.IsQuestForPlayer(q) then
-                            -- skip opposing-faction variant
+                        if not SM.IsQuestForPlayer(q) or SM.ShouldHideQuest(q) then
+                            -- skip the opposing faction's variant, or a branch the player didn't take
                         elseif SM.IsQuestEntryInLog(q) then
                             logCandidates[#logCandidates + 1] = {
                                 quest = q, chapter = ch.chapter,

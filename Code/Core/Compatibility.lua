@@ -389,16 +389,25 @@ local foreverMapIDs = {
     [199] = 1413, -- Southern Barrens -> The Barrens
 }
 
+-- Stories made for WoW Forever store its own uiMapIDs, all 1400 and up (its
+-- Classic zones are 1411-1458, its new zones such as Zephras Isle later), so
+-- those pass through. Retail uiMapIDs for Classic zones are all below 1400.
+local FIRST_FOREVER_MAP_ID = 1400
+
+local function ForeverMapID(mapID)
+    return foreverMapIDs[mapID] or (mapID >= FIRST_FOREVER_MAP_ID and mapID or nil)
+end
+
 function SM.GetClientMapID(mapID)
     if not mapID or not isForever then return mapID end
-    return foreverMapIDs[mapID]
+    return ForeverMapID(mapID)
 end
 
 -- A copy of a data location with its map translated for this client, or nil
 -- when this client has no map for it.
 function SM.GetClientLocation(loc)
     if type(loc) ~= "table" or not loc.mapID or not isForever then return loc end
-    local mapID = foreverMapIDs[loc.mapID]
+    local mapID = ForeverMapID(loc.mapID)
     if not mapID then return nil end
     local copy = {}
     for key, value in pairs(loc) do copy[key] = value end
@@ -421,11 +430,24 @@ local function ApplyForeverQuestID(quest)
     end
 end
 
+-- A chapter with more to it on WoW Forever (Forever-only quests) keeps its
+-- summary and recap for there in foreverText. They replace the usual ones
+-- before the story is translated.
+local FOREVER_TEXT_FIELDS = { "summary", "recap" }
+local function ApplyForeverChapterText(chapter)
+    local text = chapter.foreverText
+    if type(text) ~= "table" then return end
+    for _, field in ipairs(FOREVER_TEXT_FIELDS) do
+        if text[field] then chapter[field] = text[field] end
+    end
+end
+
 function SM.ApplyClientQuestIDs(data)
     if not isForever or type(data) ~= "table" then return end
     ApplyForeverQuestID(data.startQuest)
     for _, section in ipairs({ data.prereqs or {}, data.chapters or {}, data.insurrection or {} }) do
         for _, chapter in ipairs(section) do
+            ApplyForeverChapterText(chapter)
             for _, quest in ipairs(chapter.quests or {}) do
                 ApplyForeverQuestID(quest)
             end
