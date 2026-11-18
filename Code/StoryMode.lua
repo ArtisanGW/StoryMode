@@ -554,9 +554,14 @@ end
 function SM.SetSecureOverlayActive(active)
     pendingSecureTrack = nil
     sTrackBtnSecure.isActive = active == true
+    -- The overlay is protected: in combat even setting its scripts is
+    -- blocked ("Interface action failed because of an AddOn"). The window
+    -- closes when combat starts and can't open during it, so layouts then
+    -- only run in the background; the first one after combat sets it right.
+    if InCombatLockdown() then return end
     if not active then
         sTrackBtnSecure:SetScript("PreClick", nil)
-        if not InCombatLockdown() then sTrackBtnSecure:Hide() end
+        sTrackBtnSecure:Hide()
     else
         SM.SyncSecureOverlay()
     end

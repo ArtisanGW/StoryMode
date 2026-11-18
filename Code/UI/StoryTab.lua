@@ -91,9 +91,11 @@ function SM.LayoutStoryTab(data, w, contentW, visibleContentW)
                     -- PreClick on the secure overlay queues the action BEFORE the
                     -- macro fires. The macro then performs the waypoint +
                     -- supertrack calls in a secure execution context.
-                    sTrackBtnSecure:SetScript("PreClick", function()
-                        SM.QueueSecureTrack(data, quest)
-                    end)
+                    if not InCombatLockdown() then
+                        sTrackBtnSecure:SetScript("PreClick", function()
+                            SM.QueueSecureTrack(data, quest)
+                        end)
+                    end
                     SM.SetSecureOverlayActive(true)
                     sTrackBtn:SetScript("OnClick", function()
                         ExecuteTrackButton(data, quest)
