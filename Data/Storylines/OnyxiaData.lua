@@ -27,6 +27,8 @@ SM.OnyxiaData = {
     startY = 0.6900,
 
     npcLocations = {
+        ["Major Mattingly"] = { mapID = 37, x = 0.2820, y = 0.4520, location = "the gates of Stormwind, Elwynn Forest" },
+        ["Overlord Runthak"] = { mapID = 85, x = 0.5140, y = 0.7560, location = "the Valley of Strength, Orgrimmar" },
         ["Helendis Riverhorn"] = { mapID = 36, x = 0.8500, y = 0.6900, location = "Morgan's Vigil, Burning Steppes" },
         ["Magistrate Solomon"] = { mapID = 49, x = 0.2900, y = 0.4400, location = "Lakeshire, Redridge Mountains" },
         ["Highlord Bolvar Fordragon"] = { mapID = 84, x = 0.7817, y = 0.1809, location = "Stormwind Keep" },
@@ -95,6 +97,9 @@ SM.OnyxiaData = {
         ["Galamav the Marksman"] = 8334,
         ["Apothecary Zinge"] = 4056,
         ["Shadowmage Vivian Lagrave"] = 8330,
+        ["Major Mattingly"] = 14431,
+        ["Overlord Runthak"] = 14429,
+        ["Lorekeeper Lydros"] = 14407,
     },
 
     chapterDisplayIDs = {
@@ -106,6 +111,7 @@ SM.OnyxiaData = {
         ["Rexxar's Testament"] = 10182,
         ["The Test of Skulls"] = 6374,
         ["Blood of the Black Dragon Champion"] = 10115,
+        ["Onyxia's Lair"] = 8570,
     },
 
     chapterIcons = {
@@ -117,6 +123,7 @@ SM.OnyxiaData = {
         ["Rexxar's Testament"] = 132320,
         ["The Test of Skulls"] = 134157,
         ["Blood of the Black Dragon Champion"] = 134153,
+        ["Onyxia's Lair"] = 134153,
     },
 
     chapters = {
@@ -254,6 +261,22 @@ SM.OnyxiaData = {
                 { id = 5160, name = "The Matron Protectorate", npc = "Awbee", optional = true, recap = "Deep in the Spire, Awbee gave me a scale and sent me to Winterspring, where you stand on a cobalt rune in the caves of Mazthoril and end up in front of Haleh. Haleh scried what Awbee had seen in that doomed place. Dragons, I learned, are forbidden to meddle in mortal affairs, unless one of their own starts it." },
                 { id = 5047, name = "Pip Quickwit, At Your Service!", npc = "Pip Quickwit", optional = true, recap = "We skinned the Beast in the upper Spire, and out climbed a gnome named Pip Quickwit, in a suit, delighted with how the suit had held up. Pip sent me to Malyfous Darkhammer in Everlook with the news and a glowing lump of the Beast's insides. Malyfous asked if Pip was alive, if the suit worked, and then mostly about the lump." },
                 { id = 5127, name = "The Demon Forge", npc = "Lorax", optional = true, recap = "Lorax, out in the snows of Winterspring, had bought the soul of a Spire smith named Goraluk Anvilcrack and sent me to collect it with a fel-soaked pike. Goraluk died, the pike drank him up, and I brought back the breastplate he'd stolen too. Lorax thanked me in rhyme, which somehow made it worse." },
+            },
+        },
+        {
+            chapter = "Onyxia's Lair",
+            summaryAlliance = "The Drakefire Amulet opens the way into Onyxia's Lair, in the south of Dustwallow Marsh. Behind it waits the dragon who sat at Stormwind's court for years as Lady Prestor. Highlord Bolvar Fordragon would very much like a word with her, or failing that, her head.",
+            summaryHorde = "The Drakefire Amulet opens the way into Onyxia's Lair, in the south of Dustwallow Marsh. Behind it waits the brood mother of the black dragonflight, Deathwing's own daughter. Thrall would like all of Orgrimmar to see how that meeting ends.",
+            recapAlliance = "The amulet got us through the door of Onyxia's Lair, down in the south of Dustwallow Marsh, and after that it was up to us. Onyxia had spent years in Stormwind as Lady Prestor, at the king's table, steering the kingdom wherever she liked. In her own home she didn't bother with manners. There were whelps. There were a great many whelps.\n\nWe came out with her head, and I carried it to Highlord Bolvar Fordragon in Stormwind Keep. Bolvar had it hung over the city gates, where everyone passing through could see what had been whispering to their king. The whole city stood a little straighter that day.\n\nMajor Mattingly at the gates had a reward for me afterwards, and a speech to go with it: the journey, he said, had only just begun. I've been walking ever since, so he may have had a point.",
+            recapHorde = "The amulet got us through the door of Onyxia's Lair, down in the south of Dustwallow Marsh, and after that it was up to us. Onyxia didn't greet us. She breathed on us, which is how dragons say hello. Then came the whelps, a great many whelps, as if she'd been saving them for company.\n\nWe came out with her head, and I carried it to Thrall in Orgrimmar. Thrall sent me on to Overlord Runthak, who had it raised over the Valley of Strength for all to see. Every orc in the city stood a little taller that day, and so did I.\n\nRunthak had a reward for me afterwards, and a speech to go with it: the journey, he said, had only just begun. Easy for him to say. He wasn't the one who carried the head.",
+            quests = {
+                { id = 7495, name = "Victory for the Alliance", location = "Onyxia's Lair, Dustwallow Marsh", faction = "Alliance" },
+                { id = 7496, name = "Celebrating Good Times", npc = "Highlord Bolvar Fordragon", faction = "Alliance" },
+                { id = 7497, name = "The Journey Has Just Begun", npc = "Major Mattingly", faction = "Alliance" },
+                { id = 7490, name = "Victory for the Horde", location = "Onyxia's Lair, Dustwallow Marsh", faction = "Horde" },
+                { id = 7491, name = "For All To See", npc = "Thrall", faction = "Horde" },
+                { id = 7493, name = "The Journey Has Just Begun", npc = "Overlord Runthak", faction = "Horde" },
+                { id = 7509, name = "The Forging of Quel'Serrar", npc = "Lorekeeper Lydros", class = { "WARRIOR", "PALADIN" }, optional = true, recap = "Lorekeeper Lydros had said the blade wasn't finished until a dragon breathed on it, which is an odd way to temper steel and a very common way to die. So in the middle of all that, I laid Quel'Serrar on the floor of Onyxia's Lair and let her do the forging. Lydros was right. It came out of the fire a proper sword." },
             },
         },
     },
