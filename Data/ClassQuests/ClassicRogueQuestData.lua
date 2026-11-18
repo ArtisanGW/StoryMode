@@ -97,9 +97,9 @@ SM.ClassicRogueQuestData = {
             summary = "A letter turns up in your mailbox. No name. Just a cabin outside Pyrewood Village and one letter at the bottom: C. Somebody wants a rogue who works alone.",
             recap = "Best letter I ever got had no name on it. Just a place, a cabin outside Pyrewood, and one letter at the bottom. C.\n\nIn the cabin there's a chest, and in the chest there's a job. Get the Horn of Xelthos out of Shadowfang Keep, and go alone. Alone, into Shadowfang. Sure. A goblin called Veenix up in Stonetalon got me past the courtyard gate, and after that it was me, the worgen and a lot of standing very still in corners. I put the horn in the chest and walked off, and a while later another letter tells me my pay is waiting. It was. Good pay, too.\n\nNext job was the Eye of Bhossca, in the Scarlet Monastery. I found a disguise on the grounds and strolled through the place like I'd been converted. Nobody blinked.\n\nNever met C. Never asked. When the money's that good, you don't.",
             quests = {
-                { id = 78261, name = "The Horn of Xelthos", npc = "Dead Drop", gameVersions = { forever = true } },
+                { id = 78261, name = "The Horn of Xelthos", npc = "Dead Drop", instance = "dungeon", gameVersions = { forever = true } },
                 { id = 78307, name = "The Horn of Xelthos", displayName = "C's Payment", npc = "Dead Drop", gameVersions = { forever = true } },
-                { id = 78676, name = "The Eye of Bhossca", npc = "Dead Drop", gameVersions = { forever = true } },
+                { id = 78676, name = "The Eye of Bhossca", npc = "Dead Drop", instance = "dungeon", gameVersions = { forever = true } },
                 { id = 78699, name = "The Eye of Bhossca", displayName = "C's Payment", npc = "Dead Drop", gameVersions = { forever = true } },
             },
         },
@@ -135,7 +135,7 @@ SM.ClassicRogueQuestData = {
             recap = "Here's a fun way to find out you've been played. A letter shows up from Ravenholdt. Fahrad. Come home, we need to talk. So I go, and Fahrad sits me down and tells me C has a name. Caius Blackwood. Some big spellcaster in bed with the Syndicate, the very Syndicate I'd been cutting up for Myrokos, and there I was fetching his trinkets for him like a good dog.\n\nSo we fixed it. C wanted one more thing, the Talisman of Kazdor, out of Zul'Farrak. I went in alone, like always, and brought it out, but this time it went to the manor first. Zan Shivsproket took it down to the basement and put a little surprise inside. Anybody tries to pour magic into it or out of it, boom. Then I set it in the chest, same as ever, and walked away whistling.\n\nFahrad says now we wait. Fine by me. Waiting's half the job.",
             quests = {
                 { id = 80526, name = "Fool Me Twice", npc = "Fahrad", gameVersions = { forever = true } },
-                { id = 80411, name = "The Talisman of Kazdor", npc = "Fahrad", gameVersions = { forever = true } },
+                { id = 80411, name = "The Talisman of Kazdor", npc = "Fahrad", instance = "dungeon", gameVersions = { forever = true } },
                 { id = 80453, name = "Best Laid Plans", npc = "Fahrad", gameVersions = { forever = true } },
                 { id = 80454, name = "One Last Drop", npc = "Zan Shivsproket", gameVersions = { forever = true } },
                 { id = 80455, name = "Biding Our Time", npc = "Dead Drop", gameVersions = { forever = true } },

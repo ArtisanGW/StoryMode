@@ -241,22 +241,35 @@ local function GetQuestCardText(questID)
     return text
 end
 
--- A turn-in day the way Legacy writes a challenge's date (13/11/26 or
--- 11/13/26, by the client's region).
 -- The game's own tag for a quest done in a dungeon or raid ("Dungeon",
--- "Raid", in the player's language), or nil. QuestInfo 81 and 62.
-local INSTANCE_QUEST_TAGS = { [81] = true, [62] = true }
+-- "Raid", in the player's language) and the quest log's icon for it, or nil.
+-- QuestInfo 81 is a dungeon; 62, 88 and 89 are raids.
+local DUNGEON_ICON, RAID_ICON = "questlog-questtypeicon-dungeon", "questlog-questtypeicon-raid"
+local INSTANCE_QUEST_TAGS = { [81] = DUNGEON_ICON, [62] = RAID_ICON, [88] = RAID_ICON, [89] = RAID_ICON }
+-- A quest the game leaves untagged that still sends the player into a
+-- dungeon or raid (the rogue's solo jobs for C) says so in the story data:
+-- instance = "dungeon" or "raid". Its label is the client's own word.
+local DATA_INSTANCE_TAGS = {
+    dungeon = { label = "LFG_TYPE_DUNGEON", fallback = "Dungeon", icon = DUNGEON_ICON },
+    raid = { label = "LFG_TYPE_RAID", fallback = "Raid", icon = RAID_ICON },
+}
 local function GetInstanceQuestTag(quest)
-    if not (quest and C_QuestLog and C_QuestLog.GetQuestTagInfo) then return nil end
-    for _, questID in ipairs(SM.GetQuestIDs(quest)) do
-        local info = C_QuestLog.GetQuestTagInfo(questID)
-        if info and INSTANCE_QUEST_TAGS[info.tagID] and info.tagName and info.tagName ~= "" then
-            return info.tagName
+    if not quest then return nil end
+    if C_QuestLog and C_QuestLog.GetQuestTagInfo then
+        for _, questID in ipairs(SM.GetQuestIDs(quest)) do
+            local info = C_QuestLog.GetQuestTagInfo(questID)
+            if info and INSTANCE_QUEST_TAGS[info.tagID] and info.tagName and info.tagName ~= "" then
+                return info.tagName, INSTANCE_QUEST_TAGS[info.tagID]
+            end
         end
     end
+    local tag = quest.instance and DATA_INSTANCE_TAGS[quest.instance]
+    if tag then return _G[tag.label] or tag.fallback, tag.icon end
     return nil
 end
 
+-- A turn-in day the way Legacy writes a challenge's date (13/11/26 or
+-- 11/13/26, by the client's region).
 local function FormatTurnInDate(stamp)
     local day = date("*t", stamp)
     if FormatShortDate then return FormatShortDate(day.day, day.month, day.year % 100) end
@@ -571,6 +584,12 @@ local function CreateLegacyQuestCard(parent)
     card.check:SetPoint("TOPRIGHT", card, "TOPRIGHT", -20, -8)  -- in the check's half scale
     card.status = card:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     card.status:SetJustifyH("RIGHT")
+    -- The quest log's dungeon or raid icon, before an instance quest's tag
+    -- or, once it's done, its date.
+    card.instanceIcon = card:CreateTexture(nil, "OVERLAY", nil, 1)
+    card.instanceIcon:SetSize(16, 16)
+    card.instanceIcon:SetPoint("RIGHT", card.status, "LEFT", -3, 0)
+    card.instanceIcon:Hide()
 
     -- The step's place in the chapter, on the Legacy points shield.
     card.shield = card:CreateTexture(nil, "ARTWORK")
@@ -664,8 +683,10 @@ local function CreateLegacyQuestCard(parent)
         -- Done: the day it was turned in and a check, as Legacy dates a
         -- finished challenge (just the check if the day isn't known).
         -- An unfinished dungeon or raid quest says so in the corner instead.
+        -- Either way a dungeon or raid quest keeps the quest log's icon there.
         local turnedIn = done and SM.GetQuestTurnInDate and SM.GetQuestTurnInDate(quest)
-        local instanceTag = not done and not undiscovered and GetInstanceQuestTag(quest)
+        local instanceTag, instanceIcon
+        if not undiscovered then instanceTag, instanceIcon = GetInstanceQuestTag(quest) end
         -- WoW keeps no completion dates, so quests finished before Story
         -- Mode started saving them say Completed instead.
         local statusText = (turnedIn and FormatTurnInDate(turnedIn))
@@ -682,6 +703,9 @@ local function CreateLegacyQuestCard(parent)
         self.status:SetTextColor(1, 0.82, 0)
         self.statusBackground:SetShown(done or statusText ~= nil)
         self.check:SetShown(done)
+        local showIcon = instanceIcon ~= nil and (done or statusText == instanceTag)
+        if showIcon then self.instanceIcon:SetAtlas(instanceIcon) end
+        self.instanceIcon:SetShown(showIcon)
 
         self.step:SetText(stepNumber and tostring(stepNumber) or "")
         self.shield:SetShown(stepNumber ~= nil)
