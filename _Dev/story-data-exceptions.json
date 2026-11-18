@@ -251,6 +251,12 @@
       "file": "Data/Storylines/OnyxiaData.lua",
       "quest": 5127,
       "reason": "The Demon Forge is listed in both the Alliance and the Horde Blackrock Spire chapters (The Drakefire Amulet, Blood of the Black Dragon Champion): both factions can take it."
+    },
+    {
+      "type": "duplicate-quest-in-story",
+      "file": "Data/Storylines/MyzraelData.lua",
+      "quest": 687,
+      "reason": "Theldurin the Lost is listed once per faction: Gerrig Bonegrip gives it in Ironforge, Zaruk in Hammerfall."
     }
   ]
 }

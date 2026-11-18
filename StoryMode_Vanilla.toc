@@ -48,6 +48,11 @@ Data\Storylines\AgamandFamilyData.lua
 Data\Storylines\KingsTributeData.lua
 Data\Storylines\MankriksWifeData.lua
 Data\Storylines\ShadyRestInnData.lua
+Data\Storylines\GreenHillsData.lua
+Data\Storylines\NaralexData.lua
+Data\Storylines\YetiData.lua
+Data\Storylines\MyzraelData.lua
+Data\Storylines\ThunderfuryData.lua
 Data\ClassQuests\ClassicDruidQuestData.lua
 Data\ClassQuests\ClassicHunterQuestData.lua
 Data\ClassQuests\ClassicMageQuestData.lua

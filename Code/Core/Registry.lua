@@ -41,6 +41,8 @@ local contentRegistry = {
     { key = "RheasLastEggData", category = "Stories" },
     { key = "RunasTheShamedData", category = "Stories" },
     { key = "MourningRiseData", category = "Stories" },
+    { key = "GreenHillsData", category = "Stories" },
+    { key = "NaralexData", category = "Stories" },
     -- WoW Forever's own questlines (Data/Forever).
     { key = "ForeverRivergladesData", category = "Stories" },
     { key = "ForeverAlcazPrisonData", category = "Stories" },
@@ -76,6 +78,9 @@ local contentRegistry = {
     { key = "KingsTributeData", category = "Short Stories" },
     { key = "MankriksWifeData", category = "Short Stories" },
     { key = "NothingButTheTruthData", category = "Short Stories" },
+    { key = "YetiData", category = "Short Stories" },
+    { key = "MyzraelData", category = "Short Stories" },
+    { key = "ThunderfuryData", category = "Short Stories" },
     -- WoW Forever's own questlines (Data/Forever).
     { key = "ForeverCozySleepingBagData", category = "Short Stories" },
 
