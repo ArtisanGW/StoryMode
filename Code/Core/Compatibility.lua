@@ -66,6 +66,27 @@ function SM.IsClassicClient()
     return not SM.IsMainlineClient()
 end
 
+-- Fills the game's $Gmale:female; tokens for the player's character. Quest
+-- text uses them, and so do the journal's translations in languages where
+-- the narrator's gender changes the words (Russian "я пошёл" / "я пошла").
+function SM.ApplyGenderTokens(text)
+    if type(text) ~= "string" then return text end
+    local female = UnitSex and UnitSex("player") == 3
+    return (text:gsub("%$[Gg]([^:;]*):([^;]*);", function(maleForm, femaleForm)
+        return female and femaleForm or maleForm
+    end))
+end
+
+-- A chapter's intro (summary) or journal entry (recap) for the player. Where
+-- the Alliance and the Horde live a chapter differently, it keeps one for
+-- each (summaryAlliance, recapHorde...) beside the shared one.
+function SM.GetChapterText(chapter, field)
+    if type(chapter) ~= "table" then return nil end
+    local faction = UnitFactionGroup and UnitFactionGroup("player")
+    local text = (faction == "Alliance" or faction == "Horde") and chapter[field .. faction] or nil
+    return SM.ApplyGenderTokens(text or chapter[field])
+end
+
 -- The gameVersions key that decides which stories this client shows. Forever
 -- shows the Classic Era set unless a story sets gameVersions.forever itself.
 function SM.IsForClientGameVersion(versions)
@@ -431,14 +452,19 @@ local function ApplyForeverQuestID(quest)
 end
 
 -- A chapter with more to it on WoW Forever (Forever-only quests) keeps its
--- summary and recap for there in foreverText. They replace the usual ones
--- before the story is translated.
+-- intro (summary) and journal entry (recap) for there in foreverText. They
+-- replace the usual ones before the story is translated. Either one there
+-- replaces all of the chapter's, faction versions included, so the usual
+-- Alliance or Horde text can't outrank it.
 local FOREVER_TEXT_FIELDS = { "summary", "recap" }
 local function ApplyForeverChapterText(chapter)
     local text = chapter.foreverText
     if type(text) ~= "table" then return end
     for _, field in ipairs(FOREVER_TEXT_FIELDS) do
-        if text[field] then chapter[field] = text[field] end
+        local alliance, horde = field .. "Alliance", field .. "Horde"
+        if text[field] or text[alliance] or text[horde] then
+            chapter[field], chapter[alliance], chapter[horde] = text[field], text[alliance], text[horde]
+        end
     end
 end
 

@@ -232,9 +232,7 @@ local function GetQuestCardText(questID)
         text = SM.ForeverQuestText and SM.ForeverQuestText[questID]
     end
     if not text then return nil end
-    text = text:gsub("%$[Gg]([^:;]*):([^;]*);", function(male, female)
-        return (UnitSex and UnitSex("player") == 3) and female or male
-    end)
+    text = SM.ApplyGenderTokens(text)
     text = text:gsub("%$%d+o[a-z]%s*", "")
     text = text:gsub("%$[Nn]", UnitName and UnitName("player") or "")
     text = text:gsub("%$[Cc]", UnitClass and (UnitClass("player")) or "")

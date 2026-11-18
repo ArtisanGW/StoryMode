@@ -51,7 +51,8 @@ function SM.LayoutJournalTab(data, w, contentW, visibleContentW)
         for ci, ch in ipairs(chapters) do
             local cd, ct = SM.GetChapterProgress(ch)
             local chComplete = cd == ct and ct > 0
-            if chComplete and ch.recap then
+            local recap = SM.GetChapterText(ch, "recap")
+            if chComplete and recap then
                 journalIdx = journalIdx + 1
                 hasAnyRecap = true
                 local entry = SM.GetJournalEntry(journalIdx)
@@ -84,7 +85,7 @@ function SM.LayoutJournalTab(data, w, contentW, visibleContentW)
                 end
                 entry.body:SetPoint("LEFT", detailChild, "LEFT", CP, 0)
                 entry.body:SetPoint("RIGHT", detailChild, "RIGHT", -CP, 0)
-                entry.body:SetText(ch.recap)
+                entry.body:SetText(recap)
                 entry.body:Show()
 
                 lastAnchor = entry.body

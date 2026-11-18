@@ -70,8 +70,14 @@ function SM.GetQuestlineCardSubline(data)
     return zoneText
 end
 
+-- A story whose Alliance and Horde sides start with different people keeps a
+-- description for each (descriptionAlliance, descriptionHorde), so neither
+-- reads about the other side's contacts.
 function SM.GetStoryIntroText(data)
-    return data and data.description or ""
+    if not data then return "" end
+    local faction = UnitFactionGroup and UnitFactionGroup("player")
+    local text = (faction == "Alliance" or faction == "Horde") and data["description" .. faction] or nil
+    return text or data.description or ""
 end
 
 function SM.GetStorySuggestedLevelText(data)

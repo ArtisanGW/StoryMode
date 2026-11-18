@@ -63,7 +63,11 @@ local function LocalizeChapter(chapter)
 
     LocalizeField(chapter, "chapter")
     LocalizeField(chapter, "summary")
+    LocalizeField(chapter, "summaryAlliance")
+    LocalizeField(chapter, "summaryHorde")
     LocalizeField(chapter, "recap")
+    LocalizeField(chapter, "recapAlliance")
+    LocalizeField(chapter, "recapHorde")
     LocalizeField(chapter, "note")
     LocalizeField(chapter, "achievementName")
 
@@ -94,6 +98,8 @@ function SM.LocalizeContentData(data)
     end
 
     LocalizeField(data, "title")
+    LocalizeField(data, "descriptionAlliance")
+    LocalizeField(data, "descriptionHorde")
     LocalizeField(data, "achievementName")
     LocalizeField(data, "description")
     LocalizeField(data, "zone")
