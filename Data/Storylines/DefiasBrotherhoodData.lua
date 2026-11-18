@@ -142,9 +142,9 @@ SM.DefiasBrotherhoodData = {
         {
             chapter = "VanCleef",
             summary = "Thanks to a turncoat, Gryan Stoutmantle knows where the Defias hide: the old mine under Moonbrook. Back on Sentinel Hill, Gryan has one task left for you, and it has a name on it. Edwin VanCleef.",
-            recap = "The Deadmines. You go in expecting a mine, and you get one, and then a goblin foundry, and then a cave so big there's a whole ship sitting in it. A proper ship, cannons and all, under Westfall. Whoever dug that place out knew their trade.\n\nEdwin VanCleef was up on the deck, and he did not go quietly. Gryan wanted his head, and I carried it out into the daylight and all the way up to Sentinel Hill.\n\nShoni the Shilent in Stormwind had asked me to fetch a Gnoam Sprecklesprocket while I was down there. I couldn't tell you what one is. Shoni knew, and Shoni was paying, and that was enough for me.\n\nThere was a letter on VanCleef, too. Addressed to the City Architect in Stormwind, and never sent. That's another story.",
+            recap = "The Deadmines. You go in expecting a mine, and you get one, and then a goblin foundry, and then a cave so big there's a whole ship sitting in it. A proper ship, cannons and all, under Westfall. Whoever dug that place out knew their trade.\n\nEdwin VanCleef was up on the deck, and he did not go quietly. Gryan wanted his head, and I carried it out into the daylight and all the way up to Sentinel Hill.\n\nThere was a letter on VanCleef, too. Addressed to the City Architect in Stormwind, and never sent. That's another story.",
             quests = {
-                { id = 2040, name = "Underground Assault", npc = "Shoni the Shilent", optional = true },
+                { id = 2040, name = "Underground Assault", npc = "Shoni the Shilent", optional = true, recapAfter = 2, recap = "Shoni the Shilent in Stormwind had asked me to fetch a Gnoam Sprecklesprocket while I was down there. I couldn't tell you what one is. Shoni knew, and Shoni was paying, and that was enough for me." },
                 { id = 166, name = "The Defias Brotherhood", displayName = "VanCleef's Head", npc = "Gryan Stoutmantle" },
             },
         },

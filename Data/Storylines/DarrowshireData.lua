@@ -67,13 +67,13 @@ SM.DarrowshireData = {
         {
             chapter = "The Annals of Darrowshire",
             summary = "In Darrowshire, Pamela Redpath is lonely. Auntie Marlene told her to stay put and never came back, and her father hasn't come home either. Maybe Marlene knows where he is. She lives on a hill south of Andorhal.",
-            recap = "Pamela's aunt had a job waiting for me: a wedding ring, for a historian who'd been asking around about Darrowshire.\n\nThe historian was Chromie. A gnome, cheerful, and a little too well informed about things that hadn't happened yet. Chromie wanted the Annals of Darrowshire, an old history of the town that took some finding, and once she had it she added to it. Extended, she called it. I didn't ask where the extra pages came from. I'm not sure I'd have liked the answer.\n\nThe extended version went to Pamela's uncle, Carlin Redpath, at Light's Hope Chapel. Carlin wanted Darrowshire's old defenders freed from that town, and I freed fifteen of them. The dead of Darrowshire have waited long enough for everything.",
+            recap = "Pamela's aunt had a job waiting for me: a wedding ring, for a historian who'd been asking around about Darrowshire.\n\nThe historian was Chromie. A gnome, cheerful, and a little too well informed about things that hadn't happened yet. Chromie wanted the Annals of Darrowshire, an old history of the town that took some finding, and once she had it she added to it. Extended, she called it. I didn't ask where the extra pages came from. I'm not sure I'd have liked the answer.\n\nThe extended version went to Pamela's uncle, Carlin Redpath, at Light's Hope Chapel.",
             quests = {
                 { id = 5152, name = "Auntie Marlene", npc = "Pamela Redpath" },
                 { id = 5153, name = "A Strange Historian", npc = "Marlene Redpath" },
                 { id = 5154, name = "The Annals of Darrowshire", npc = "Chromie" },
                 { id = 5241, name = "Uncle Carlin", npc = "Pamela Redpath", optional = true },
-                { id = 5211, name = "Defenders of Darrowshire", npc = "Carlin Redpath", optional = true },
+                { id = 5211, name = "Defenders of Darrowshire", npc = "Carlin Redpath", optional = true, recap = "Carlin wanted Darrowshire's old defenders freed from that town, and I freed fifteen of them. The dead of Darrowshire have waited long enough for everything." },
                 { id = 5210, name = "Brother Carlin", npc = "Chromie" },
             },
         },

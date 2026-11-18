@@ -84,10 +84,10 @@ SM.MissingCourierData = {
         {
             chapter = "The Courier's Trail",
             summary = "The knife points inland, to the Woodpaw gnolls of southern Feralas. Ginro Hearthkindle wants their camps searched for Raschal's belongings, or for Raschal. Gnolls are not known for returning lost property.",
-            recap = "The Woodpaw camps are about what you'd expect. Gnolls, bones, a smell you take home with you. I went through them looking for anything of Raschal's and found both his packs, pinned to a tree like a trophy, Feathermoon insignia and all.\n\nInside was a parcel he'd never delivered, meant for Falfindel Waywarder in Thalanaar. I took it there myself. A courier's job ought to get finished, even if the courier can't finish it.\n\nThe other thing in the packs was a note, and the note changed the whole picture. Raschal had seen strange insect creatures south of the gnoll camps, and gone to have a look.\n\nNot lost, then. Not dragged off by gnolls, either. Our courier had gone looking for trouble on purpose. I liked him already.",
+            recap = "The Woodpaw camps are about what you'd expect. Gnolls, bones, a smell you take home with you. I went through them looking for anything of Raschal's and found both his packs, pinned to a tree like a trophy, Feathermoon insignia and all.\n\nThe other thing in the packs was a note, and the note changed the whole picture. Raschal had seen strange insect creatures south of the gnoll camps, and gone to have a look.\n\nNot lost, then. Not dragged off by gnolls, either. Our courier had gone looking for trouble on purpose. I liked him already.",
             quests = {
                 { id = 4131, name = "The Woodpaw Gnolls", npc = "Ginro Hearthkindle" },
-                { id = 4281, name = "Thalanaar Delivery", npc = "Undelivered Parcel", optional = true },
+                { id = 4281, name = "Thalanaar Delivery", npc = "Undelivered Parcel", optional = true, recapAfter = 1, recap = "Inside was a parcel he'd never delivered, meant for Falfindel Waywarder in Thalanaar. I took it there myself. A courier's job ought to get finished, even if the courier can't finish it." },
             },
         },
         {

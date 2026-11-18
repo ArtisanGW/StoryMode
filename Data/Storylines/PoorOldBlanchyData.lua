@@ -44,11 +44,11 @@ SM.PoorOldBlanchyData = {
         {
             chapter = "What They Left Behind",
             summary = "Hooligans overran the Furlbrows' fields one night, and the couple fled in a rush. Now their wagon has broken down by the road near Jansen Stead in Westfall. Farmer Furlbrow left something precious behind, and Verna is fretting over their tired old horse.",
-            recap = "On the road into Westfall there's a broken-down wagon, and beside it the Furlbrows, who left their farm in a hurry and couldn't bring much with them.\n\nFarmer Furlbrow wanted one thing. Not the farm, not the furniture. His pocket watch, still sitting in the wardrobe back at the farmhouse. So I walked out to the pumpkin farm and fetched it. Of everything a man could leave behind, that was the one he couldn't stop thinking about.\n\nVerna's worry was Blanchy, their old horse, who was hungry and getting no younger. I went through the fields picking up oats until I had eight handfuls. Blanchy ate every one and looked at me like I'd hung the moon.\n\nLater on I turned up Furlbrow's deed in a Defias camp in Elwynn. Thieves will take anything that isn't nailed down, and a few things that are.",
+            recap = "On the road into Westfall there's a broken-down wagon, and beside it the Furlbrows, who left their farm in a hurry and couldn't bring much with them.\n\nFarmer Furlbrow wanted one thing. Not the farm, not the furniture. His pocket watch, still sitting in the wardrobe back at the farmhouse. So I walked out to the pumpkin farm and fetched it. Of everything a man could leave behind, that was the one he couldn't stop thinking about.\n\nVerna's worry was Blanchy, their old horse, who was hungry and getting no younger. I went through the fields picking up oats until I had eight handfuls. Blanchy ate every one and looked at me like I'd hung the moon.",
             quests = {
                 { id = 64, name = "The Forgotten Heirloom", npc = "Farmer Furlbrow" },
                 { id = 151, name = "Poor Old Blanchy", npc = "Verna Furlbrow" },
-                { id = 184, name = "Furlbrow's Deed", npc = "Furlbrow's Deed", mapID = 37, x = 0.7100, y = 0.8070, location = "Defias camps around Elwynn Forest", optional = true },
+                { id = 184, name = "Furlbrow's Deed", npc = "Furlbrow's Deed", mapID = 37, x = 0.7100, y = 0.8070, location = "Defias camps around Elwynn Forest", optional = true, recap = "Later on I turned up Furlbrow's deed in a Defias camp in Elwynn. Thieves will take anything that isn't nailed down, and a few things that are." },
             },
         },
     },

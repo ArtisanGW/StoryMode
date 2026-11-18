@@ -64,21 +64,21 @@ SM.BattleOfHillsbradData = {
         {
             chapter = "Hillsbrad Fields",
             summary = "High Executor Darthalia runs Tarren Mill like a war room. Down the hill, the humans of Hillsbrad still farm and trade as if the Forsaken weren't there. Darthalia means to change that, and the farms come first.",
-            recap = "High Executor Darthalia runs Tarren Mill like a war room, because it is one. Down in Hillsbrad the humans were still farming and trading as if the Forsaken weren't sitting up the hill, and Darthalia meant to correct that.\n\nFirst orders were the northern farms, with a couple of farmers named outright. Darthalia likes names on a list. After that, the peasants. Grim work. It got done.\n\nDeathguard Samsa had a sideline going too: thirty human skulls. Thirty. Samsa didn't explain, and in Tarren Mill you learn quickly which questions aren't worth the answer.\n\nThat was the opening move. Darthalia already had the next one picked out.",
+            recap = "High Executor Darthalia runs Tarren Mill like a war room, because it is one. Down in Hillsbrad the humans were still farming and trading as if the Forsaken weren't sitting up the hill, and Darthalia meant to correct that.\n\nFirst orders were the northern farms, with a couple of farmers named outright. Darthalia likes names on a list. After that, the peasants. Grim work. It got done.\n\nThat was the opening move. Darthalia already had the next one picked out.",
             quests = {
                 { id = 527, name = "Battle of Hillsbrad", displayName = "The Northern Farms", npc = "High Executor Darthalia" },
                 { id = 528, name = "Battle of Hillsbrad", displayName = "The Peasants", npc = "High Executor Darthalia" },
-                { id = 546, name = "Souvenirs of Death", npc = "Deathguard Samsa", optional = true, showIf = 527 },
+                { id = 546, name = "Souvenirs of Death", npc = "Deathguard Samsa", optional = true, showIf = 527, recapAfter = 2, recap = "Deathguard Samsa had a sideline going too: thirty human skulls. Thirty. Samsa didn't explain, and in Tarren Mill you learn quickly which questions aren't worth the answer." },
             },
         },
         {
             chapter = "Town and Mine",
             summary = "Darthalia's list moves on to Hillsbrad itself: the blacksmith, the town hall, and the mine that keeps the town supplied. Report to the High Executor in Tarren Mill for the next set of orders.",
-            recap = "After the farms, the town. Darthalia took Hillsbrad apart like a clock: the smithy, the town hall, the mine. I walked out of the town hall with the registry under my arm and the proclamation destroyed behind me. Hard to run a town without a smith, a council or its paperwork.\n\nThe best bit, though, was the wanted poster outside the inn in Tarren Mill. Four names on it: a clerk, a citizen, a miner and a farmer, every one of them marked dangerous. A farmer, I can see. A miner, sure. But I'd have paid good money to see the clerk be dangerous.",
+            recap = "After the farms, the town. Darthalia took Hillsbrad apart like a clock: the smithy, the town hall, the mine. I walked out of the town hall with the registry under my arm and the proclamation destroyed behind me. Hard to run a town without a smith, a council or its paperwork.",
             quests = {
                 { id = 529, name = "Battle of Hillsbrad", displayName = "The Blacksmith", npc = "High Executor Darthalia" },
                 { id = 532, name = "Battle of Hillsbrad", displayName = "The Town Hall", npc = "High Executor Darthalia" },
-                { id = 567, name = "Dangerous!", npc = "WANTED", optional = true },
+                { id = 567, name = "Dangerous!", npc = "WANTED", optional = true, recap = "The best bit, though, was the wanted poster outside the inn in Tarren Mill. Four names on it: a clerk, a citizen, a miner and a farmer, every one of them marked dangerous. A farmer, I can see. A miner, sure. But I'd have paid good money to see the clerk be dangerous." },
                 { id = 539, name = "Battle of Hillsbrad", displayName = "Azureload Mine", npc = "High Executor Darthalia" },
             },
         },

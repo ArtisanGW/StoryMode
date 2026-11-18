@@ -1,6 +1,38 @@
 local _, SM = ...
 local L = SM.L
 
+-- A chapter's journal entry. An optional quest keeps its own lines (recap),
+-- which join the entry only once the player has done it, after the paragraph
+-- its recapAfter names (or at the end), so the journal never tells an optional
+-- quest that wasn't played.
+local function GetJournalRecap(ch)
+    local recap = SM.GetChapterText(ch, "recap")
+    if not recap then return nil end
+    local extras
+    for _, q in ipairs(ch.quests or {}) do
+        if q.recap and SM.IsQuestForPlayer(q) and not SM.ShouldHideQuest(q) and SM.IsQuestEntryComplete(q) then
+            extras = extras or {}
+            extras[#extras + 1] = q
+        end
+    end
+    if not extras then return recap end
+
+    local paragraphs = {}
+    for paragraph in (recap .. "\n\n"):gmatch("(.-)\n\n") do
+        paragraphs[#paragraphs + 1] = paragraph
+    end
+    local out = {}
+    for p = 0, #paragraphs do
+        if p > 0 then out[#out + 1] = paragraphs[p] end
+        for _, q in ipairs(extras) do
+            if math.min(q.recapAfter or #paragraphs, #paragraphs) == p then
+                out[#out + 1] = SM.ApplyGenderTokens(q.recap)
+            end
+        end
+    end
+    return table.concat(out, "\n\n")
+end
+
 function SM.LayoutJournalTab(data, w, contentW, visibleContentW)
     local ui = SM.DetailUI
     local detailChild = ui.detailChild
@@ -51,7 +83,7 @@ function SM.LayoutJournalTab(data, w, contentW, visibleContentW)
         for ci, ch in ipairs(chapters) do
             local cd, ct = SM.GetChapterProgress(ch)
             local chComplete = cd == ct and ct > 0
-            local recap = SM.GetChapterText(ch, "recap")
+            local recap = GetJournalRecap(ch)
             if chComplete and recap then
                 journalIdx = journalIdx + 1
                 hasAnyRecap = true

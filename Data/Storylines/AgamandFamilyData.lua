@@ -63,13 +63,13 @@ SM.AgamandFamilyData = {
         {
             chapter = "The Haunted Mills",
             summary = "The Scourge are trying to dig in at the Agamand Mills, northwest of Brill, and Deathguard Dillinger wants them beaten back. Coleman Farthing, at the Gallows' End Tavern, once worked those mills and has his own business with the family that owned them.",
-            recap = "The Agamands owned the mills north of Brill, back when they were alive. They're still there. They just don't run the place anymore.\n\nThe deathguard wanted the grounds cleared, and Coleman Farthing wanted something more personal: the family. Devlin Agamand haunts those mills, and Coleman wanted Devlin's remains, and then the remains of the rest of them, one after another. The whole family, one sack at a time.\n\nSomewhere in the middle of it I came across a letter one of the Agamands had written and never got round to delivering. So I delivered it. Late, admittedly. The post in Tirisfal has never been quick.\n\nColeman had wanted proof of what became of the Agamands. I brought back most of the Agamands. That seemed to settle the question.",
+            recap = "The Agamands owned the mills north of Brill, back when they were alive. They're still there. They just don't run the place anymore.\n\nThe deathguard wanted the grounds cleared, and Coleman Farthing wanted something more personal: the family. Devlin Agamand haunts those mills, and Coleman wanted Devlin's remains, and then the remains of the rest of them, one after another. The whole family, one sack at a time.\n\nColeman had wanted proof of what became of the Agamands. I brought back most of the Agamands. That seemed to settle the question.",
             quests = {
                 { id = 404, name = "A Putrid Task", npc = "Deathguard Dillinger" },
                 { id = 426, name = "The Mills Overrun", npc = "Deathguard Dillinger" },
                 { id = 362, name = "The Haunted Mills", npc = "Coleman Farthing" },
                 { id = 354, name = "Deaths in the Family", npc = "Coleman Farthing" },
-                { id = 361, name = "A Letter Undelivered", npc = "Yvette Farthing", optional = true },
+                { id = 361, name = "A Letter Undelivered", npc = "Yvette Farthing", optional = true, recapAfter = 2, recap = "Somewhere in the middle of it I came across a letter one of the Agamands had written and never got round to delivering. So I delivered it. Late, admittedly. The post in Tirisfal has never been quick." },
             },
         },
         {
