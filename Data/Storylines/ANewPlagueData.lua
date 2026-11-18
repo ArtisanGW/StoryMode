@@ -52,6 +52,9 @@ SM.ANewPlagueData = {
         ["Umpi"] = 901,
         ["Stanley"] = 855,
         ["Captured Mountaineer"] = 11426,
+        -- Quest givers' models from Wowhead's WoW Forever data.
+        ["Deathguard Kristof"] = 1590,
+        ["Tabitha Heartweaver"] = 136424,
     },
 
     chapterDisplayIDs = {

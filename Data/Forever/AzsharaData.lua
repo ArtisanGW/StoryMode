@@ -72,6 +72,9 @@ SM.ForeverAzsharaData = {
         ["Ogtinc"] = 1012,
         ["Mathrengyl Bearwalker"] = 2261,
         ["Nara Wildmane"] = 4513,
+        -- Quest givers' models from Wowhead's WoW Forever data.
+        ["Archmage Timear"] = 27592,
+        ["Lorekeeper Nok"] = 11363,
     },
 
     chapters = {

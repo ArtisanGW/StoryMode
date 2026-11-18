@@ -63,6 +63,8 @@ SM.MaraudonData = {
         ["Keeper Marandis"] = 150,
         ["Selendra"] = 13672,
         ["Zaetar's Spirit"] = 12369,
+        -- Quest givers' models from Wowhead's WoW Forever data.
+        ["Olana Brighthoof"] = 145507,
     },
 
     chapters = {

@@ -64,6 +64,8 @@ SM.ForeverRivergladesData = {
         ["Kreza Darkthorn"] = 139731,
         ["Marshal Ryan"] = 139994,
         ["Da'grosh"] = 140921,
+        -- Quest givers' models from Wowhead's WoW Forever data.
+        ["Ranath Nightstride"] = 145449,
     },
 
     chapters = {

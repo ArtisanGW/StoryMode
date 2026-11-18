@@ -68,6 +68,7 @@ SM.ForeverNPCDisplayIDs = {
     ["Nazeer Bloodpike"] = 4685,
     ["Nimboya"] = 4569,
     ["Ott"] = 3673,
+    ["Overlord Runthak"] = 14429,
     ["Parqual Fintallas"] = 10197,
     ["Patrick Garrett"] = 6228,
     ["Sage Truthseeker"] = 4518,

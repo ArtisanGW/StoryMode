@@ -51,6 +51,8 @@ SM.ForeverAlcazPrisonData = {
         -- Wowhead has two Mason Connerys (264770, 264845) with different
         -- models and doesn't say which gives his quests; the first one's.
         ["Mason Connery"] = 144257,
+        -- Quest givers' models from Wowhead's WoW Forever data.
+        ["Archmage Lan'dalock"] = 19744,
     },
 
     chapters = {

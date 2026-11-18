@@ -100,6 +100,8 @@ SM.ScarletCrusadeData = {
         ["Leonid Barthalomew the Revered"] = 10474,
         ["Egan"] = 10644,
         ["Aurius"] = 10217,
+        -- Quest givers' models from Wowhead's WoW Forever data.
+        ["Magus Olvek"] = 144086,
     },
 
     chapterDisplayIDs = {

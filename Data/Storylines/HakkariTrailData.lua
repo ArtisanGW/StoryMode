@@ -86,6 +86,9 @@ SM.HakkariTrailData = {
         ["Brohann Caskbelly"] = 5079,
         ["Fel'zerul"] = 4554,
         ["Atal'ai Exile"] = 6590,
+        -- Quest givers' models from Wowhead's WoW Forever data.
+        ["Archmage Lan'dalock"] = 19744,
+        ["Mazu'kon"] = 143984,
     },
 
     chapters = {
