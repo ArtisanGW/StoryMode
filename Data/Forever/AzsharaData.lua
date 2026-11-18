@@ -30,11 +30,15 @@ SM.ForeverAzsharaData = {
         ["Sentinel Dalia Sunblade"] = { mapID = 1457, x = 0.3980, y = 0.8920, location = "Darnassus, Teldrassil" },
         ["Commander Truesong"] = { mapID = 1447, x = 0.1180, y = 0.7820, location = "Talrendis Point, Azshara" },
         ["Saria Fairmoon"] = { mapID = 1447, x = 0.5040, y = 0.4260, location = "the Shattered Strand, Azshara" },
+        ["Mathrengyl Bearwalker"] = { mapID = 1457, x = 0.3520, y = 0.0800, location = "Darnassus, Teldrassil" },
+        ["Archmage Timear"] = { mapID = 1416, x = 0.1540, y = 0.7380, location = "Dalaran, Alterac Mountains" },
         -- Horde
         ["Ag'tor Bloodfist"] = { mapID = 1447, x = 0.2220, y = 0.5140, location = "Valormok, Azshara" },
         ["Jediga"] = { mapID = 1447, x = 0.2240, y = 0.5140, location = "Valormok, Azshara" },
         ["Belgrom Rockmaul"] = { mapID = 1454, x = 0.7500, y = 0.3420, location = "Valley of Honor, Orgrimmar" },
         ["Zevrost"] = { mapID = 1454, x = 0.4820, y = 0.4540, location = "the Cleft of Shadow, Orgrimmar" },
+        ["Nara Wildmane"] = { mapID = 1456, x = 0.7560, y = 0.3120, location = "Thunder Bluff" },
+        ["Muln Earthfury"] = { mapID = 1412, x = 0.3340, y = 0.2240, location = "near Thunder Bluff, Mulgore" },
         -- Blackmaw
         ["Ekkal"] = { mapID = 1447, x = 0.4200, y = 0.3880, location = "the Ruins of Eldarath, Azshara" },
         ["Gatekeeper Rageroar"] = { mapID = 1447, x = 0.4240, y = 0.2020, location = "Ursolan, Azshara" },
@@ -44,6 +48,8 @@ SM.ForeverAzsharaData = {
         ["Elder Bramblesnap"] = { mapID = 1447, x = 0.4160, y = 0.1960, location = "Ursolan, Azshara" },
         ["Legashi Cauldron"] = { mapID = 1447, x = 0.5770, y = 0.2100, location = "the Legashi Encampment, Azshara" },
         ["Gorn One Eye"] = { mapID = 1448, x = 0.6520, y = 0.0260, location = "Timbermaw Hold, Felwood" },
+        ["Lorekeeper Nok"] = { mapID = 1447, x = 0.4140, y = 0.2000, location = "Ursolan, Azshara" },
+        ["Ogtinc"] = { mapID = 1447, x = 0.4240, y = 0.4260, location = "the Ruins of Eldarath, Azshara" },
     },
 
     npcDisplayIDs = {
@@ -63,6 +69,9 @@ SM.ForeverAzsharaData = {
         ["Elder Bramblesnap"] = 6829,
         ["Keldara Sunblade"] = 7603,
         ["Belgrom Rockmaul"] = 5535,
+        ["Ogtinc"] = 1012,
+        ["Mathrengyl Bearwalker"] = 2261,
+        ["Nara Wildmane"] = 4513,
     },
 
     chapters = {
@@ -153,6 +162,14 @@ SM.ForeverAzsharaData = {
                 { id = 87346, name = "Chieftain Bloodmaw", npc = "Gorn One Eye", gameVersions = { forever = true } },
                 { id = 86814, name = "Blackmaw Counter-Offensive", npc = "Gorn One Eye", gameVersions = { forever = true } },
                 { id = 92065, name = "Blackmaw Reclamation", npc = "Gatekeeper Rageroar", gameVersions = { forever = true } },
+                { id = 92066, name = "The Twin Bears", npc = "Lorekeeper Nok", optional = true, gameVersions = { forever = true }, recap = "Lorekeeper Nok at Ursolan wanted two totems brought out of Blackmaw Hold, one for Ursoc and one for Ursol, the twin bears every furbolg looks up to. I found both and carried them very carefully. Losing a fight in there is one thing. Dropping a demigod on the way home is another." },
+                { id = 97327, name = "Blackmaw Pouches", npc = "Ekkal", optional = true, gameVersions = { forever = true }, recap = "Ekkal wanted five Blackmaw pouches fetched out of the hold. Not weapons, not treasure. Pouches. I didn't look inside. Some things you carry without asking, and a furbolg's pouch is one of them." },
+                { id = 92069, name = "Claws That Rend, Tusks that Gore", npc = "Ogtinc", optional = true, gameVersions = { forever = true }, recap = "Ogtinc, out by the Ruins of Eldarath, wanted the claws of the Great Bear and the tusks of the Unbroken from inside the hold. Both came attached to their owners, who had opinions about that. Claws that rend and tusks that gore, I'd been warned. I can confirm both." },
+                { id = 92070, name = "A Lost Memento", location = "Blackmaw Hold, Azshara", optional = true, gameVersions = { forever = true }, recap = "In the hold I came across a feathered charm necklace that plainly belonged to somebody. Somebody turned out to be Unele, back at Ursolan, so I gave it back. Some loot is worth more returned than sold." },
+                { id = 92344, name = "Get to the Roots of It", npc = "Mathrengyl Bearwalker", faction = "Alliance", optional = true, gameVersions = { forever = true }, recap = "Mathrengyl Bearwalker in Darnassus wanted ten Nordrassil root caps, and the place to pick them, of all places, was Blackmaw Hold. I picked ten. I didn't ask what a druid wants with them. Ask a druid a question and the answer takes the rest of the afternoon." },
+                { id = 92343, name = "Get to the Roots of It", npc = "Nara Wildmane", faction = "Horde", optional = true, gameVersions = { forever = true }, recap = "Nara Wildmane in Thunder Bluff wanted ten Nordrassil root caps, and the place to pick them, of all places, was Blackmaw Hold. I picked ten, between fights. I didn't ask what they were for. Up on the Elder Rise a question turns into a lesson, and the lesson turns into the evening." },
+                { id = 97173, name = "Blackmaw Magic", npc = "Archmage Timear", faction = "Alliance", optional = true, gameVersions = { forever = true }, recap = "Archmage Timear of the Kirin Tor wanted a Blackmaw ritual totem brought out of the hold. I found one and carried it all the way to Dalaran. Mages will study anything that sits still long enough. Totems are very good at sitting still." },
+                { id = 97198, name = "Blackmaw Magic", npc = "Muln Earthfury", faction = "Horde", optional = true, gameVersions = { forever = true }, recap = "Muln Earthfury of the Earthen Ring wanted a Blackmaw ritual totem brought out of the hold. I found one and carried it home to Mulgore. I didn't ask what it had to say. With the Earthen Ring, the totems do most of the talking." },
             },
         },
     },

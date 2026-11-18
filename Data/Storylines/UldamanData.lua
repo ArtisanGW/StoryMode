@@ -46,6 +46,13 @@ SM.UldamanData = {
         ["Dinita Stonemantle"] = { mapID = 87, x = 0.3300, y = 0.6000, location = "the Vault, Ironforge" },
         ["Sage Truthseeker"] = { mapID = 88, x = 0.3400, y = 0.4700, location = "Thunder Bluff" },
         ["Bena Winterhoof"] = { mapID = 88, x = 0.4600, y = 0.3300, location = "Thunder Bluff" },
+        ["Prospector Ironband"] = { mapID = 48, x = 0.6580, y = 0.6540, location = "Ironband's Excavation Site, Loch Modan" },
+        ["Krom Stoutarm"] = { mapID = 87, x = 0.7420, y = 0.0980, location = "the Hall of Explorers, Ironforge" },
+        ["Prospector Stormpike"] = { mapID = 87, x = 0.7380, y = 0.1300, location = "the Hall of Explorers, Ironforge" },
+        ["Ghak Healtouch"] = { mapID = 48, x = 0.3700, y = 0.4920, location = "Thelsamar, Loch Modan" },
+        ["Patrick Garrett"] = { mapID = 90, x = 0.6240, y = 0.4840, location = "Undercity" },
+        ["Theldurin the Lost"] = { mapID = 15, x = 0.5140, y = 0.7640, location = "Badlands" },
+        ["Rigglefuzz"] = { mapID = 15, x = 0.4240, y = 0.5240, location = "Badlands" },
     },
 
     npcDisplayIDs = {
@@ -59,6 +66,14 @@ SM.UldamanData = {
         ["Jarkal Mossmeld"] = 5646,
         ["High Explorer Magellas"] = 3596,
         ["Remains of a Paladin"] = 5711,
+        ["Prospector Ironband"] = 3437,
+        ["Krom Stoutarm"] = 4988,
+        ["Prospector Stormpike"] = 3594,
+        ["Baelog"] = 5710,
+        ["Ghak Healtouch"] = 1834,
+        ["Patrick Garrett"] = 6228,
+        ["Theldurin the Lost"] = 4903,
+        ["Rigglefuzz"] = 7033,
     },
 
     chapterDisplayIDs = {
@@ -90,6 +105,10 @@ SM.UldamanData = {
                 { id = 726, name = "Passing Word of a Threat", npc = "Advisor Belgrum" },
                 { id = 762, name = "An Ambassador of Evil", npc = "Historian Karnik" },
                 { id = 1139, name = "The Lost Tablets of Will", npc = "Advisor Belgrum" },
+                { id = 704, name = "Agmond's Fate", npc = "Prospector Ironband", optional = true, recap = "Prospector Ironband in Loch Modan had lost a prospector named Agmond, whose last report mentioned carved stone urns at the dig outside Uldaman, and Ironband suspected the urns were what had stirred up the troggs. I brought back four. The troggs did seem to feel strongly about them." },
+                { id = 1360, name = "Reclaimed Treasures", npc = "Krom Stoutarm", optional = true, recap = "When the troggs overran Uldaman, Krom Stoutarm left his greatest treasure behind in a chest at the end of the North Common Hall. I fought my way to it and carried it home to Ironforge, and it was a beer stein. A Stoutarm without a stein, Krom explained with feeling, is hardly a Stoutarm at all." },
+                { id = 2398, name = "The Lost Dwarves", npc = "Prospector Stormpike", optional = true },
+                { id = 2240, name = "The Hidden Chamber", npc = "Baelog", optional = true, recap = "Prospector Stormpike of the Explorers' League sent me after Baelog, whose band had gone into Uldaman and got stuck there. Baelog couldn't go anywhere, but his journal told me how to open a hidden chamber behind a huge locked door, and the chamber was real. Stormpike admitted to having had doubts, which Baelog never had." },
             },
         },
         {
@@ -112,6 +131,12 @@ SM.UldamanData = {
                 { id = 2339, name = "Find the Gems and Power Source", npc = "Jarkal Mossmeld", faction = "Horde" },
                 { id = 2340, name = "Deliver the Gems", npc = "Jarkal Mossmeld", faction = "Horde" },
                 { id = 2341, name = "Necklace Recovery, Take 3", npc = "Dran Droffers", faction = "Horde" },
+                { id = 2361, name = "Restoring the Necklace", npc = "Talvash del Kissel", faction = "Alliance", optional = true, recap = "In the end Talvash del Kissel let me keep the necklace, on two conditions: that I tell everyone, loudly and often, who made it, and that I mention it really isn't cursed. Talvash made it, and it isn't cursed, as far as I know." },
+                { id = 17, name = "Uldaman Reagent Run", npc = "Ghak Healtouch", faction = "Alliance", optional = true, recap = "Ghak Healtouch, the alchemist in Thelsamar, wanted a dozen magenta fungus caps from the Uldaman tunnels, with a warning that they puff poison spores when jostled. They do. Ghak paid me with a restorative potion and called the caps an interesting study, yon verily, and I still don't know what yon verily means." },
+                { id = 2202, name = "Uldaman Reagent Run", npc = "Jarkal Mossmeld", faction = "Horde", optional = true, recap = "Jarkal Mossmeld in Kargath wanted a dozen magenta fungus caps out of the Uldaman tunnels, which let off poison spores if you disturb them, so a little care was called for. I took a little care and a lot of poison. Jarkal paid me with a restorative potion, which was exactly the right reward." },
+                { id = 2342, name = "Reclaimed Treasures", npc = "Patrick Garrett", faction = "Horde", optional = true, recap = "Patrick Garrett swept the bat pens in the Undercity and felt it was beneath a Garrett. The family weapon was still in their old chest in Uldaman's South Common Hall, from back when the Garretts dug there. I brought it back, and Patrick turned straight to the bats and told them to tremble, which they didn't." },
+                { id = 709, name = "Solution to Doom", npc = "Theldurin the Lost", optional = true, recap = "Theldurin the Lost, a jumpy dwarf out in the Badlands, was sure a doom was coming and wouldn't say its name in case it heard him. He needed the Tablet of Ryun'eh, from a chest in Uldaman older than anything dwarves ever made. I brought it, and he said it might hold the secret to saving us all, though he still wouldn't say from what." },
+                { id = 2418, name = "Power Stones", npc = "Rigglefuzz", optional = true, recap = "Rigglefuzz, a tinkerer in the Badlands, had once shown the Shadowforge dwarves how to use the power stones they dig out of Uldaman, and was thanked by being thrown out. Now Rigglefuzz wanted sixteen of them, to run a robotic rodent forever. The Shadowforge were no better at sharing the second time." },
             },
         },
         {

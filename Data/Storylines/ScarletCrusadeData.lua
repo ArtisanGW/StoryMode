@@ -25,6 +25,7 @@ SM.ScarletCrusadeData = {
     startY = 0.6600,
 
     npcLocations = {
+        ["Magus Olvek"] = { mapID = 1416, x = 0.0960, y = 0.6240, location = "Dalaran, Alterac Mountains" },
         ["Executor Arren"] = { mapID = 18, x = 0.3260, y = 0.6500, location = "Deathknell, Tirisfal Glades" },
         ["Deathguard Simmer"] = { mapID = 18, x = 0.4460, y = 0.5360, location = "Brill, Tirisfal Glades" },
         ["Executor Zygand"] = { mapID = 18, x = 0.6020, y = 0.5200, location = "Brill, Tirisfal Glades" },
@@ -58,6 +59,10 @@ SM.ScarletCrusadeData = {
         ["Artist Renfray"] = { mapID = 22, x = 0.6500, y = 0.7500, location = "Caer Darrow, Western Plaguelands" },
         ["Myranda the Hag"] = { mapID = 22, x = 0.5100, y = 0.7800, location = "Sorrow Hill, Western Plaguelands" },
         ["Highlord Taelan Fordring"] = { mapID = 22, x = 0.4200, y = 0.1480, location = "Hearthglen, Western Plaguelands" },
+        ["Betina Bigglezink"] = { mapID = 23, x = 0.8140, y = 0.5940, location = "Light's Hope Chapel, Eastern Plaguelands" },
+        ["Smokey LaRue"] = { mapID = 23, x = 0.8040, y = 0.5800, location = "Light's Hope Chapel, Eastern Plaguelands" },
+        ["Leonid Barthalomew the Revered"] = { mapID = 23, x = 0.8160, y = 0.5780, location = "Light's Hope Chapel, Eastern Plaguelands" },
+        ["Egan"] = { mapID = 23, x = 0.1440, y = 0.3360, location = "Terrordale, Eastern Plaguelands" },
     },
 
     npcDisplayIDs = {
@@ -90,6 +95,11 @@ SM.ScarletCrusadeData = {
         ["Commander Ashlam Valorfist"] = 10151,
         ["Artist Renfray"] = 11890,
         ["Myranda the Hag"] = 11800,
+        ["Betina Bigglezink"] = 10465,
+        ["Smokey LaRue"] = 10471,
+        ["Leonid Barthalomew the Revered"] = 10474,
+        ["Egan"] = 10644,
+        ["Aurius"] = 10217,
     },
 
     chapterDisplayIDs = {
@@ -183,6 +193,7 @@ SM.ScarletCrusadeData = {
                 },
                 { id = 1050, name = "Mythology of the Titans", npc = "Librarian Mae Paledust", faction = "Alliance" },
                 { id = 1113, name = "Hearts of Zeal", npc = "Master Apothecary Faranell", faction = "Horde", optional = true,
+                { id = 96800, name = "Past Due", npc = "Magus Olvek", faction = "Alliance", optional = true, gameVersions = { forever = true }, recap = "Magus Olvek in Dalaran needed a book for a thesis, and Arcanist Doan had borrowed it from the old Dalaran library before the Third War and never brought it back. Doan lives in the Scarlet Monastery now, so I collected it the hard way. Considering the late fees, Doan got off lightly." },
                     guidanceQuest = { id = 1109, name = "Going, Going, Guano!", npc = "Master Apothecary Faranell", mapID = 90, x = 0.4800, y = 0.6900, location = "the Apothecarium, Undercity", trackingHintFormat = "Tracking Hearts of Zeal Guano Prereq Format" },
                 },
             },
@@ -206,6 +217,14 @@ SM.ScarletCrusadeData = {
                 { id = 5251, name = "The Archivist", npc = "Duke Nicholas Zverenhoff" },
                 { id = 5262, name = "The Truth Comes Crashing Down", npc = "Duke Nicholas Zverenhoff" },
                 { id = 5263, name = "Above and Beyond", npc = "Duke Nicholas Zverenhoff", optional = true },
+                { id = 5212, name = "The Flesh Does Not Lie", npc = "Betina Bigglezink", optional = true },
+                { id = 5213, name = "The Active Agent", npc = "Betina Bigglezink", optional = true, recap = "Betina Bigglezink at Light's Hope has studied the plague for years and thinks the rest of us don't worry enough. Twenty samples of fresh plagued flesh said the plague had changed, so it was back into Stratholme to search the ziggurats for Scourge data. Betina called it astonishing and months of work, which to a scientist is good news." },
+                { id = 5214, name = "The Great Ezra Grimm", npc = "Smokey LaRue", optional = true, recap = "Smokey LaRue at Light's Hope hadn't had a decent smoke since Stratholme fell, and said so, often. The tobacconist there had vowed to burn every leaf before the Scourge got any, and missed a box. Smokey got the stogies back, and I got Smokey's lighter, which seemed fair." },
+                { id = 5243, name = "Houses of the Holy", npc = "Leonid Barthalomew the Revered", optional = true, recap = "Leonid Barthalomew the Revered calls undeath an illness, Leonid's own included, and gets on with the work regardless. The work this time was the Argent Dawn's spare holy water, sitting in supply crates in Stratholme. The Scourge won't touch holy water, but the vermin in those crates hadn't heard." },
+                { id = 5282, name = "The Restless Souls", npc = "Egan", optional = true, recap = "Egan lives out in Terrordale on hatred of the Scourge, and handed me a blaster for the ghosts in Stratholme's streets. Blast a ghost and the soul steps out of it, blast it again and it's free. After fifteen of those, Egan asked whether I'd seen his mother." },
+                { id = 6163, name = "Ramstein", npc = "Nathanos Blightcaller", faction = "Horde", optional = true, recap = "Nathanos Blightcaller has a grudge with a face on it: Ramstein the Gorger stood over him when he died defending his own farm, and he hunted it across the wastes until it hid in Stratholme. I brought him the head. He spat and said it was going on his wall." },
+                { id = 5122, name = "The Medallion of Faith", npc = "Aurius", optional = true },
+                { id = 5125, name = "Aurius' Reckoning", npc = "Aurius", optional = true, recap = "Aurius was holed up in a Stratholme chapel, the only thing keeping him from turning death knight. With the Medallion of Faith back from a Scarlet zealot he could leave, and he went straight for Baron Rivendare. He was dying when it was over, but he said his soul was saved, and seemed to think that the better bargain." },
             },
         },
         {

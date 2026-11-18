@@ -28,6 +28,7 @@ SM.ForeverAlcazPrisonData = {
     startY = 0.5980,
 
     npcLocations = {
+        ["Archmage Lan'dalock"] = { mapID = 1416, x = 0.1540, y = 0.7380, location = "Dalaran, Alterac Mountains" },
         ["Master Mathias Shaw"] = { mapID = 1453, x = 0.7580, y = 0.5980, location = "SI:7, Old Town, Stormwind City" },
         ["Sully McCleary"] = { mapID = 1445, x = 0.6340, y = 0.4240, location = "behind the graveyard outside Theramore, Dustwallow Marsh" },
         ["Eitrigg"] = { mapID = 1454, x = 0.3420, y = 0.3900, location = "Grommash Hold, Orgrimmar" },
@@ -81,6 +82,10 @@ SM.ForeverAlcazPrisonData = {
                 { id = 96335, name = "The Man in the Iron Chains", npc = "Mason Connery", location = "Alcaz Prison, Dustwallow Marsh", gameVersions = { forever = true } },
                 { id = 95263, name = "Somber News", faction = "Alliance", location = "Alcaz Prison, Dustwallow Marsh", gameVersions = { forever = true } },
                 { id = 96369, name = "Bad News for Folkar", faction = "Horde", location = "Alcaz Prison, Dustwallow Marsh", gameVersions = { forever = true } },
+                { id = 96381, name = "A Bit of Wet Work", npc = "Sully McCleary", faction = "Alliance", optional = true, gameVersions = { forever = true }, recap = "Sully had been watching Alcaz through his looking glass and saw naga coming ashore, led by a sorceress barking orders. He asked me to thin them out while I was in there and bring back her head. I did both. As Sully put it, the enemy of your enemy is still a naga." },
+                { id = 96772, name = "The Dragon's Journal", npc = "Archmage Lan'dalock", faction = "Alliance", optional = true, gameVersions = { forever = true }, recap = "Archmage Lan'dalock had been scrying Alcaz Island from Dalaran until someone on the island noticed and shut the spell down. Just before that, it caught a journal written in old draconic, and Lan'dalock wanted it. I found it. I can't read a word of draconic, so I'm taking the archmage's word that it was worth the trip." },
+                { id = 96332, name = "A Little Payback", npc = "Sergeant Ulka", faction = "Horde", optional = true, gameVersions = { forever = true }, recap = "Sergeant Ulka had lost good orcs on Alcaz and wanted it squared, naga for orc, starting with the sorceress giving the orders. I came back with her head and a long list of naga who wouldn't be needing theirs. Ulka didn't smile, exactly. From the Kor'kron, that's practically a hug." },
+                { id = 96334, name = "Blood Red Bandanas", npc = "Sergeant Ulka", faction = "Horde", optional = true, gameVersions = { forever = true }, recap = "Ulka's people had been fighting humans in red bandanas on Alcaz, which put Ulka in mind of a gang from the Eastern Kingdoms. I collected the bandanas and carried them to Eitrigg in Orgrimmar. Eitrigg confirmed it: Defias, a very long way from Westfall. Nobody could tell me what they were doing there." },
             },
         },
         {

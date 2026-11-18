@@ -51,6 +51,12 @@ SM.DefiasBrotherhoodData = {
         ["Lord Gregor Lescovar"] = { mapID = 84, x = 0.7400, y = 0.0700, location = "Stormwind Keep" },
         ["Marzon the Silent Blade"] = { mapID = 84, x = 0.7400, y = 0.0700, location = "Stormwind Keep" },
         ["King Varian Wrynn"] = { mapID = 84, x = 0.8000, y = 0.3800, location = "Stormwind Keep" },
+        ["Alba Fairmoon"] = { mapID = 52, x = 0.5240, y = 0.5300, location = "Sentinel Hill, Westfall" },
+        ["Wilder Thistlenettle"] = { mapID = 84, x = 0.7020, y = 0.4080, location = "Old Town, Stormwind" },
+        ["Motley Garmason"] = { mapID = 56, x = 0.4960, y = 0.1820, location = "Dun Modr, Wetlands" },
+        ["Councilman Millstipe"] = { mapID = 47, x = 0.7200, y = 0.4780, location = "Darkshire, Duskwood" },
+        ["Nikova Raskol"] = { mapID = 84, x = 0.7060, y = 0.5800, location = "Old Town, Stormwind" },
+        ["Guard Berton"] = { mapID = 49, x = 0.2120, y = 0.4660, location = "Lakeshire, Redridge Mountains" },
     },
 
     npcDisplayIDs = {
@@ -78,6 +84,12 @@ SM.DefiasBrotherhoodData = {
         ["Lord Gregor Lescovar"] = 2051,
         ["Marzon the Silent Blade"] = 2045,
         ["King Varian Wrynn"] = 6048,
+        -- Quest givers' models from the cmangos Classic database.
+        ["Wilder Thistlenettle"] = 2363,
+        ["Motley Garmason"] = 1675,
+        ["Councilman Millstipe"] = 1724,
+        ["Nikova Raskol"] = 1815,
+        ["Guard Berton"] = 3453,
     },
 
     chapterDisplayIDs = {
@@ -146,6 +158,9 @@ SM.DefiasBrotherhoodData = {
             quests = {
                 { id = 2040, name = "Underground Assault", npc = "Shoni the Shilent", optional = true, recapAfter = 2, recap = "Shoni the Shilent in Stormwind had asked me to fetch a Gnoam Sprecklesprocket while I was down there. I couldn't tell you what one is. Shoni knew, and Shoni was paying, and that was enough for me." },
                 { id = 166, name = "The Defias Brotherhood", displayName = "VanCleef's Head", npc = "Gryan Stoutmantle" },
+                { id = 92753, name = "Destruction in Deadmines", npc = "Alba Fairmoon", optional = true, gameVersions = { forever = true }, recap = "Alba Fairmoon at Sentinel Hill had traced the poison in Westfall's soil to a forge hidden in the Deadmines, and handed me something labeled Extra-Destructive Explosives. I found the forge and tucked them in close. Then I walked back out at a very respectful pace." },
+                { id = 167, name = "Oh Brother. . .", npc = "Wilder Thistlenettle", optional = true, recap = "Wilder Thistlenettle got out when the tunnel came down in the mine under Moonbrook, but the foreman, Wilder's brother, didn't. Wilder asked me for the Explorers' League badge the foreman never went anywhere without. I brought the badge back, and Wilder had already guessed what that meant." },
+                { id = 168, name = "Collecting Memories", npc = "Wilder Thistlenettle", optional = true, recap = "Wilder Thistlenettle lost a good many workmates in the collapsed wing of the mine under Moonbrook, and wanted their Miners' Union Cards brought out so the families would know. I brought out four. Wilder took them like letters nobody wants to deliver." },
             },
         },
         {
@@ -157,6 +172,10 @@ SM.DefiasBrotherhoodData = {
                 { id = 373, name = "The Unsent Letter", npc = "Edwin VanCleef" },
                 { id = 389, name = "Bazil Thredd", npc = "Baros Alexston" },
                 { id = 391, name = "The Stockade Riots", npc = "Warden Thelwater" },
+                { id = 378, name = "The Fury Runs Deep", npc = "Motley Garmason", optional = true, recap = "Motley Garmason at Dun Modr hates the Dark Irons in general and Kam Deepfury in particular, since Deepfury helped plan the attack on the Thandol Span. Stormwind kept Deepfury tucked away in the Stockade for reasons of politics. Motley had no use for politics, and after my visit, neither did Deepfury." },
+                { id = 377, name = "Crime and Punishment", npc = "Councilman Millstipe", optional = true, recap = "Councilman Millstipe of Darkshire wanted Dextren Ward's hand. Ward had sold bodies out of Duskwood's cemetery, and Darkshire sentenced him to death, but the nobles in Stormwind kept him in the Stockade instead. I carried out Darkshire's sentence, and the councilman took the hand as a message to the nobles." },
+                { id = 388, name = "The Color of Blood", npc = "Nikova Raskol", optional = true, recap = "Nikova Raskol's grandson Mac was fourteen and a guard in the Stockade, and he got a knife in the back for telling the Defias to stop tearing their blankets into bandanas. Nikova wanted ten of those bandanas, and I brought them. They didn't bring Mac back, and Nikova knew that better than I did." },
+                { id = 386, name = "What Comes Around...", npc = "Guard Berton", optional = true, recap = "Guard Berton in Lakeshire remembered Targorr the Dread, who tortured Stormwind's soldiers for Gath'Ilzogg, and didn't trust the noble who kept putting off the execution. So Berton skipped the courts and sent me. Berton called it justice beyond the reach of politics, and Targorr didn't get a say." },
             },
         },
         {

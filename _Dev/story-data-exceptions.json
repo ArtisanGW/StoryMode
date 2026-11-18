@@ -119,6 +119,138 @@
       "file": "Data/Storylines/SuramarData.lua",
       "quest": 44719,
       "reason": "Suramar repeats several hub quests across Nightfallen and Insurrection chapters to preserve the playable story order."
+    },
+    {
+      "type": "duplicate-quest-in-story",
+      "file": "Data/Storylines/PrincessMoiraData.lua",
+      "quest": 3801,
+      "reason": "Dark Iron Legacy is listed in both the Alliance and the Horde Blackrock Depths chapters (The Royal Rescue, The Warchief's Rescue): both factions can take it."
+    },
+    {
+      "type": "duplicate-quest-in-story",
+      "file": "Data/Storylines/PrincessMoiraData.lua",
+      "quest": 3802,
+      "reason": "Dark Iron Legacy is listed in both the Alliance and the Horde Blackrock Depths chapters (The Royal Rescue, The Warchief's Rescue): both factions can take it."
+    },
+    {
+      "type": "duplicate-quest-in-story",
+      "file": "Data/Storylines/PrincessMoiraData.lua",
+      "quest": 4024,
+      "reason": "A Taste of Flame is listed in both the Alliance and the Horde Blackrock Depths chapters (The Royal Rescue, The Warchief's Rescue): both factions can take it."
+    },
+    {
+      "type": "duplicate-quest-in-story",
+      "file": "Data/Storylines/PrincessMoiraData.lua",
+      "quest": 4324,
+      "reason": "Yuka Screwspigot is listed in both the Alliance and the Horde Blackrock Depths chapters (The Royal Rescue, The Warchief's Rescue): both factions can take it."
+    },
+    {
+      "type": "duplicate-quest-in-story",
+      "file": "Data/Storylines/PrincessMoiraData.lua",
+      "quest": 4136,
+      "reason": "Ribbly Screwspigot is listed in both the Alliance and the Horde Blackrock Depths chapters (The Royal Rescue, The Warchief's Rescue): both factions can take it."
+    },
+    {
+      "type": "duplicate-quest-in-story",
+      "file": "Data/Storylines/PrincessMoiraData.lua",
+      "quest": 4123,
+      "reason": "The Heart of the Mountain is listed in both the Alliance and the Horde Blackrock Depths chapters (The Royal Rescue, The Warchief's Rescue): both factions can take it."
+    },
+    {
+      "type": "duplicate-quest-in-story",
+      "file": "Data/Storylines/PrincessMoiraData.lua",
+      "quest": 4201,
+      "reason": "The Love Potion is listed in both the Alliance and the Horde Blackrock Depths chapters (The Royal Rescue, The Warchief's Rescue): both factions can take it."
+    },
+    {
+      "type": "duplicate-quest-in-story",
+      "file": "Data/Storylines/PrincessMoiraData.lua",
+      "quest": 4083,
+      "reason": "The Spectral Chalice is listed in both the Alliance and the Horde Blackrock Depths chapters (The Royal Rescue, The Warchief's Rescue): both factions can take it."
+    },
+    {
+      "type": "duplicate-quest-in-story",
+      "file": "Data/Storylines/PrincessMoiraData.lua",
+      "quest": 7604,
+      "reason": "A Binding Contract is listed in both the Alliance and the Horde Blackrock Depths chapters (The Royal Rescue, The Warchief's Rescue): both factions can take it."
+    },
+    {
+      "type": "duplicate-quest-in-story",
+      "file": "Data/Storylines/OnyxiaData.lua",
+      "quest": 7761,
+      "reason": "Blackhand's Command is listed in both the Alliance and the Horde Blackrock Spire chapters (The Drakefire Amulet, Blood of the Black Dragon Champion): both factions can take it."
+    },
+    {
+      "type": "duplicate-quest-in-story",
+      "file": "Data/Storylines/OnyxiaData.lua",
+      "quest": 4742,
+      "reason": "Seal of Ascension (gemstones) is listed in both the Alliance and the Horde Blackrock Spire chapters (The Drakefire Amulet, Blood of the Black Dragon Champion): both factions can take it."
+    },
+    {
+      "type": "duplicate-quest-in-story",
+      "file": "Data/Storylines/OnyxiaData.lua",
+      "quest": 4743,
+      "reason": "Seal of Ascension (forging) is listed in both the Alliance and the Horde Blackrock Spire chapters (The Drakefire Amulet, Blood of the Black Dragon Champion): both factions can take it."
+    },
+    {
+      "type": "duplicate-quest-in-story",
+      "file": "Data/Storylines/OnyxiaData.lua",
+      "quest": 4907,
+      "reason": "Tinkee Steamboil is listed in both the Alliance and the Horde Blackrock Spire chapters (The Drakefire Amulet, Blood of the Black Dragon Champion): both factions can take it."
+    },
+    {
+      "type": "duplicate-quest-in-story",
+      "file": "Data/Storylines/OnyxiaData.lua",
+      "quest": 4734,
+      "reason": "Egg Freezing is listed in both the Alliance and the Horde Blackrock Spire chapters (The Drakefire Amulet, Blood of the Black Dragon Champion): both factions can take it."
+    },
+    {
+      "type": "duplicate-quest-in-story",
+      "file": "Data/Storylines/OnyxiaData.lua",
+      "quest": 4735,
+      "reason": "Egg Collection is listed in both the Alliance and the Horde Blackrock Spire chapters (The Drakefire Amulet, Blood of the Black Dragon Champion): both factions can take it."
+    },
+    {
+      "type": "duplicate-quest-in-story",
+      "file": "Data/Storylines/OnyxiaData.lua",
+      "quest": 4729,
+      "reason": "Kibler's Exotic Pets is listed in both the Alliance and the Horde Blackrock Spire chapters (The Drakefire Amulet, Blood of the Black Dragon Champion): both factions can take it."
+    },
+    {
+      "type": "duplicate-quest-in-story",
+      "file": "Data/Storylines/OnyxiaData.lua",
+      "quest": 4862,
+      "reason": "En-Ay-Es-Tee-Why is listed in both the Alliance and the Horde Blackrock Spire chapters (The Drakefire Amulet, Blood of the Black Dragon Champion): both factions can take it."
+    },
+    {
+      "type": "duplicate-quest-in-story",
+      "file": "Data/Storylines/OnyxiaData.lua",
+      "quest": 4866,
+      "reason": "Mother's Milk is listed in both the Alliance and the Horde Blackrock Spire chapters (The Drakefire Amulet, Blood of the Black Dragon Champion): both factions can take it."
+    },
+    {
+      "type": "duplicate-quest-in-story",
+      "file": "Data/Storylines/OnyxiaData.lua",
+      "quest": 4867,
+      "reason": "Urok Doomhowl is listed in both the Alliance and the Horde Blackrock Spire chapters (The Drakefire Amulet, Blood of the Black Dragon Champion): both factions can take it."
+    },
+    {
+      "type": "duplicate-quest-in-story",
+      "file": "Data/Storylines/OnyxiaData.lua",
+      "quest": 5160,
+      "reason": "The Matron Protectorate is listed in both the Alliance and the Horde Blackrock Spire chapters (The Drakefire Amulet, Blood of the Black Dragon Champion): both factions can take it."
+    },
+    {
+      "type": "duplicate-quest-in-story",
+      "file": "Data/Storylines/OnyxiaData.lua",
+      "quest": 5047,
+      "reason": "Finkle Einhorn, At Your Service! is listed in both the Alliance and the Horde Blackrock Spire chapters (The Drakefire Amulet, Blood of the Black Dragon Champion): both factions can take it."
+    },
+    {
+      "type": "duplicate-quest-in-story",
+      "file": "Data/Storylines/OnyxiaData.lua",
+      "quest": 5127,
+      "reason": "The Demon Forge is listed in both the Alliance and the Horde Blackrock Spire chapters (The Drakefire Amulet, Blood of the Black Dragon Champion): both factions can take it."
     }
   ]
 }

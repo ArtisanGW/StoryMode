@@ -98,6 +98,9 @@ function SM.IsQuestEntryComplete(q)
     for _, questID in ipairs(SM.GetQuestIDs(q)) do
         if SM.IsQuestComplete(questID) then return true end
     end
+    -- A breadcrumb (breadcrumbFor = the quest it leads to) can't be taken once
+    -- that quest is done, so it counts as done with it.
+    if q.breadcrumbFor and SM.IsQuestComplete(q.breadcrumbFor) then return true end
     return false
 end
 

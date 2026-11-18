@@ -44,6 +44,7 @@ SM.ForeverRivergladesData = {
         ["Clugfist"] = { mapID = 2548, x = 0.6440, y = 0.1480, location = "Bolder'ok, Riverglades" },
         ["Da'grosh"] = { mapID = 2548, x = 0.3340, y = 0.3800, location = "the hills west of Rog'mar, Riverglades" },
         ["Crag'rog"] = { mapID = 2548, x = 0.2740, y = 0.3700, location = "near the Twilight's Shroud, Riverglades" },
+        ["Ranath Nightstride"] = { mapID = 1416, x = 0.1780, y = 0.6600, location = "Dalaran, Alterac Mountains" },
     },
 
     npcDisplayIDs = {
@@ -156,6 +157,9 @@ SM.ForeverRivergladesData = {
                 { id = 94975, name = "A Token of Vengeance", faction = "Horde", location = "Riverglades", gameVersions = { forever = true } },
                 { id = 94972, name = "Tome of Twilight", faction = "Horde", location = "Riverglades", gameVersions = { forever = true } },
                 { id = 94968, name = "Eye of Mugg", npc = "Krom'rosh", faction = "Horde", gameVersions = { forever = true } },
+                { id = 94998, name = "Curios of Curiosity", npc = "Ashe Amberhall", faction = "Alliance", optional = true, gameVersions = { forever = true }, recap = "Ashe Amberhall had one more use for the satchel of cult trinkets from Krol'dok: send it across the keep to Melanie Sable, the enchanter. Curios, Ashe called them. I'd have called them evidence. I suppose to an enchanter it's all just material." },
+                { id = 96771, name = "Vengeance of the Highborne", npc = "Ranath Nightstride", faction = "Alliance", optional = true, gameVersions = { forever = true }, recap = "Before I went into Krol'dok, Ranath Nightstride in Dalaran gave me a name to look for: Zalfan Moonshadow. Ranath is Highborne, and undead, and called it vengeance. I didn't ask for the history. With the Highborne there's always history, and it's always long. Zalfan didn't come out of Krol'dok." },
+                { id = 94969, name = "Krol'dok No More!", npc = "Marcus Tilwell", faction = "Alliance", optional = true, gameVersions = { forever = true }, recap = "Somewhere in Krol'dok I found Marcus Tilwell, who wouldn't explain how any of it had happened and only wanted out. So we left together, me in front. Apparently I wouldn't believe the story anyway. Having seen the place, I'd believe almost anything." },
             },
         },
         {

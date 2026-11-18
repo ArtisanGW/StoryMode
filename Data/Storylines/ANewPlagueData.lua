@@ -38,6 +38,10 @@ SM.ANewPlagueData = {
         ["Dun Garok"] = { mapID = 25, x = 0.7100, y = 0.8000, location = "Dun Garok, southeastern Hillsbrad Foothills" },
         ["Dusty Rug"] = { mapID = 25, x = 0.6200, y = 0.1800, location = "upstairs in the Tarren Mill inn" },
         ["Theodore Griffs"] = { mapID = 1458, x = 0.4640, y = 0.7140, location = "the Apothecarium, Undercity" },
+        ["Deathguard Kristof"] = { mapID = 18, x = 0.6520, y = 0.6020, location = "Brill, Tirisfal Glades" },
+        ["Tabitha Heartweaver"] = { mapID = 21, x = 0.4440, y = 0.4280, location = "the Sepulcher, Silverpine Forest" },
+        ["Morbin Lightbane"] = { mapID = 90, x = 0.5780, y = 0.8980, location = "the Royal Quarter, Undercity" },
+        ["Unfinished Abomination"] = { mapID = 90, x = 0.4600, y = 0.6220, location = "the Apothecarium, Undercity" },
     },
 
     npcDisplayIDs = {
@@ -117,6 +121,15 @@ SM.ANewPlagueData = {
             recap = "Last job for the Society was back home in the Apothecarium, for a fellow named Theodore Griffs. He'd heard about a spider up in the ruins over the city, Witherfang, whose venom eats right through dead flesh. In the Undercity that's not a rumor. That's a job offer.\n\nSo into the Ruins of Lordaeron we went, a few of us, because nobody sane goes in there alone. Witherfang was big and quick and not at all happy to see us. We brought Griffs his Highly Toxic Strain anyway, and he held the vial up to the light like a jeweler.\n\nEverything else I'd fetched them was for killing the living. That one was for the dead. I went up for some air after that, which in the Undercity takes a while.",
             quests = {
                 { id = 95216, name = "The New Plague", npc = "Theodore Griffs", gameVersions = { forever = true } },
+                { id = 92422, name = "The Wrath of Rath'mael", npc = "Deathguard Kristof", optional = true, gameVersions = { forever = true }, recap = "Deathguard Kristof had reports of an unholy fog over the ruins, with the Scourge moving about inside it and a new necromancer called Rath'mael behind it all. I took friends, and we put Rath'mael down. Kristof expects another one along soon, because deathguards are not optimists." },
+                { id = 92401, name = "A Frightened Request", npc = "Tabitha Heartweaver", optional = true, gameVersions = { forever = true }, recap = "Tabitha Heartweaver at the Sepulcher had a husband, Edward, who walked to a graveyard in the ruins every week to look for the son they lost when the city fell. One week he didn't come home. I went in and found out why, and that part stays between Tabitha and me." },
+                { id = 92421, name = "Light's Justice", npc = "Morbin Lightbane", optional = true, gameVersions = { forever = true }, recap = "Morbin Lightbane serves the Light and the Dark Lady both and sees no trouble in it. What Morbin wanted was twenty-five intact limbs off the Scourge in the ruins: spare parts, for Forsaken whose own were wearing out. The Scourge had no further use for theirs by the time I left." },
+                { id = 95204, name = "Crest of Lordaeron", location = "Ruins of Lordaeron, Tirisfal Glades", optional = true, gameVersions = { forever = true }, recap = "Somewhere in the ruins I picked up an old crest with Lordaeron's mark on it, and Oran Snakewrithe in the Undercity was glad to have it. Oran checked it was genuine by biting it. I've seen people test gold that way, never history." },
+                { id = 97288, name = "Unending Torment", location = "Ruins of Lordaeron, Tirisfal Glades", optional = true, gameVersions = { forever = true } },
+                { id = 97289, name = "Unending Torment", npc = "Master Apothecary Faranell", optional = true, gameVersions = { forever = true } },
+                { id = 97290, name = "Unending Torment", npc = "Unfinished Abomination", optional = true, gameVersions = { forever = true } },
+                { id = 97291, name = "Unending Torment", npc = "Master Apothecary Faranell", optional = true, gameVersions = { forever = true } },
+                { id = 97292, name = "Unending Torment", npc = "Master Apothecary Faranell", optional = true, gameVersions = { forever = true }, recap = "The thing I put down in the ruins lost its head, and Faranell knew whose it was: a grand marshal the Dark Lady had killed personally. Faranell found the head a new body, and it woke up calling me an abomination, which was rich, coming from it. I put a serum in the drip above it, and now it simmers in its new home while Faranell makes plans." },
             },
         },
     },

@@ -34,6 +34,7 @@ SM.ScholomanceData = {
         ["Commander Ashlam Valorfist"] = { mapID = 22, x = 0.4300, y = 0.8400, location = "Chillwind Camp, Western Plaguelands" },
         ["High Executor Derrington"] = { mapID = 22, x = 0.8300, y = 0.6900, location = "the Bulwark, Tirisfal Glades" },
         ["Leonid Barthalomew the Revered"] = { mapID = 23, x = 0.8160, y = 0.5780, location = "Light's Hope Chapel, Eastern Plaguelands" },
+        ["Betina Bigglezink"] = { mapID = 23, x = 0.8140, y = 0.5940, location = "Light's Hope Chapel, Eastern Plaguelands" },
         ["Alchemist Arbington"] = { mapID = 22, x = 0.4300, y = 0.8400, location = "Chillwind Camp, Western Plaguelands" },
         ["Apothecary Dithers"] = { mapID = 22, x = 0.8300, y = 0.6900, location = "the Bulwark, Tirisfal Glades" },
         ["Krinkle Goodsteel"] = { mapID = 71, x = 0.5150, y = 0.2800, location = "Gadgetzan, Tanaris" },
@@ -75,6 +76,7 @@ SM.ScholomanceData = {
         ["Weldon Barov"] = 10457,
         ["Alexi Barov"] = 10456,
         ["Leonid Barthalomew the Revered"] = 10474,
+        ["Betina Bigglezink"] = 10465,
     },
 
     chapters = {
@@ -107,7 +109,7 @@ SM.ScholomanceData = {
             recap = "Caer Darrow is a town of ghosts, and one of the sadder ones is Eva Sarkhoff. Doctor Theolen Krastinov, the Butcher, had killed her family, and he was still at work in Scholomance.\n\nEva wanted him dead. Then she wanted her own remains burned, and her family's beside them. That's a strange thing to be asked by the person whose bones you'll be burning. I did it. It seemed to matter to her.\n\nHer last request came with a vial, the Blood of Innocents, and instructions: find the porch, put the blood in the brazier, and Kirtonos the Herald would come to feast upon my soul.\n\nKirtonos came. My soul is still with me. Kirtonos isn't.",
             quests = {
                 { id = 5382, name = "Doctor Theolen Krastinov, the Butcher", npc = "Eva Sarkhoff" },
-                { id = 5515, name = "Krastinov's Bag of Horrors", npc = "Eva Sarkhoff" },
+                { id = 5515, altIds = { 5383 }, name = "Krastinov's Bag of Horrors", npc = "Eva Sarkhoff" },
                 { id = 5384, name = "Kirtonos the Herald", npc = "Eva Sarkhoff" },
             },
         },
@@ -123,6 +125,10 @@ SM.ScholomanceData = {
                 { id = 5464, name = "Menethil's Gift", npc = "Menethil's Gift", mapID = 23, x = 0.2700, y = 0.1200, location = "Stratholme" },  -- inside the instance; the pin is its gate
                 { id = 5465, name = "Soulbound Keepsake", npc = "Leonid Barthalomew the Revered" },
                 { id = 5466, name = "The Lich, Ras Frostwhisper", npc = "Magistrate Marduke" },
+                { id = 5531, name = "Betina Bigglezink", npc = "Leonid Barthalomew the Revered", optional = true },
+                { id = 4771, name = "Dawn's Gambit", npc = "Betina Bigglezink", optional = true, recap = "Leonid Barthalomew sent me over to Betina Bigglezink with some frozen eggs, and Betina sent me back into Scholomance with something called Dawn's Gambit, to set down in the Viewing Room. A gambit, as I understand it, means giving up a piece to win the game. I made sure the piece was Vectus." },
+                { id = 5529, name = "Plagued Hatchlings", npc = "Betina Bigglezink", optional = true },
+                { id = 5582, name = "Healthy Dragon Scale", location = "Scholomance", optional = true, recap = "Betina Bigglezink at Light's Hope wanted twenty plagued dragon hatchlings put down in Scholomance. Somewhere in all that plague I found one healthy dragon scale, and brought that back too. I don't know what Betina wanted it for. In Scholomance, anything healthy is worth a second look." },
             },
         },
         {

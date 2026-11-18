@@ -36,6 +36,7 @@ SM.MaraudonData = {
         ["Selendra"] = { mapID = 66, x = 0.2600, y = 0.7700, location = "south of Shadowprey Village, Desolace" },
         ["Zaetar's Spirit"] = { mapID = 280, x = 0.5000, y = 0.7600, location = "Earth Song Falls, Maraudon" },
         ["Keeper Remulos"] = { mapID = 80, x = 0.3600, y = 0.4100, location = "Nighthaven, Moonglade" },
+        ["Olana Brighthoof"] = { mapID = 7, x = 0.3260, y = 0.2400, location = "near Thunder Bluff, Mulgore" },
     },
 
     chapterDisplayIDs = {
@@ -109,6 +110,7 @@ SM.MaraudonData = {
                 { id = 7065, name = "Corruption of Earth and Seed", npc = "Keeper Marandis", faction = "Alliance" },
                 { id = 7064, name = "Corruption of Earth and Seed", npc = "Selendra", faction = "Horde" },
                 { id = 7066, name = "Seed of Life", npc = "Zaetar's Spirit" },
+                { id = 96776, name = "An'she's Radiance", npc = "Olana Brighthoof", faction = "Horde", optional = true, gameVersions = { forever = true }, recap = "Olana Brighthoof, a sun priest near Thunder Bluff, had seen it in a vision: past Earth Song Falls, a chamber of white crystals with giants on guard, and at the very top, the right eye of the Earthmother. The vision was right about everything, giants included. I carried it back to Mulgore, where it belongs, under the open sky." },
             },
         },
     },
