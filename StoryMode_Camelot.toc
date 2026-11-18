@@ -63,6 +63,16 @@ Data\ClassQuests\ClassicWarlockQuestData.lua
 Data\ClassQuests\ClassicWarriorQuestData.lua
 Data\Forever\ForeverQuestIDs.lua
 Data\Forever\ForeverQuestText.lua
+Data\Forever\QuestText\deDE.lua
+Data\Forever\QuestText\esES.lua
+Data\Forever\QuestText\esMX.lua
+Data\Forever\QuestText\frFR.lua
+Data\Forever\QuestText\itIT.lua
+Data\Forever\QuestText\koKR.lua
+Data\Forever\QuestText\ptBR.lua
+Data\Forever\QuestText\ruRU.lua
+Data\Forever\QuestText\zhCN.lua
+Data\Forever\QuestText\zhTW.lua
 Data\Forever\ForeverStoryLevels.lua
 Data\Forever\ForeverNPCDisplayIDs.lua
 Data\Forever\AlcazPrisonData.lua

@@ -788,7 +788,7 @@ async function writeQuestText() {
   const sources = english
     ? `the client's enUS quest cache${cache.build ? ` (build ${cache.build})` : ""} and earlier scans of it, and\n-- Wowhead's WoW Forever quest tooltips for quests the cache doesn't hold`
     : WOWHEAD_LOCALES[locale] !== undefined
-      ? "Wowhead's WoW Forever quest tooltips in that language"
+      ? "Wowhead's WoW Forever quest tooltips in that language, and\n-- translations of the English lines where Wowhead has none"
       : "a translation of the English lines (Wowhead has no such language)";
   const lua = [
     "local addonName, SM = ...",

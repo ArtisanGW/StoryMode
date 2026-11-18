@@ -220,11 +220,18 @@ local WHITE = { 1, 1, 1 }
 local GRAY = { 0.5, 0.5, 0.5 }
 local REQUIREMENT = { 1.0, 0.82, 0.35 }
 
--- The objective line from the quest cache (Data/Forever/ForeverQuestText.lua,
--- English), with the game's $ tokens filled in.
+-- The quest's objective line in the client's language, with the game's $
+-- tokens filled in: Data/Forever/QuestText/<locale>.lua, which only the
+-- matching client loads, or the English Data/Forever/ForeverQuestText.lua on
+-- English clients.
+local ENGLISH = { enUS = true, enGB = true }
 local function GetQuestCardText(questID)
-    local text = SM.ForeverQuestText and questID and SM.ForeverQuestText[questID]
-    if not text or GetLocale() ~= "enUS" then return nil end
+    if not questID then return nil end
+    local text = SM.ForeverQuestTextLocalized and SM.ForeverQuestTextLocalized[questID]
+    if not text and ENGLISH[GetLocale()] then
+        text = SM.ForeverQuestText and SM.ForeverQuestText[questID]
+    end
+    if not text then return nil end
     text = text:gsub("%$[Gg]([^:;]*):([^;]*);", function(male, female)
         return (UnitSex and UnitSex("player") == 3) and female or male
     end)
