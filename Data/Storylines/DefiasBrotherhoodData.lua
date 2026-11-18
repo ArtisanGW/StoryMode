@@ -26,6 +26,8 @@ SM.DefiasBrotherhoodData = {
     startY = 0.4290,
 
     npcLocations = {
+        ["Sprite Jumpsprocket"] = { mapID = 84, x = 0.6180, y = 0.3080, location = "the Dwarven District, Stormwind" },
+        ["Jasper Fel"] = { mapID = 84, x = 0.8000, y = 0.7000, location = "SI:7, Old Town, Stormwind" },
         ["Deputy Willem"] = { mapID = 37, x = 0.4820, y = 0.4290, location = "Northshire Abbey, Elwynn Forest" },
         ["Milly Osworth"] = { mapID = 37, x = 0.5080, y = 0.3920, location = "Northshire Vineyards, Elwynn Forest" },
         ["Garrick Padfoot"] = { mapID = 37, x = 0.5770, y = 0.4830, location = "the camp across the river from Northshire Abbey" },
@@ -90,11 +92,16 @@ SM.DefiasBrotherhoodData = {
         ["Councilman Millstipe"] = 1724,
         ["Nikova Raskol"] = 1815,
         ["Guard Berton"] = 3453,
+        ["Sprite Jumpsprocket"] = 10569,
+        ["Jasper Fel"] = 1513,
+        -- Quest givers' models from Wowhead's WoW Forever data.
+        ["Alba Fairmoon"] = 137727,
     },
 
     chapterDisplayIDs = {
         ["Red Masks in Elwynn"] = 2072,
         ["A Favor in Lakeshire"] = 1690,
+        ["Toxic Soil"] = 137727,
         ["The Messenger and the Traitor"] = 1690,
         ["VanCleef"] = 1690,
         ["The Unsent Letter"] = 2029,
@@ -142,6 +149,23 @@ SM.DefiasBrotherhoodData = {
             },
         },
         {
+            chapter = "Toxic Soil",
+            gameVersions = { forever = true },
+            summary = "Alba Fairmoon, at Sentinel Hill, says something is poisoning Westfall. The crops are failing, the wells taste of metal, and if nobody finds the source, nothing will grow there for decades. Alba has a sample kit and a great many questions.",
+            recap = "Alba Fairmoon turned up at Sentinel Hill with a sample kit and a theory: something was poisoning Westfall. I drew water from the farm wells and pulled gills off the murlocs along the shore, because murlocs, it turns out, are very sensitive souls. The wells came back full of metal. Not the good kind.\n\nThe Defias held the mines, so I ran their miners out of the Jangolode and the Gold Coast Quarry. Wrong mines. The poison came from somewhere deeper, and the crates lying around Moonbrook said where: the Deadmines, busy again after all these years.\n\nAlba wanted it blown up. A gnome called Sprite Jumpsprocket in the Dwarven District was thrilled to hear it, and SI:7 already knew all about it, which I found less thrilling. Jasper Fel handed me a remote detonator and asked me not to mention him to the elf. So I won't.",
+            quests = {
+                { id = 92742, name = "Testing the Wells", npc = "Alba Fairmoon", gameVersions = { forever = true } },
+                { id = 92744, name = "Murloc Gills", npc = "Alba Fairmoon", gameVersions = { forever = true } },
+                { id = 92745, name = "The State of the Mines", npc = "Alba Fairmoon", gameVersions = { forever = true } },
+                { id = 92747, name = "Moonbrook Espionage", npc = "Alba Fairmoon", gameVersions = { forever = true } },
+                { id = 92748, name = "Explosive Consultation", npc = "Alba Fairmoon", gameVersions = { forever = true } },
+                { id = 92749, name = "A Dynamite Plan", npc = "Sprite Jumpsprocket", gameVersions = { forever = true } },
+                { id = 92750, name = "Detonation at a Distance", npc = "Sprite Jumpsprocket", gameVersions = { forever = true } },
+                { id = 92751, name = "Detonation at a Distance", npc = "Jasper Fel", gameVersions = { forever = true } },
+                { id = 92752, name = "Explosive Consultation", npc = "Sprite Jumpsprocket", gameVersions = { forever = true } },
+            },
+        },
+        {
             chapter = "The Messenger and the Traitor",
             summary = "Gryan Stoutmantle knows a good deal more about the Defias now, but not where they hide. One of his scouts has spotted a Defias messenger on the roads around Moonbrook, and messengers carry things.",
             recap = "A name's a fine thing, but Gryan wanted an address. So I watched the roads south of Moonbrook until a Defias messenger came strolling along with a letter, and we settled the question of who'd be delivering it. Me. To Gryan.\n\nWhat really helped was the Defias Traitor, who turned up at Sentinel Hill ready to show us where the rest of them were hiding. All it took was walking a turncoat down to Moonbrook alive, and the road to Moonbrook is not a friendly road. I kept the Traitor breathing right up to the hole in the ground they'd been using for a front door.\n\nThe old mine. Of course it was the mine.",
@@ -159,6 +183,7 @@ SM.DefiasBrotherhoodData = {
                 { id = 2040, name = "Underground Assault", npc = "Shoni the Shilent", optional = true, recapAfter = 2, recap = "Shoni the Shilent in Stormwind had asked me to fetch a Gnoam Sprecklesprocket while I was down there. I couldn't tell you what one is. Shoni knew, and Shoni was paying, and that was enough for me." },
                 { id = 166, name = "The Defias Brotherhood", displayName = "VanCleef's Head", npc = "Gryan Stoutmantle" },
                 { id = 92753, name = "Destruction in Deadmines", npc = "Alba Fairmoon", optional = true, gameVersions = { forever = true }, recap = "Alba Fairmoon at Sentinel Hill had traced the poison in Westfall's soil to a forge hidden in the Deadmines, and handed me something labeled Extra-Destructive Explosives. I found the forge and tucked them in close. Then I walked back out at a very respectful pace." },
+                { id = 92819, name = "Destruction in Deadmines", npc = "Alba Fairmoon", optional = true, gameVersions = { forever = true }, recap = "Alba was waiting in the hills behind Moonbrook, wearing the look people get right before something loud. I pressed the button. Somewhere under Westfall a forge stopped being a forge, and for the first time in years the soil had a chance. Best thing I ever did with a button." },
                 { id = 167, name = "Oh Brother. . .", npc = "Wilder Thistlenettle", optional = true, recap = "Wilder Thistlenettle got out when the tunnel came down in the mine under Moonbrook, but the foreman, Wilder's brother, didn't. Wilder asked me for the Explorers' League badge the foreman never went anywhere without. I brought the badge back, and Wilder had already guessed what that meant." },
                 { id = 168, name = "Collecting Memories", npc = "Wilder Thistlenettle", optional = true, recap = "Wilder Thistlenettle lost a good many workmates in the collapsed wing of the mine under Moonbrook, and wanted their Miners' Union Cards brought out so the families would know. I brought out four. Wilder took them like letters nobody wants to deliver." },
             },
