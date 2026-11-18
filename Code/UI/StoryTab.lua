@@ -115,16 +115,7 @@ function SM.LayoutStoryTab(data, w, contentW, visibleContentW)
         SM.SyncSecureOverlay()
         lastAnchor = sTrackBtn
 
-        local storyBottomEl = lastAnchor
-        -- Set scroll height
-        C_Timer.After(0, function()
-            local bot = storyBottomEl:GetBottom()
-            local top = detailChild:GetTop()
-            if bot and top then
-                detailChild:SetHeight(math.max(top - bot + 40, 400))
-            else
-                detailChild:SetHeight(500)
-            end
-        end)
+        -- The page ends 40 below the button, and follows it if it moves.
+        SM.FitDetailPageTo(lastAnchor, 40, 400)
 end
 

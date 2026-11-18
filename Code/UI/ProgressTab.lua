@@ -88,7 +88,7 @@ function SM.LayoutProgressTab(data, w, contentW, visibleContentW)
             -- the player reaches the chapter, as it does under the track.
             local showSummary = not SM.ForeverWindow or SM.IsChapterReached(data, ch)
             node.tooltipTitle = ch.chapter
-            node.tooltipBody = showSummary and ch.summary or nil
+            node.tooltipBody = showSummary and SM.GetChapterText(ch, "summary") or nil
             node.tooltipProgress = cDone .. " / " .. cTotal .. " quests"
             node.tooltipAchievementID = ch.achievementID or nil
 
@@ -219,11 +219,11 @@ function SM.LayoutProgressTab(data, w, contentW, visibleContentW)
 
         -- Position track container. The Forever window has no story or
         -- chapter name above the quests (they'd only repeat the list card and
-        -- the chapter's node), so its track starts at the top of the pane.
+        -- the chapter's node), so its track starts near the top of the pane.
         dTrackContainer:ClearAllPoints()
         if SM.ForeverWindow then
             dTitle:Hide()
-            dTrackContainer:SetPoint("TOP", detailChild, "TOP", 0, -12)
+            dTrackContainer:SetPoint("TOP", detailChild, "TOP", 0, -24)
         else
             dTrackContainer:SetPoint("TOP", dProgSummary, "BOTTOM", 0, -18)
         end

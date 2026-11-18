@@ -44,7 +44,12 @@ local BACKGROUND_INSETS = { left = 1, top = 10, right = 2, bottom = 4 }
 local LIST = { x = 6, top = 78, w = 330, bottom = 4 }          -- CategoryList (Legacy: top 80, bottom 8)
 local DETAIL = { right = 24, bottom = 4, w = 560, h = 494 }      -- DetailPane (Legacy: bottom 8, h 490)
 local DIVIDER = { x = 328, top = 72, w = 12, h = 503 }           -- VerticalDivider
-local SUMMARY = { x = 280, top = 25, w = 520, h = 36 }           -- LegacyChallengePointSummary
+local SUMMARY = { top = 25, w = 520, h = 36, shield = 32 }       -- LegacyChallengePointSummary
+-- Legacy puts its summary at x 280. Ours centres the shield and bar as one
+-- under the window title, which sits between the portrait and the close
+-- button (PortraitFrameTemplate's title runs from 58 to 24 short of the
+-- edges); the shield hangs 32 left of the bar.
+SUMMARY.x = math.floor(WINDOW_W / 2 + (58 - 24) / 2 - (SUMMARY.w + SUMMARY.shield) / 2 + SUMMARY.shield + 0.5)
 local OVER_FRAME_LEVEL = 800                                     -- the divider and shield sit over the frame's border
 local TOP_OFFSET = -116                                          -- Blizzard's UI panel TOP_OFFSET
 local LEFT_OFFSET = 16                                           -- its LEFT_OFFSET
@@ -288,8 +293,8 @@ local function CreateModeChoice(parent)
     modeChoice.frame = frame
 end
 
--- Puts the choice under anchor (the intro text) and returns the height it
--- adds to the page.
+-- Puts the choice under anchor (the intro text) and returns it, the page's
+-- last element.
 function window.PlaceQuestModeChoice(anchor)
     if not modeChoice.frame then CreateModeChoice(anchor:GetParent()) end
     local frame = modeChoice.frame
@@ -298,7 +303,7 @@ function window.PlaceQuestModeChoice(anchor)
     frame:SetPoint("TOPRIGHT", anchor, "BOTTOMRIGHT", 0, -MODE_CHOICE.gap)
     RefreshModeChoice()
     frame:SetShown(modeChoice.shown)
-    return MODE_CHOICE.gap + MODE_CHOICE.buttonH
+    return frame
 end
 
 -- Shows the choice with the start page and hides it with it.

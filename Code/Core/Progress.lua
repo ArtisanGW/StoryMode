@@ -326,13 +326,16 @@ function SM.GetChapterProgress(ch)
     return 0, 0
 end
 
+-- The story's quests done and in all, optional ones included, so the count
+-- still shows what's left after the story is finished. Whether it is
+-- finished is FindNextQuest's call, which skips optional quests.
 function SM.GetCampaignProgress(data)
     local cached = progressCache.campaignProgress[data]
     if cached then return cached.done, cached.total end
     local total, done = 0, 0
     for _, ch in ipairs(SM.GetAllChapters(data)) do
         for _, q in ipairs(ch.quests or {}) do
-            if not q.optional and SM.IsQuestForPlayer(q) and not SM.ShouldHideQuest(q) then
+            if SM.IsQuestForPlayer(q) and not SM.ShouldHideQuest(q) then
                 total = total + 1
                 if SM.IsQuestEntryComplete(q) then done = done + 1 end
             end

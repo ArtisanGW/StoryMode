@@ -246,6 +246,40 @@ detailScroll:SetScrollChild(detailChild)
 function SM.GetDetailChild() return detailChild end
 SM.EnableMouseWheelScroll(detailScroll)
 
+-- The start page and the Story tab are as tall as it takes to reach their
+-- last element. Text there can settle a moment after the page is laid out,
+-- most of all on the first open after a reload, so the page is measured again
+-- a few times; a measure taken before the page is laid out is thrown away.
+local pageEnd = { serial = 0 }
+local PAGE_END_REMEASURE = { 0, 0.1, 0.5, 1.5 }
+local function FitPageToEnd(serial)
+    if serial ~= pageEnd.serial or not pageEnd.target then return end
+    local top, bottom = detailChild:GetTop(), pageEnd.target:GetBottom()
+    if not (top and bottom) then return end
+    local height = top - bottom
+    if height ~= height or height <= 0 or height > 20000 then return end
+    detailChild:SetHeight(math.max(height + pageEnd.padding, pageEnd.minHeight))
+end
+
+-- Makes the page end padding below target, at least minHeight tall. nil
+-- stops it, for pages that set their own height.
+function SM.FitDetailPageTo(target, padding, minHeight)
+    pageEnd.serial = pageEnd.serial + 1
+    pageEnd.target, pageEnd.padding, pageEnd.minHeight = target, padding or 0, minHeight or 0
+    if not target then return end
+    -- On a fresh load the page has no height yet, and nothing on a page with
+    -- no height has a position to measure, so it would stay blank. Give it
+    -- its least height first; the measures below then fit it.
+    if (detailChild:GetHeight() or 0) < pageEnd.minHeight then
+        detailChild:SetHeight(math.max(pageEnd.minHeight, 1))
+    end
+    local serial = pageEnd.serial
+    FitPageToEnd(serial)
+    for _, delay in ipairs(PAGE_END_REMEASURE) do
+        C_Timer.After(delay, function() FitPageToEnd(serial) end)
+    end
+end
+
 -- Move scrollbar inside the panel. Classic uses the options/settings scroll art.
 local detailScrollbar = SM.GetScrollBar(detailScroll)
 if detailScrollbar then
@@ -321,12 +355,27 @@ local introCoverTexture = introCoverFrame:CreateTexture(nil, "ARTWORK")
 introCoverTexture:SetPoint("CENTER")
 introCoverTexture:SetTexture(STORYMODE_BG_TEXTURE)
 introCoverTexture:SetTexCoord(0, 1, 0, 1)
+introCoverTexture:SetVertexColor(0.8, 0.8, 0.8)  -- dimmed a little, so the logo stands out
 AddCoverFadeMask(introCoverFrame, introCoverTexture, introCoverFrame)
 
 local introCoverLayout = introCoverFrame:CreateTexture(nil, "OVERLAY")
 introCoverLayout:SetPoint("CENTER")
 introCoverLayout:SetTexture(STORYMODE_LAYOUT_TEXTURE)
 introCoverLayout:SetTexCoord(0, 1, 0, 1)
+
+-- The logo's file is 1536 pixels wide but shows far smaller, and the game
+-- shrinks it by skipping pixels, which leaves jagged edges. Copies shrunk
+-- ahead of time with an area filter (storymode_layout_<width>) are used
+-- instead: the smallest one at least as wide as the logo is on screen.
+local LOGO_WIDTHS = { 512, 768, 1024 }
+local function LogoTextureFor(width)
+    local _, screenH = GetPhysicalScreenSize and GetPhysicalScreenSize()
+    local pixels = width * introCoverFrame:GetEffectiveScale() * ((screenH or 768) / 768)
+    for _, size in ipairs(LOGO_WIDTHS) do
+        if size >= pixels then return STORYMODE_LAYOUT_TEXTURE .. "_" .. size end
+    end
+    return STORYMODE_LAYOUT_TEXTURE
+end
 
 local introText = SM.NoShadow(detailChild:CreateFontString(nil, "ARTWORK", "QuestFont"))
 introText:SetJustifyH("LEFT"); introText:SetSpacing(5)
@@ -341,6 +390,7 @@ local function SetIntroVisible(show)
     else
         introCoverFrame:Hide()
         introText:Hide()
+        SM.FitDetailPageTo(nil)
     end
     if SM.ForeverWindow then SM.ForeverWindow.ShowQuestModeChoice(show) end
 end
@@ -362,6 +412,7 @@ local function LayoutIntro()
     introCoverTexture:SetSize(coverW, coverH)
     SM.SetCenteredCoverTexCoord(introCoverTexture, INTRO.bgAspectW, INTRO.bgAspectH, coverW, coverH)
     local layoutW = coverW * INTRO.layoutScale
+    introCoverLayout:SetTexture(LogoTextureFor(layoutW))
     introCoverLayout:SetSize(layoutW, layoutW * (INTRO.layoutAspectH / INTRO.layoutAspectW))
     introCoverLayout:SetTexCoord(0, 1, 0, 1)
 
@@ -370,10 +421,9 @@ local function LayoutIntro()
     introText:SetPoint("TOPRIGHT", detailChild, "TOPRIGHT", -CP, -(coverH + INTRO.textGap))
     if contentW > 20 then introText:SetWidth(contentW) end
 
-    local textH = introText:GetStringHeight() or 0
     -- The Forever window puts its Guided/Explorer choice under the text.
-    local choiceH = SM.ForeverWindow and SM.ForeverWindow.PlaceQuestModeChoice(introText) or 0
-    detailChild:SetHeight(math.max(coverH + textH + INTRO.textGap + 40 + choiceH, 400))
+    local pageBottom = SM.ForeverWindow and SM.ForeverWindow.PlaceQuestModeChoice(introText) or introText
+    SM.FitDetailPageTo(pageBottom, 40, 400)
 end
 
 -- ══════════════════════════════════════════════════════════════════════════════
@@ -1403,8 +1453,9 @@ LayoutSelectedChapter = function()
 
     -- Forever keeps the summary of a chapter the player hasn't reached yet
     -- to itself, so it doesn't give the story away.
-    if ch.summary and not (SM.ForeverWindow and not SM.IsChapterReached(data, ch)) then
-        dChapterSummary:SetText(ch.summary)
+    local summary = SM.GetChapterText(ch, "summary")
+    if summary and not (SM.ForeverWindow and not SM.IsChapterReached(data, ch)) then
+        dChapterSummary:SetText(summary)
         dChapterSummary:Show()
     else
         dChapterSummary:Hide()
@@ -1711,6 +1762,8 @@ function SM.ShowDetail(show)
 end
 
 function SM.ShowTab(tab)
+    -- Each tab sets the page's height; the Story tab fits it to its button.
+    SM.FitDetailPageTo(nil)
     -- Hide all tab-specific elements
     for _, el in ipairs(storyElements) do el:Hide() end
     for _, el in ipairs(journalElements) do el:Hide() end
