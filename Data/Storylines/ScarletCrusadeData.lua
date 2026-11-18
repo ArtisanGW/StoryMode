@@ -155,17 +155,6 @@ SM.ScarletCrusadeData = {
             },
         },
         {
-            chapter = "The Scarlet Path",
-            faction = "Alliance",
-            summary = "Brother Crowley, in Stormwind's Cathedral Square, wants you to call on Brother Anton. Anton is at Nijel's Point in Desolace, which is a long way to go for a conversation. Crowley doesn't say what it's about. Anton will.",
-            recap = "Brother Crowley in the Stormwind Cathedral wanted me to go and see a Brother Anton. In Desolace. You don't just wander over to Desolace, but I went, and at Nijel's Point Anton had a job ready and waiting.\n\nThirty undead ravagers. Not twenty, not a handful. Thirty. I counted, because I knew Anton would.\n\nThat earned me a letter of commendation to Raleigh the Devout in Southshore. That's how it goes with the devout. You do them one favor, they write you a reference, and the reference gets you a bigger favor. Raleigh read it and started talking about a monastery up in Tirisfal Glades, and how badly it needed a visit.",
-            quests = {
-                { id = 6141, name = "Brother Anton", npc = "Brother Crowley" },
-                { id = 261, name = "Down the Scarlet Path", npc = "Brother Anton" },
-                { id = 1052, name = "Down the Scarlet Path", npc = "Brother Anton" },
-            },
-        },
-        {
             chapter = "Graveyard and Library",
             summaryAlliance = "Librarian Mae Paledust, in Ironforge's Hall of Explorers, wants one book: the Mythology of the Titans. The copy Mae has in mind sits in the library of the Scarlet Monastery in Tirisfal Glades, and the Crusade doesn't lend.",
             summaryHorde = "Deep in the Scarlet Monastery's graveyard, in Tirisfal Glades, a prisoner named Vorrel Sengutz is waiting for someone to get that far. The library has customers too: Sage Truthseeker, in Thunder Bluff, wants a book off its shelves.",
@@ -199,6 +188,17 @@ SM.ScarletCrusadeData = {
             },
         },
         {
+            chapter = "The Scarlet Path",
+            faction = "Alliance",
+            summary = "Brother Crowley, in Stormwind's Cathedral Square, wants you to call on Brother Anton. Anton is at Nijel's Point in Desolace, which is a long way to go for a conversation. Crowley doesn't say what it's about. Anton will.",
+            recap = "Brother Crowley in the Stormwind Cathedral wanted me to go and see a Brother Anton. In Desolace. You don't just wander over to Desolace, but I went, and at Nijel's Point Anton had a job ready and waiting.\n\nThirty undead ravagers. Not twenty, not a handful. Thirty. I counted, because I knew Anton would.\n\nThat earned me a letter of commendation to Raleigh the Devout in Southshore. That's how it goes with the devout. You do them one favor, they write you a reference, and the reference gets you a bigger favor. Raleigh read it and started talking about a monastery up in Tirisfal Glades, and how badly it needed a visit.",
+            quests = {
+                { id = 6141, name = "Brother Anton", npc = "Brother Crowley" },
+                { id = 261, name = "Down the Scarlet Path", npc = "Brother Anton" },
+                { id = 1052, name = "Down the Scarlet Path", npc = "Brother Anton" },
+            },
+        },
+        {
             chapter = "Armory and Cathedral",
             summaryAlliance = "Raleigh the Devout, in Southshore, wants the leaders of the Scarlet Monastery dead, in the name of the Light. They would say they do everything in its name too. There are four of them, from the kennels to the Cathedral.",
             summaryHorde = "Varimathras wants a word in the Undercity's Royal Quarter. The dreadlord has four names for you, the leaders of the Scarlet Monastery from the kennels to the Cathedral, and wants every one of them dead. Say yes quickly.",
@@ -207,6 +207,16 @@ SM.ScarletCrusadeData = {
             quests = {
                 { id = 1048, name = "Into The Scarlet Monastery", npc = "Varimathras", faction = "Horde" },
                 { id = 1053, name = "In the Name of the Light", npc = "Raleigh the Devout", faction = "Alliance" },
+            },
+        },
+        {
+            chapter = "Hearthglen Reconnaissance",
+            summary = "Kirsta Deepshadow, in the north of the Western Plaguelands, has unfinished business with the Scarlet Crusade and could use a hand with it. Their outer lines are close by. Behind them sits Hearthglen.",
+            recap = "Kirsta Deepshadow keeps to the north end of the Western Plaguelands and has a professional interest in the Scarlet Crusade. Unfinished business, Kirsta calls it, which is the kind of phrase that means somebody owes somebody blood. The first few jobs were a sampler of their outer lines, two of everything, like ordering off a menu.\n\nThe one worth telling is Hearthglen. Kirsta wanted the town itself measured, so I walked into a fortress full of Crusaders and went looking for somewhere high to stand and have a good long look. You'd think somebody would wonder what a stranger was doing up there. Nobody did.\n\nI came back with a count of everything they had. It wasn't a garrison. It was an army.",
+            quests = {
+                { id = 6004, name = "Unfinished Business", npc = "Kirsta Deepshadow" },
+                { id = 6023, name = "Unfinished Business", npc = "Kirsta Deepshadow" },
+                { id = 6025, name = "Unfinished Business", npc = "Kirsta Deepshadow" },
             },
         },
         {
@@ -225,16 +235,6 @@ SM.ScarletCrusadeData = {
                 { id = 6163, name = "Ramstein", npc = "Nathanos Blightcaller", faction = "Horde", optional = true, recap = "Nathanos Blightcaller has a grudge with a face on it: Ramstein the Gorger stood over him when he died defending his own farm, and he hunted it across the wastes until it hid in Stratholme. I brought him the head. He spat and said it was going on his wall." },
                 { id = 5122, name = "The Medallion of Faith", npc = "Aurius", optional = true },
                 { id = 5125, name = "Aurius' Reckoning", npc = "Aurius", optional = true, recap = "Aurius was holed up in a Stratholme chapel, the only thing keeping him from turning death knight. With the Medallion of Faith back from a Scarlet zealot he could leave, and he went straight for Baron Rivendare. He was dying when it was over, but he said his soul was saved, and seemed to think that the better bargain." },
-            },
-        },
-        {
-            chapter = "Hearthglen Reconnaissance",
-            summary = "Kirsta Deepshadow, in the north of the Western Plaguelands, has unfinished business with the Scarlet Crusade and could use a hand with it. Their outer lines are close by. Behind them sits Hearthglen.",
-            recap = "Kirsta Deepshadow keeps to the north end of the Western Plaguelands and has a professional interest in the Scarlet Crusade. Unfinished business, Kirsta calls it, which is the kind of phrase that means somebody owes somebody blood. The first few jobs were a sampler of their outer lines, two of everything, like ordering off a menu.\n\nThe one worth telling is Hearthglen. Kirsta wanted the town itself measured, so I walked into a fortress full of Crusaders and went looking for somewhere high to stand and have a good long look. You'd think somebody would wonder what a stranger was doing up there. Nobody did.\n\nI came back with a count of everything they had. It wasn't a garrison. It was an army.",
-            quests = {
-                { id = 6004, name = "Unfinished Business", npc = "Kirsta Deepshadow" },
-                { id = 6023, name = "Unfinished Business", npc = "Kirsta Deepshadow" },
-                { id = 6025, name = "Unfinished Business", npc = "Kirsta Deepshadow" },
             },
         },
         {

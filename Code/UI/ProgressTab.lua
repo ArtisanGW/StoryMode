@@ -89,7 +89,8 @@ function SM.LayoutProgressTab(data, w, contentW, visibleContentW)
             local showSummary = not SM.ForeverWindow or SM.IsChapterReached(data, ch)
             node.tooltipTitle = ch.chapter
             node.tooltipBody = showSummary and SM.GetChapterText(ch, "summary") or nil
-            node.tooltipProgress = cDone .. " / " .. cTotal .. " quests"
+            local qDone, qTotal = SM.GetChapterQuestCount(ch)
+            node.tooltipProgress = qDone .. " / " .. qTotal .. " quests"
             node.tooltipAchievementID = ch.achievementID or nil
 
             -- Status styling

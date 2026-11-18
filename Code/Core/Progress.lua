@@ -329,6 +329,28 @@ function SM.GetChapterProgress(ch)
     return 0, 0
 end
 
+-- A chapter's quests done and in all for display, optional ones included, as
+-- the story's count has them. Whether the chapter is finished stays
+-- GetChapterProgress's call, from its required quests alone.
+function SM.GetChapterQuestCount(ch)
+    local done, total = SM.GetChapterProgress(ch)
+    if ch.loreOnly or ch.replayable then return done, total end
+    local required, optionalTotal, optionalDone = 0, 0, 0
+    for _, q in ipairs(ch.quests or {}) do
+        if SM.IsQuestForPlayer(q) and not SM.ShouldHideQuest(q) then
+            if q.optional then
+                optionalTotal = optionalTotal + 1
+                if SM.IsQuestEntryComplete(q) then optionalDone = optionalDone + 1 end
+            else
+                required = required + 1
+            end
+        end
+    end
+    -- With no required quests, GetChapterProgress already counts the optional ones.
+    if required == 0 then return done, total end
+    return done + optionalDone, total + optionalTotal
+end
+
 -- The story's quests done and in all, optional ones included, so the count
 -- still shows what's left after the story is finished. Whether it is
 -- finished is FindNextQuest's call, which skips optional quests.

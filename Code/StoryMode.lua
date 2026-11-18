@@ -1403,7 +1403,8 @@ LayoutSelectedChapter = function()
             cd, ct = SM.GetChapterProgress(thCh)
             isComp = cd == ct and ct > 0
             isAct = cd > 0 and not isComp
-            node.tooltipProgress = cd .. " / " .. ct .. " quests"
+            local qDone, qTotal = SM.GetChapterQuestCount(thCh)
+            node.tooltipProgress = qDone .. " / " .. qTotal .. " quests"
         end
 
         if i == dSelectedChapter then
