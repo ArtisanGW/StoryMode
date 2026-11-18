@@ -49,6 +49,7 @@ L["No Factions Tracked"] = "Фракции не отслеживаются."
 
 L["Minimap Tooltip Title"] = "Story Mode"
 L["Minimap Tooltip Open"] = "Щелкните левой кнопкой, чтобы открыть"
+L["Binding Toggle Story Mode"] = "Открыть или закрыть Story Mode"
 L["Minimap Tooltip Settings"] = "Щелкните правой кнопкой, чтобы выбрать стиль значка"
 L["Minimap Icon Style"] = "Стиль значка мини-карты"
 L["Minimap Icon Style Borderless"] = "Без рамки"

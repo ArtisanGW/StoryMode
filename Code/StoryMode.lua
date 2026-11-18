@@ -2096,6 +2096,15 @@ function SM.ShowStoryModeFrame()
     end)
 end
 
+-- The game's Key Bindings settings list Story Mode in its own section, with
+-- one key to open or close the window (Bindings.xml).
+BINDING_HEADER_STORYMODE = L["Addon Name"]
+BINDING_NAME_STORYMODE_TOGGLE = L["Binding Toggle Story Mode"]
+
+function StoryMode_ToggleFrame()
+    SM.ToggleStoryModeFrame()
+end
+
 function StoryMode_AddonCompartment_OnClick(_, button)
     if button and button ~= "LeftButton" then return end
     SM.ToggleStoryModeFrame()

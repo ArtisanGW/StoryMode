@@ -49,6 +49,7 @@ L["No Factions Tracked"] = "추적 중인 평판이 없습니다."
 
 L["Minimap Tooltip Title"] = "Story Mode"
 L["Minimap Tooltip Open"] = "왼쪽 클릭으로 열기"
+L["Binding Toggle Story Mode"] = "Story Mode 열기/닫기"
 L["Minimap Tooltip Settings"] = "오른쪽 클릭으로 아이콘 모양 변경"
 L["Minimap Icon Style"] = "미니맵 아이콘 모양"
 L["Minimap Icon Style Borderless"] = "테두리 없음"

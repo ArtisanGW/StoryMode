@@ -49,6 +49,7 @@ L["No Factions Tracked"] = "未追踪任何阵营。"
 
 L["Minimap Tooltip Title"] = "Story Mode"
 L["Minimap Tooltip Open"] = "左键点击打开"
+L["Binding Toggle Story Mode"] = "打开或关闭 Story Mode"
 L["Minimap Tooltip Settings"] = "右键点击更改图标样式"
 L["Minimap Icon Style"] = "小地图图标样式"
 L["Minimap Icon Style Borderless"] = "无边框"

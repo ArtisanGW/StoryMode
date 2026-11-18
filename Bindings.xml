@@ -1,0 +1,5 @@
+<Bindings>
+	<Binding name="STORYMODE_TOGGLE" category="BINDING_HEADER_STORYMODE">
+		StoryMode_ToggleFrame()
+	</Binding>
+</Bindings>
