@@ -46,6 +46,7 @@ local contentRegistry = {
     -- WoW Forever's own questlines (Data/Forever).
     { key = "ForeverRivergladesData", category = "Stories" },
     { key = "ForeverAlcazPrisonData", category = "Stories" },
+    { key = "ForeverDrownedCityData", category = "Stories" },
 
     { key = "DefiasBrotherhoodData", category = "Epic Stories" },
     { key = "DuskwoodData", category = "Epic Stories" },

@@ -33,6 +33,7 @@ SM.ForeverStoryLevels = {
     ["The Cozy Sleeping Bag"] = { 14, 32 },
     ["The Defias Brotherhood"] = { 2, 31 },
     ["The Drakefire Amulet"] = { 48, 60 },
+    ["The Drowned City"] = { 30, 46 },
     ["The Dying God"] = { 54, 60 },
     ["The Fate of Zephras"] = { 1, 13 },
     ["The Green Hills"] = { 28, 43 },

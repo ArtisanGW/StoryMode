@@ -81,6 +81,7 @@ Data\Forever\QuestText\zhTW.lua
 Data\Forever\ForeverStoryLevels.lua
 Data\Forever\ForeverNPCDisplayIDs.lua
 Data\Forever\AlcazPrisonData.lua
+Data\Forever\DrownedCityData.lua
 Data\Forever\ZephrasIsleData.lua
 Data\Forever\MountHyjalData.lua
 Data\Forever\RivergladesData.lua
