@@ -43,8 +43,8 @@ SM.PoorOldBlanchyData = {
     chapters = {
         {
             chapter = "What They Left Behind",
-            summary = "Recover the Furlbrows' watch from the pumpkin farm, return any stolen deed you find, and gather oats for Old Blanchy.",
-            recap = "The Furlbrows had fled their farm with a broken wagon, a hungry old horse, and too little room for memory. The pocket watch was only a small thing, but it carried a wedding day and a home they might never see again. The oats were just as small, yet for Old Blanchy and the people still trying to leave Westfall, they made the road feel possible again.",
+            summary = "Hooligans overran the Furlbrows' fields one night, and the couple fled in a rush. Now their wagon has broken down by the road near Jansen Stead in Westfall. Farmer Furlbrow left something precious behind, and Verna is fretting over their tired old horse.",
+            recap = "On the road into Westfall there's a broken-down wagon, and beside it the Furlbrows, who left their farm in a hurry and couldn't bring much with them.\n\nFarmer Furlbrow wanted one thing. Not the farm, not the furniture. His pocket watch, still sitting in the wardrobe back at the farmhouse. So I walked out to the pumpkin farm and fetched it. Of everything a man could leave behind, that was the one he couldn't stop thinking about.\n\nVerna's worry was Blanchy, their old horse, who was hungry and getting no younger. I went through the fields picking up oats until I had eight handfuls. Blanchy ate every one and looked at me like I'd hung the moon.\n\nLater on I turned up Furlbrow's deed in a Defias camp in Elwynn. Thieves will take anything that isn't nailed down, and a few things that are.",
             quests = {
                 { id = 64, name = "The Forgotten Heirloom", npc = "Farmer Furlbrow" },
                 { id = 151, name = "Poor Old Blanchy", npc = "Verna Furlbrow" },

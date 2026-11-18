@@ -61,8 +61,8 @@ SM.PrincessMoiraData = {
         {
             chapter = "Kharan's Tale",
             faction = "Alliance",
-            summary = "Hear the old tale of Thaurissan, then enter Blackrock Depths to learn what the mountain is hiding.",
-            recap = "Moira's disappearance led backward to old Thaurissan and the War of the Three Hammers. Ironforge's old wound led straight into Blackrock Depths, where Kharan Mighthammer's prison cell held the news Magni did not want to hear. Moira was in the heart of the Dark Iron kingdom, and the rescue he wanted was already tangled in questions of love, control, succession, and inherited hatred.",
+            summary = "Royal Historian Archesonus, by the High Seat in Ironforge, has a long history of the Dark Iron dwarves to tell. Hear it out. King Magni has questions about his daughter, Moira, and the answers lie in Blackrock Depths.",
+            recap = "If you want to understand Princess Moira, the Royal Historian in Ironforge will explain, and it takes a while. The Dark Irons, the War of the Three Hammers, and how the Burning Steppes came to be burning. Then, so I'd really understand, I was sent out to the Ruins of Thaurissan to read the old relics myself. History lessons, in the hottest classroom in the Eastern Kingdoms.\n\nThat was the warm-up. King Magni wanted me to find Kharan Mighthammer, a prisoner deep in Blackrock Depths. Kharan had a tale about Moira. I listened. It was not the tale Magni wanted.\n\nThen I had to go back to Ironforge and tell him. Here's some free advice. If you're ever handed bad news for a king about his daughter, see if anyone else is going that way.",
             quests = {
                 { id = 3702, name = "The Smoldering Ruins of Thaurissan", npc = "Royal Historian Archesonus" },
                 { id = 3701, name = "The Smoldering Ruins of Thaurissan", displayName = "Burning Steppes", npc = "Royal Historian Archesonus" },
@@ -74,8 +74,8 @@ SM.PrincessMoiraData = {
         {
             chapter = "The Royal Rescue",
             faction = "Alliance",
-            summary = "Magni orders a rescue, but Blackrock Depths may make it more complicated than an ordinary fight.",
-            recap = "The order sounded simple because grief needed it to be simple: kill Thaurissan, spare Moira, bring the princess home. Blackrock Depths answered with something crueler. When the emperor fell, Moira did not thank her rescuers. She mourned her husband, named her unborn child heir to Ironforge, and sent Magni a future he could not command away.",
+            summary = "King Magni has heard enough. His orders from the High Seat are plain: back into Blackrock Depths, through the Dark Iron city to Emperor Dagran Thaurissan, and bring Princess Moira home.",
+            recap = "Magni's orders were plain. Back into Blackrock Depths, kill Emperor Dagran Thaurissan, and bring Moira home.\n\nBlackrock Depths is a city, not a cellar, and the emperor sits at the far end of it. We got there. We did the first part. The emperor went down, and I turned around to rescue the princess.\n\nThe princess did not want rescuing. She'd married him, and she was mourning her husband. She also had news. She was carrying his child, and that child would be heir to Ironforge.\n\nThat news went back to her father by way of me. Of every report I've ever made, that's the one where I most wished I'd taken the long road. Magni wanted his daughter back. What he got was a grandchild, and a problem nobody could kill.",
             quests = {
                 { id = 4362, name = "The Fate of the Kingdom", npc = "King Magni Bronzebeard" },
                 { id = 4363, name = "The Princess's Surprise", npc = "Princess Moira Bronzebeard" },
@@ -84,8 +84,8 @@ SM.PrincessMoiraData = {
         {
             chapter = "The Warchief's Rescue",
             faction = "Horde",
-            summary = "Commander Gor'shak's message pulls the Horde into Blackrock Depths, where Moira's captivity may shape more than one kingdom.",
-            recap = "The Horde path entered the same crisis through a different door: a commander in chains, a prisoner with information, and Thrall reading the politics beneath the dungeon walls. Freeing Moira was not mercy alone. It was strategy. If a Dark Iron child could inherit Ironforge, then Blackrock Depths was not only a prison. It was a future capital waiting in the dark.",
+            summary = "Galamav the Marksman in Kargath shows you a crude drawing of an orc, bars scrawled across the face. The orc is Commander Gor'shak, and the bars suggest a prison. Blackrock Depths has a big one.",
+            recap = "I was shown a drawing of an orc. Crude, with bars scribbled over the face. That was the whole clue. So I went looking for a prison, and Blackrock Depths has a big one, and in it was Commander Gor'shak.\n\nThe Dark Irons didn't care for us talking, and halfway through they came at us in waves. I made sure the commander lived to finish the story. Another prisoner nearby had the real news: Princess Moira Bronzebeard, kidnapped by the Dark Irons.\n\nThrall heard me out and sent me back in to kill the emperor and free the princess from his spell.\n\nI did the killing. The princess did not look like anyone under a spell. She looked like a widow, carrying the emperor's child, an heir with a claim on Ironforge. I took that back to Orgrimmar and watched the Warchief do some very careful thinking.",
             quests = {
                 { id = 3981, name = "Commander Gor'shak", npc = "Galamav the Marksman" },
                 { id = 3982, name = "What Is Going On?", npc = "Commander Gor'shak" },

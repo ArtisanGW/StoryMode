@@ -39,8 +39,10 @@ SM.ForeverCozySleepingBagData = {
     chapters = {
         {
             chapter = "A Note in the Ashes",
-            summary = "A burned-out wreck holds a note that someone meant to be found. Read it, and follow where it points.",
-            recap = "The note led across the sea to a second burned-out ruin, the twin of the first. Whoever wrote it had left the same sign on both continents, and beside the second ruin a plank was nailed up with the next instruction.",
+            summaryAlliance = "In Westfall there's a burned-out wreck nobody looks at twice, and in the ash there's a note. Charred, mostly gone, but someone plainly meant it to be found. Read what's left and see where it points.",
+            summaryHorde = "Out in the Barrens there's a burned-out wreck nobody looks at twice, and in the ash there's a note. Charred, mostly gone, but someone plainly meant it to be found. Read what's left and see where it points.",
+            recapAlliance = "Some of the best things I've ever found, I found poking through ash. There's a burned-out wreck in Westfall, nothing left in it worth stealing, and in the middle of it a note. Charred half to nothing. But somebody had written it for whoever bothered to look, and I always bother to look.\n\nWhat was left of it pointed across the sea. To the Barrens, of all places. So I went, a very long way for a scrap of paper, and found a second burned-out ruin waiting for me. The twin of the first, an ocean apart, with the same sign left on it. And nailed up beside it, a plank with more writing.\n\nWhoever this was had gone to a lot of trouble. That's usually a good sign. Usually.",
+            recapHorde = "There's a burned-out wreck out in the Barrens, the kind you ride past a hundred times. I didn't ride past it. In the ash was a note, charred so badly I could barely make it out, but somebody had plainly meant it to be found.\n\nWhat was left of it sent me across the sea to Westfall. Long trip for a scrap of paper. And there it was: a second burned-out ruin, twin of the first, a whole ocean away, with the same sign left on it. Nailed up beside it was a plank with the next set of instructions.\n\nI stood there a while thinking somebody out there had far too much time on their hands. Then I read the plank.",
             quests = {
                 { id = 79008, name = "... and that note you found", faction = "Alliance", mapID = 1436, x = 0.3710, y = 0.5010, location = "Burned-Out Remains, Westfall", gameVersions = { forever = true } },
                 { id = 79007, name = "... and that note you found", faction = "Horde", mapID = 1413, x = 0.4610, y = 0.7430, location = "Burned-Out Remains, The Barrens", gameVersions = { forever = true } },
@@ -48,8 +50,9 @@ SM.ForeverCozySleepingBagData = {
         },
         {
             chapter = "The Hidden Camp",
-            summary = "The plank points to an abandoned camp high in the Stonetalon Mountains, and to the litter its owner left behind.",
-            recap = "The camp had been left in a hurry, its crates still holding tools and two sturdy bags. The pocket litter sent you to the cliff edge, and a leap of faith landed you beside a mound of fresh dirt on the ledge below.",
+            summaryAlliance = "Beside the burned-out remains in the Barrens, someone has nailed up a plank with a note on it. More directions, and this time they point up into the Stonetalon Mountains. Whoever left this trail went to a lot of trouble.",
+            summaryHorde = "Beside the burned-out remains in Westfall, someone has nailed up a plank with a note on it. More directions, and this time they point up into the Stonetalon Mountains. Whoever left this trail went to a lot of trouble.",
+            recap = "The plank sent me up into the Stonetalon Mountains, to a camp tucked away where nobody would ever stumble on it. Whoever lived there had left in a hurry. Crates still full of tools. Two good sturdy bags. And the sort of pocket litter you only leave behind when you're in a rush to be somewhere else.\n\nThe litter pointed me to the edge of the cliff, and then, as far as I could tell, over it. So I jumped.\n\nThey call that a leap of faith. I call it a very long moment. I came down on a ledge below in one piece, right beside a mound of fresh dirt. Somebody had been digging there, and not long ago.\n\nI'd come this far. I wasn't going to be stopped by a pile of dirt.",
             quests = {
                 -- The plank stands by the remains the note was turned in at: the other faction's.
                 { id = 79192, name = "Stepping Stones", faction = "Alliance", mapID = 1413, x = 0.4610, y = 0.7430, location = "Burned-Out Remains, The Barrens", gameVersions = { forever = true } },
@@ -59,8 +62,8 @@ SM.ForeverCozySleepingBagData = {
         },
         {
             chapter = "Thoradin's Wall",
-            summary = "What was buried on the ledge sends you east, first to the great dam of Loch Modan, then up onto Thoradin's Wall.",
-            recap = "A carved eagle waited on the stone heads of Stonewrought Dam, and its fist pointed to Thoradin's Wall. Up on the old wall a messenger bag held the last note, and just beneath it lay the satchel the whole trail had been guarding: a cozy sleeping bag, ready for the road.",
+            summary = "On the ledge below the abandoned camp in the Stonetalon Mountains sits a mound of fresh dirt. Somebody was digging here not long ago. You've followed this trail across an ocean. A pile of dirt isn't going to stop you.",
+            recap = "The dirt gave up a messenger bag with a parchment in it, and the parchment sent me clear across the sea to Stonewrought Dam, where a carved eagle on the stone heads pointed its fist at Thoradin's Wall. Lovely view, if you like heights.\n\nUp on the old wall was one more bag and one last note. Whoever had left it was gone. I'd just missed them, by the look of it. And under the note was what the whole trail had been guarding, across two continents, a cliff and a dam.\n\nA sleeping bag. A cozy one.\n\nI'd love to tell you I was disappointed. I wasn't. It's a very good sleeping bag.",
             quests = {
                 { id = 79974, name = "Wet Job", mapID = 1442, x = 0.3960, y = 0.4990, location = "Mound of Dirt, Stonetalon Mountains", gameVersions = { forever = true } },
                 { id = 79975, name = "Eagle's Fist", mapID = 1432, x = 0.4940, y = 0.1290, location = "Stonewrought Dam, Loch Modan", gameVersions = { forever = true } },

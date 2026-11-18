@@ -64,8 +64,8 @@ SM.LinkenData = {
     chapters = {
         {
             chapter = "A Secret to Everybody",
-            summary = "Search the wrecked raft in Un'Goro and bring the small pack to Linken at Marshal's Refuge.",
-            recap = "The raft in Un'Goro held a compass, a curled map, a lion-headed key, and a photograph of a gnome in green. Linken knew the belongings, but memory would not come with them. The crater had left him with fragments of an errand, a blade without its tale, and the sense that someone had once entrusted him with more than he could remember.",
+            summary = "There's a wrecked raft in a pond in Un'Goro Crater, out in the southeastern marshes. Nobody aboard, nobody waiting nearby. Poke around in the water and you might learn whose it was.",
+            recap = "There's a wrecked raft in a pond in Un'Goro, and if you poke around it you'll find a small pack. Inside: a large compass, a curled map, a key with a lion's head on it, and a photograph of a gnome dressed in green.\n\nWell. Marshal's Refuge isn't far, and there's a gnome there called Linken. You can see where this is going.\n\nLinken knew the things were his. Linken did not know much else. Where he'd been, what the key opened, why he'd been rafting through a crater full of dinosaurs: all gone. What he did have was a sword, and a name to take it to. Donova Snowden, in Winterspring.\n\nThe far end of Kalimdor, naturally. I've noticed that about lost things. They're never lost anywhere close.",
             quests = {
                 { id = 3844, name = "It's a Secret to Everybody", npc = "A Wrecked Raft" },
                 { id = 3845, name = "It's a Secret to Everybody", npc = "A Small Pack" },
@@ -74,8 +74,8 @@ SM.LinkenData = {
         },
         {
             chapter = "Linken's Memory",
-            summary = "Follow Linken's memory through strange visions and help his sword remember what he cannot.",
-            recap = "Linken's memory did not return like a clean answer. It came through strange errands, ghostly meetings, and a sword that changed in flashes of light. Donova, Gaeriyan, and the grave outside Gadgetzan turned the lost gnome's fragments into a rite of recovery. By the time the sword was reforged, Linken still did not fully understand himself, but the road was opening before him again.",
+            summary = "Donova Snowden at Frostfire Hot Springs in Winterspring has an idea about Linken's sword, and it needs a rare brew, the Videre Elixir. Gregan Brewspewer, in northern Feralas, knows how to come by one.",
+            recap = "Donova Snowden took one look at Linken's sword and decided the answer was in a graveyard. Getting there was the strange part.\n\nIt took a trip to Feralas for something called the Videre Elixir, and then the graveyard outside Gadgetzan, where Donova's instructions were very clear. Drink the elixir by the gravestone. I drank it. I died.\n\nThat was the plan, mind you. As a ghost I could meet Gaeriyan, who told me which grave to look at once I had a body again. So I walked back to my body, got up, found the gravestone, and came away with a better sword than the one I'd brought.\n\nFirst time I ever died on instructions. Strangely restful.",
             quests = {
                 { id = 3909, name = "The Videre Elixir", npc = "Donova Snowden" },
                 { id = 3912, name = "Meet at the Grave", npc = "Donova Snowden" },
@@ -87,8 +87,8 @@ SM.LinkenData = {
         },
         {
             chapter = "Aquementas",
-            summary = "Follow the next names in Linken's tale and prepare the totem he will need.",
-            recap = "Felwood gave the search older magic. Eridan Bluewind understood the silver heart Linken had been trying to make and sent you into Winterspring's old forests before Aquementas rose in Un'Goro. The elemental's power became a silver totem, the key to stripping away the final guardian's protection. The errand had strange humor about it, but the ritual was real.",
+            summary = "Eridan Bluewind, at the Emerald Sanctuary in southern Felwood, has the next piece of Linken's story. It starts with a silver heart, made from silvery claws and an irontree heart. Felwood's wildlife is still using both.",
+            recap = "Eridan Bluewind, up in Felwood, knew what Linken had been trying to make: a silver heart.\n\nThat took a fistful of silvery claws and an irontree heart, which meant arguing with a good deal of local wildlife, and then a book. The Book of Aquor. Carry the lot down to Tanaris, open the book, and out comes Aquementas, a water elemental, standing in the middle of the desert.\n\nAquementas did not care to be summoned. Once we'd settled that, the claws and the heart had become the Silver Totem of Aquementas, and I carried it back to Linken.\n\nA water elemental, called up in the driest place I know, to make a totem for a gnome who couldn't remember where he'd been. You couldn't make that up. I didn't.",
             quests = {
                 { id = 4084, name = "Silver Heart", npc = "Eridan Bluewind" },
                 { id = 4005, name = "Aquementas", npc = "Eridan Bluewind" },
@@ -97,8 +97,8 @@ SM.LinkenData = {
         },
         {
             chapter = "It's Dangerous to Go Alone",
-            summary = "Carry the Silver Totem into Linken's final trial and see whether the old adventure can be finished.",
-            recap = "At Fire Plume Ridge, the strange tools finally proved their worth. The Silver Totem stripped Blazerunner's shield, the sword found its purpose, and the Golden Flame was carried back to Marshal's Refuge. Linken's memory was still imperfect, but the road had given him a shape to follow: hero, blade, flame, and a companion brave enough to see it done.",
+            summary = "Linken, back at Marshal's Refuge, has one last job, and it's what the Silver Totem is for. On Fire Plume Ridge, Blazerunner guards a cave behind an aura nothing gets through. Nearly nothing. It's dangerous to go alone.",
+            recap = "Linken had one more job, and it was the reason for the totem. Fire Plume Ridge, just south of the Refuge. That's where Blazerunner lives, wrapped in a protective aura nothing gets through. Nothing except a silver totem made out of a water elemental.\n\nSomebody once said it's dangerous to go alone. I went anyway. I held up the totem, the aura went out like a candle in the rain, and Blazerunner turned out to be a lot less impressive without it. In the cave beyond sat the Golden Flame, and I carried it back to Linken.\n\nHe still doesn't remember everything. But he has his sword, his flame and an adventure to show for it. I have a story nobody believes. Tell it in any tavern and watch them smile at you like you've had one too many.",
             quests = {
                 { id = 3962, name = "It's Dangerous to Go Alone", npc = "Linken" },
             },

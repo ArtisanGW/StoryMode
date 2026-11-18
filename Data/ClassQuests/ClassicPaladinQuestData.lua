@@ -8,6 +8,7 @@ local addonName, SM = ...
 SM.ClassicPaladinQuestData = {
     title = "The Tome of Valor",
     description = "Speak with Duthorian Rall and take up the Tome of Valor. A paladin's lessons are not only prayers; they ask for aid given, judgment shown, and materials gathered with care.\n\nFollow the order's tests from early duty to the rites reserved for those who have carried the Light long enough to be trusted with more.",
+    descriptionHorde = "Aramis Hammerhand in Tirisfal Glades believes the Light still answers you, whatever anyone else thinks. A paladin's lessons are not only prayers; they ask for aid given, judgment shown, and materials gathered with care.\n\nFollow the order's tests from your first doubts to the rites reserved for those who have carried the Light long enough to be trusted with more.",
     zone = "Stormwind / Ironforge / Western Plaguelands / Scholomance",
     -- WoW Forever adds Forsaken paladins, so the Alliance limit sits on the
     -- Alliance chapters and quest lines rather than on the story.
@@ -64,8 +65,8 @@ SM.ClassicPaladinQuestData = {
             requiredLevel = 2,
             faction = "Horde",
             gameVersions = { forever = true },
-            summary = "Rise in Deathknell with the Light still burning in you, and learn from Aramis Hammerhand what it means to be a paladin among the Forsaken.",
-            recap = "The Light hurt to hold at first, but Aramis Hammerhand taught you to turn it toward mending the Deathguard. You sought out a frightened brother who could not yet accept what he had become, and then the road led east to Brill, where Shari Stilwell waited to continue your training.",
+            summary = "In Deathknell, Aramis Hammerhand teaches what the Light still asks of a paladin, and Aramis isn't one for long lectures. The Deathguard nearby are hurt, the Light heals, and you know the words. Start there.",
+            recap = "My training started in Deathknell, under Aramis Hammerhand. What I learned there: the Light doesn't care what you were, only what you do with it. Also, it takes some getting used to.\n\nAramis put me to work on the injured Deathguard. Five of them, five times the Holy Light, five soldiers back on their feet. Not glamorous. It's the job, and I've always liked the job.\n\nThen there was a frightened paladin in Deathknell, a brother of the order who couldn't make his peace with what he'd become. I didn't have a speech ready. I offered what help I could and hoped it was a start. Some wounds the Light reaches slowly.\n\nAfter that, Aramis pointed me down the road to Brill, where Shari Stilwell was waiting to take over my education. I'm good at going where I'm pointed. It's one of my better qualities, and I have several.",
             quests = {
                 { id = 90902, name = "Rediscovering the Light", npc = "Aramis Hammerhand", faction = "Horde", race = "Scourge", mapID = 1420, x = 0.3100, y = 0.6620, location = "Aramis Hammerhand, Deathknell, Tirisfal Glades", gameVersions = { forever = true } },
                 { id = 91208, name = "Coming to Terms", npc = "Aramis Hammerhand", faction = "Horde", race = "Scourge", mapID = 1420, x = 0.3100, y = 0.6620, location = "Aramis Hammerhand, Deathknell, Tirisfal Glades", gameVersions = { forever = true } },
@@ -77,8 +78,8 @@ SM.ClassicPaladinQuestData = {
             requiredLevel = 8,
             faction = "Horde",
             gameVersions = { forever = true },
-            summary = "Follow Shari Stilwell's directions to Bandarion Keep, where risen paladins are building a home of their own on the western edge of Tirisfal.",
-            recap = "Breton Samuels welcomed you once the Vile Fin murlocs were driven from the gates, and Danitha Morr showed you what the keep could become. When the tarnished paladins who still turned their blades on their own kind were put down, you carried Commander Rudolph Gelhardt's head to Sylvanas Windrunner, a token of good faith from an order she barely trusts.",
+            summary = "Shari Stilwell in Brill has directions for you: head west until Tirisfal runs out, and look for Bandarion Keep. Paladins are making a home there. Report to Breton Samuels when you arrive.",
+            recap = "Bandarion Keep sits at the far western edge of Tirisfal, where a company of paladins is building a home for itself. Old stone, good walls, and murlocs at the gate. We sorted out the murlocs first. You can't make anywhere a home with murlocs at the gate.\n\nDanitha Morr showed me round and told me what the place could become, and I believed every word. Not everyone in paladin's armor out there is a friend, though. The Tarnished still turn their blades on their own kind. I dealt with a good many of them, and then with their commander, Rudolph Gelhardt.\n\nDanitha had me carry Gelhardt's head to Sylvanas Windrunner, a token of good faith from an order she barely trusts. I'm not sure a severed head builds much trust. Still, it's the thought that counts.",
             quests = {
                 { id = 91282, name = "A Second Home", npc = "Shari Stilwell", faction = "Horde", race = "Scourge", mapID = 1420, x = 0.6020, y = 0.5260, location = "Shari Stilwell, Brill, Tirisfal Glades", gameVersions = { forever = true } },
                 { id = 91285, name = "Murlocs at the Gates", npc = "Breton Samuels", faction = "Horde", race = "Scourge", mapID = 1420, x = 0.2180, y = 0.4520, location = "Breton Samuels, Bandarion Keep, Tirisfal Glades", gameVersions = { forever = true } },
@@ -92,8 +93,8 @@ SM.ClassicPaladinQuestData = {
             requiredLevel = 12,
             faction = "Horde",
             gameVersions = { forever = true },
-            summary = "Danitha Morr teaches that a paladin pursues goodness for its own sake. Seek out Tanis Alderwood in the Undercity and see where the lesson leads.",
-            recap = "Tanis Alderwood asked only for linen to hold his failing wife together, and he could not understand why a paladin would bother. Danitha then placed the Symbol of Life in your hands. At Venomweb Vale you raised Deathguard Falgan from his second death and took the Scarlet Crusade's attack plans, so the Deathguard could ready themselves before the blow fell on Brill.",
+            summary = "Danitha Morr has a lesson for you about doing good for its own sake, with nobody watching and nothing to gain. It begins in the Undercity, where Tanis Alderwood could use a hand.",
+            recap = "Danitha Morr holds that a paladin does good because it's good, not because anybody's watching. To make the point, I was sent to the Undercity to help Tanis Alderwood.\n\nTanis needed linen. Ten pieces, to hold his wife together, because she was failing and he was doing what he could. He couldn't work out why a paladin would bother with something that small. Ten linen is a small thing. That was rather the point.\n\nThe bigger lesson came with the Symbol of Life. Out at Venomweb Vale, Deathguard Falgan lay dead for the second time, and I brought him back. The Scarlet Crusade were camped right there with their attack plans for Brill, so I took those too, and the Deathguard were ready before the blow fell.\n\nLinen for a stranger, plans off the Crusade. Turns out it's the same lesson.",
             quests = {
                 { id = 94427, name = "A Lesson in Divinity", npc = "Danitha Morr", faction = "Horde", mapID = 1420, x = 0.2200, y = 0.4460, location = "Danitha Morr, Bandarion Keep, Tirisfal Glades", gameVersions = { forever = true } },
                 { id = 94434, name = "A Lesson in Divinity", npc = "Tanis Alderwood", faction = "Horde", mapID = 1458, x = 0.6480, y = 0.3860, location = "Tanis Alderwood, Undercity", gameVersions = { forever = true } },
@@ -109,8 +110,8 @@ SM.ClassicPaladinQuestData = {
             requiredLevel = 18,
             faction = "Horde",
             gameVersions = { forever = true },
-            summary = "Danitha Morr sees a chance for Bandarion Keep to prove its worth to the Horde. Travel to the Sepulcher and help find the Earthen Ring travelers who vanished in Silverpine Forest.",
-            recap = "One traveler lay dead on Fenris Isle, but Lumina Windsinger of the Windshaper Skyborne was alive in Fenris Keep, and you fought your way out at her side. She told you a worgen had struck them on the road, and that one of those beasts would not stay dead. You gathered what Trevan Rol asked for, Ott of Tarren Mill forged it into the Moonsilver Blade, and with it you went hunting for Old Fire-Eye.",
+            summary = "Danitha Morr sees a chance for Bandarion Keep to prove its worth to the Horde: two Earthen Ring travelers have gone missing in Silverpine Forest. Go to the Sepulcher and ask Trevan Rol what's known.",
+            recap = "Two Earthen Ring travelers had gone missing in Silverpine. The keep saw a chance to prove itself to the Horde. I saw two people who needed finding. Either way, I went.\n\nFenris Isle held half the answer. One of the travelers lay dead. The other, Lumina Windsinger, was locked up in Fenris Keep. I took the key off the gnolls, opened the door, and we fought our way out together. Lumina is a Windshaper. You should see what a Windshaper does to a gnoll.\n\nA worgen had struck them on the road, Lumina said, and one of those beasts would not stay dead. That calls for a special sort of blade. Ott in Tarren Mill forged it while I stood by, and I'll say this for Ott: the talent is badly underrated.\n\nThen I went looking for Old Fire-Eye. Some things will stay dead if you ask them properly.",
             quests = {
                 { id = 91858, name = "Diplomatic Incident", npc = "Danitha Morr", faction = "Horde", race = "Scourge", mapID = 1420, x = 0.2200, y = 0.4460, location = "Danitha Morr, Bandarion Keep, Tirisfal Glades", gameVersions = { forever = true } },
                 { id = 91859, name = "A Curious Pair", npc = "Trevan Rol", faction = "Horde", race = "Scourge", mapID = 1421, x = 0.4340, y = 0.4100, location = "Trevan Rol, The Sepulcher, Silverpine Forest", gameVersions = { forever = true } },
@@ -130,8 +131,8 @@ SM.ClassicPaladinQuestData = {
             chapter = "The Tome of Valor",
             requiredLevel = 20,
             faction = "Alliance",
-            summary = "Carry Duthorian Rall's lesson to Westfall and prove that valor protects those who cannot stand alone.",
-            recap = "The Tome of Valor led you to Daphne Stilwell and a hard lesson in service. Valor was not spoken over you; it was proven on a dangerous road.",
+            summary = "Duthorian Rall at Stormwind's Cathedral of Light has a tome for you, and a question to go with it: when evil walks into your lands, will you be strong enough? Rall means to find out.",
+            recap = "Duthorian Rall teaches at the Cathedral of Light, and Rall's view is that having the Light with you is the easy part. The hard part is what you do when evil walks into your lands and you're the one standing there.\n\nSo Rall sent me to Westfall, to Daphne Stilwell, and the Defias picked that very afternoon to come for her. They came in waves. The rule was simple: she lives and I live, or the test is failed. Nobody gets to fall over and try again.\n\nI won't pretend it was tidy. The Defias don't fight fair, and there were more of them than I'd have liked. But I stayed in front of her and kept the Light going, and when it was over we were both still standing.\n\nThat, apparently, is valor. I'd have called it a long afternoon. I suppose it can be both.",
             quests = {
                 { id = 1793, name = "The Tome of Valor", npc = "Duthorian Rall", faction = "Alliance", mapID = 84, x = 0.3981, y = 0.2980, location = "Duthorian Rall, Stormwind" },
                 { id = 1649, name = "The Tome of Valor", npc = "Daphne Stilwell", faction = "Alliance", mapID = 52, x = 0.4175, y = 0.8913, location = "Daphne Stilwell, Westfall" },
@@ -144,8 +145,8 @@ SM.ClassicPaladinQuestData = {
             chapter = "The Test of Righteousness",
             requiredLevel = 20,
             faction = "Alliance",
-            summary = "Gather Jordan Stilwell's materials from distant dangers and help forge Verigan's Fist.",
-            recap = "You carried ore, gems, and other hard-won materials back to Jordan Stilwell. Verigan's Fist was not granted by ceremony alone; it was made through effort.",
+            summary = "Your trainer has another test for you, and it waits at Jordan Stilwell's forge, just outside the gates of Ironforge. Jordan needs a paladin who doesn't mind a long road and a heavy pack.",
+            recap = "Jordan Stilwell works a forge outside the gates of Ironforge, and Jordan's idea of a test is a shopping list. Lumber, ore, a Kor gem, and Jordan's own smithing hammer, which was somehow anywhere but with Jordan.\n\nI'll spare you the roads. There were a great many roads. The gem alone came to me corrupted and had to go all the way to Darkshore to be made clean.\n\nBut I stood by the anvil when it all came together, and I watched Jordan make Verigan's Fist. They say the Light is in all honest work. I'd believed that in a general sort of way. Standing at that forge, I believed it properly.\n\nRighteousness, it turns out, is mostly carrying things and not complaining. I managed one of the two.",
             quests = {
                 { id = 1653, name = "The Test of Righteousness", npc = "Duthorian Rall", faction = "Alliance", mapID = 84, x = 0.3981, y = 0.2980, location = "Duthorian Rall, Stormwind" },
                 { id = 1654, name = "The Test of Righteousness", npc = "Jordan Stilwell", faction = "Alliance", mapID = 27, x = 0.5249, y = 0.3692, location = "Jordan Stilwell, Dun Morogh" },
@@ -159,8 +160,8 @@ SM.ClassicPaladinQuestData = {
             requiredLevel = 40,
             faction = "Horde",
             gameVersions = { forever = true },
-            summary = "Danitha Morr has called you back to Bandarion Keep. A paladin's warhorse is consecrated for battle, and it is time you had one of your own.",
-            recap = "Danitha Morr summoned you home to Bandarion Keep and taught you to call a warhorse of your own, a consecrated steed as fearless as the paladins it carries into battle.",
+            summary = "A summons from Danitha Morr: come home to Bandarion Keep. You've covered a lot of ground in the Light's service by now, and Danitha has noticed. So, it seems, have your boots.",
+            recap = "Danitha Morr called me home to Bandarion Keep, and for once it wasn't to send me off somewhere else. It was to give me something.\n\nA paladin's warhorse isn't bought at a stable. It's consecrated for battle, and it comes when you call. Danitha taught me how. The first time mine appeared, I just stood and looked at it for a while. They say a paladin's steed is as fearless as the paladin it carries. In my experience, the horse has the better claim.\n\nI've walked a great many roads in the Light's service, and I'd walk every one of them again. I'd simply rather not, now that there's a horse.",
             quests = {
                 { id = 97022, name = "Report to Danitha", faction = "Horde", gameVersions = { forever = true } },
                 { id = 94971, name = "A Paladin's Steed", npc = "Danitha Morr", faction = "Horde", mapID = 1420, x = 0.2200, y = 0.4460, location = "Danitha Morr, Bandarion Keep, Tirisfal Glades", gameVersions = { forever = true } },
@@ -169,8 +170,10 @@ SM.ClassicPaladinQuestData = {
         {
             chapter = "The Charger",
             requiredLevel = 60,
-            summary = "Begin Lord Grayson Shadowbreaker's rite and prepare yourself for the charger's judgment.",
-            recap = "The charger's trial demanded sacrifice, craft, and courage in haunted places. At the end, the spirit answered the Light and came to your side.",
+            summaryAlliance = "Your trainer sends you to Lord Grayson Shadowbreaker in Stormwind's Cathedral District. Grayson keeps an old rite for paladins who have carried the Light a long way. It asks a great deal, and Grayson will want to see you're ready.",
+            summaryHorde = "Danitha Morr has sent for you again. Your warhorse has carried you a long way, but the order keeps an older rite for paladins who have proven themselves, and Danitha thinks it's your turn. Bandarion Keep, then.",
+            recapAlliance = "Lord Grayson Shadowbreaker doesn't hand out horses. A paladin's charger is a spirit, and you earn it.\n\nYou also pay for it, which nobody mentions at the start. A hundred and fifty gold for a censer to cleanse Terrordale. A hundred and fifty more for barding. Fifty more to Merideth Carlson in Southshore for the horse feed, that fifty being to soothe her ruffled sensibilities. Nobody had told me sensibilities came so dear.\n\nThe part worth telling happened under Scholomance, in the Great Ossuary. I used the scryer, judged the spirits it raised, and then Death Knight Darkreaver came for me. He had the soul of a fallen charger, and he did not intend to give it up. He gave it up.\n\nThe charger came to me redeemed. Three hundred and fifty gold, all told. Worth every coin.",
+            recapHorde = "A charger is a spirit, not a purchase. Nobody mentions the bill.\n\nA hundred and fifty gold for a censer to cleanse Terrordale. A hundred and fifty more to Ott for the barding, and worth it. Then fifty to Nathanos Blightcaller for the horse feed, the fifty being for his time. Nathanos values his time very highly.\n\nThe part worth telling happened under Scholomance, in the Great Ossuary. I used the scryer, judged the spirits it raised, and then Death Knight Darkreaver came for me. He was holding the soul of a fallen charger. The rite's last step is called Justice and Retribution, and I gave Darkreaver plenty of both.\n\nThe charger answered me after that. It has every time since.",
             quests = {
                 { id = 97174, name = "A Worthy Endeavor", faction = "Horde", gameVersions = { forever = true } },
                 { id = 97175, name = "Due Sacrifice", npc = "Danitha Morr", faction = "Horde", mapID = 1420, x = 0.2200, y = 0.4460, location = "Danitha Morr, Bandarion Keep, Tirisfal Glades", gameVersions = { forever = true } },

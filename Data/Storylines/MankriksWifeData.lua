@@ -44,8 +44,8 @@ SM.MankriksWifeData = {
     chapters = {
         {
             chapter = "Lost in Battle",
-            summary = "Mankrik survived a quillboar attack on the Gold Road, but Olgra did not return. Search the road south of the Crossroads for his wife.",
-            recap = "Mankrik's request was painfully plain: find his wife. The Barrens offered little direction and less mercy, only a long road south of the Crossroads and quillboar waiting in the dust. When Olgra was found, the search became grief. Mankrik had asked for hope and received a body. What followed was the only answer his pain could bear: Bristleback tusks, brought back one by one.",
+            summary = "Quillboar fell on Mankrik and his wife at a small tauren camp, and the fighting split them up. Mankrik woke on the Gold Road with a tauren druid tending his wounds. Now he waits at the Crossroads, asking for any sign of her.",
+            recap = "Mankrik waits at the Crossroads. A big orc, built for a fight, and he'd lost one: quillboar hit him on the Gold Road, and his wife didn't come back from it. He asked me to find her. That was the whole of it. Find her.\n\nThe Barrens is a great deal of nothing in every direction, and I walked a lot of it. South of the Crossroads, I found her. Too late, by a long way.\n\nI went back and told him. You don't dress that kind of thing up.\n\nThen he asked for tusks. Bristleback tusks, sixty of them. I didn't argue the number. Grief keeps its own count, and Mankrik's came to sixty.\n\nHer name was Olgra. Somebody ought to say it.",
             quests = {
                 { id = 4921, name = "Lost in Battle", npc = "Mankrik" },
                 { id = 95774, name = "Her Name Is Olgra", npc = "Mankrik", gameVersions = { forever = true } },

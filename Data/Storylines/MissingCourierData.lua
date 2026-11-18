@@ -64,8 +64,8 @@ SM.MissingCourierData = {
     chapters = {
         {
             chapter = "Wreckage",
-            summary = "Latronicus sends you to Ginro Hearthkindle, who needs the Feralas coast searched for Raschal's missing boat.",
-            recap = "The investigation began with resignation. Latronicus had already declared Raschal missing in action, and Ginro Hearthkindle had spent a week searching Feralas for nothing but gnoll teeth and disappointment. The wrecked row boat on the Forgotten Coast changed that. It was shredded almost in two, marked with Feathermoon's crest, and hiding one small clue in the mud: Raschal's knife.",
+            summary = "Feathermoon Stronghold is missing a courier. Raschal set out from Thalanaar and never arrived. Latronicus Moonspear has already marked him missing in action, but upstairs in the stronghold, Ginro Hearthkindle hasn't given up.",
+            recap = "Feathermoon was missing a courier. Raschal, coming from Thalanaar. Latronicus Moonspear had already written him down as missing in action, and once Feathermoon writes you down, you tend to stay written.\n\nGinro Hearthkindle hadn't given up. Ginro had spent a week combing Feralas and come back with nothing but gnoll teeth. So I took a turn along the Forgotten Coast and found the boat. A row boat with the Feathermoon crest on it, torn almost in two.\n\nNo Raschal. No body, either, which was something. Just a knife, lying in the mud by the wreck.\n\nI brought it back to Ginro. A knife can't tell you much, I thought. I was wrong about that, but that's the next part.",
             quests = {
                 { id = 4124, name = "The Missing Courier", displayName = "Ginro Hearthkindle", npc = "Latronicus Moonspear" },
                 { id = 4125, name = "The Missing Courier", displayName = "Wrecked Row Boat", npc = "Ginro Hearthkindle" },
@@ -74,8 +74,8 @@ SM.MissingCourierData = {
         },
         {
             chapter = "The Knife",
-            summary = "Bring Raschal's knife to Quintis Jonespyre and let the blade show what ordinary searching could not.",
-            recap = "Ginro's next idea was strange even by night elf standards: give the knife to Quintis Jonespyre and let psychometry do what ordinary tracking could not. Quintis saw Raschal taking two large leather backpacks inland, worrying over Woodpaw gnolls, and failing to notice water elementals forming behind him. The knife did not solve the mystery, but it gave the search a direction and a new fear: Raschal had found something worse than gnolls.",
+            summary = "All the wreck gave up was a knife, and Ginro Hearthkindle thinks it can still tell you something. Take it to Quintis Jonespyre, up in Feathermoon's treehouse, who can read where a thing has been.",
+            recap = "Ginro's next idea was a new one on me. Take the knife to Quintis Jonespyre, who can hold a thing and read where it's been.\n\nSo Quintis held the knife and told me what it remembered. Raschal, hauling two big leather backpacks inland. Raschal, fretting about Woodpaw gnolls the whole way. And Raschal, not noticing the water elementals forming up behind him.\n\nThat last part was not encouraging.\n\nHandy trick, psychometry. I'd hate to have it at a dinner party, though. Imagine picking up somebody's fork. Still, it beat a week of turning over rocks, and now we knew where to look: inland, toward the gnolls, after a courier who'd had a worse day than anyone had guessed.",
             quests = {
                 { id = 4129, name = "The Knife Revealed", npc = "Ginro Hearthkindle" },
                 { id = 4130, name = "Psychometric Reading", npc = "Quintis Jonespyre" },
@@ -83,8 +83,8 @@ SM.MissingCourierData = {
         },
         {
             chapter = "The Courier's Trail",
-            summary = "Search the Woodpaw camps for Raschal's missing packs and any sign of where his errand went next.",
-            recap = "The Woodpaw trail looked at first like scavenging. Then you found Raschal's backpacks pinned to a tree, still bearing Feathermoon insignia. One parcel could be delivered to Thalanaar, a small duty completed in the middle of the search. The other evidence mattered more: a note about strange insect creatures south of the gnoll camps. Raschal had not merely been attacked. He had chosen to investigate a threat under Feralas.",
+            summary = "The knife points inland, to the Woodpaw gnolls of southern Feralas. Ginro Hearthkindle wants their camps searched for Raschal's belongings, or for Raschal. Gnolls are not known for returning lost property.",
+            recap = "The Woodpaw camps are about what you'd expect. Gnolls, bones, a smell you take home with you. I went through them looking for anything of Raschal's and found both his packs, pinned to a tree like a trophy, Feathermoon insignia and all.\n\nInside was a parcel he'd never delivered, meant for Falfindel Waywarder in Thalanaar. I took it there myself. A courier's job ought to get finished, even if the courier can't finish it.\n\nThe other thing in the packs was a note, and the note changed the whole picture. Raschal had seen strange insect creatures south of the gnoll camps, and gone to have a look.\n\nNot lost, then. Not dragged off by gnolls, either. Our courier had gone looking for trouble on purpose. I liked him already.",
             quests = {
                 { id = 4131, name = "The Woodpaw Gnolls", npc = "Ginro Hearthkindle" },
                 { id = 4281, name = "Thalanaar Delivery", npc = "Undelivered Parcel", optional = true },
@@ -92,8 +92,8 @@ SM.MissingCourierData = {
         },
         {
             chapter = "The Writhing Deep",
-            summary = "Follow the last sign into the hive and learn whether Raschal's errand can still be answered.",
-            recap = "The Writhing Deep made the whole case larger. Raschal was alive, sealed inside an alien pod by the Zukk'ash, and his report confirmed that Feralas was facing something more dangerous than a local hive. Shandris Feathermoon sent the warning to Darnassus, where Gracina Spiritmight named the threat: silithid. What began as a missing courier ended as an early warning about the insect menace waiting beneath Azeroth's southern deserts.",
+            summary = "Raschal's note points south of the Woodpaw camps, to a place called the Writhing Deep. Whatever he went to look at down there, he hasn't come back from it. Go and find him, or what's left of him.",
+            recap = "South of the gnolls there's a hole in the ground called the Writhing Deep, and it's full of Zukk'ash. Insects, big ones, all legs and mandibles. Somewhere in there was Raschal, or what was left of him.\n\nWhat was left of him turned out to be all of him, sealed up in a pod. I got him out, and he had a report to make.\n\nBack at Feathermoon, Shandris Feathermoon read that report and sent me straight to Darnassus with it, where somebody finally put a name to what was under Feralas.\n\nSilithid.\n\nI went out looking for one lost courier and came back with a warning for all of Kalimdor. Not bad for a knife in the mud.",
             quests = {
                 { id = 4135, name = "The Writhing Deep", npc = "Large Leather Backpacks" },
                 { id = 4265, name = "Freed from the Hive", npc = "Zukk'ash Pod" },

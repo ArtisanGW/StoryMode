@@ -50,8 +50,8 @@ SM.ClassicWarriorQuestData = {
         {
             chapter = "Defensive Stance",
             requiredLevel = 10,
-            summary = "Complete your first warrior trial and learn the stance that keeps you standing when blows fall.",
-            recap = "Your first warrior lesson was not about striking harder. You learned to take the blow, hold your ground, and live long enough to answer.",
+            summary = "Your trainer says you swing well enough. Time for your first real trial. Your trainer will tell you who to see, and like most warrior business, it ends with somebody on the ground. Make sure it isn't you.",
+            recap = "Warriors learn to hit first. Then they learn to get hit. The second one keeps you alive.\n\nMy first trial was a job, and the job was a fight. It always is. I won, and I brought back what they'd asked for. Nothing clever. Hit the thing, carry the thing, come home.\n\nThen the lesson. Feet set. Shield up. Weight low. Let the blow land where you can take it. You hit softer standing like that. Doesn't matter. The other side tires first.\n\nI hated it at first. Standing still feels like losing. Then I took a few hits in that stance that would have dropped me flat a week before, and I was still up. I came round fast after that.\n\nPeople think a warrior is all swing. The good ones are mostly stand.",
             quests = {
                 { id = 94003, name = "The Skybreaker Bulwark", race = "Skyborne", location = "Zephras Isle", gameVersions = { forever = true } },
                 { id = 1638, name = "A Warrior's Training", npc = "Lyria Du Lac", race = "Human", faction = "Alliance", mapID = 37, x = 0.4109, y = 0.6577, location = "Lyria Du Lac, Elwynn Forest" },
@@ -77,8 +77,8 @@ SM.ClassicWarriorQuestData = {
         {
             chapter = "Whirlwind Weapon",
             requiredLevel = 30,
-            summary = "Seek the Islander, gather the charms, and answer Bath'rah's summons for the whirlwind weapon.",
-            recap = "The Islander tested your mettle, Bath'rah named the charms, and Cyclonian answered the call. When the storm was defeated, the weapon was yours.",
+            summary = "Your trainer sends you to Klannoc Macleod, the Islander, who runs a fighting pit on Fray Island in the Barrens. Warriors go there to find out what they're made of. Bring a good weapon and a thick skull.",
+            recap = "Here's how I got this.\n\nThe Islander runs a fighting pit on Fray Island, out in the Barrens. You step on the grate and they come at you, one after another, and then Big Will comes. Big Will is well named. I put Big Will on the ground.\n\nThat got me sent to Bath'rah the Windwatcher, up in the Alterac hills. Bath'rah wanted charms and tusks and roots, a cauldron's worth, all to call up an air elemental named Cyclonian.\n\nCyclonian came. Cyclonian is a storm with a temper. I hit it until it stopped being a storm, and I took its heart.\n\nBath'rah set the heart into the weapon I chose. Now it spins. So does anybody standing too close.",
             quests = {
                 { id = 1718, name = "The Islander", npc = "Wu Shen", faction = "Alliance", mapID = 84, x = 0.7868, y = 0.4579, location = "Wu Shen, Stormwind, then Fray Island, The Barrens" },
                 { id = 1718, name = "The Islander", npc = "Sorek", faction = "Horde", mapID = 85, x = 0.8039, y = 0.3238, location = "Sorek, Orgrimmar, then Fray Island, The Barrens" },

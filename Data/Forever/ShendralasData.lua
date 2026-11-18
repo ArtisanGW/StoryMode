@@ -59,8 +59,9 @@ SM.ForeverShendralasData = {
     chapters = {
         {
             chapter = "The Valley of Bones",
-            summary = "Earn your place with Warug of the Magram or Uthek the Wise of the Gelkis. Either clan will send you toward the Valley of Bones, where something has begun to stir.",
-            recap = "Warug wanted the Gelkis' sacred tears shattered and a conqueror's crown carried home from the Badlands, while Uthek wanted a shard of draenethyst from the Swamp of Sorrows. Both roads led to the Valley of Bones, where skeletons that were never centaur clawed their way out of the ground. Orgrul saw only power in it: he bound stolen tears and cursed wood into staves and had you raise the dead for the Magram. Nerlokh saw the necromancers' robes and knew them for Gelkis exiles, and Uthek turned Theradras' tears and the draenethyst into a weapon to break the curse instead.",
+            summaryAlliance = "Two centaur clans, the Magram and the Gelkis, have feuded for generations. Captain Pentigast at Nijel's Point wants the Alliance to have a friend in one of them. Which one is up to you. Either way, the road leads to the Valley of Bones.",
+            summaryHorde = "Two centaur clans, the Magram and the Gelkis, have feuded for generations. Gurda Wildmane at Ghost Walker Post wants the Horde to have a friend in one of them. Which one is up to you. Either way, the road leads to the Valley of Bones.",
+            recap = "The Magram and the Gelkis have been feuding longer than anyone can remember, and each wanted me on their side. I'm not saying which one got me. Either way I ended up in the Valley of Bones, where skeletons were clawing up out of the ground. Not centaur skeletons, either.\n\nThe Magram looked at that and saw an army. Orgrul wanted bones to build it with, gently cursed, and wanted exactly four hundred and twenty-six of them. Somebody there can count. The Gelkis looked at the necromancers' robes, saw their own exiles, and wanted the curse broken.\n\nEither way, I ended up holding somebody else's staff and pointing it at the dead. What it did depended on who'd made it.",
             quests = {
                 -- Magram. Each clan's path hides once the player does a quest only the
                 -- other clan gives.
@@ -93,8 +94,8 @@ SM.ForeverShendralasData = {
         {
             chapter = "Khan Jehn",
             requiredLevel = 35,
-            summary = "Follow your clan's war deeper into the Valley of Bones, toward the outcasts' hideaway and the khan who rules the Magram.",
-            recap = "Gelkis allies freed their captured kin and laid the failed summons back in the earth, while Magram allies cut through the Bristleback and the outcast hideaway from Hagiak's front. With so many Magram drawn into the valley, Nerlokh judged their village nearly unguarded, and Khan Jehn fell in his own home to outsiders working for the Gelkis. Orgrul met the news without rage. He pressed the necromancy staff back into Magram hands, and in a tent by the village lake, the khan was raised again.",
+            summary = "Neither clan is finished with the Valley of Bones. Ride with the Magram, and Orgrul has work for you at the valley's northern entrance. Ride with the Gelkis, and Nerlokh waits at the southern one. The feud is far from settled.",
+            recap = "Ride with the Gelkis, and the khan of the Magram is the problem. With so many Magram tied up in the valley their village was nearly empty, and Khan Jehn died in his own home at the hands of outsiders working for the Gelkis.\n\nRide with the Magram, and the khan's death is the news waiting for you when you come back from the front. Orgrul didn't rage about it. Orgrul just handed the necromancy staff back to the Magram, and in a tent by the village lake, Khan Jehn got up again.\n\nWhich ride was mine, I'm keeping to myself. Either way, the khan had a worse week than I did.",
             quests = {
                 -- Gelkis
                 { id = 93058, name = "Saving Our Own", npc = "Nerlokh", location = "the southern entrance to the Valley of Bones, Shen'dralas", hideIf = 1369, gameVersions = { forever = true } },
@@ -113,8 +114,8 @@ SM.ForeverShendralasData = {
         {
             chapter = "The Shen'dralar Pylons",
             requiredLevel = 35,
-            summary = "A cracked crystal pylon hums faintly among the elven ruins. Search Shen'dralas for others like it and find out who still tends them.",
-            recap = "The crystal you found was one of several Shen'dralar pylons, and their missing shards had been carried off as trophies to the Magram and Gelkis villages. Mordent Evenshade had you bring the fragments back, then borrow the temple's Mana Sieve to gather the loose mana drifting through the woods and pour it into the pylons. Only once they hummed again, under a sky that had suddenly changed, did Mordent stop to explain, before sending you into the temple to find an old friend, Magister Kirandis. Inside, Historian Biraxas, still rattled at seeing the precious relic carried through the haunted woods, found a use for your meddling: feeding a dying protector's crystal heart to an unstable rift, to learn whether Shen'dralas still held enough mana to make new guardians.",
+            summary = "A cracked crystal pylon stands among the elven ruins of Shen'dralas, past the centaur battle lines, and it's still humming. Ruins don't usually hum. Look for others like it, and for whoever still looks after them.",
+            recap = "In the woods past the centaur lines I found a crystal pylon, cracked and humming, and Mordent Evenshade, who wanted it fixed. Its missing pieces had been carried off as trophies to both centaur villages. I took them back. From both.\n\nThen I wandered the woods with a borrowed relic, scooping up loose mana and pouring it into the pylons, and right about the time they hummed properly, the sky changed. Mordent only got round to explaining afterward.\n\nThe temple's historian was still rattled that I'd carried that relic through haunted woods, but not too rattled to send me after a dying protector's crystal heart and point me at an unstable rift. Was there still enough mana here to make new guardians?\n\nI threw it. We found out.",
             quests = {
                 { id = 92914, name = "Strange Pylons", location = "a Shen'dralar pylon, Shen'dralas", gameVersions = { forever = true } },
                 { id = 96010, name = "Fragments of the Pylons", npc = "Mordent Evenshade", location = "the ruins outside the temple, Shen'dralas", gameVersions = { forever = true } },
@@ -128,8 +129,8 @@ SM.ForeverShendralasData = {
         {
             chapter = "The Forlorn Gardens",
             requiredLevel = 35,
-            summary = "Mithera once kept a garden beside the temple and left treants, woken by a necklace from her daughter, to tend it in her stead. Find out what became of her garden and her old friend Woodwyrd.",
-            recap = "The Forlorn Gardens had turned wild and hostile, and the necklace that woke their treants was gone from its shrine. Woodwyrd lingered there still, haunted by flames he could feel even in death, and he asked for pristine water from Maraudon to put them out. Then he named the thieves: the Bristleback. Kog'thug the Brave owned up to the theft, but the necklace now sat with his mate, Quolga the Wise, and making peace between them took the Virulent Blood of Agamaggan from Razorfen Downs and a bouquet from the very garden they had robbed. The necklace went home to Mithera with its magic spent.",
+            summary = "Mithera, at the temple in Shen'dralas, once kept a garden nearby and left treants to guard the flowers. Now Mithera wonders what became of them. Go and look in on the Forlorn Gardens. The name isn't encouraging.",
+            recap = "Mithera's garden had gone wild and mean, and the necklace that woke its treants was missing from its shrine. Her old friend Woodwyrd was still there, dead and still feeling the flames. I put Woodwyrd out with a vial of water from the depths of Maraudon, which is not a sentence I ever expected to say.\n\nThe thieves were quilboar. Kog'thug the Brave owned up to it, which was brave, I suppose, but the necklace was with Kog'thug's mate now, and the two of them weren't speaking. Peace took a bouquet from the very garden they'd robbed and the blood of Agamaggan from Razorfen Downs. Not Razorfen Kraul. Kog'thug made very sure I knew the difference.\n\nThe necklace went home with its magic spent. Still from her daughter, though.",
             quests = {
                 { id = 93341, name = "Forlorn Gardens", npc = "Mithera", location = "the temple, Shen'dralas", gameVersions = { forever = true } },
                 { id = 93594, name = "Word of the Woods", npc = "Mithera", location = "the temple, Shen'dralas", gameVersions = { forever = true } },

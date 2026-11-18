@@ -66,8 +66,8 @@ SM.SavingYennikuData = {
     chapters = {
         {
             chapter = "Bloodscalp Trail",
-            summary = "Begin Nimboya's search by pressing the Bloodscalp trolls for any sign of Yenniku.",
-            recap = "Nimboya's search began with a fear no Darkspear wanted confirmed. Yenniku, the chief's youngest son, had vanished after being given to the Gurubashi, and the Bloodscalp tribe looked like the only trail left. Tusks proved you could hunt them. Shrunken heads proved Yenniku was not among their trophies. Finally, Gan'zulah and Nezzliok had to die so their heads could be forced to answer from the cauldron at Grom'gol.",
+            summary = "Yenniku, youngest son of the Darkspear chief, has been taken somewhere in Stranglethorn. Nimboya at Grom'gol Base Camp is searching for him, and the Bloodscalp trolls in the ruins north of camp are the only trail there is.",
+            recap = "Nimboya had the kind of problem nobody at Grom'gol wanted to say out loud. The Darkspear chief's youngest son, Yenniku, was gone, and the Bloodscalps were the only trail anyone had.\n\nThe Bloodscalps don't take questions, so I started by collecting. Shrunken heads, twenty of them, so Nimboya could go through every one and make sure none of them was Yenniku. That's a job you remember. None of them was.\n\nOnly the Bloodscalp leaders knew more, and they weren't sharing. Nimboya had an answer for that as well. I brought back both their heads and dropped them in the cauldron at camp.\n\nTurns out a Bloodscalp gets a lot chattier once you've parted the talking end from the rest.",
             quests = {
                 { id = 581, name = "Hunt for Yenniku", npc = "Nimboya" },
                 { id = 582, name = "Headhunting", npc = "Nimboya" },
@@ -76,8 +76,8 @@ SM.SavingYennikuData = {
         },
         {
             chapter = "Heads in the Cauldron",
-            summary = "Bring the dead leaders to the cauldron and answer the price they demand before they speak.",
-            recap = "Death did not make the Bloodscalp leaders cooperative. Nezzliok wanted trophy skulls stolen from the Skullsplitters. Gan'zulah wanted Ana'thek's broken armor and a tally of Skullsplitter hunters, headhunters, and berserkers. The spirits were not redeemed by the cauldron. They were bribed, threatened, and indulged until they finally gave up the truth: Yenniku had not died with the Bloodscalps. Zanzil the Outcast had taken him.",
+            summary = "The heads of the two Bloodscalp leaders sit in the cauldron at Grom'gol, and death hasn't stopped them talking. It hasn't made them generous either. Before they say a word about Yenniku, they want paying.",
+            recap = "Here's something nobody tells you about talking heads. They haggle.\n\nNezzliok's head spoke up from the cauldron first and wanted trophies out of the Skullsplitter ruins, one from each. Gan'zulah's wanted Skullsplitters, dead, by the dozen, and somebody's broken armor on top. Being dead hadn't made either of them any less Bloodscalp. If anything, it had given them time to think about what they wanted.\n\nI paid both bills. Only then did they tell me what they knew. The chief's son hadn't died with the Bloodscalps at all. Zanzil the Outcast had him.\n\nI've bargained with goblins in my time. The goblins were easier.",
             prerequisites = {
                 { id = 584, name = "Bloodscalp Clan Heads", npc = "Nimboya" },
             },
@@ -88,8 +88,8 @@ SM.SavingYennikuData = {
         },
         {
             chapter = "The Mind's Eye",
-            summary = "Gather singing crystals and the Mind's Eye so Kin'weelay can make a Soul Gem for Yenniku.",
-            recap = "Nezzliok's answer made the rescue feel almost impossible. Zanzil controlled Yenniku body and soul, and ordinary weapons could not solve that. Kin'weelay found one thin chance in the legends of Stranglethorn: the Mind's Eye. Pulsing blue shards from Crystalvein Mine prepared the ritual, and Mai'Zoth's ogres guarded the Eye itself inside the Mosh'Ogg mound. With both in hand, Kin'weelay could reshape the magic into a Soul Gem.",
+            summary = "Nezzliok's head has one last thing to say about the fate of Yenniku. After that it's over to Kin'weelay, who stands beside the cauldron at Grom'gol and doesn't seem the least bit bothered by talking heads.",
+            recap = "Nezzliok had one more thing to say, and it wasn't cheerful. Zanzil didn't just have the chief's son. Zanzil had him body and soul, and you can't cut a soul loose with a blade. Believe me, that was my first idea.\n\nKin'weelay, who'd stood beside that cauldron the whole time as if talking heads were nothing new, knew an old Stranglethorn legend about something called the Mind's Eye. The Eye was in the Mosh'Ogg Ogre Mound, with an ogre sitting on it who didn't want to share. I made my case. Kin'weelay took the Eye and a few singing crystals I'd dug out of Crystalvein Mine and worked the lot into a Soul Gem.\n\nPretty thing. Not the sort you'd wear.",
             prerequisites = {
                 { id = 585, name = "Speaking with Nezzliok", npc = "Bubbling Cauldron" },
                 { id = 586, name = "Speaking with Gan'zulah", npc = "Bubbling Cauldron" },
@@ -102,8 +102,8 @@ SM.SavingYennikuData = {
         },
         {
             chapter = "Zanzil's Hold",
-            summary = "Carry Kin'weelay's Soul Gem into the jungle and look for the moment to free Yenniku.",
-            recap = "The last step was not to kill Yenniku, but to reach him. At the Ruins of Aboraz, beside Zanzil's servants and the haunted Crystal Shore, the Soul Gem turned violence into rescue. Yenniku's soul was pulled free of Zanzil's control and carried back to Nimboya. The work that had begun with trophies and cauldron smoke ended as a Darkspear promise: the tribe would remember the one who brought the chief's son home.",
+            summary = "Kin'weelay's Soul Gem is ready, and it's no good to anyone sitting in your pack. Yenniku is somewhere out in the jungle, in Zanzil's hold. Nimboya waits at Grom'gol for whatever you bring back.",
+            recap = "I had the Soul Gem and a very short plan. Find Yenniku. Use the gem. Bring it back full.\n\nHe was down at the Ruins of Aboraz, by the Crystal Shore, with Zanzil's people all around him. The chief's son, standing in the jungle with somebody else's will where his own should be. Not easy to look at. I got close enough, I used the gem, and whatever Zanzil had wrapped around his soul let go. The soul went into the stone.\n\nI carried that gem back to Grom'gol the way you'd carry a full cup through a crowded tavern. Nimboya took it, and for once there was no next errand. Just a promise: the Darkspear would remember who brought their chief's son home.\n\nI've been paid in gold plenty of times. That was better.",
             prerequisites = {
                 { id = 591, name = "The Mind's Eye", npc = "Kin'weelay" },
             },

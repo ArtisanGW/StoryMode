@@ -39,14 +39,17 @@ SM.ClassicHunterQuestData = {
         -- Quest givers' models from Wowhead's WoW Forever data.
         ["Josephine Carson"] = 137105,
         ["Quel'ana Quickgale"] = 140075,
+        ["Vartrus the Ancient"] = 14567,
+        ["Stoma the Ancient"] = 14567,
+        ["Hastat the Ancient"] = 14567,
     },
 
     chapters = {
         {
             chapter = "Taming the Beast",
             requiredLevel = 10,
-            summary = "Use the taming rod on the beasts your trainer names, then return to learn how to keep a companion.",
-            recap = "You approached the wild as a hunter must: with patience, caution, and respect. When the final beast yielded, you were no longer meant to travel alone.",
+            summary = "Your trainer says a hunter shouldn't hunt alone, and knows who has a taming rod for you. There are beasts to try it on, and none of them asked to be tamed. Whether any of them follows you home is up to you.",
+            recap = "Every hunter starts the same way. Your trainer hands you a rod, points at something with teeth and tells you to go and make friends.\n\nThe Taming Rod does half the talking. You get close, you hold steady, and if you've got it right the beast stops trying to eat you and starts following you about instead. Then you work together a while, so you both learn the job. I did that three times, with three different beasts, and handed the rod back each time with all my fingers.\n\nAfter that I was sent to a proper trainer to learn how to keep a beast of my own. I've had a partner at my side ever since. Finds the trail, takes the first bite, holds them still while I shoot. I get paid. It gets fed. Best bargain either of us ever made.",
             quests = {
                 { id = 94792, name = "Taming the Beast", npc = "Josephine Carson", race = "Human", faction = "Alliance", location = "Josephine Carson, Elwynn Forest", gameVersions = { forever = true } },
                 { id = 94863, name = "Taming the Beast", npc = "Josephine Carson", race = "Human", faction = "Alliance", location = "Josephine Carson, Elwynn Forest", gameVersions = { forever = true } },
@@ -83,14 +86,13 @@ SM.ClassicHunterQuestData = {
         {
             chapter = "Rhok'delar",
             requiredLevel = 60,
-            summary = "Bring the Ancient Petrified Leaf to Felwood and hear what the ancients require of a hunter.",
-            recap = "The Ancient Petrified Leaf proved to be a summons. The ancients named the demons, and by hunting them alone you earned the right to carry Rhok'delar.",
+            summary = "If you ever bring the Ancient Petrified Leaf out of Molten Core, know that it belongs to someone. It looks like nothing much, and it's a big world. Start your search in Felwood.",
+            recap = "Out of Molten Core, if you're lucky, comes a leaf. Ancient Petrified Leaf. Looks like nothing. Its owner turned out to be Vartrus, an ancient up in Felwood, and Vartrus wanted four demons dead.\n\nThey weren't hard to kill. They were hard to find, because they were living among ordinary folk under friendly names. Artorius the Amiable, for one. Very amiable. Less so after the first arrow.\n\nIt had to be done alone, the ancients said. My pet and I agreed the pet didn't count. The pet did most of the tracking, so that seemed only fair.\n\nThe other two ancients wanted sinew from a grown black dragon and a grown blue one. Neither dragon was in a giving mood. What I got for it all was Rhok'delar, the longbow of the Ancient Keepers. My pet still hasn't forgiven me for not getting one too.",
             quests = {
                 { id = 7632, name = "The Ancient Leaf", npc = "Ancient Petrified Leaf", mapID = 77, x = 0.4800, y = 0.2400, location = "Irontree Woods, Felwood" },
-                -- WoW Forever's server refused these three in the 1.60.1.70938 quest scan; the scan report flags them once it answers.
-                { id = 7636, name = "Stave of the Ancients", npc = "Vartrus the Ancient", gameVersions = { classicEra = true, tbc = true, forever = false }, mapID = 77, x = 0.4800, y = 0.2400, location = "Vartrus the Ancient, Irontree Woods, Felwood" },
-                { id = 7635, name = "A Proper String", npc = "Stoma the Ancient", gameVersions = { classicEra = true, tbc = true, forever = false }, mapID = 77, x = 0.4800, y = 0.2400, location = "Stoma the Ancient, Irontree Woods, Felwood" },
-                { id = 7634, name = "Ancient Sinew Wrapped Lamina", npc = "Hastat the Ancient", gameVersions = { classicEra = true, tbc = true, forever = false }, mapID = 77, x = 0.4800, y = 0.2400, location = "Hastat the Ancient, Irontree Woods, Felwood" },
+                { id = 7636, name = "Stave of the Ancients", npc = "Vartrus the Ancient", mapID = 77, x = 0.4800, y = 0.2400, location = "Vartrus the Ancient, Irontree Woods, Felwood" },
+                { id = 7635, name = "A Proper String", npc = "Stoma the Ancient", mapID = 77, x = 0.4800, y = 0.2400, location = "Stoma the Ancient, Irontree Woods, Felwood" },
+                { id = 7634, name = "Ancient Sinew Wrapped Lamina", npc = "Hastat the Ancient", mapID = 77, x = 0.4800, y = 0.2400, location = "Hastat the Ancient, Irontree Woods, Felwood" },
             },
         },
     },

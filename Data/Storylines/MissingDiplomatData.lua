@@ -74,8 +74,8 @@ SM.MissingDiplomatData = {
     chapters = {
         {
             chapter = "A Discreet Matter",
-            summary = "Thomas sends you quietly to Bishop DeLavey in Stormwind Keep, where a missing envoy has become a private matter.",
-            recap = "The investigation began with secrecy, not ceremony. Thomas found you near the Cathedral and sent you to Bishop DeLavey, who admitted that a diplomat sent to meet Jaina Proudmoore had disappeared. DeLavey suspected the Defias but could not prove it, so he pulled in people outside the usual channels: Jorgen by the Valley of Heroes, then Elling Trias above the cheese shop. The case had already moved from church business to spy work.",
+            summary = "Thomas, in Cathedral Square in Stormwind, has a message for someone who can keep quiet: Bishop DeLavey would like to see you in Stormwind Keep. The bishop isn't saying why. Not out loud, anyway.",
+            recap = "It began with a quiet word outside the cathedral: Bishop DeLavey wanted to see me up in Stormwind Keep. From the way it was said, I gathered it wasn't about my soul.\n\nThe bishop told me exactly as much as I needed and not a word more. A diplomat had gone missing, and it was not to be talked about. A contact in the Valley of Heroes handed me a sealed note for Elling Trias, a man with a cheese shop and, it turns out, a good deal more than that. Trias read it, sealed up a note of his own, and sent me off to a watchman in Duskwood.\n\nThat's how you know it's serious. Nobody says anything out loud. They write it down, seal it, and make you carry it.",
             quests = {
                 { id = 1274, name = "The Missing Diplomat", displayName = "Bishop DeLavey", npc = "Thomas" },
                 { id = 1241, name = "The Missing Diplomat", displayName = "Jorgen", npc = "Bishop DeLavey" },
@@ -85,8 +85,8 @@ SM.MissingDiplomatData = {
         },
         {
             chapter = "The Defias Docket",
-            summary = "Follow Watcher Backus to Addle's Stead and bring the Defias docket back to Trias.",
-            recap = "Duskwood supplied the first hard evidence. Watcher Backus remembered Defias agents gathering around Addle's Stead, and the small farmhouse held the proof: a docket official enough to worry even a veteran watchman. Backus sent it back to Trias, and Trias saw the shape of the next lead in one familiar word: Fist.",
+            summary = "Elling Trias's sealed note has brought you to Watcher Backus, on the road north of Darkshire. Now the watcher wants you out at Addle's Stead in western Duskwood, where the Defias may have left some paperwork lying around.",
+            recap = "Watcher Backus walks the road north of Darkshire. Backus read the note and sent me out to Addle's Stead, an old farm in western Duskwood, where a little house had some paperwork in it that the Defias wouldn't want found. The Defias Docket.\n\nHere's a thing about the Defias nobody warns you about. They keep records. Whether that's very organized or very stupid, I've never decided. It does make my job easier.\n\nBackus took one look at it and sent me straight back to Stormwind. Trias read it the way a man reads a bill he already knew was coming, and had my next stop picked out before he'd put it down.",
             quests = {
                 { id = 1244, name = "The Missing Diplomat", displayName = "Addle's Stead", npc = "Watcher Backus" },
                 { id = 1245, name = "The Missing Diplomat", displayName = "Back to Trias", npc = "Watcher Backus" },
@@ -94,8 +94,8 @@ SM.MissingDiplomatData = {
         },
         {
             chapter = "Fist",
-            summary = "Trias sends you into Old Town after Dashel Stonefist, whose answers pull the matter beyond Stormwind.",
-            recap = "Dashel Stonefist was exactly the sort of contact Trias expected: violent, useful, and unwilling to talk until persuaded. Once subdued, he admitted that his part had ended when the first plan failed. The backup plan involved someone from Menethil Harbor, a man called Slim. Trias knew enough to send you across the sea before the trail went cold.",
+            summary = "Elling Trias, back at the cheese shop in Stormwind's Trade District, has read the Defias docket and picked your next stop before putting it down: Dashel Stonefist, in Old Town.",
+            recap = "The next lead was Dashel Stonefist, in Old Town. With a name like that, the conversation was always going to start with fists. Dashel didn't want to talk. Dashel wanted to settle things the old way, so we did, and when it was over Dashel was a good deal more reasonable.\n\nWhat Dashel told me sent me back to Trias, and Trias sent me out of the city altogether: north to the Wetlands, to Menethil Harbor and a contact there named Mikhail.\n\nI've always liked that part of a job. One minute you're trading punches in Old Town, the next you're on the road with a name in your pocket and a long way to go.",
             quests = {
                 { id = 1246, name = "The Missing Diplomat", displayName = "Find Dashel", npc = "Elling Trias" },
                 { id = 1447, name = "The Missing Diplomat", displayName = "Subdue Dashel", npc = "Dashel Stonefist" },
@@ -105,8 +105,8 @@ SM.MissingDiplomatData = {
         },
         {
             chapter = "Slim's Confession",
-            summary = "At the Deepwater Tavern, follow the man who listens too closely and make Tapoke Jahn tell what he knows.",
-            recap = "Menethil Harbor made the conspiracy plain. Mikhail noticed a listener by the tavern door, and Tapoke \"Slim\" Jahn tried to run before the questions reached him. When he broke, the case changed completely. The Defias had not taken a mere diplomat. They had taken Stormwind's king, and Slim had helped place Hendel aboard the king's ship. Mikhail could only send you to Theramore before the trail disappeared into military silence.",
+            summary = "Mikhail, at the Deepwater Tavern in Menethil Harbor, has had an eye on a patron called Tapoke Jahn. Slim, to his friends. Slim takes a great interest in other people's business, and Mikhail thinks it's time someone returned the favor.",
+            recap = "Mikhail works out of the Deepwater Tavern in Menethil Harbor and notices things. Lately Mikhail had noticed a fellow who listened to other people's business a little too hard.\n\nThat was Tapoke Jahn. Slim, to his friends, if he has any. The moment Slim saw me coming, he did what guilty men always do. He ran. He didn't get far. I subdued him, and after that Slim was very keen to be helpful.\n\nSlim's confession pointed south, across the sea, to Theramore. So Mikhail sent me to find a commander in Dustwallow Marsh, and I took the next boat out.",
             quests = {
                 { id = 1249, name = "The Missing Diplomat", displayName = "Find Slim", npc = "Mikhail" },
                 { id = 1250, name = "The Missing Diplomat", displayName = "Slim's Confession", npc = "Tapoke \"Slim\" Jahn" },
@@ -115,8 +115,8 @@ SM.MissingDiplomatData = {
         },
         {
             chapter = "Hendel",
-            summary = "In Theramore, find Private Hendel near Sentry Point and bring him in alive if you can.",
-            recap = "Theramore brought the mystery into the open without solving it. Commander Samaul sent you to Sentry Point, Archmage Tervosh guided you to Private Hendel, and Hendel's guard post became the last fight of the trail. When Hendel yielded, Jaina Proudmoore appeared to take charge of the prisoner and thank you quietly for services that could not be publicly named. You had exposed the kidnapping of King Varian Wrynn, but the larger wound remained open: the king was still missing, and someone powerful enough to use the Defias had not yet shown their face.",
+            summary = "Commander Samaul, at Foothold Citadel in Theramore, has heard what brought you all this way. The commander sends you to Sentry Point, in Dustwallow Marsh, to look for any sign of a Private Hendel.",
+            recap = "Theramore is Jaina Proudmoore's city. The commander there had me search Sentry Point for any sign of a Private Hendel. No Hendel. When a soldier isn't at his post, that tells you plenty.\n\nAn archmage in Jaina's tower knew where to look instead: some tents out northwest of the city. Hendel was there, and Hendel was not in a talking mood, so we had it out. When he finally yielded, Lady Jaina Proudmoore herself was there to take him off my hands, with a quiet word of thanks for me.\n\nQuiet. That was the whole job, start to finish. I never did learn the diplomat's name. But considering who sent me looking and who turned up to say thank you, I have a fair idea.",
             quests = {
                 { id = 1265, name = "The Missing Diplomat", displayName = "Sentry Point", npc = "Commander Samaul" },
                 { id = 1266, name = "The Missing Diplomat", displayName = "Private Hendel", npc = "Archmage Tervosh" },

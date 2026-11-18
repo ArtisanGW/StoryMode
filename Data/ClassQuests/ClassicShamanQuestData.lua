@@ -58,8 +58,8 @@ SM.ClassicShamanQuestData = {
         {
             chapter = "Call of Earth",
             requiredLevel = 4,
-            summary = "Seek the earth's sapta, speak with its manifestation, and return with your first totem.",
-            recap = "You carried the sapta, listened to the earth, and proved steady enough to bear its totem. The first element had answered.",
+            summary = "Your trainer thinks you're ready to meet the earth. The earth is patient and expects the same of you, so there will be an errand or two before it has anything to say.",
+            recap = "Earth is the first element a shaman meets, and the slowest to say anything. I respect that. I don't always enjoy it.\n\nAfter a small errand to prove I'd do as I was asked, I was handed the Earth Sapta and sent to a holy place to drink it. The world goes very quiet when you do. And then the earth was there in front of me, a spirit of it made small enough to talk to.\n\nIt didn't give a speech. It gave me a rock. A piece of rough quartz, plain as you like, and I carried it home as though it might break.\n\nFrom that rock came my first totem. I set it in the ground, and the ground answered. I've argued with the earth plenty since, mostly about how long things take. It has never once failed to show up.",
             quests = {
                 { id = 96243, name = "Call of Earth", npc = "Eldrun Stormbreaker", race = { "Dwarf", "Gnome", "Skyborne" }, faction = "Alliance", mapID = 1455, x = 0.4740, y = 0.1340, location = "Eldrun Stormbreaker, Ironforge", gameVersions = { forever = true } },
                 { id = 94373, name = "Call of Earth", npc = "Teo Hammerstorm", race = "Dwarf", faction = "Alliance", mapID = 1426, x = 0.2880, y = 0.6620, location = "Teo Hammerstorm, Anvilmar, Dun Morogh", gameVersions = { forever = true } },
@@ -79,8 +79,8 @@ SM.ClassicShamanQuestData = {
         {
             chapter = "Call of Fire",
             requiredLevel = 10,
-            summary = "Follow the call of fire through offerings, reagents, and the flame that waits in Durotar.",
-            recap = "Fire asked for risk, offering, and obedience to the rite. When the brazier answered, the flame became a servant at your side.",
+            summary = "Your trainer says it's time to call fire. Fire is the least patient of the elements and the quickest to test you, so keep your wits about you. Your trainer will tell you who to find first.",
+            recap = "Fire is the loud one. Ask it a question and it shouts the answer, usually at your eyebrows.\n\nThe rite starts with a torch that won't light, the Torch of the Dormant Flame, and you carry it about feeling foolish. Along the way there's a spirit to face, and it wanted a fight. Fire generally does. I gave it one and won, which is the only way that conversation ends well.\n\nAt the end there's a brazier at a shrine, and a flame that doesn't go out. I carried it back like it was the last fire in the world. Whatever the name says, I was not about to be the shaman who let the eternal flame go out.\n\nAfter that, fire came when I called. Not politely. But it came, and it's been at my side ever since, crackling away and offering opinions nobody asked for.",
             quests = {
                 { id = 94449, name = "Call of Fire", npc = "Eldrun Stormbreaker", race = "Dwarf", faction = "Alliance", mapID = 1455, x = 0.4740, y = 0.1340, location = "Eldrun Stormbreaker, Ironforge", gameVersions = { forever = true } },
                 { id = 94465, name = "Call of Fire", npc = "Bruegs Kindleborn", race = "Dwarf", faction = "Alliance", mapID = 1426, x = 0.8760, y = 0.4360, location = "Bruegs Kindleborn, Dun Morogh", gameVersions = { forever = true } },
@@ -102,8 +102,10 @@ SM.ClassicShamanQuestData = {
         {
             chapter = "Call of Water",
             requiredLevel = 20,
-            summary = "Carry waters between distant places and learn why this totem asks for patience.",
-            recap = "The call of water sent you farther than the earlier trials. Through Barrens dust and distant roads, you learned the patience the element required.",
+            summaryAlliance = "Water is next, and the way to it starts with Norric Lochthane in Loch Modan. Of the four elements, water is the patient one, and it likes its students patient too. Pack for a long trip.",
+            summaryHorde = "Your trainer says water is next and sends you to Islen Waterseer in the Barrens. Of the four elements, water is the patient one, and it likes its students patient too. Pack for a long trip.",
+            recapAlliance = "Water doesn't hurry, and it doesn't want you to either.\n\nHervdana Saegrund in the Wetlands gave me an empty waterskin and directions. When I brought it back full, she gave me another, and then another. One of them had to be filled at Stonewatch Falls, right among the Nightcrawler murlocs, and I told the water the murlocs were its problem, not mine. It disagreed. Another meant crossing the sea to Astranaar. Out of the three, she made a vial of the purest water I've ever seen.\n\nAfter that came Stendel's Pond in Westfall, where something had gone foul. I fought the corruption out of it, and when the pond ran clean, its spirit rose and gave me a shard of itself for my totem.\n\nWater gives freely once it trusts you. Getting it to trust you takes about half of Azeroth.",
+            recapHorde = "Water teaches patience, and it teaches it by sending you everywhere.\n\nBrine keeps a hut above a watering hole in the southern Barrens. Brine gave me an empty waterskin and told me where to fill it. When I brought it back, I got another, and then another. One of them had to come from the well in Tarren Mill, which is a very long way to go for a drink. Out of the three, she made a vial of the purest water.\n\nWhat was left of it went to the Brazier of Everfount in Silverpine, where a corrupted spirit of water was waiting. I beat it, and the water's true spirit rose clean and gave me a shard of itself to take home.\n\nI grumbled about the walk. The water, as far as I could tell, found that funny. Water goes everywhere and never complains.",
             quests = {
                 { id = 94494, name = "Call of Water", faction = "Alliance", gameVersions = { forever = true } },
                 { id = 94495, name = "Call of Water", npc = "Norric Lochthane", faction = "Alliance", location = "Norric Lochthane, Loch Modan", gameVersions = { forever = true } },
@@ -128,8 +130,10 @@ SM.ClassicShamanQuestData = {
         {
             chapter = "Call of Air",
             requiredLevel = 30,
-            summary = "Return to your trainer and receive the last totem needed to complete the circle of elements.",
-            recap = "The call of air was brief, but it completed what the earlier trials began. Earth, fire, water, and air now stood with you.",
+            summaryAlliance = "Air is the last of the four elements, and the hardest to pin down. Your road to it starts with Veyric Thunderhame in the Arathi Highlands, who has work for a shaman.",
+            summaryHorde = "Air is the last of the four elements, and your trainer sends you to Thousand Needles to find Prate Cloudseer. Air goes where it likes and listens when it feels like it. Go and see if it feels like it.",
+            recapAlliance = "Air was the last of the four, and the one that made me work hardest for it.\n\nThe quilboar had been working a ritual with twisted totems, one for each element, and Veyric up in the Arathi Highlands wanted it stopped. Charlga Razorflank down in Razorfen Kraul had the notes on it, so I went down and took the notes, the usual way. Then I collected their totems and turned them on their own ritual. What was left when it broke was the Eye of the Tempest, and I carried it to Bath'rah the Windwatcher in the Alterac Mountains.\n\nSo now I have all four. They argue constantly, mostly through me. I wouldn't have it any other way.",
+            recapHorde = "After earth, fire and water, I braced myself for air. Air, it turns out, mostly wants you to show up.\n\nMy trainer sent me to Thousand Needles to find Prate Cloudseer, and that was the trial: go there. Mind you, it's a long way down and a long way back, and the wind up on those mesas will push you off one if you let it, so perhaps the walk was the point.\n\nPrate gave me the last totem, and the circle was closed. Earth under my feet, fire at my side, water in my hand and air at my back.\n\nFour elements, and not one of them likes the others. Earth thinks air is flighty. Fire thinks water is dull. Water thinks everybody's in too much of a hurry. And there's me in the middle, keeping the peace, which is about what a shaman is for.",
             quests = {
                 { id = 94789, name = "Call of Air", faction = "Alliance", gameVersions = { forever = true } },
                 { id = 96264, name = "Elemental Aid", npc = "Veyric Thunderhame", faction = "Alliance", mapID = 1417, x = 0.5980, y = 0.2740, location = "Veyric Thunderhame, Arathi Highlands", gameVersions = { forever = true } },
@@ -144,8 +148,8 @@ SM.ClassicShamanQuestData = {
             chapter = "Elemental Mastery",
             requiredLevel = 50,
             faction = "Horde",
-            summary = "Bring proof of the elements to the temple trial and show that the four powers can be held together.",
-            recap = "The Sunken Temple trial asked you to carry the elements as one calling. When the proofs were gathered, your mastery had been tested in full.",
+            summary = "Kardris Dreamseeker in Orgrimmar thinks you're ready for the hardest lesson yet: all four elements at once. That lesson belongs to Bath'rah the Windwatcher in the Alterac Mountains, who will want a sample of each.",
+            recap = "Long after my first totems, Kardris Dreamseeker in Orgrimmar decided I was ready for the harder lesson: holding all four elements at once instead of one at a time.\n\nThat meant Bath'rah the Windwatcher, up in the Alterac Mountains, and Bath'rah wanted a sample of each element. The real thing. You don't buy elemental fire off a cart. You take it from something made of fire, and the something objects.\n\nThen came the spirit totem, which wanted eight spider eyes and eight black claws. I asked the spirits what those had to do with anything. The spirits did not say. Spirits rarely do when you most want them to.\n\nMastery, they call it. I'd call it a truce. Four elements that can't stand one another, agreeing to work through me at the same time. Some days they even manage it.",
             quests = {
                 { id = 8410, name = "Elemental Mastery", npc = "Kardris Dreamseeker", faction = "Horde", mapID = 85, x = 0.3880, y = 0.3637, location = "Kardris Dreamseeker, Orgrimmar" },
                 { id = 8412, name = "Spirit Totem", npc = "Bath'rah the Windwatcher", faction = "Horde", mapID = 1416, x = 0.8040, y = 0.6300, location = "Bath'rah the Windwatcher, Ravenholdt Manor, Hillsbrad Foothills" },
@@ -156,8 +160,8 @@ SM.ClassicShamanQuestData = {
             requiredLevel = 58,
             faction = "Alliance",
             gameVersions = { forever = true },
-            summary = "Eldrun Stormbreaker is building a device to cut through the shadows of the Great Ossuary in Scholomance, and he needs rare stones and a steady hand to finish it.",
-            recap = "You brought Eldrun Stormbreaker the diamonds his scryer required. Deep in the Great Ossuary you used it to draw out the spirits bound to Death Knight Darkreaver, and you stood against what answered until his hold over the restless dead was broken.",
+            summary = "Eldrun Stormbreaker in Ironforge is building a scryer meant to see into the Great Ossuary beneath Scholomance. First it needs two fine diamonds. After that, it needs someone willing to take it down there.",
+            recap = "Eldrun Stormbreaker was building a scryer to see through the shadows of the Great Ossuary in Scholomance, and a scryer like that wants diamonds. Two good ones. I found them. That was the easy part.\n\nThen I took the scryer down to the Ossuary's basement and set it going. The spirits came first, every one of them bound to a death knight called Darkreaver, and none of them pleased to be seen. I fought them down. When the last went, Darkreaver came himself.\n\nEarth held my feet, fire did the shouting, and between us we finished him. I carried his head back to Eldrun, and the restless dead under Scholomance are a good deal less restless now.\n\nMost of my life I've listened to spirits. Some of them, I've learned, you just have to shout over.",
             quests = {
                 { id = 97168, name = "Material Assistance", npc = "Eldrun Stormbreaker", faction = "Alliance", mapID = 1455, x = 0.4740, y = 0.1340, location = "Eldrun Stormbreaker, Ironforge", gameVersions = { forever = true } },
                 { id = 97169, name = "The Darkreaver Menace", npc = "Eldrun Stormbreaker", faction = "Alliance", mapID = 1455, x = 0.4740, y = 0.1340, location = "Eldrun Stormbreaker, Ironforge", gameVersions = { forever = true } },

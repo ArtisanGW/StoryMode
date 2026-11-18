@@ -103,8 +103,8 @@ SM.DefiasBrotherhoodData = {
     chapters = {
         {
             chapter = "Red Masks in Elwynn",
-            summary = "Begin with the red masks near Northshire and follow the same bandit sign through Elwynn.",
-            recap = "The first Defias were thieves in the vineyards and bandits on the roads. By the time Morgan the Collector's ring reached Marshal Dughan, the red masks looked less like chance and more like organization.",
+            summary = "Deputy Willem, outside Northshire Abbey, has a new gang of thieves on his hands. They call themselves the Defias Brotherhood, they've been seen across the river to the east, and nobody knows what they're up to.",
+            recap = "Northshire was supposed to be the quiet part. I'd barely found the abbey before the deputy had me pulling red bandanas off thieves, and every thief had a friend. In the vineyards, across the river, out at the logging camp: same masks, same red. Apparently they have a dress code.\n\nThe best of it was the Collector. A schedule turned up with that name on it, and Marshal Dughan read it and sent me hunting. A thief who goes by the Collector is asking for a certain kind of visitor. The Collector had a ring, and the Collector had my full attention, and only one of those two made it through the day.\n\nThat's a lot of matching masks for a few bandits. Bandits don't coordinate.",
             quests = {
                 { id = 18, name = "Brotherhood of Thieves", npc = "Deputy Willem" },
                 { id = 3903, name = "Milly Osworth", npc = "Deputy Willem" },
@@ -117,8 +117,8 @@ SM.DefiasBrotherhoodData = {
         },
         {
             chapter = "A Favor in Lakeshire",
-            summary = "Aid Gryan Stoutmantle in Westfall and seek Wiley the Black's note in Lakeshire.",
-            recap = "Gryan Stoutmantle suspected that Westfall's troubles reached beyond scattered bandits. Wiley's note confirmed allies, machinery, hidden routes, and the old grievance of the Stonemasons.",
+            summary = "Westfall's farmers have been driven off their land, and Gryan Stoutmantle means to win it back. He's raising a People's Militia in the stone tower on Sentinel Hill, and he'll take every recruit who turns up.",
+            recap = "Gryan Stoutmantle counts in fifteens. Fifteen trappers, fifteen smugglers, fifteen pillagers, fifteen looters, fifteen highwaymen, and a few extra so I wouldn't get bored. For a while there, the People's Militia was mostly me.\n\nBest errand of the lot was a note. Gryan sent me to Lakeshire to see someone called Wiley the Black, and Wiley gave me a note. I carried it back to Westfall. Gryan had me carry it on to Mathias Shaw in Stormwind. Shaw had me carry his report back to Westfall. Three zones and four trips for some paper, and nobody once thought to hire a courier. I was the courier.\n\nStill, Shaw's report gave Gryan a name to put to all those masks. That changes a fight.",
             quests = {
                 { id = 12, name = "The People's Militia", npc = "Gryan Stoutmantle" },
                 { id = 13, name = "The People's Militia", npc = "Gryan Stoutmantle" },
@@ -131,8 +131,8 @@ SM.DefiasBrotherhoodData = {
         },
         {
             chapter = "The Messenger and the Traitor",
-            summary = "Return to Westfall, watch the Brotherhood's movements, and let the trail show where it leads.",
-            recap = "Shaw's report gave Gryan a name, but the messenger gave him movement. The Defias Traitor then led you through Moonbrook to the hidden entrance beneath the ruined town.",
+            summary = "Gryan Stoutmantle knows a good deal more about the Defias now, but not where they hide. One of his scouts has spotted a Defias messenger on the roads around Moonbrook, and messengers carry things.",
+            recap = "A name's a fine thing, but Gryan wanted an address. So I watched the roads south of Moonbrook until a Defias messenger came strolling along with a letter, and we settled the question of who'd be delivering it. Me. To Gryan.\n\nWhat really helped was the Defias Traitor, who turned up at Sentinel Hill ready to show us where the rest of them were hiding. All it took was walking a turncoat down to Moonbrook alive, and the road to Moonbrook is not a friendly road. I kept the Traitor breathing right up to the hole in the ground they'd been using for a front door.\n\nThe old mine. Of course it was the mine.",
             quests = {
                 { id = 142, name = "The Defias Brotherhood", displayName = "The Messenger", npc = "Gryan Stoutmantle" },
                 { id = 155, name = "The Defias Brotherhood", displayName = "The Traitor", npc = "The Defias Traitor" },
@@ -141,8 +141,8 @@ SM.DefiasBrotherhoodData = {
         },
         {
             chapter = "VanCleef",
-            summary = "Enter the Deadmines beneath Moonbrook and confront the Brotherhood at the heart of its hideout.",
-            recap = "The Deadmines were mine, factory, shipyard, and fortress. At the heart of it all stood Edwin VanCleef, whose death ended Westfall's immediate crisis and left one final letter behind.",
+            summary = "Thanks to a turncoat, Gryan Stoutmantle knows where the Defias hide: the old mine under Moonbrook. Back on Sentinel Hill, Gryan has one task left for you, and it has a name on it. Edwin VanCleef.",
+            recap = "The Deadmines. You go in expecting a mine, and you get one, and then a goblin foundry, and then a cave so big there's a whole ship sitting in it. A proper ship, cannons and all, under Westfall. Whoever dug that place out knew their trade.\n\nEdwin VanCleef was up on the deck, and he did not go quietly. Gryan wanted his head, and I carried it out into the daylight and all the way up to Sentinel Hill.\n\nShoni the Shilent in Stormwind had asked me to fetch a Gnoam Sprecklesprocket while I was down there. I couldn't tell you what one is. Shoni knew, and Shoni was paying, and that was enough for me.\n\nThere was a letter on VanCleef, too. Addressed to the City Architect in Stormwind, and never sent. That's another story.",
             quests = {
                 { id = 2040, name = "Underground Assault", npc = "Shoni the Shilent", optional = true },
                 { id = 166, name = "The Defias Brotherhood", displayName = "VanCleef's Head", npc = "Gryan Stoutmantle" },
@@ -150,8 +150,8 @@ SM.DefiasBrotherhoodData = {
         },
         {
             chapter = "The Unsent Letter",
-            summary = "Carry VanCleef's letter to Baros Alexston and follow the matter into the Stockade.",
-            recap = "VanCleef's letter reached Baros Alexston, who remembered the Stonemasons better than most. His concern led to Warden Thelwater, Bazil Thredd, and the riot within the Stockade.",
+            summary = "Edwin VanCleef was carrying a letter, sealed and never sent. It's addressed to Baros Alexston, the City Architect, at City Hall in Stormwind's Cathedral Square. Somebody ought to deliver it.",
+            recap = "VanCleef's letter was for Baros Alexston, the City Architect. Baros had known the Stonemasons back when they were still just masons, and I got the feeling that letter landed somewhere sore. Next thing I knew, I was on my way to the Stockade.\n\nOne of the Brotherhood's leaders, Bazil Thredd, was locked up in there, and the prisoners had picked that moment to riot. The warden wanted it put down and Thredd's head brought out. So in I went: a whole building full of people with nothing to lose and a grudge against anyone holding a key. Thredd was waiting deep in the back. I came out with the head.\n\nThe warden thanked me, and then mentioned, as if it were nothing, that Thredd had had a visitor.",
             quests = {
                 { id = 387, name = "Quell The Uprising", npc = "Warden Thelwater", optional = true },
                 { id = 373, name = "The Unsent Letter", npc = "Edwin VanCleef" },
@@ -161,8 +161,8 @@ SM.DefiasBrotherhoodData = {
         },
         {
             chapter = "The Noble Thread",
-            summary = "Follow Thelwater, Baros, Shaw, and Trias as the Defias trail returns to Stormwind.",
-            recap = "The Stockade did not end the matter. Thelwater's visitor, Baros' warning, Shaw's caution, and Trias' quiet knowledge all pointed toward a dangerous friend of the Brotherhood inside Stormwind.",
+            summary = "Bazil Thredd had a regular visitor in the Stockade lately: a quiet man whose papers said Maelik. Warden Thelwater had suspicions, wrote down what he looked like, and sealed it for Baros Alexston.",
+            recap = "The warden had written down what that visitor looked like and sealed it, and I carried the envelope across Stormwind like it might go off. It went from hand to hand until it reached Shaw, and Shaw told me to look up an old friend.\n\nThe old friend sold cheese. Elling Trias, in the Trade District, behind a counter stacked with wheels of the stuff, and SI:7 the whole time. Half the city has bought cheddar off that man and never known.\n\nTrias sent me up to the castle to meet Tyrion, who had a plan and a little mechanical spy to carry it out. The plan needed silk cloth and two fresh apples. I've been handed some strange shopping lists in my time. That one was for catching a traitor, and it had apples on it.",
             quests = {
                 { id = 392, name = "The Curious Visitor", npc = "Warden Thelwater" },
                 { id = 393, name = "Shadow of the Past", npc = "Baros Alexston" },
@@ -173,8 +173,8 @@ SM.DefiasBrotherhoodData = {
         },
         {
             chapter = "Lescovar's Fall",
-            summary = "Help Tyrion prepare the spybot and learn what quiet meeting it was built to uncover.",
-            recap = "Tyrion's disguise and spybot drew Lord Gregor Lescovar and Marzon the Silent Blade into the open. Their deaths carried the truth back through Trias, Baros, and the king's court.",
+            summary = "Up at Stormwind Keep, Tyrion's spybot has its disguise and Tyrion has arranged a meeting. Lord Gregor Lescovar will be waiting in the castle garden for Marzon the Silent Blade. Tyrion wants you close enough to hear every word.",
+            recap = "The spybot did its work, and I ended up crouched in the castle garden, waiting on a meeting. Lord Gregor Lescovar, an actual lord of Stormwind, came out to talk business with Marzon the Silent Blade. For somebody called the Silent Blade, Marzon talked plenty. I let them get it all said.\n\nThen I stood up. Neither of them enjoyed that part.\n\nAfter that the story went up the ladder, one important person at a time, until I was carrying a report into the keep for the king. It started with thieves in a Northshire vineyard. It ended in the royal garden with a lord.\n\nI don't know what the king made of it. I do know there was one fewer lord at dinner.",
             quests = {
                 { id = 434, name = "The Attack!", npc = "Tyrion" },
                 { id = 394, name = "The Head of the Beast", npc = "Elling Trias" },

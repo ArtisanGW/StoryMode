@@ -57,8 +57,8 @@ SM.DarrowshireData = {
     chapters = {
         {
             chapter = "Pamela's Doll",
-            summary = "Find Pamela Redpath in Darrowshire and help gather the pieces of the doll she has lost.",
-            recap = "Marlene's request led you to Pamela Redpath, alone among the ruins and still asking after her doll. Returning the pieces brought comfort, and also the first hard truth of Darrowshire.",
+            summary = "When the battle of Darrowshire began, Marlene Redpath hid her niece Pamela, and never learned what became of her. Marlene, at Sorrow Hill in the Western Plaguelands, wants someone to go and look. So does Pamela's sister Jessica, in Everlook.",
+            recap = "Marlene Redpath asked me to look in on her niece, Pamela, in Darrowshire. Darrowshire's over in the Eastern Plaguelands, and nobody has lived there in a long time. I went anyway.\n\nPamela was there. A little girl at her old home in the ruins, waiting for her family to come back and very worried about her doll. She was also a ghost. She didn't bring it up, so neither did I.\n\nThe doll had come apart, and the pieces were scattered about the town. I picked through Darrowshire until I had the lot, and for a minute there, with Pamela hugging that doll, I almost forgot where we were standing.\n\nThen she asked me to go and see her Auntie Marlene, and I started to understand how long she'd been waiting.",
             quests = {
                 { id = 5142, altIds = { 5601 }, name = "Little Pamela", npc = "Marlene Redpath" },
                 { id = 5149, name = "Pamela's Doll", npc = "Pamela Redpath" },
@@ -66,8 +66,8 @@ SM.DarrowshireData = {
         },
         {
             chapter = "The Annals of Darrowshire",
-            summary = "Follow Pamela's family trail to Marlene, Carlin, and Chromie, who seeks the Annals of Darrowshire.",
-            recap = "Pamela's family was scattered by grief: Marlene near Andorhal, Jessica far away, and Carlin at Light's Hope. Chromie gave their sorrow a shape by asking for the Annals of Darrowshire.",
+            summary = "In Darrowshire, Pamela Redpath is lonely. Auntie Marlene told her to stay put and never came back, and her father hasn't come home either. Maybe Marlene knows where he is. She lives on a hill south of Andorhal.",
+            recap = "Pamela's aunt had a job waiting for me: a wedding ring, for a historian who'd been asking around about Darrowshire.\n\nThe historian was Chromie. A gnome, cheerful, and a little too well informed about things that hadn't happened yet. Chromie wanted the Annals of Darrowshire, an old history of the town that took some finding, and once she had it she added to it. Extended, she called it. I didn't ask where the extra pages came from. I'm not sure I'd have liked the answer.\n\nThe extended version went to Pamela's uncle, Carlin Redpath, at Light's Hope Chapel. Carlin wanted Darrowshire's old defenders freed from that town, and I freed fifteen of them. The dead of Darrowshire have waited long enough for everything.",
             quests = {
                 { id = 5152, name = "Auntie Marlene", npc = "Pamela Redpath" },
                 { id = 5153, name = "A Strange Historian", npc = "Marlene Redpath" },
@@ -79,8 +79,8 @@ SM.DarrowshireData = {
         },
         {
             chapter = "The Redpath Relics",
-            summary = "Recover the relics and skulls tied to Darrowshire's old defenders, villains, and marauders.",
-            recap = "Carlin and Chromie needed names made into relics: Horgus, Marduk, Davil, Joseph, and the marauders who joined the slaughter. Each recovered piece brought the last battle closer to being answered.",
+            summary = "Carlin Redpath, at Light's Hope Chapel, has read the strange new pages at the end of the Annals of Darrowshire and wants the truth of them. The annals also say where the heroes and villains of that last battle left their relics.",
+            recap = "Carlin Redpath had the annals now, and Carlin wanted the last battle of Darrowshire put right. Putting it right, it turned out, takes a great many relics off the dead.\n\nA villain's skull and another villain's broken sword. A hero's libram, and the shield of Pamela's father. And five skulls that resonated, which meant sorting through a great many skulls that didn't. Most skulls, it turns out, have nothing to say.\n\nWhen it was all gathered, Carlin wrapped the lot in one bundle and sent me back to Chromie with it. Every hero and villain of that night, packed into one sack on my back. It was heavier than it looked.",
             quests = {
                 { id = 5181, name = "Villains of Darrowshire", npc = "Carlin Redpath" },
                 { id = 5168, name = "Heroes of Darrowshire", npc = "Carlin Redpath" },
@@ -90,8 +90,8 @@ SM.DarrowshireData = {
         },
         {
             chapter = "Darrowshire Rewritten",
-            summary = "Return to Darrowshire with Chromie's relic bundle and stand with the town in its final battle.",
-            recap = "The dead of Darrowshire rose to fight again. You held the line, faced the corrupted Joseph Redpath, and gave Pamela the peace of knowing her father had come home.",
+            summary = "Chromie, at the ruined inn in Andorhal, has bound the relics you gathered into one powerful spell and believes Joseph Redpath can still be saved. The bundle has to go to Darrowshire's town square, and you're the one carrying it.",
+            recap = "Chromie sent me back to Darrowshire with the bundle. I set it down in the town square, and the night Darrowshire fell started again all around me. The dead got up. Both sides.\n\nMy job was to keep the right people standing long enough, and mostly that meant Captain Redpath, Pamela's father, who had to hold on until his own corrupted self came to meet him. Then it did. I put it down, and the captain's spirit came walking into the square, himself again.\n\nAfter that I went to see Pamela at her home. For once, somebody had good news for her: her father had come home.\n\nShe gave me the key to his old chest by way of thanks. There was treasure in it. Some stories end well, and I'm not about to argue.",
             quests = {
                 { id = 5721, name = "The Battle of Darrowshire", npc = "Chromie" },
                 { id = 5942, name = "Hidden Treasures", npc = "Pamela Redpath" },

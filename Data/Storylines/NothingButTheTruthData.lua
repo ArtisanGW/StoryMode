@@ -7,7 +7,7 @@ local addonName, SM = ...
 
 SM.NothingButTheTruthData = {
     title = "Nothing But The Truth",
-    description = "North of the road into Deadwind Pass, two Forsaken agents keep a quiet post at Beggar's Haunt. A human infiltrator has seen too much, and Stonard's orcs have taken him alive before the matter could be settled.\n\nWork with Deathstalker Zraedus and Apothecary Faustin on a serum meant to draw out the truth. They are very particular about whose truth reaches the Horde.",
+    description = "North of the road into Deadwind Pass, two Forsaken agents keep a quiet post at Beggar's Haunt. A human infiltrator has seen too much, and Stonard's orcs have taken him alive before the matter could be settled.\n\nWork with Deathstalker Zraedus and Apothecary Faustin on a serum meant to draw out the truth.",
     zone = "Duskwood / Swamp of Sorrows / Desolace",
     expansion = "Classic",
     recommendedLevel = { min = 37, max = 42 },
@@ -51,8 +51,8 @@ SM.NothingButTheTruthData = {
     chapters = {
         {
             chapter = "Beggar's Haunt",
-            summary = "Meet the Forsaken agents hidden in Duskwood and help prepare a truth serum for Stonard's prisoner.",
-            recap = "Zraedus and Faustin called it help for their orcish allies, but every errand served the same purpose: keep the captive in Stonard from saying too much. The serum needed panther hearts, rare fungus, and a giant's tumor before Faustin could finish it. By the time Marksen drank the disguised brew, the truth was already losing its chance to be heard.",
+            summary = "Deathstalker Zraedus keeps a quiet Forsaken camp at Beggar's Haunt in Duskwood. A human spy was watching it, but the orcs got to him first and hauled him off to Stonard. Zraedus would like to help them get the truth out of him.",
+            recap = "The orcs at Stonard had caught themselves a spy. A human, Infiltrator Marksen, who'd seen more than he should. Out at Beggar's Haunt, two of the Forsaken offered to help get the truth out of him: Deathstalker Zraedus and Apothecary Faustin. A truth serum. Very neighborly.\n\nThe recipe called for panther hearts, a rare fungus and a tumor out of a giant. I'll leave the tumor there. Faustin brewed it all up and I carried it to Zraedus, and what came back to me was called Zraedus's Brew.\n\nI took it down to Stonard and gave it to Marksen. Marksen drank it. Marksen didn't have a great deal to say after that.\n\nZraedus was very pleased with how helpful we'd all been.",
             quests = {
                 { id = 1372, name = "Nothing But The Truth", displayName = "Zraedus's Request", npc = "Deathstalker Zraedus" },
                 { id = 1383, name = "Nothing But The Truth", displayName = "Faustin's Serum", npc = "Apothecary Faustin" },

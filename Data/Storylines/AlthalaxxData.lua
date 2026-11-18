@@ -58,8 +58,8 @@ SM.AlthalaxxData = {
     chapters = {
         {
             chapter = "The Dark Strand",
-            summary = "Find Balthule Shadowstrike near the Tower of Althalaxx and learn what gathers on Darkshore's northern coast.",
-            recap = "Sentinel Elissa's missing scout was alive, but Balthule's report was grave. Warlocks held the tower, their parchments spoke of the Dark Strand, and the warning had to reach Ashenvale.",
+            summary = "Sentinel Elissa Starbreeze in Auberdine sent a scout, Balthule Shadowstrike, to watch some strange goings-on at the Tower of Althalaxx to the northeast. Balthule should have been back by now. Elissa would like someone to go and look.",
+            recap = "Sentinel Elissa Starbreeze in Auberdine had a scout who'd gone quiet up the coast, near an old tower called Althalaxx. Would I go and look? I went and looked.\n\nThe scout, Balthule Shadowstrike, was fine. Keeping an eye on the tower from a safe distance, which was wise, because the tower was full of warlocks. The Cult of the Dark Strand, they call themselves. Anyone who picks a name like that is hoping you'll ask about it, so I didn't. I took their papers instead. Four worn parchments, which their owners had no more use for.\n\nBalthule didn't like what was written on them. Not one bit. A letter went off to Delgren the Purifier in Ashenvale, and I went with it. Whatever the cult was up to, the tower was only the part you could see from the beach.",
             quests = {
                 { id = 965, name = "The Tower of Althalaxx", displayName = "Find Balthule", npc = "Sentinel Elissa Starbreeze" },
                 { id = 966, name = "The Tower of Althalaxx", displayName = "Worn Parchments", npc = "Balthule Shadowstrike" },
@@ -68,8 +68,8 @@ SM.AlthalaxxData = {
         },
         {
             chapter = "Ashenvale Soul Gems",
-            summary = "Carry Balthule's warning to Delgren and follow the Dark Strand's trail through Ashenvale.",
-            recap = "Delgren sent you after the cult's soul gems and writings from Ordil'Aran to Fire Scar Shrine and Satyrnaar. Each recovered piece loosened the hold of the power behind Althalaxx.",
+            summary = "Delgren the Purifier, at Maestra's Post in Ashenvale, has read Balthule's letter and calls it dire. The Dark Strand has cultists at Ordil'Aran, and one of them carries a soul gem Delgren would very much like to study.",
+            recap = "Delgren the Purifier keeps watch at Maestra's Post in Ashenvale, and Delgren read the letter and handed me a list. Soul gems, a tome somebody didn't want to part with, the usual cult leftovers.\n\nThe odd one out was the Highborne. There were souls trapped in Night Run and in Satyrnaar, bound up and waiting for somebody to come along and cut them loose. So I cut them loose. I can't tell you what a Highborne soul does with its freedom, but they didn't hang about to discuss it.\n\nEvery piece I brought back, Delgren said, weakened whatever was holding court at the top of Althalaxx. When there was nothing left to bring, it was back up to Darkshore to tell the scout the time had come.",
             quests = {
                 { id = 970, name = "The Tower of Althalaxx", displayName = "Glowing Soul Gem", npc = "Delgren the Purifier" },
                 { id = 973, name = "The Tower of Althalaxx", displayName = "Ilkrud Magthrull's Tome", npc = "Delgren the Purifier" },
@@ -79,8 +79,8 @@ SM.AlthalaxxData = {
         },
         {
             chapter = "Athrikus Narassin",
-            summary = "Return to the tower with Balthule's command and face Athrikus Narassin at the summit.",
-            recap = "With Athrikus Narassin weakened, Balthule sent you back into Althalaxx. You climbed past the warlocks of the Dark Strand and ended their master where he had gathered them.",
+            summary = "Balthule Shadowstrike, back at the Tower of Althalaxx, says the time to strike is now. Athrikus Narassin is at the top of the tower, and the warlocks around him are deadlier than any you've met so far.",
+            recap = "The Tower of Althalaxx has a great many stairs and a warlock on most of them. Balthule's orders were short: Athrikus Narassin, top of the tower, bring back the head.\n\nSo I took the stairs one at a time and the warlocks the same way. At the top was Narassin, the one who'd gathered the whole Dark Strand there in the first place. All my running about in Ashenvale had taken the edge off whatever power was behind him. There was enough edge left to keep things lively.\n\nI came down with the head and gave it to Balthule, and Balthule sent me straight back to Ashenvale to tell Delgren. That's how it works in those woods, I've learned. Nothing is really finished until somebody in another forest has heard about it.",
             quests = {
                 { id = 1143, name = "The Tower of Althalaxx", displayName = "Athrikus Narassin", npc = "Balthule Shadowstrike" },
                 { id = 981, name = "The Tower of Althalaxx", displayName = "Report to Delgren", npc = "Balthule Shadowstrike" },

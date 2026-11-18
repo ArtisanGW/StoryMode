@@ -8,6 +8,8 @@ local addonName, SM = ...
 SM.DungeonSetTwoData = {
     title = "The Brazier of Invocation",
     description = "When your old dungeon armor has seen enough battle, Deliana or Mokvar will offer work that sounds simple enough: bring the right pieces, prove you are ready, and keep following instructions.\n\nThe errands soon reach far beyond a single set of bracers. Expect old dungeons, stranger patrons, expensive favors, and a brazier whose purpose is not explained all at once.",
+    descriptionAlliance = "When your old dungeon armor has seen enough battle, Deliana in Ironforge will offer work that sounds simple enough: bring the right pieces, prove you are ready, and keep following instructions.\n\nThe errands soon reach far beyond a single set of bracers. Expect old dungeons, stranger patrons, expensive favors, and a brazier whose purpose is not explained all at once.",
+    descriptionHorde = "When your old dungeon armor has seen enough battle, Mokvar in Orgrimmar will offer work that sounds simple enough: bring the right pieces, prove you are ready, and keep following instructions.\n\nThe errands soon reach far beyond a single set of bracers. Expect old dungeons, stranger patrons, expensive favors, and a brazier whose purpose is not explained all at once.",
     zone = "Ironforge / Orgrimmar / Silithus / Dire Maul / Stratholme / Blackrock Mountain",
     zoneByFaction = {
         Alliance = "Ironforge / Silithus / Dire Maul / Stratholme / Blackrock Mountain",
@@ -31,7 +33,7 @@ SM.DungeonSetTwoData = {
 
     npcLocations = {
         ["Deliana"] = { mapID = 87, x = 0.4300, y = 0.5200, location = "the High Seat, Ironforge" },
-        ["Mokvar"] = { mapID = 85, x = 0.3495, y = 0.3829, location = "the Valley of Spirits, Orgrimmar" },
+        ["Mokvar"] = { mapID = 85, x = 0.3495, y = 0.3829, location = "Orgrimmar" },
         ["Mux Manascrambler"] = { mapID = 71, x = 0.5150, y = 0.2800, location = "Gadgetzan, Tanaris" },
         ["Anthion Harmon"] = { mapID = 23, x = 0.2700, y = 0.1200, location = "outside Stratholme, Eastern Plaguelands" },
         ["Ysida Harmon"] = { mapID = 317, x = 0.5600, y = 0.1800, location = "Stratholme" },
@@ -93,8 +95,10 @@ SM.DungeonSetTwoData = {
         {
             chapter = "A Bracer at the Gate",
             requiredLevel = 58,
-            summary = "Bring a Dungeon Set 1 bracer to Deliana or Mokvar and accept the first upgrade work.",
-            recap = "The first exchange began with a worn class bracer and a simple test of readiness. Deliana or Mokvar made the first improvement and sent you onward to Gadgetzan.",
+            summaryAlliance = "Deliana, in Ironforge, has an earnest proposition for anyone whose old dungeon bracers have seen better days. Bring them along, with twenty gold and fifteen blood samples from Winterspring, and hear the rest.",
+            summaryHorde = "Mokvar, in Orgrimmar, has an earnest proposition for anyone whose old dungeon bracers have seen better days. Bring them along, with twenty gold and fifteen venom samples from Silithus, and hear the rest.",
+            recapAlliance = "Everybody has a bit of old dungeon armor that's seen better days. I took my bracers to Deliana on the High Seat in Ironforge, and Deliana said they could be a great deal better. All it would cost was the bracers, twenty gold, and fifteen blood samples out of Winterspring.\n\nI paid, and they came back better. Fair's fair. But Deliana wasn't done with me. There was a sealed container of blood that needed to go to a goblin called Mux Manascrambler, all the way down in Gadgetzan, and somehow I was already the one carrying it.\n\nAn earnest proposition, they call this sort of thing. In my experience, earnest means long.",
+            recapHorde = "Everybody has a bit of old dungeon armor that's seen better days. I took my bracers to Mokvar in Orgrimmar, and Mokvar said they could be a great deal better. All it would cost was the bracers, twenty gold, and fifteen venom samples out of Silithus, which are about as much fun to collect as they sound.\n\nI paid, and they came back better. Fair's fair. But Mokvar wasn't done with me. There was a sealed container of venom that needed to go to a goblin called Mux Manascrambler, down in Gadgetzan, and somehow I was already the one carrying it.\n\nAn earnest proposition, they call this sort of thing. In my experience, earnest means long.",
             quests = {
                 { id = 8906, foreverId = 84148, name = "An Earnest Proposition", npc = "Deliana", faction = "Alliance", class = "HUNTER" },
                 { id = 8907, foreverId = 84149, name = "An Earnest Proposition", npc = "Deliana", faction = "Alliance", class = "MAGE" },
@@ -120,8 +124,8 @@ SM.DungeonSetTwoData = {
         },
         {
             chapter = "Mux's Supernatural Device",
-            summary = "Gather ectoplasm, a power source, and goblin parts so Mux can finish his device.",
-            recap = "Mux Manascrambler's device required ghostly residue, strange power, and parts only a goblin would trust. Once complete, it pointed the armor work toward matters no smith could see unaided.",
+            summary = "Mux Manascrambler, a goblin in Gadgetzan, has a supernatural device in mind. Like every goblin plan, it starts with your money: forty gold, and a pile of reagents to go with it.",
+            recap = "Mux Manascrambler is a goblin with a plan, and a goblin's plan always starts with your money. Forty gold and a cartload of reagents bought me the Ectoplasmic Distiller, and then I had to go out and use it on ghosts in three different corners of the world. Ghosts do not enjoy being distilled.\n\nThe best part was the shifty merchant: an imp in a cave in Winterspring, selling Fel Elemental Rods. Doing business with an imp is exactly as much fun as it sounds. I counted my fingers afterward.\n\nOut of all of it came the Extra-Dimensional Ghost Revealer. I carried it home, and my belt and gloves got the same treatment the bracers had. Just compensation, they called it. I'd call it a start.",
             quests = {
                 { id = 8921, name = "The Ectoplasmic Distiller", npc = "Mux Manascrambler" },
                 { id = 8924, name = "Hunting for Ectoplasm", npc = "Mux Manascrambler" },
@@ -151,8 +155,9 @@ SM.DungeonSetTwoData = {
         },
         {
             chapter = "Anthion and the Dead Man's Plea",
-            summary = "Use Mux's device near Stratholme, then race the city to save Ysida Harmon from the baron.",
-            recap = "The device revealed Anthion Harmon, a ghost bound by his sister's danger. You entered Stratholme, reached Ysida in time, and returned to the brother who had waited outside its gates.",
+            summaryAlliance = "Deliana in Ironforge wants Mux's new Ghost Revealer put to work. Take it to the gates of Stratholme, switch it on, and see whether the ghost of Anthion Harmon has anything to say.",
+            summaryHorde = "Mokvar in Orgrimmar wants Mux's new Ghost Revealer put to work. Take it to the gates of Stratholme, switch it on, and see whether the ghost of Anthion Harmon has anything to say.",
+            recap = "The Ghost Revealer, it turns out, works. I switched it on at the gates of Stratholme, and there stood Anthion Harmon, dead and waiting, with a plea. Baron Rivendare had Ysida Harmon somewhere inside, and time was short.\n\nSo we ran Stratholme. Not walked. Ran, through the whole rotten city to the Baron himself, and we got there in time. Ysida gave me a locket to carry out, so Anthion would know it was true.\n\nThe dead don't stay sentimental for long when there's work left. Next thing I knew, Anthion had me fetching iron, leather and cloth for a banner, and the unfinished banner was going to an old friend of his in Dire Maul. These jobs never get shorter.",
             quests = {
                 { id = 8929, name = "In Search of Anthion", npc = "Deliana", faction = "Alliance" },
                 { id = 8930, name = "In Search of Anthion", npc = "Mokvar", faction = "Horde" },
@@ -164,8 +169,8 @@ SM.DungeonSetTwoData = {
         },
         {
             chapter = "Falrin's Vendetta",
-            summary = "Meet Falrin Treeshaper in Dire Maul and gather what he needs for the next challenge.",
-            recap = "Falrin Treeshaper's vendetta turned Dire Maul's library into your next post. The creatures he named were hunted, the enchantment was made, and a challenge was prepared for Blackrock Depths.",
+            summary = "Anthion's unfinished banner is in the hands of Falrin Treeshaper, in the Athenaeum at Dire Maul. Before anything else, Falrin has a vendetta against the ogres to settle, and it runs to twenty-five warbeads.",
+            recap = "Anthion's old friend was Falrin Treeshaper, in the library at Dire Maul. Falrin looked at the unfinished banner and agreed to help, right after a small matter of ogres. Falrin has a vendetta. I never got the whole story. I got a number, twenty-five, and that's how many warbeads I took off ogres before Falrin was satisfied.\n\nAn enchantment and some more shopping later, I was holding the Banner of Provocation, which is exactly what it sounds like. Plant it in the right place and somebody comes looking for a fight.\n\nFalrin even had the place picked out: the Ring of Law, in Blackrock Depths. Some people send flowers.",
             quests = {
                 { id = 8949, name = "Falrin's Vendetta", npc = "Falrin Treeshaper" },
                 { id = 8950, name = "The Instigator's Enchantment", npc = "Falrin Treeshaper" },
@@ -173,8 +178,8 @@ SM.DungeonSetTwoData = {
         },
         {
             chapter = "The Challenge",
-            summary = "Win Theldren's challenge in Blackrock Depths so Anthion can continue the armor work.",
-            recap = "Theldren's challengers waited in the Ring of Law, where words meant little. You survived the arena, and Anthion had what he needed for the next pieces.",
+            summary = "The Banner of Provocation is ready, and Falrin Treeshaper knows where it belongs: the middle of the Ring of Law in Blackrock Depths, planted while the Dark Irons sentence you. Somebody is bound to take offense.",
+            recap = "Here's how you pick a fight in the Ring of Law on purpose. You walk into Blackrock Depths, let the Dark Irons sentence you, and while they're at it you plant the Banner of Provocation in the middle of the ring.\n\nTheldren took the hint. Theldren and his whole team of gladiators, all at once, while the crowd cheered for anybody but me. We beat them anyway. Theldren had been carrying the top piece of an amulet that once belonged to a Lord Valthalak. That name would come up again. Often.\n\nAnthion had a few parting words for me after that, and then it was home, where my boots, trousers and mantle got their turn.",
             quests = {
                 { id = 9015, name = "The Challenge", npc = "Falrin Treeshaper" },
                 { id = 8952, foreverId = 84180, name = "Anthion's Parting Words", npc = "Anthion Harmon", faction = "Alliance", class = "HUNTER" },
@@ -199,8 +204,9 @@ SM.DungeonSetTwoData = {
         },
         {
             chapter = "Bodley's Unfortunate Fate",
-            summary = "Find Bodley near Blackrock Spire and learn why Lord Valthalak's amulet matters.",
-            recap = "Bodley was frightened, talkative, and deeply entangled in Lord Valthalak's fate. Through him, the armor work became a matter of flame, reputation, and a shattered amulet.",
+            summaryAlliance = "Deliana in Ironforge has one more name for you: Bodley. Look near Blackrock Spire, in Blackrock Mountain, with the Ghost Revealer switched on. Without it, you won't see Bodley at all.",
+            summaryHorde = "Mokvar in Orgrimmar has one more name for you: Bodley. Look near Blackrock Spire, in Blackrock Mountain, with the Ghost Revealer switched on. Without it, you won't see Bodley at all.",
+            recap = "Back home they pointed me at Blackrock Mountain, Ghost Revealer in hand. Somewhere near the Spire, they said, I'd find somebody. I switched it on, and there was Bodley. Dead, like most of my acquaintances that season, and with a great deal to say about Lord Valthalak.\n\nWhat it came down to was fire. Three kings of flame, Bodley called them. I fetched a piece of each, and a hallowed brazier to hold them, and brought the lot back to a ghost inside a mountain.\n\nWhat came out of that was a brazier for calling up the dead. Bodley seemed to think that was good news. Bodley's standards have changed.",
             quests = {
                 { id = 8323, name = "True Believers", npc = "Hermit Ortell", optional = true },
                 { id = 8960, name = "Bodley's Unfortunate Fate", npc = "Deliana", faction = "Alliance" },
@@ -210,8 +216,8 @@ SM.DungeonSetTwoData = {
         },
         {
             chapter = "The Amulet of Lord Valthalak",
-            summary = "Recover the amulet pieces and components Bodley names from the old dungeons of Azeroth.",
-            recap = "The amulet hunt sent you after pieces, components, and summoned echoes in dangerous places. Each recovery brought Lord Valthalak's broken pride closer to being called forth.",
+            summary = "Bodley, in Blackrock Mountain, wants Lord Valthalak's amulet whole again. You have the top piece; the left and right are still missing. Bodley's plan for finding them begins, as these things do, with fetching something old.",
+            recap = "Theldren had given me the top of Lord Valthalak's amulet. Bodley wanted the left and the right, and there's only one way to get them. Bodley names some old relic, you fetch it, and you light the brazier in the right dungeon. Somebody long dead comes out of it, angry, carrying a piece of the amulet. You kill them again. Then you do the whole thing over for the other side.\n\nSomewhere in the middle, Bodley gave me a long look and announced, I see Alcaz Island in your future. Bodley was right. Twenty bloodkelp, off the naga out there.\n\nI never did find out what a ghost wants with twenty bloodkelp.",
             quests = {
                 { id = 8963, altIds = { 8962, 8965, 8964 }, name = "Components of Importance", npc = "Bodley" },
                 { id = 8968, altIds = { 8969, 8966, 8967 }, name = "The Left Piece of Lord Valthalak's Amulet", npc = "Bodley" },
@@ -222,8 +228,8 @@ SM.DungeonSetTwoData = {
         },
         {
             chapter = "Final Preparations",
-            summary = "Gather the final materials and ready the Brazier of Invocation for Upper Blackrock Spire.",
-            recap = "The last preparations made the brazier ready. After ghosts, goblins, gladiators, and dungeon shades, the path narrowed to the chamber where Valthalak could answer.",
+            summary = "Lord Valthalak's amulet is whole again, and Bodley isn't finished with it. First come the final preparations: forty Blackrock bracers and a Flask of Supreme Power, carried back to Blackrock Mountain.",
+            recap = "With the amulet whole again, Bodley wanted it used. A Flask of Supreme Power and a sack of Blackrock bracers later, I was in Upper Blackrock Spire, in the Beast's old room, lighting the brazier one last time.\n\nLord Valthalak answered. Lord Valthalak was not happy to be called. We put him down, and then came the strangest part of the whole business: I held his own amulet over his corpse, then handed it to his ghost, who sent me back to Bodley.\n\nBodley called this part Mea Culpa. I took it for an apology. Bodley's, not mine.",
             quests = {
                 { id = 8994, name = "Final Preparations", npc = "Bodley" },
                 { id = 8995, name = "Mea Culpa, Lord Valthalak", npc = "Bodley" },
@@ -234,8 +240,9 @@ SM.DungeonSetTwoData = {
         },
         {
             chapter = "Saving the Best for Last",
-            summary = "Return to Deliana or Mokvar for the final exchange and complete the armor upgrade.",
-            recap = "You returned to the one who started the work with a full trail behind you: rescues, bargains, spirits, and old dungeons. The final pieces made the upgraded set a record of where you had been.",
+            summaryAlliance = "Back where it all began. Deliana in Ironforge is waiting for the last pieces of your old dungeon set, the cap and the tunic. After everything since the bracers, it seems a small thing to ask.",
+            summaryHorde = "Back where it all began. Mokvar in Orgrimmar is waiting for the last pieces of your old dungeon set, the cap and the tunic. After everything since the bracers, it seems a small thing to ask.",
+            recap = "The last stop was the first one. I went back to where all of this started, with the cap and tunic of my old set, and handed them over. Saving the best for last, apparently.\n\nWhat came back finished the set. To anyone else it's just good armor. But I know what's in it: a goblin's ghost machine, a race through Stratholme, a brawl in the Ring of Law, and one dead lord who got his amulet back from my own hand.\n\nPeople ask where I got it. I tell them it's a long story. Then, if they're buying, I tell them this one.",
             quests = {
                 { id = 9000, foreverId = 84196, name = "Saving the Best for Last", npc = "Deliana", faction = "Alliance", class = "HUNTER" },
                 { id = 9001, foreverId = 84197, name = "Saving the Best for Last", npc = "Deliana", faction = "Alliance", class = "MAGE" },

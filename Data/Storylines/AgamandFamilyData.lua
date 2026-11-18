@@ -62,8 +62,8 @@ SM.AgamandFamilyData = {
     chapters = {
         {
             chapter = "The Haunted Mills",
-            summary = "Go north of Brill to the Agamand Mills, clear the dead, and recover what remains of the family.",
-            recap = "The Agamand Mills still bore the family name, though the family itself had joined Tirisfal's dead. You brought Coleman Farthing the remains he asked for and helped clear the grounds for Brill.",
+            summary = "The Scourge are trying to dig in at the Agamand Mills, northwest of Brill, and Deathguard Dillinger wants them beaten back. Coleman Farthing, at the Gallows' End Tavern, once worked those mills and has his own business with the family that owned them.",
+            recap = "The Agamands owned the mills north of Brill, back when they were alive. They're still there. They just don't run the place anymore.\n\nThe deathguard wanted the grounds cleared, and Coleman Farthing wanted something more personal: the family. Devlin Agamand haunts those mills, and Coleman wanted Devlin's remains, and then the remains of the rest of them, one after another. The whole family, one sack at a time.\n\nSomewhere in the middle of it I came across a letter one of the Agamands had written and never got round to delivering. So I delivered it. Late, admittedly. The post in Tirisfal has never been quick.\n\nColeman had wanted proof of what became of the Agamands. I brought back most of the Agamands. That seemed to settle the question.",
             quests = {
                 { id = 404, name = "A Putrid Task", npc = "Deathguard Dillinger" },
                 { id = 426, name = "The Mills Overrun", npc = "Deathguard Dillinger" },
@@ -74,8 +74,8 @@ SM.AgamandFamilyData = {
         },
         {
             chapter = "The Family Crypt",
-            summary = "Take Coleman's concern to Magistrate Sevren and descend into the crypt beneath the mills.",
-            recap = "Magistrate Sevren knew the trouble went below the mills. In the family crypt you found older dead, wailing ancestors, and Captain Dargol's skull, ending the matter one grave at a time.",
+            summary = "Coleman Farthing has had his revenge on the Agamands, but says the mills still threaten every Forsaken in Tirisfal. Magistrate Sevren in Brill has heard about your work out there and wants a word.",
+            recap = "Coleman sent me on to Magistrate Sevren, and Sevren had heard things about the crypt under the mills. Turns out the Agamands I'd already met weren't the only Agamands. There were older ones down in the dark, generations of them, and not one of them was resting.\n\nSo down I went. Wailing ancestors and rotting ancestors, and the wailing ones are worse. Take my word for it. A rotting ancestor goes down easily enough, but a wailing one stays in your ears for days.\n\nAt the back of it all was Captain Dargol. I brought the captain's skull back to Sevren, and that was the end of the Agamand family's trouble, as far as Brill was concerned. One grave at a time, every one of them left quieter than I found it.",
             quests = {
                 { id = 355, name = "Speak with Sevren", npc = "Coleman Farthing" },
                 { id = 408, name = "The Family Crypt", npc = "Magistrate Sevren" },

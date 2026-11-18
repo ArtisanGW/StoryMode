@@ -46,8 +46,8 @@ SM.ClassicMageQuestData = {
             chapter = "Boughs in the Wind",
             requiredLevel = 10,
             gameVersions = { forever = true },
-            summary = "Take part in one of the High Order's oldest traditions and seek out Belann Windwood in Valanaar to craft a spell focus of your own.",
-            recap = "Belann Windwood had shaped staves and wands for the High Order for more than a century, and he asked only for a fallen bough from the oldest trees of Zephras, touched by the wind. You found one and brought it to him, and from it he made a focus that was yours alone.",
+            summary = "Belann Windwood in Valanaar has made staves and wands for the High Order's mages for more than a century, and now it's your turn to visit. Belann keeps one of the order's oldest traditions. It asks for a fallen bough, and Belann is particular.",
+            recap = "Every mage needs a focus, and the clever ones have theirs made by the best. In Valanaar, the best is Belann Windwood, who has been shaping staves and wands for the High Order for more than a century.\n\nThe price is one of the order's oldest traditions: a fallen bough from the oldest trees on the isle, the kind the wind has been working on longer than anyone has kept count. A Wind-Infused Bough, to be precise, and I always am.\n\nYou'd think a fallen branch would be easy to find. Fallen branches are everywhere. The right one is not. I found it anyway, because I'm good at this.\n\nOut of it Belann made a focus that answers to me and nobody else. It's a tradition, apparently. I prefer to think of it as overdue recognition.",
             quests = {
                 { id = 93791, name = "Speak with Belann", race = "Skyborne", location = "Zephras Isle", gameVersions = { forever = true } },
                 { id = 93797, name = "Boughs in the Wind", npc = "Belann Windwood", race = "Skyborne", location = "Belann Windwood, Valanaar, Zephras Isle", gameVersions = { forever = true } },
@@ -56,8 +56,8 @@ SM.ClassicMageQuestData = {
         {
             chapter = "Mage's Wand",
             requiredLevel = 30,
-            summary = "Go to Tabetha in Dustwallow Marsh, recover the knowledge she needs, and prepare a wand of your chosen school.",
-            recap = "Tabetha's work asked for texts, materials, and a measure of field sense. When the ritual was complete, your studies had a proper focus in hand.",
+            summary = "Your trainer says it's time you met Tabetha. She lives out in Dustwallow Marsh, far from any library, and she's where trainers send a mage once book learning stops being enough.",
+            recap = "Tabetha lives out in Dustwallow Marsh, and she's who the trainers send you to when you're ready for a wand. Practical sort. Knows her business.\n\nShe wanted a book called Rituals of Power, which Magus Tirth keeps in a strongbox out on the Shimmering Flats. The box only opens to the right phrase, and nobody was going to just tell me the phrase. I had to go and find it. Frankly, that was the easiest part of the whole affair. Words are what I do.\n\nAfter a little shopping, jade and a bramble with lightning still crackling in it, Tabetha did her ritual. I watched very closely. I walked out with a wand of my own school.\n\nMost people think a wand is a stick that throws sparks. Most people are right. But it's my stick, and the sparks go exactly where I tell them.",
             quests = {
                 { id = 1947, name = "Journey to the Marsh", npc = "Jennea Cannon", faction = "Alliance", mapID = 84, x = 0.3854, y = 0.7934, location = "Jennea Cannon, Stormwind" },
                 { id = 1947, name = "Journey to the Marsh", npc = "Deino", faction = "Horde", mapID = 85, x = 0.3845, y = 0.8613, location = "Deino, Orgrimmar" },
@@ -71,8 +71,8 @@ SM.ClassicMageQuestData = {
         {
             chapter = "Polymorph: Pig",
             requiredLevel = 60,
-            summary = "Answer Archmage Xylem's request in Azshara and study the magic left by Warlord Krellian.",
-            recap = "Krellian's magic broke apart in curious ways, and Xylem knew what to make of it. The result was odd, useful, and unmistakably a mage's lesson.",
+            summary = "Archmage Xylem lives in a tower atop the cliffs of Azshara, about as far from anyone as a tower can get. Xylem wants a Prismatic Shell, and a warlord named Krellian has one. Archmages call this research.",
+            recap = "Archmage Xylem keeps a tower on the cliffs of Azshara, and when an archmage that far from anywhere asks for help, it's never boring.\n\nThe errand was a Prismatic Shell, and a warlord called Krellian had one. Had. The real work came after. Polymorph does something odd to the Spitelash naga. Turn one into a sheep, and a few seconds later a copy of it falls out of the spell, as though the magic can't decide what it's holding. You kill the copy. Xylem needed fifty.\n\nFifty. I sheeped half the coast. It was the most scientific afternoon of my life.\n\nAnd what do fifty scraps of broken magic teach you? How to turn someone into a pig. Is a pig better than a sheep? It's funnier, and I've come to believe that counts.",
             quests = {
                 { id = 9362, name = "Warlord Krellian", npc = "Archmage Xylem", mapID = 76, x = 0.2971, y = 0.4052, location = "Archmage Xylem, Azshara" },
                 { id = 90789, name = "Scalebeard", npc = "Archmage Xylem", optional = true, mapID = 76, x = 0.2971, y = 0.4052, location = "Archmage Xylem, Azshara", gameVersions = { forever = true } },
@@ -82,8 +82,8 @@ SM.ClassicMageQuestData = {
         {
             chapter = "Arcane Refreshment",
             requiredLevel = 60,
-            summary = "Enter Dire Maul and recover the knowledge Lorekeeper Lydros keeps in the Athenaeum.",
-            recap = "Lorekeeper Lydros entrusted you with a spell every company of adventurers comes to value. Power is not always flame and frost; sometimes it is preparation.",
+            summary = "Deep in Dire Maul, Lorekeeper Lydros still keeps the Athenaeum, and still knows a spell or two worth learning. The price is the essence of Hydrospawn, a water elemental loose in the Warpwood Quarter. Lydros calls that a fair trade.",
+            recap = "Dire Maul has a library, the Athenaeum, and in it sits Lorekeeper Lydros, who looks after a great many books and a few very good spells. I liked Lydros at once. Anyone who stays in a ruin for the reading has their priorities in order.\n\nThe spell's price was the essence of Hydrospawn, a water elemental loose in the Warpwood Quarter. Hydrospawn didn't care to be anybody's price. It was a damp afternoon. I brought the essence back.\n\nWhat I got for it isn't flashy. No fire, no frost, nothing anyone will write a song about. But a fight is a short thing between two long rests. Anyone can throw a fireball. Not everyone can bring refreshments, and at the end of a long day underground, you'd be amazed which one people remember.",
             quests = {
                 { id = 7463, name = "Arcane Refreshment", npc = "Lorekeeper Lydros", mapID = 234, x = 0.2470, y = 0.6480, location = "Lorekeeper Lydros, Athenaeum, Dire Maul" },
             },
