@@ -420,83 +420,9 @@ dTitle:SetJustifyH("CENTER"); dTitle:SetWordWrap(false)
 dTitle:SetTextColor(C_GOLD[1], C_GOLD[2], C_GOLD[3])
 
 local ADVENTURE_COVER = SM.AdventureCover
-local ADVENTURE_COVER_W = ADVENTURE_COVER.width
-local ADVENTURE_COVER_H = ADVENTURE_COVER.height
-local ADVENTURE_COVER_TEX_LEFT = ADVENTURE_COVER.texLeft
-local ADVENTURE_COVER_TEX_RIGHT = ADVENTURE_COVER.texRight
-local ADVENTURE_COVER_TEX_TOP = ADVENTURE_COVER.texTop
-local ADVENTURE_COVER_TEX_BOTTOM = ADVENTURE_COVER.texBottom
-
-local aCoverFrame = CreateFrame("Frame", nil, detailChild)
-aCoverFrame:SetSize(ADVENTURE_COVER_W, ADVENTURE_COVER_H)
-aCoverFrame:Hide()
-
-local aCoverTexture = aCoverFrame:CreateTexture(nil, "ARTWORK")
-aCoverTexture:SetPoint("CENTER")
-aCoverTexture:SetSize(ADVENTURE_COVER_W, ADVENTURE_COVER_H)
-aCoverTexture:SetTexCoord(
-    ADVENTURE_COVER_TEX_LEFT,
-    ADVENTURE_COVER_TEX_RIGHT,
-    ADVENTURE_COVER_TEX_TOP,
-    ADVENTURE_COVER_TEX_BOTTOM
-)
--- Darkened a little so the title and level read on bright or busy covers.
-aCoverTexture:SetVertexColor(0.6, 0.6, 0.6)
-
--- Soft-edge fade mask: alpha-channel rounded rect that fades to transparent on
--- all four sides. Authored in Figma, exported as 32-bit TGA. The mask stretches
--- to fit the cover, so changing fade thickness is a matter of re-exporting.
-local aCoverFadeMask = aCoverFrame:CreateMaskTexture()
-aCoverFadeMask:SetTexture(COVER_FADE_MASK_TEXTURE, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
-aCoverFadeMask:SetAllPoints(aCoverTexture)
-aCoverTexture:AddMaskTexture(aCoverFadeMask)
-
-local aCoverTitle = aCoverFrame:CreateFontString(nil, "OVERLAY", "QuestFont_Huge")
-aCoverTitle:SetPoint("CENTER", aCoverFrame, "CENTER", 0, 0)
-aCoverTitle:SetWidth(ADVENTURE_COVER_W - 56)
-aCoverTitle:SetJustifyH("CENTER")
-aCoverTitle:SetWordWrap(false)
-aCoverTitle:SetTextColor(C_GOLD[1], C_GOLD[2], C_GOLD[3])
-do
-    local font, _, flags = aCoverTitle:GetFont()
-    aCoverTitle:SetFont(font, 30, flags)
-end
-aCoverTitle:SetShadowColor(0, 0, 0, 1)
-aCoverTitle:SetShadowOffset(2, -2)
-
--- Gold gradient divider under the title (matches achievements page style).
-local aCoverDivider = CreateFrame("Frame", nil, aCoverFrame)
-aCoverDivider:SetHeight(1)
-local aCoverDividerL = aCoverDivider:CreateTexture(nil, "OVERLAY")
-aCoverDividerL:SetTexture(SOLID)
-aCoverDividerL:SetHeight(1)
-aCoverDividerL:SetPoint("LEFT",  aCoverDivider, "LEFT",   0, 0)
-aCoverDividerL:SetPoint("RIGHT", aCoverDivider, "CENTER", 0, 0)
-aCoverDividerL:SetGradient("HORIZONTAL",
-    CreateColor(C_GOLD[1], C_GOLD[2], C_GOLD[3], 0),
-    CreateColor(C_GOLD[1], C_GOLD[2], C_GOLD[3], 0.7))
-local aCoverDividerR = aCoverDivider:CreateTexture(nil, "OVERLAY")
-aCoverDividerR:SetTexture(SOLID)
-aCoverDividerR:SetHeight(1)
-aCoverDividerR:SetPoint("LEFT",  aCoverDivider, "CENTER", 0, 0)
-aCoverDividerR:SetPoint("RIGHT", aCoverDivider, "RIGHT",  0, 0)
-aCoverDividerR:SetGradient("HORIZONTAL",
-    CreateColor(C_GOLD[1], C_GOLD[2], C_GOLD[3], 0.7),
-    CreateColor(C_GOLD[1], C_GOLD[2], C_GOLD[3], 0))
-
-local aCoverLevel = SM.NoShadow(aCoverFrame:CreateFontString(nil, "OVERLAY", "QuestFont"))
-aCoverLevel:SetJustifyH("CENTER")
-aCoverLevel:SetWordWrap(false)
-aCoverLevel:SetTextColor(C_BODY[1], C_BODY[2], C_BODY[3])
-aCoverLevel:SetShadowColor(0, 0, 0, 1)
-aCoverLevel:SetShadowOffset(1, -1)
-aCoverLevel:Hide()
-
-local adventureCoverFrame = {
-    texture = aCoverTexture,
-    title = aCoverTitle,
-    level = aCoverLevel,
-}
+-- The Adventure tab's cover (AdventureCover.lua builds and fills it).
+local adventureCoverFrame = SM.CreateAdventureCover(detailChild)
+local aCoverFrame = adventureCoverFrame.frame
 
 -- ════════════════════════════════════════════════════════════════════════════
 -- STORY TAB elements
@@ -1335,16 +1261,16 @@ SM.DetailUI = {
     C_DIM = C_DIM,
     RING_GREEN = { RING_GREEN_R, RING_GREEN_G, RING_GREEN_B },
     RING_GOLD = { RING_GOLD_R, RING_GOLD_G, RING_GOLD_B },
-    ADVENTURE_COVER_W = ADVENTURE_COVER_W,
-    ADVENTURE_COVER_TEX_LEFT = ADVENTURE_COVER_TEX_LEFT,
-    ADVENTURE_COVER_TEX_RIGHT = ADVENTURE_COVER_TEX_RIGHT,
-    ADVENTURE_COVER_TEX_TOP = ADVENTURE_COVER_TEX_TOP,
-    ADVENTURE_COVER_TEX_BOTTOM = ADVENTURE_COVER_TEX_BOTTOM,
+    ADVENTURE_COVER_W = ADVENTURE_COVER.width,
+    ADVENTURE_COVER_TEX_LEFT = ADVENTURE_COVER.texLeft,
+    ADVENTURE_COVER_TEX_RIGHT = ADVENTURE_COVER.texRight,
+    ADVENTURE_COVER_TEX_TOP = ADVENTURE_COVER.texTop,
+    ADVENTURE_COVER_TEX_BOTTOM = ADVENTURE_COVER.texBottom,
     aCoverFrame = aCoverFrame,
-    aCoverTexture = aCoverTexture,
-    aCoverTitle = aCoverTitle,
-    aCoverDivider = aCoverDivider,
-    aCoverLevel = aCoverLevel,
+    aCoverTexture = adventureCoverFrame.texture,
+    aCoverTitle = adventureCoverFrame.title,
+    aCoverDivider = adventureCoverFrame.divider,
+    aCoverLevel = adventureCoverFrame.level,
     sIntro = sIntro,
     sTrackBtn = sTrackBtn,
     sTrackBtnSecure = sTrackBtnSecure,

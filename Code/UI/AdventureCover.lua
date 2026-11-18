@@ -293,6 +293,70 @@ local function ApplyAdventureCoverTexCoords(tex, texture, isLoadingScreen, texCo
     tex:SetTexCoord(FitCoverCrop(left, right, top, bottom, tex:GetWidth(), tex:GetHeight()))
 end
 
+-- Builds the Adventure tab's cover on parent: the picture, darkened a little
+-- so the title and level read on bright or busy art, under a soft-edge fade
+-- mask; the title with a gold divider under it; and the suggested level.
+-- ApplyAdventureCoverFrame fills it for a story and LayoutStoryTab places it.
+function SM.CreateAdventureCover(parent)
+    local gold, body = SM.UIColors.gold, SM.UIColors.body
+    local solid = SM.SOLID_TEXTURE
+
+    local frame = CreateFrame("Frame", nil, parent)
+    frame:SetSize(ADVENTURE_COVER_W, ADVENTURE_COVER_H)
+    frame:Hide()
+
+    local texture = frame:CreateTexture(nil, "ARTWORK")
+    texture:SetPoint("CENTER")
+    texture:SetSize(ADVENTURE_COVER_W, ADVENTURE_COVER_H)
+    texture:SetTexCoord(ADVENTURE_COVER_TEX_LEFT, ADVENTURE_COVER_TEX_RIGHT,
+        ADVENTURE_COVER_TEX_TOP, ADVENTURE_COVER_TEX_BOTTOM)
+    texture:SetVertexColor(0.6, 0.6, 0.6)
+
+    -- Soft-edge fade mask: alpha-channel rounded rect that fades to transparent
+    -- on all four sides. Authored in Figma, exported as 32-bit TGA. The mask
+    -- stretches to fit the cover, so changing fade thickness is a matter of
+    -- re-exporting.
+    local fadeMask = frame:CreateMaskTexture()
+    fadeMask:SetTexture(SM.CoverFadeMaskTexture, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+    fadeMask:SetAllPoints(texture)
+    texture:AddMaskTexture(fadeMask)
+
+    local title = frame:CreateFontString(nil, "OVERLAY", "QuestFont_Huge")
+    title:SetPoint("CENTER", frame, "CENTER", 0, 0)
+    title:SetWidth(ADVENTURE_COVER_W - 56)
+    title:SetJustifyH("CENTER")
+    title:SetWordWrap(false)
+    title:SetTextColor(gold[1], gold[2], gold[3])
+    local font, _, flags = title:GetFont()
+    title:SetFont(font, 30, flags)
+    title:SetShadowColor(0, 0, 0, 1)
+    title:SetShadowOffset(2, -2)
+
+    -- Gold gradient divider under the title (matches achievements page style).
+    local divider = CreateFrame("Frame", nil, frame)
+    divider:SetHeight(1)
+    for _, half in ipairs({ { "LEFT", "CENTER", 0, 0.7 }, { "CENTER", "RIGHT", 0.7, 0 } }) do
+        local line = divider:CreateTexture(nil, "OVERLAY")
+        line:SetTexture(solid)
+        line:SetHeight(1)
+        line:SetPoint("LEFT", divider, half[1], 0, 0)
+        line:SetPoint("RIGHT", divider, half[2], 0, 0)
+        line:SetGradient("HORIZONTAL",
+            CreateColor(gold[1], gold[2], gold[3], half[3]),
+            CreateColor(gold[1], gold[2], gold[3], half[4]))
+    end
+
+    local level = SM.NoShadow(frame:CreateFontString(nil, "OVERLAY", "QuestFont"))
+    level:SetJustifyH("CENTER")
+    level:SetWordWrap(false)
+    level:SetTextColor(body[1], body[2], body[3])
+    level:SetShadowColor(0, 0, 0, 1)
+    level:SetShadowOffset(1, -1)
+    level:Hide()
+
+    return { frame = frame, texture = texture, title = title, divider = divider, level = level }
+end
+
 function SM.ApplyAdventureCoverFrame(cover, data, displayTitle)
     if not cover or not cover.texture then return end
     if cover.title then
