@@ -1,5 +1,43 @@
 # Changelog
 
+## 2.0.0
+
+### WoW Forever
+- Story Mode now runs on WoW Forever, in a window built from Forever's own Legacy screens: Adventure, Progress, and Journal tabs, quest cards with each quest's objective and giver, and a header bar that tracks the selected story
+- Added seven stories of Forever's own: **Twilight in the Riverglades**, **The Secret Prison**, **The Valley of Bones**, **Azshara Reclaimed**, **The Dying God**, **The Fate of Zephras**, and **The Cozy Sleeping Bag**
+- The old-world stories include Forever's new quests, such as the Valor family of Raven Hill in Duskwood, the Apothecarium in **A New Plague**, and the Barrens lead-in to **The Shady Rest Inn**
+- The rogue story follows the letter signed C and Ravenholdt's war on the Syndicate, and the hunter story keeps the Rhok'delar bow quests
+- Choose **Guided** or **Explorer** on the start page; in Explorer each quest stays hidden until you reach it
+- Quest givers show the model the game gives them, quest objectives show in every client language, and finished quests show the day you turned them in
+- Suggested levels come from Forever's own quests, and story covers use Forever's art where it has its own
+- Story Mode no longer taints chat on Forever
+
+### Journal
+- Every old-world story's journal is retold in the first person, the way your character would tell it over a drink, and class stories sound like the class. The journal is now titled **As I Remember It**
+- Chapter intros say who's asking and why, never how it ends, and six story descriptions that gave away the plot are rewritten
+- Stories where the Alliance and the Horde start with different people only tell your side
+- Languages that change words with the narrator's gender, such as Russian, follow your character's
+
+### Classic Era and Burning Crusade Classic
+- Old-world stories are sorted into **Epic Stories**, **Stories**, and **Short Stories** by length, and several have clearer titles: **The Road to Ravenholdt**, **Legends of Maraudon**, **The Key to Scholomance**, **Wanted: Hogger**, and **Arugal's Folly**. Saved progress and shared links keep working
+- Checked every story's quests against the game: corrected givers and order in **The Key to Scholomance**, **Secrets of Uldaman**, **Legends of Maraudon**, **Raene's Cleansing**, **The Scarlet Crusade**, and the class stories, and added missing steps to the rogue, druid, hunter, shaman, warlock, and warrior stories
+- Fixed three map pins: Melyria at the Shrine of Aessina, Mokvar in Orgrimmar, and the Scholomance key quest in Stratholme
+
+### Fixes
+- The start page no longer comes up blank, or with a stray scroll bar, after a reload
+- Story covers keep their art's shape instead of stretching 4:3 loading screens
+- The start page logo has smooth edges, and its background is dimmed so the logo stands out
+- A story's quest count includes optional quests, so you can see what's left after the story ends
+
+### Localization
+- Forever stories use the names the game shows in each language for quests, characters, and places
+- All new text is in every client language
+
+### Maintenance
+- Bumped addon metadata to `2.0.0`
+- Split the Classic class quests into one file per class
+- Added the journal voice guide (`_Dev/journal-voice.md`) and tools that check Forever's quests against outside data
+
 ## 1.10.0
 
 ### Localization
