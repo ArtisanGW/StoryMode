@@ -52,7 +52,15 @@ Data\Storylines\AgamandFamilyData.lua
 Data\Storylines\KingsTributeData.lua
 Data\Storylines\MankriksWifeData.lua
 Data\Storylines\ShadyRestInnData.lua
-Data\ClassQuests\ClassicClassQuestData.lua
+Data\ClassQuests\ClassicDruidQuestData.lua
+Data\ClassQuests\ClassicHunterQuestData.lua
+Data\ClassQuests\ClassicMageQuestData.lua
+Data\ClassQuests\ClassicPaladinQuestData.lua
+Data\ClassQuests\ClassicPriestQuestData.lua
+Data\ClassQuests\ClassicRogueQuestData.lua
+Data\ClassQuests\ClassicShamanQuestData.lua
+Data\ClassQuests\ClassicWarlockQuestData.lua
+Data\ClassQuests\ClassicWarriorQuestData.lua
 Data\Forever\ForeverQuestIDs.lua
 Data\Forever\ForeverQuestText.lua
 Data\Forever\ForeverStoryLevels.lua

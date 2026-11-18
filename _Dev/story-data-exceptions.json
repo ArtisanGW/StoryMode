@@ -8,75 +8,27 @@
     },
     {
       "type": "duplicate-quest-in-story",
-      "file": "Data/ClassQuests/ClassicClassQuestData.lua",
-      "quest": 31,
-      "reason": "Classic druid aquatic form data repeats shared breadcrumb/recovery steps across race-specific variants."
-    },
-    {
-      "type": "duplicate-quest-in-story",
-      "file": "Data/ClassQuests/ClassicClassQuestData.lua",
-      "quest": 6074,
-      "reason": "Classic druid aquatic form data repeats shared breadcrumb/recovery steps across race-specific variants."
-    },
-    {
-      "type": "duplicate-quest-in-story",
-      "file": "Data/ClassQuests/ClassicClassQuestData.lua",
+      "file": "Data/ClassQuests/ClassicMageQuestData.lua",
       "quest": 1947,
-      "reason": "Classic hunter Rhok'delar data repeats shared Ancient Petrified Leaf handoff steps across class-weapon variants."
+      "reason": "Journey to the Marsh is listed once per faction: Jennea Cannon gives it in Stormwind, Deino in Orgrimmar."
     },
     {
       "type": "duplicate-quest-in-story",
-      "file": "Data/ClassQuests/ClassicClassQuestData.lua",
-      "quest": 1793,
-      "reason": "Classic mage Arcane Refreshment data repeats shared mage-training handoff steps used by adjacent class quest variants."
-    },
-    {
-      "type": "duplicate-quest-in-story",
-      "file": "Data/ClassQuests/ClassicClassQuestData.lua",
-      "quest": 7622,
-      "reason": "Classic paladin charger data repeats shared mount-chain handoff steps across faction/race variants."
-    },
-    {
-      "type": "duplicate-quest-in-story",
-      "file": "Data/ClassQuests/ClassicClassQuestData.lua",
-      "quest": 2360,
-      "reason": "Classic priest Benediction data repeats shared class-weapon handoff steps across race-specific variants."
-    },
-    {
-      "type": "duplicate-quest-in-story",
-      "file": "Data/ClassQuests/ClassicClassQuestData.lua",
+      "file": "Data/ClassQuests/ClassicRogueQuestData.lua",
       "quest": 6681,
-      "reason": "Classic rogue Ravenholdt data repeats shared rogue progression steps across poison and class-quest variants."
+      "reason": "The Manor, Ravenholdt is listed once per faction: Osborne the Night Man gives it in Stormwind, Gest in Orgrimmar."
     },
     {
       "type": "duplicate-quest-in-story",
-      "file": "Data/ClassQuests/ClassicClassQuestData.lua",
-      "quest": 1516,
-      "reason": "Classic rogue Ravenholdt data repeats shared rogue progression steps across poison and class-quest variants."
-    },
-    {
-      "type": "duplicate-quest-in-story",
-      "file": "Data/ClassQuests/ClassicClassQuestData.lua",
-      "quest": 1685,
-      "reason": "Classic shaman Elemental Mastery data repeats shared totem/class-progression handoff steps across variants."
-    },
-    {
-      "type": "duplicate-quest-in-story",
-      "file": "Data/ClassQuests/ClassicClassQuestData.lua",
+      "file": "Data/ClassQuests/ClassicWarlockQuestData.lua",
       "quest": 7562,
-      "reason": "Classic warlock Dreadsteed data repeats shared mount-chain handoff steps across adjacent warlock quest variants."
+      "reason": "Mor'zul Bloodbringer is listed once per faction: Spackle Thornberry gives it in Stormwind, Kurgul in Orgrimmar."
     },
     {
       "type": "duplicate-quest-in-story",
-      "file": "Data/ClassQuests/ClassicClassQuestData.lua",
-      "quest": 1638,
-      "reason": "Classic warlock Dreadsteed data repeats shared mount-chain handoff steps across adjacent warlock quest variants."
-    },
-    {
-      "type": "duplicate-quest-in-story",
-      "file": "Data/ClassQuests/ClassicClassQuestData.lua",
+      "file": "Data/ClassQuests/ClassicWarriorQuestData.lua",
       "quest": 1718,
-      "reason": "Classic warrior Whirlwind Weapon data repeats shared class-weapon handoff steps across warrior variants."
+      "reason": "The Islander is listed once per faction: Wu Shen gives it in Stormwind, Sorek in Orgrimmar."
     },
     {
       "type": "duplicate-quest-in-story",

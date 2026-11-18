@@ -2,14 +2,14 @@
   "exceptions": [
     {
       "type": "fetch",
-      "file": "Data/ClassQuests/ClassicClassQuestData.lua",
+      "file": "Data/ClassQuests/ClassicDruidQuestData.lua",
       "quest": 6123,
       "source": "classic",
       "reason": "ClassicDB returns 500 for this old druid Cure Poison quest page; local start was checked against adjacent chain data."
     },
     {
       "type": "fetch",
-      "file": "Data/ClassQuests/ClassicClassQuestData.lua",
+      "file": "Data/ClassQuests/ClassicDruidQuestData.lua",
       "quest": 6128,
       "source": "classic",
       "reason": "ClassicDB returns 500 for this old druid Cure Poison quest page; local start was checked against adjacent chain data."
