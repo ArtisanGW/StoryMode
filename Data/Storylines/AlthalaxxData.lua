@@ -17,7 +17,7 @@ SM.AlthalaxxData = {
     color = { 0.38, 0.50, 0.64 },
     icon = 136145,
     portraitDisplayID = 4413,
-    adventureCoverTexture = 131878, -- Blackfathom Deeps loading screen; closest dark Night Elf ruin art
+    adventureCoverTexture = 131823, -- Blackfathom Deeps loading screen; closest dark Night Elf ruin art
     adventureCoverIsLoadingScreen = true,
 
     startQuest = { id = 965, name = "The Tower of Althalaxx", npc = "Sentinel Elissa Starbreeze", location = "Auberdine, Darkshore" },

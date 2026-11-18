@@ -17,7 +17,7 @@ SM.MissingCourierData = {
     color = { 0.30, 0.48, 0.70 },
     icon = 134328,
     portraitDisplayID = 2035,
-    adventureCoverTexture = 131878, -- Blackfathom Deeps: night elf coastal ruin mood closest to Feathermoon's investigation
+    adventureCoverTexture = 131823, -- Blackfathom Deeps: night elf coastal ruin mood closest to Feathermoon's investigation
     adventureCoverIsLoadingScreen = true,
 
     startQuest = { id = 4124, name = "The Missing Courier", npc = "Latronicus Moonspear", location = "Feathermoon Stronghold, Feralas" },
