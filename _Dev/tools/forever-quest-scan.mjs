@@ -891,6 +891,14 @@ function readCreatureModels(buffer) {
   return records;
 }
 
+// Givers whose own model shows nothing in a portrait, with a stand-in that
+// does. The Unfinished Abomination lies on Faranell's table, so the portrait
+// camera, which looks for a standing creature's head, finds empty space; it
+// gets the Classic abomination model (Stitches, Captive Abomination).
+const PORTRAIT_MODELS = {
+  "Unfinished Abomination": 1693,
+};
+
 async function writeNpcModels() {
   const locale = option("locale") || "enUS";
   const cacheFile = option("wdb") || path.join(gameDir, "Cache", "WDB", locale, "creaturecache.wdb");
@@ -926,7 +934,8 @@ async function writeNpcModels() {
         return at > 0 && !/[A-Za-z0-9']/.test(String.fromCharCode(record.body[at - 1])) && record.displays.length;
       })
       .sort((a, b) => a.id - b.id)[0];
-    if (hit) { models.set(name, hit.displays[0]); fromCache++; }
+    if (PORTRAIT_MODELS[name]) models.set(name, PORTRAIT_MODELS[name]);
+    else if (hit) { models.set(name, hit.displays[0]); fromCache++; }
     else if (kept.has(name)) { models.set(name, kept.get(name)); fromFile++; }
   }
   const lines = [...models].map(([name, display]) => `    ["${name}"] = ${display},`);
