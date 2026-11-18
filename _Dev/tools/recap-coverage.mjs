@@ -25,7 +25,8 @@ function luaEntries(text) {
 function recaps(file) {
   const text = read(file);
   const out = [];
-  const re = /recap = "((?:\\.|[^"\\])*)"/g;
+  // recap, or a faction's own journal entry (recapAlliance, recapHorde).
+  const re = /recap(?:Alliance|Horde)? = "((?:\\.|[^"\\])*)"/g;
   for (const match of text.matchAll(re)) {
     out.push(match[1]);
   }
