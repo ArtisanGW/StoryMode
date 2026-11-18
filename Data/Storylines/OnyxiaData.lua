@@ -59,6 +59,13 @@ SM.OnyxiaData = {
         ["Rexxar"] = 60766,
         ["Emberstrife"] = 6374,
         ["General Drakkisath"] = 10115,
+        -- Quest givers' models from the cmangos Classic database.
+        ["Helendis Riverhorn"] = 8694,
+        ["Magistrate Solomon"] = 1753,
+        ["Marshal Maxwell"] = 8685,
+        ["Haleh"] = 10199,
+        ["Warlord Goretooth"] = 8331,
+        ["Myranda the Hag"] = 11800,
     },
 
     chapterDisplayIDs = {

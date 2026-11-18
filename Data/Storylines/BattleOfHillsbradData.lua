@@ -37,11 +37,15 @@ SM.BattleOfHillsbradData = {
         ["Hillsbrad Town"] = { mapID = 25, x = 0.3100, y = 0.4200, location = "Hillsbrad, Hillsbrad Foothills" },
         ["Azureload Mine"] = { mapID = 25, x = 0.3000, y = 0.5800, location = "Azureload Mine, Hillsbrad Foothills" },
         ["Dun Garok"] = { mapID = 25, x = 0.6900, y = 0.7600, location = "Dun Garok, Hillsbrad Foothills" },
+        -- WoW Forever only; where Wowhead's Forever data places him.
+        ["Deathstalker Masoj"] = { mapID = 25, x = 0.6400, y = 0.5380, location = "Hillsbrad Foothills" },
     },
 
     npcDisplayIDs = {
         ["High Executor Darthalia"] = 1645,
         ["Varimathras"] = 11658,
+        -- Quest givers' models from Wowhead's WoW Forever data.
+        ["Deathstalker Masoj"] = 146378,
     },
 
     chapterDisplayIDs = {
@@ -83,9 +87,9 @@ SM.BattleOfHillsbradData = {
             summary = "March on Dun Garok and bring Darthalia the victory she needs for her sealed commendation.",
             recap = "Dun Garok stood as the last hard point in Darthalia's campaign. When its mountaineers, priests, riflemen, and Captain Ironhill were dead, her commendation could be carried to Varimathras.",
             quests = {
-                -- WoW Forever scouts the dwarves first: orders for Deathstalker Masoj outside Dun Garok.
+                -- WoW Forever scouts the dwarves first: orders for Deathstalker Masoj, in the hills north of Dun Garok.
                 { id = 98094, name = "Scout Support", npc = "High Executor Darthalia", gameVersions = { forever = true } },
-                { id = 98095, name = "Valuable Vantages", npc = "Deathstalker Masoj", location = "Dun Garok, Hillsbrad Foothills", gameVersions = { forever = true } },
+                { id = 98095, name = "Valuable Vantages", npc = "Deathstalker Masoj", gameVersions = { forever = true } },
                 { id = 541, name = "Battle of Hillsbrad", displayName = "Dun Garok", npc = "High Executor Darthalia" },
                 { id = 550, name = "Battle of Hillsbrad", displayName = "Darthalia's Commendation", npc = "High Executor Darthalia" },
             },

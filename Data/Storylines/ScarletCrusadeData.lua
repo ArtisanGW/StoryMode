@@ -84,6 +84,12 @@ SM.ScarletCrusadeData = {
         ["Crusader Lord Valdelmar"] = 11836,
         ["Tirion Fordring"] = 9477,
         ["Highlord Taelan Fordring"] = 10341,
+        -- Quest givers' models from the cmangos Classic database.
+        ["Brother Crowley"] = 13049,
+        ["High Executor Derrington"] = 10150,
+        ["Commander Ashlam Valorfist"] = 10151,
+        ["Artist Renfray"] = 11890,
+        ["Myranda the Hag"] = 11800,
     },
 
     chapterDisplayIDs = {
@@ -117,6 +123,7 @@ SM.ScarletCrusadeData = {
             summary = "Deathknell's newly risen are not alone. Strike the Scarlet converts and take the courier's message before it leaves the valley.",
             recap = "Deathknell taught the Forsaken their first lesson about Lordaeron's living survivors: the Scarlet Crusade did not see people, only infection. Executor Arren sent you against Scarlet converts and their courier, then read the stolen intelligence and understood the warning. The Crusade was watching Deathknell, counting the dead, and preparing for war.",
             quests = {
+                { id = 380, name = "Night Web's Hollow", npc = "Executor Arren" },
                 { id = 381, name = "The Scarlet Crusade", npc = "Executor Arren" },
                 { id = 382, name = "The Red Messenger", npc = "Executor Arren" },
                 { id = 383, name = "Vital Intelligence", npc = "Executor Arren" },
@@ -153,7 +160,7 @@ SM.ScarletCrusadeData = {
             summary = "Enter the Monastery's graveyard and library for prisoners, forbidden books, and the records the Crusade keeps locked away.",
             recap = "The Graveyard and Library showed the Crusade's order from the inside. Vorrel Sengutz lay tortured by Interrogator Vishas. Scholars wanted books the Crusade had locked away. Horde agents wanted the Compendium of the Fallen, and Parqual Fintallas wanted the book the Crusade used to teach itself how to fight the dead. Alliance scholars wanted the Mythology of the Titans. Every shelf and cell told the same truth: the Scarlet Crusade did not only kill enemies. It controlled what its followers were allowed to know.",
             quests = {
-                { id = 1051, name = "Vorrel's Revenge", npc = "Vorrel Sengutz" },
+                { id = 1051, name = "Vorrel's Revenge", npc = "Vorrel Sengutz", faction = "Horde" },
                 { id = 1049, name = "Compendium of the Fallen", npc = "Sage Truthseeker", faction = "Horde", excludeRace = "Scourge", parallel = true,
                     guidanceQuest = {
                         name = "Compendium of the Fallen",

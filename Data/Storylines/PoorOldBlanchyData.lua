@@ -34,6 +34,12 @@ SM.PoorOldBlanchyData = {
         ["What They Left Behind"] = "Interface\\Icons\\INV_Misc_Food_Wheat_02",
     },
 
+    npcDisplayIDs = {
+        -- Quest givers' models from the cmangos Classic database.
+        ["Farmer Furlbrow"] = 1944,
+        ["Verna Furlbrow"] = 1692,
+    },
+
     chapters = {
         {
             chapter = "What They Left Behind",

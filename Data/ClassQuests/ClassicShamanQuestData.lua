@@ -36,6 +36,24 @@ SM.ClassicShamanQuestData = {
         ["Elemental Mastery"] = 136075,
     },
 
+    npcDisplayIDs = {
+        -- Quest givers' models from the cmangos Classic database.
+        ["Canaga Earthcaller"] = 4532,
+        ["Searn Firewarder"] = 4534,
+        ["Telf Joolam"] = 4537,
+        ["Kardris Dreamseeker"] = 1360,
+        ["Bath'rah the Windwatcher"] = 4954,
+        -- Quest givers' models from Wowhead's WoW Forever data.
+        ["Eldrun Stormbreaker"] = 143525,
+        ["Teo Hammerstorm"] = 126743,
+        ["Windshaper Boro"] = 136975,
+        ["Braldir Ashmantle"] = 143528,
+        ["Olariaan Swiftburn"] = 145521,
+        ["Norric Lochthane"] = 143522,
+        ["Minor Manifestation of Earth"] = 12110,
+        ["Minor Manifestation of Water"] = 525,
+    },
+
     chapters = {
         {
             chapter = "Call of Earth",

@@ -79,6 +79,13 @@ SM.DuskwoodData = {
         ["Sven Yorgen"] = 4327,
         ["Morbent Fel"] = 4272,
         ["Stalvan Mistmantle"] = 1562,
+        -- Quest givers' models from the cmangos Classic database.
+        ["Tavernkeep Smitts"] = 1731,
+        ["Innkeeper Farley"] = 1291,
+        ["Caretaker Folsom"] = 1756,
+        ["Marshal Haggard"] = 1689,
+        ["Elaine Carevin"] = 1571,
+        ["Blind Mary"] = 915,
     },
 
     chapterDisplayIDs = {

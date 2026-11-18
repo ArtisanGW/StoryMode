@@ -42,6 +42,12 @@ SM.ClassicRogueQuestData = {
         ["Gest"] = 1327,
         ["Myrokos Silentform"] = 13150,
         ["Anastasia Miller"] = 144897,
+        -- Quest givers' models from the cmangos Classic database.
+        ["Master Mathias Shaw"] = 1736,
+        ["Agent Kearnen"] = 5783,
+        ["Doc Mixilpixil"] = 6446,
+        ["Taskmaster Fizzule"] = 5986,
+        ["Osborne the Night Man"] = 1507,
     },
 
     chapterIcons = {
@@ -59,6 +65,7 @@ SM.ClassicRogueQuestData = {
                 { id = 2360, name = "Mathias and the Defias", npc = "Master Mathias Shaw", faction = "Alliance", mapID = 84, x = 0.7578, y = 0.5984, location = "Master Mathias Shaw, Stormwind" },
                 { id = 2359, name = "Klaven's Tower", npc = "Agent Kearnen", faction = "Alliance", mapID = 52, x = 0.6849, y = 0.7008, location = "Agent Kearnen, Westfall" },
                 { id = 2607, name = "The Touch of Zanzil", npc = "Master Mathias Shaw", faction = "Alliance", mapID = 84, x = 0.7578, y = 0.5984, location = "Master Mathias Shaw, Stormwind" },
+                { id = 2608, name = "The Touch of Zanzil", npc = "Doc Mixilpixil", faction = "Alliance", mapID = 84, x = 0.7804, y = 0.5876, location = "Doc Mixilpixil, Stormwind" },
                 { id = 2609, name = "The Touch of Zanzil", npc = "Doc Mixilpixil", faction = "Alliance", mapID = 84, x = 0.7804, y = 0.5876, location = "Doc Mixilpixil, Stormwind" },
                 { id = 2460, name = "The Shattered Salute", npc = "Shenthul", faction = "Horde", mapID = 85, x = 0.4305, y = 0.5374, location = "Shenthul, Orgrimmar" },
                 { id = 2458, name = "Deep Cover", npc = "Shenthul", faction = "Horde", mapID = 85, x = 0.4305, y = 0.5374, location = "Shenthul, Orgrimmar" },

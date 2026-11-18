@@ -55,6 +55,38 @@ SM.ForeverZephrasIsleData = {
         ["Thrall"] = { mapID = 1454, x = 0.3200, y = 0.3780, location = "Grommash Hold, Orgrimmar" },
     },
 
+    npcDisplayIDs = {
+        -- Quest givers' models from the cmangos Classic database.
+        ["Highlord Bolvar Fordragon"] = 5566,
+        -- Quest givers' models from Wowhead's WoW Forever data.
+        ["Ailee Farheart"] = 136968,
+        ["Rorian the Dayseeker"] = 136966,
+        ["Halaan Hawk-Eye"] = 143583,
+        ["Falorne Fallwind"] = 136972,
+        ["Ventaari Brightwish"] = 139694,
+        ["Yala Windwatcher"] = 136971,
+        ["Aetheen of the Gales"] = 137339,
+        ["Hanaa Nightwind"] = 137338,
+        ["Constable Aonda"] = 138153,
+        ["Rathiril Sunlance"] = 138154,
+        ["Illaya Amberwind"] = 138155,
+        ["Sania Silverstream"] = 138143,
+        ["Missionary Jasaan"] = 139939,
+        ["Peacekeeper Vaaniel"] = 137817,
+        ["Valennia Stormfist"] = 137871,
+        ["Elaadrin Evengale"] = 138152,
+        ["Ayessa Dawnsinger"] = 137633,
+        ["Dondallion Whisperwind"] = 143666,
+        ["Fillion Flamebreeze"] = 137707,
+        ["Riaani Nightwind"] = 138120,
+        ["Lotheluum Starbreeze"] = 137418,
+        ["Elegael Thornpaw"] = 140525,
+        ["Yorana Windyreed"] = 137825,
+        ["Talaanis Shadowsong"] = 137873,
+        ["Hyusaa Quickbreeze"] = 137888,
+        ["Danaaris Stargale"] = 143215,
+    },
+
     chapters = {
         {
             chapter = "Coming of Age",

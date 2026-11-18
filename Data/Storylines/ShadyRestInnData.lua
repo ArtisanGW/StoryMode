@@ -48,6 +48,18 @@ SM.ShadyRestInnData = {
         ["The Hidden Hand"] = "Interface\\Icons\\Spell_Nature_EarthBindTotem",
     },
 
+    npcDisplayIDs = {
+        -- Quest givers' models from the cmangos Classic database.
+        ["Guard Byron"] = 2910,
+        ["Captain Garran Vimes"] = 2952,
+        ["Caz Twosprocket"] = 2950,
+        ["Adjutant Tesoran"] = 2953,
+        ["Balos Jacken"] = 3017,
+        ["Grunt Logmar"] = 4547,
+        ["Do'gol"] = 655,
+        ["Ogron"] = 10704,
+    },
+
     chapters = {
         {
             chapter = "The Ruins",

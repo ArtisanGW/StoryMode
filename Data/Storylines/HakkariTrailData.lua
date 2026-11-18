@@ -52,6 +52,12 @@ SM.HakkariTrailData = {
         ["The Hand of Rastakhan"] = 132117,
     },
 
+    npcDisplayIDs = {
+        -- Quest givers' models from the cmangos Classic database.
+        ["Yeh'kinya"] = 7902,
+        ["Prospector Ironboot"] = 10195,
+    },
+
     chapters = {
         {
             chapter = "Screecher Spirits",

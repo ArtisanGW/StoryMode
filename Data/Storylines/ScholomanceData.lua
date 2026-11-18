@@ -33,6 +33,7 @@ SM.ScholomanceData = {
     npcLocations = {
         ["Commander Ashlam Valorfist"] = { mapID = 22, x = 0.4300, y = 0.8400, location = "Chillwind Camp, Western Plaguelands" },
         ["High Executor Derrington"] = { mapID = 22, x = 0.8300, y = 0.6900, location = "the Bulwark, Tirisfal Glades" },
+        ["Leonid Barthalomew the Revered"] = { mapID = 23, x = 0.8160, y = 0.5780, location = "Light's Hope Chapel, Eastern Plaguelands" },
         ["Alchemist Arbington"] = { mapID = 22, x = 0.4300, y = 0.8400, location = "Chillwind Camp, Western Plaguelands" },
         ["Apothecary Dithers"] = { mapID = 22, x = 0.8300, y = 0.6900, location = "the Bulwark, Tirisfal Glades" },
         ["Krinkle Goodsteel"] = { mapID = 71, x = 0.5150, y = 0.2800, location = "Gadgetzan, Tanaris" },
@@ -59,6 +60,21 @@ SM.ScholomanceData = {
         ["The Sarkhoffs"] = 136122,
         ["Ras Frostwhisper"] = 135852,
         ["Barov Family Fortune"] = 133731,
+    },
+
+    npcDisplayIDs = {
+        -- Quest givers' models from the cmangos Classic database.
+        ["Commander Ashlam Valorfist"] = 10151,
+        ["High Executor Derrington"] = 10150,
+        ["Alchemist Arbington"] = 10551,
+        ["Apothecary Dithers"] = 10552,
+        ["Krinkle Goodsteel"] = 7217,
+        ["Eva Sarkhoff"] = 10895,
+        ["Magistrate Marduke"] = 10931,
+        ["Artist Renfray"] = 11890,
+        ["Weldon Barov"] = 10457,
+        ["Alexi Barov"] = 10456,
+        ["Leonid Barthalomew the Revered"] = 10474,
     },
 
     chapters = {
@@ -101,9 +117,9 @@ SM.ScholomanceData = {
             quests = {
                 { id = 5461, name = "The Human, Ras Frostwhisper", npc = "Magistrate Marduke" },
                 { id = 5462, name = "The Dying, Ras Frostwhisper", npc = "Magistrate Marduke" },
-                { id = 5463, name = "Menethil's Gift", npc = "Artist Renfray" },
+                { id = 5463, name = "Menethil's Gift", npc = "Leonid Barthalomew the Revered" },
                 { id = 5464, name = "Menethil's Gift", npc = "Menethil's Gift", mapID = 22, x = 0.7000, y = 0.7300, location = "Caer Darrow, Western Plaguelands" },
-                { id = 5465, name = "Soulbound Keepsake", npc = "Magistrate Marduke" },
+                { id = 5465, name = "Soulbound Keepsake", npc = "Leonid Barthalomew the Revered" },
                 { id = 5466, name = "The Lich, Ras Frostwhisper", npc = "Magistrate Marduke" },
             },
         },

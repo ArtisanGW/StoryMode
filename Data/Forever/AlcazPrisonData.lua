@@ -35,6 +35,21 @@ SM.ForeverAlcazPrisonData = {
         ["Nazgrel"] = { mapID = 1454, x = 0.3240, y = 0.3600, location = "Grommash Hold, Orgrimmar" },
     },
 
+    npcDisplayIDs = {
+        -- Quest givers' models from the cmangos Classic database.
+        ["Master Mathias Shaw"] = 1736,
+        ["Eitrigg"] = 1619,
+        ["Renzik \"The Shiv\""] = 7613,
+        ["Nazgrel"] = 1872,
+        -- Quest givers' models from Wowhead's WoW Forever data.
+        ["Sully McCleary"] = 142287,
+        ["Sergeant Ulka"] = 142827,
+        ["Commander Folkar"] = 142414,
+        -- Wowhead has two Mason Connerys (264770, 264845) with different
+        -- models and doesn't say which gives his quests; the first one's.
+        ["Mason Connery"] = 144257,
+    },
+
     chapters = {
         {
             chapter = "Rumors and Silence",

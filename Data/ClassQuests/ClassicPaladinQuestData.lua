@@ -35,6 +35,29 @@ SM.ClassicPaladinQuestData = {
         ["The Charger"] = 136103,
     },
 
+    npcDisplayIDs = {
+        -- Quest givers' models from the cmangos Classic database.
+        ["Duthorian Rall"] = 4885,
+        ["Daphne Stilwell"] = 4894,
+        ["Jordan Stilwell"] = 4893,
+        ["Bailor Stonehand"] = 4911,
+        ["Thundris Windweaver"] = 1770,
+        ["Nathanos Blightcaller"] = 11814,
+        ["Ancient Equine Spirit"] = 14585,
+        ["High Priest Rohan"] = 11053,
+        ["Lord Grayson Shadowbreaker"] = 1499,
+        ["Grimand Elmore"] = 4998,
+        ["Merideth Carlson"] = 3689,
+        -- Quest givers' models from Wowhead's WoW Forever data.
+        ["Aramis Hammerhand"] = 129405,
+        ["Breton Samuels"] = 129977,
+        ["Danitha Morr"] = 129985,
+        ["Tanis Alderwood"] = 140309,
+        ["Deathguard Billmuth"] = 7117,
+        ["Deathguard Falgan"] = 1666,
+        ["Lumina Windsinger"] = 131648,
+    },
+
     chapters = {
         {
             chapter = "Rediscovering the Light",
@@ -162,8 +185,8 @@ SM.ClassicPaladinQuestData = {
                 { id = 97184, name = "The Divination Scryer", npc = "Danitha Morr", faction = "Horde", mapID = 1420, x = 0.2200, y = 0.4460, location = "Danitha Morr, Bandarion Keep, Tirisfal Glades", gameVersions = { forever = true } },
                 { id = 97185, name = "Justice and Retribution", npc = "Danitha Morr", faction = "Horde", mapID = 1420, x = 0.2200, y = 0.4460, location = "Danitha Morr, Bandarion Keep, Tirisfal Glades", gameVersions = { forever = true } },
                 { id = 7638, name = "Lord Grayson Shadowbreaker", npc = "Duthorian Rall", faction = "Alliance", mapID = 84, x = 0.3981, y = 0.2980, location = "Duthorian Rall, Stormwind" },
-                { id = 7639, name = "To Show Due Judgment", npc = "High Priest Rohan", faction = "Alliance", mapID = 87, x = 0.2323, y = 0.0719, location = "High Priest Rohan, Ironforge" },
                 { id = 7637, name = "Emphasis on Sacrifice", npc = "Lord Grayson Shadowbreaker", faction = "Alliance", mapID = 84, x = 0.3714, y = 0.3326, location = "Lord Grayson Shadowbreaker, Stormwind" },
+                { id = 7639, name = "To Show Due Judgment", npc = "High Priest Rohan", faction = "Alliance", mapID = 87, x = 0.2323, y = 0.0719, location = "High Priest Rohan, Ironforge" },
                 { id = 7640, name = "Exorcising Terrordale", npc = "Lord Grayson Shadowbreaker", faction = "Alliance", mapID = 84, x = 0.3714, y = 0.3326, location = "Lord Grayson Shadowbreaker, Stormwind" },
                 { id = 7641, name = "The Work of Grimand Elmore", npc = "Lord Grayson Shadowbreaker", faction = "Alliance", mapID = 84, x = 0.3714, y = 0.3326, location = "Lord Grayson Shadowbreaker, Stormwind" },
                 { id = 7642, name = "Collection of Goods", npc = "Grimand Elmore", faction = "Alliance", mapID = 84, x = 0.5176, y = 0.1207, location = "Grimand Elmore, Stormwind" },

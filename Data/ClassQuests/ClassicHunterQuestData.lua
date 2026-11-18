@@ -27,6 +27,20 @@ SM.ClassicHunterQuestData = {
         ["Rhok'delar"] = 135489,
     },
 
+    npcDisplayIDs = {
+        -- Quest givers' models from the cmangos Classic database.
+        ["Jocaste"] = 2206,
+        ["Dazalar"] = 1703,
+        ["Thorgas Grimson"] = 3395,
+        ["Grif Wildheart"] = 3558,
+        ["Jen'shan"] = 1882,
+        ["Sian'dur"] = 4241,
+        ["Thotar"] = 3744,
+        -- Quest givers' models from Wowhead's WoW Forever data.
+        ["Josephine Carson"] = 137105,
+        ["Quel'ana Quickgale"] = 140075,
+    },
+
     chapters = {
         {
             chapter = "Taming the Beast",

@@ -43,6 +43,8 @@ SM.LinkenData = {
         ["Eridan Bluewind"] = 9136,
         ["Aquementas"] = 5564,
         ["Blazerunner"] = 1204,
+        -- Quest givers' models from the cmangos Classic database.
+        ["J.D. Collie"] = 8478,
     },
 
     chapterDisplayIDs = {

@@ -28,6 +28,24 @@ SM.ClassicWarriorQuestData = {
         ["Whirlwind Weapon"] = 132408,
     },
 
+    npcDisplayIDs = {
+        -- Quest givers' models from the cmangos Classic database.
+        ["Lyria Du Lac"] = 1300,
+        ["Harry Burlguard"] = 4996,
+        ["Bartleby"] = 5000,
+        ["Kyra Windblade"] = 1707,
+        ["Elanaria"] = 2197,
+        ["Granis Swiftaxe"] = 3431,
+        ["Muren Stormpike"] = 4995,
+        ["Tormus Deepforge"] = 4950,
+        ["Deathguard Dillinger"] = 2855,
+        ["Uzzek"] = 4391,
+        ["Thun'grim Firegaze"] = 4521,
+        ["Wu Shen"] = 3280,
+        ["Klannoc Macleod"] = 4955,
+        ["Bath'rah the Windwatcher"] = 4954,
+    },
+
     chapters = {
         {
             chapter = "Defensive Stance",

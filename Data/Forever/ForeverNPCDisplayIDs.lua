@@ -36,6 +36,7 @@ SM.ForeverNPCDisplayIDs = {
     ["Gennia Runetotem"] = 3820,
     ["Gest"] = 1327,
     ["Greta Mosshoof"] = 10253,
+    ["Grunt Logmar"] = 4547,
     ["Hemet Nesingwary"] = 1410,
     ["Hervdana Saegrund"] = 143526,
     ["High Executor Darthalia"] = 1645,

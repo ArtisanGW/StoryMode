@@ -34,6 +34,26 @@ SM.ForeverShendralasData = {
     npcLocations = {
         ["Warug"] = { mapID = 1443, x = 0.7480, y = 0.6800, location = "Magram Village, Desolace" },
         ["Uthek the Wise"] = { mapID = 1443, x = 0.3620, y = 0.7920, location = "Gelkis Village, Desolace" },
+        ["Captain Pentigast"] = { mapID = 1443, x = 0.6640, y = 0.1080, location = "Nijel's Point, Desolace" },
+        ["Gurda Wildmane"] = { mapID = 1443, x = 0.5620, y = 0.5940, location = "Ghost Walker Post, Desolace" },
+    },
+
+    npcDisplayIDs = {
+        -- Quest givers' models from the cmangos Classic database.
+        ["Warug"] = 1258,
+        ["Uthek the Wise"] = 4875,
+        -- Quest givers' models from Wowhead's WoW Forever data.
+        ["Orgrul"] = 9433,
+        ["Nerlokh"] = 9422,
+        ["Rokren"] = 9436,
+        ["Hagiak"] = 9430,
+        ["Mordent Evenshade"] = 30120,
+        ["Historian Biraxas"] = 138905,
+        ["Mithera"] = 138264,
+        ["Woodwyrd"] = 138335,
+        ["Kog'thug the Brave"] = 143817,
+        ["Captain Pentigast"] = 4693,
+        ["Gurda Wildmane"] = 4695,
     },
 
     chapters = {
@@ -42,24 +62,32 @@ SM.ForeverShendralasData = {
             summary = "Earn your place with Warug of the Magram or Uthek the Wise of the Gelkis. Either clan will send you toward the Valley of Bones, where something has begun to stir.",
             recap = "Warug wanted the Gelkis' sacred tears shattered and a conqueror's crown carried home from the Badlands, while Uthek wanted a shard of draenethyst from the Swamp of Sorrows. Both roads led to the Valley of Bones, where skeletons that were never centaur clawed their way out of the ground. Orgrul saw only power in it: he bound stolen tears and cursed wood into staves and had you raise the dead for the Magram. Nerlokh saw the necromancers' robes and knew them for Gelkis exiles, and Uthek turned Theradras' tears and the draenethyst into a weapon to break the curse instead.",
             quests = {
-                -- Magram
-                { id = 1369, name = "Broken Tears", npc = "Warug", hideIf = 1373, gameVersions = { forever = true } },
-                { id = 92743, name = "A Conqueror's Crown", npc = "Warug", hideIf = 1373, gameVersions = { forever = true } },
-                { id = 92841, name = "Valley of Bones", npc = "Warug", hideIf = 1373, gameVersions = { forever = true } },
-                { id = 92844, name = "Mountain of Bones", npc = "Orgrul", location = "the northern entrance to the Valley of Bones, Shen'dralas", hideIf = 1373, gameVersions = { forever = true } },
-                { id = 92846, name = "Outcast Necromancers", location = "the Valley of Bones, Shen'dralas", parallel = true, hideIf = 1373, gameVersions = { forever = true } },
-                { id = 92847, name = "Corrupting Tears", npc = "Orgrul", location = "the northern entrance to the Valley of Bones, Shen'dralas", hideIf = 1373, gameVersions = { forever = true } },
-                { id = 92873, name = "Proof of Concept", npc = "Orgrul", location = "the northern entrance to the Valley of Bones, Shen'dralas", hideIf = 1373, gameVersions = { forever = true } },
-                { id = 92893, name = "No Mercy for the Weak", npc = "Orgrul", location = "the northern entrance to the Valley of Bones, Shen'dralas", hideIf = 1373, gameVersions = { forever = true } },
-                { id = 92894, name = "Bone Raising", npc = "Orgrul", location = "the northern entrance to the Valley of Bones, Shen'dralas", parallel = true, hideIf = 1373, gameVersions = { forever = true } },
+                -- Magram. Each clan's path hides once the player does a quest only the
+                -- other clan gives.
+                { id = 1385, name = "Brutal Politics", npc = "Captain Pentigast", faction = "Alliance", hideIf = { 1382, 1384, 1368, 1370, 1373 }, gameVersions = { forever = true } },
+                { id = 1386, name = "Assault on the Kolkar", npc = "Warug", faction = "Alliance", hideIf = { 1382, 1384, 1368, 1370, 1373 }, gameVersions = { forever = true } },
+                { id = 1367, name = "Magram Alliance", npc = "Gurda Wildmane", faction = "Horde", hideIf = { 1382, 1384, 1368, 1370, 1373 }, gameVersions = { forever = true } },
+                { id = 1369, name = "Broken Tears", npc = "Warug", hideIf = { 1382, 1384, 1368, 1370, 1373 }, gameVersions = { forever = true } },
+                { id = 92743, name = "A Conqueror's Crown", npc = "Warug", hideIf = { 1382, 1384, 1368, 1370, 1373 }, gameVersions = { forever = true } },
+                { id = 92841, name = "Valley of Bones", npc = "Warug", hideIf = { 1382, 1384, 1368, 1370, 1373 }, gameVersions = { forever = true } },
+                { id = 92844, name = "Mountain of Bones", npc = "Orgrul", location = "the northern entrance to the Valley of Bones, Shen'dralas", hideIf = { 1382, 1384, 1368, 1370, 1373 }, gameVersions = { forever = true } },
+                { id = 92846, name = "Outcast Necromancers", location = "the Valley of Bones, Shen'dralas", parallel = true, hideIf = { 1382, 1384, 1368, 1370, 1373 }, gameVersions = { forever = true } },
+                { id = 92847, name = "Corrupting Tears", npc = "Orgrul", location = "the northern entrance to the Valley of Bones, Shen'dralas", hideIf = { 1382, 1384, 1368, 1370, 1373 }, gameVersions = { forever = true } },
+                { id = 92873, name = "Proof of Concept", npc = "Orgrul", location = "the northern entrance to the Valley of Bones, Shen'dralas", hideIf = { 1382, 1384, 1368, 1370, 1373 }, gameVersions = { forever = true } },
+                { id = 92893, name = "No Mercy for the Weak", npc = "Orgrul", location = "the northern entrance to the Valley of Bones, Shen'dralas", hideIf = { 1382, 1384, 1368, 1370, 1373 }, gameVersions = { forever = true } },
+                { id = 92894, name = "Bone Raising", npc = "Orgrul", location = "the northern entrance to the Valley of Bones, Shen'dralas", parallel = true, hideIf = { 1382, 1384, 1368, 1370, 1373 }, gameVersions = { forever = true } },
                 -- Gelkis
-                { id = 1373, name = "Ongeku", npc = "Uthek the Wise", parallel = true, hideIf = 1369, gameVersions = { forever = true } },
-                { id = 93034, name = "Valley of Bones", npc = "Uthek the Wise", hideIf = 1369, gameVersions = { forever = true } },
-                { id = 93035, name = "Ravaging Ravagers", npc = "Nerlokh", location = "the southern entrance to the Valley of Bones, Shen'dralas", hideIf = 1369, gameVersions = { forever = true } },
-                { id = 93037, name = "Outing Outcasts", npc = "Nerlokh", location = "the southern entrance to the Valley of Bones, Shen'dralas", parallel = true, hideIf = 1369, gameVersions = { forever = true } },
-                { id = 93041, name = "Facing the Truth", npc = "Nerlokh", location = "the southern entrance to the Valley of Bones, Shen'dralas", hideIf = 1369, gameVersions = { forever = true } },
-                { id = 93044, name = "A Cleansing Cry", npc = "Uthek the Wise", hideIf = 1369, gameVersions = { forever = true } },
-                { id = 93045, name = "Test Your Theory", npc = "Uthek the Wise", hideIf = 1369, gameVersions = { forever = true } },
+                { id = 1382, name = "Strange Alliance", npc = "Captain Pentigast", faction = "Alliance", parallel = true, hideIf = { 1385, 1386, 1367, 1369 }, gameVersions = { forever = true } },
+                { id = 1384, name = "Raid on the Kolkar", npc = "Uthek the Wise", faction = "Alliance", hideIf = { 1385, 1386, 1367, 1369 }, gameVersions = { forever = true } },
+                { id = 1370, name = "Stealing Supplies", npc = "Uthek the Wise", faction = "Alliance", hideIf = { 1385, 1386, 1367, 1369 }, gameVersions = { forever = true } },
+                { id = 1368, name = "Gelkis Alliance", npc = "Gurda Wildmane", faction = "Horde", parallel = true, hideIf = { 1385, 1386, 1367, 1369 }, gameVersions = { forever = true } },
+                { id = 1373, name = "Ongeku", npc = "Uthek the Wise", parallel = true, hideIf = { 1385, 1386, 1367, 1369 }, gameVersions = { forever = true } },
+                { id = 93034, name = "Valley of Bones", npc = "Uthek the Wise", hideIf = { 1385, 1386, 1367, 1369 }, gameVersions = { forever = true } },
+                { id = 93035, name = "Ravaging Ravagers", npc = "Nerlokh", location = "the southern entrance to the Valley of Bones, Shen'dralas", hideIf = { 1385, 1386, 1367, 1369 }, gameVersions = { forever = true } },
+                { id = 93037, name = "Outing Outcasts", npc = "Nerlokh", location = "the southern entrance to the Valley of Bones, Shen'dralas", parallel = true, hideIf = { 1385, 1386, 1367, 1369 }, gameVersions = { forever = true } },
+                { id = 93041, name = "Facing the Truth", npc = "Nerlokh", location = "the southern entrance to the Valley of Bones, Shen'dralas", hideIf = { 1385, 1386, 1367, 1369 }, gameVersions = { forever = true } },
+                { id = 93044, name = "A Cleansing Cry", npc = "Uthek the Wise", hideIf = { 1385, 1386, 1367, 1369 }, gameVersions = { forever = true } },
+                { id = 93045, name = "Test Your Theory", npc = "Uthek the Wise", hideIf = { 1385, 1386, 1367, 1369 }, gameVersions = { forever = true } },
             },
         },
         {

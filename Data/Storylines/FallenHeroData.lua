@@ -49,6 +49,12 @@ SM.FallenHeroData = {
         ["Archmage Allistarj"] = 6769,
         ["Lady Sevine"] = 6768,
         ["Razelikh the Defiler"] = 10543,
+        -- Quest givers' models from the cmangos Classic database.
+        ["Dispatch Commander Ruag"] = 6571,
+        ["Bengor"] = 6570,
+        ["Ambassador Ardalan"] = 7010,
+        ["Corporal Thund Splithoof"] = 6777,
+        ["Spirit of Kirith"] = 6878,
     },
 
     chapterDisplayIDs = {
@@ -97,8 +103,8 @@ SM.FallenHeroData = {
             summary = "Break the Stones of Binding and seek the last names left to the Fallen Hero: Corporal Thund Splithoof and Lieutenant Kirith.",
             recap = "Breaking the Stones of Binding turned battle into mercy. One by one, the servants of Razelikh, Grol, Allistarj, and Sevine lost their anchors, and the dead soldiers were released from a fate worse than death. Corporal Thund Splithoof appeared long enough to honor the work and leave a token behind. Then one name remained: Lieutenant Kirith. Finding him in the Serpent's Coil revealed the next truth. Razelikh could not be reached until his protections were understood.",
             quests = {
-                { id = 2701, name = "Heroes of Old", displayName = "Corporal Thund", npc = "Corporal Thund Splithoof" },
                 { id = 2702, name = "Heroes of Old", displayName = "The Splithoof Shard", npc = "Fallen Hero of the Horde" },
+                { id = 2701, name = "Heroes of Old", displayName = "Corporal Thund", npc = "Corporal Thund Splithoof" },
                 { id = 2721, name = "Kirith", npc = "Fallen Hero of the Horde" },
                 { id = 2743, name = "The Cover of Darkness", npc = "Spirit of Kirith" },
             },

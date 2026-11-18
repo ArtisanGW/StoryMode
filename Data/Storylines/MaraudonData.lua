@@ -52,6 +52,18 @@ SM.MaraudonData = {
         ["Corruption of Earth and Seed"] = 136025,
     },
 
+    npcDisplayIDs = {
+        -- Quest givers' models from the cmangos Classic database.
+        ["Centaur Pariah"] = 9419,
+        ["Willow"] = 13909,
+        ["Talendria"] = 11683,
+        ["Archmage Tervosh"] = 2969,
+        ["Celebras the Redeemed"] = 13715,
+        ["Keeper Marandis"] = 150,
+        ["Selendra"] = 13672,
+        ["Zaetar's Spirit"] = 12369,
+    },
+
     chapters = {
         {
             chapter = "The Pariah and the Prophet",
@@ -71,8 +83,8 @@ SM.MaraudonData = {
             quests = {
                 { id = 7041, name = "Vyletongue Corruption", npc = "Talendria", faction = "Alliance" },
                 { id = 7029, name = "Vyletongue Corruption", npc = "Vark Battlescar", faction = "Horde" },
-                { id = 7068, name = "Shadowshard Fragments", npc = "Archmage Tervosh", faction = "Alliance", optional = true, mapID = 70, x = 0.6600, y = 0.4900, location = "Theramore, Dustwallow Marsh" },
-                { id = 7070, name = "Shadowshard Fragments", npc = "Uthel'nay", faction = "Horde", optional = true, mapID = 85, x = 0.3900, y = 0.8600, location = "Valley of Spirits, Orgrimmar" },
+                { id = 7070, name = "Shadowshard Fragments", npc = "Archmage Tervosh", faction = "Alliance", optional = true, mapID = 70, x = 0.6600, y = 0.4900, location = "Theramore, Dustwallow Marsh" },
+                { id = 7068, name = "Shadowshard Fragments", npc = "Uthel'nay", faction = "Horde", optional = true, mapID = 85, x = 0.3900, y = 0.8600, location = "Valley of Spirits, Orgrimmar" },
             },
         },
         {

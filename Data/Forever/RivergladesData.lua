@@ -44,6 +44,25 @@ SM.ForeverRivergladesData = {
         ["Crag'rog"] = { mapID = 2548, x = 0.2740, y = 0.3700, location = "near the Twilight's Shroud, Riverglades" },
     },
 
+    npcDisplayIDs = {
+        -- Quest givers' models from Wowhead's WoW Forever data.
+        ["Friz Frazzlespark"] = 139287,
+        ["Demar Brant"] = 140257,
+        ["Ashe Amberhall"] = 140263,
+        ["Farmer Elbrim"] = 140912,
+        ["Tran'gul"] = 139773,
+        ["Apprentice Claire"] = 148705,
+        ["Clubtoe"] = 10714,
+        ["Clugfist"] = 11565,
+        ["Sergeant Riftan"] = 140571,
+        ["Krom'rosh"] = 139610,
+        ["Crag'rog"] = 11545,
+        ["Alphonse Dumas"] = 3342,
+        ["Kreza Darkthorn"] = 139731,
+        ["Marshal Ryan"] = 139994,
+        ["Da'grosh"] = 140921,
+    },
+
     chapters = {
         {
             chapter = "The Fall of Sunnyglade",

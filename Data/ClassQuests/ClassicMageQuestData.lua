@@ -30,6 +30,17 @@ SM.ClassicMageQuestData = {
         ["Arcane Refreshment"] = 132805,
     },
 
+    npcDisplayIDs = {
+        -- Quest givers' models from the cmangos Classic database.
+        ["Jennea Cannon"] = 3292,
+        ["Tabetha"] = 5375,
+        ["Magus Tirth"] = 5374,
+        ["Archmage Xylem"] = 7591,
+        ["Lorekeeper Lydros"] = 14407,
+        -- Quest givers' models from Wowhead's WoW Forever data.
+        ["Belann Windwood"] = 139671,
+    },
+
     chapters = {
         {
             chapter = "Boughs in the Wind",

@@ -39,6 +39,8 @@ SM.RaenesCleansingData = {
         ["Shael'dryn"] = 2721,
         ["Krolg"] = 1010,
         ["Ran Bloodtooth"] = 1012,
+        -- Quest givers' models from the cmangos Classic database.
+        ["Teronis' Corpse"] = 1983,
     },
 
     chapterDisplayIDs = {
@@ -72,7 +74,7 @@ SM.RaenesCleansingData = {
                 { id = 1026, name = "Raene's Cleansing", displayName = "Iron Shaft", npc = "Shael'dryn" },
                 { id = 1027, name = "Raene's Cleansing", displayName = "Iron Pommel", npc = "Shael'dryn" },
                 { id = 1028, name = "Raene's Cleansing", displayName = "Hidden Shrine", npc = "Shael'dryn" },
-                { id = 1055, name = "Raene's Cleansing", displayName = "Return to Shael'dryn", location = "the hidden shrine, Ashenvale" },
+                { id = 1055, name = "Raene's Cleansing", displayName = "Return to Shael'dryn", npc = "Hidden Shrine", location = "the hidden shrine, Ashenvale" },
                 { id = 1029, name = "Raene's Cleansing", displayName = "Return to Raene", npc = "Shael'dryn" },
             },
         },

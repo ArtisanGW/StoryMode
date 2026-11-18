@@ -39,6 +39,23 @@ SM.ForeverMountHyjalData = {
         ["Tiala Whitemane"] = { mapID = 2482, x = 0.6880, y = 0.5040, location = "Summit of Eternity, Mount Hyjal" },
     },
 
+    npcDisplayIDs = {
+        -- Quest givers' models from the cmangos Classic database.
+        ["Dendrite Starblaze"] = 11769,
+        -- Quest givers' models from Wowhead's WoW Forever data.
+        ["Ketharas"] = 139519,
+        ["Fraxinus"] = 131608,
+        ["Curious Crow"] = 140365,
+        ["Felflick"] = 143840,
+        ["Velician"] = 146374,
+        ["Orokai"] = 1460,
+        ["Jereman"] = 142089,
+        ["Renalard"] = 141717,
+        ["Marrosis"] = 144961,
+        ["Skylord Omnuron"] = 32245,
+        ["Tiala Whitemane"] = 32086,
+    },
+
     chapters = {
         {
             chapter = "The Hermit of the Foothills",

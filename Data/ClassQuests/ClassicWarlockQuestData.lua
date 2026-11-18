@@ -30,6 +30,23 @@ SM.ClassicWarlockQuestData = {
         ["Dreadsteed"] = 136103,
     },
 
+    npcDisplayIDs = {
+        -- Quest givers' models from the cmangos Classic database.
+        ["Remen Marcot"] = 4866,
+        ["Lago Blackwrench"] = 4865,
+        ["Gakin the Darkbinder"] = 4867,
+        ["Ophek"] = 1654,
+        ["Godrick Farsan"] = 4020,
+        ["Takar the Seer"] = 4928,
+        ["Krom Stoutarm"] = 4988,
+        ["Demisette Cloyce"] = 1469,
+        ["Kaal Soulreaper"] = 2675,
+        ["Mor'zul Bloodbringer"] = 14565,
+        ["Gorzeeki Wildeyes"] = 14566,
+        ["Lord Banehollow"] = 8611,
+        ["Spackle Thornberry"] = 3316,
+    },
+
     chapters = {
         {
             chapter = "Voidwalker",

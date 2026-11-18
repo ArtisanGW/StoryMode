@@ -31,6 +31,7 @@ SM.ForeverAzsharaData = {
         -- Horde
         ["Ag'tor Bloodfist"] = { mapID = 1447, x = 0.2220, y = 0.5140, location = "Valormok, Azshara" },
         ["Jediga"] = { mapID = 1447, x = 0.2240, y = 0.5140, location = "Valormok, Azshara" },
+        ["Belgrom Rockmaul"] = { mapID = 1454, x = 0.7500, y = 0.3420, location = "Valley of Honor, Orgrimmar" },
         ["Zevrost"] = { mapID = 1454, x = 0.4820, y = 0.4540, location = "the Cleft of Shadow, Orgrimmar" },
         -- Blackmaw
         ["Ekkal"] = { mapID = 1447, x = 0.4200, y = 0.3880, location = "the Ruins of Eldarath, Azshara" },
@@ -41,6 +42,25 @@ SM.ForeverAzsharaData = {
         ["Elder Bramblesnap"] = { mapID = 1447, x = 0.4160, y = 0.1960, location = "Ursolan, Azshara" },
         ["Legashi Cauldron"] = { mapID = 1447, x = 0.5770, y = 0.2100, location = "the Legashi Encampment, Azshara" },
         ["Gorn One Eye"] = { mapID = 1448, x = 0.6520, y = 0.0260, location = "Timbermaw Hold, Felwood" },
+    },
+
+    npcDisplayIDs = {
+        -- Quest givers' models from the cmangos Classic database.
+        ["Sentinel Dalia Sunblade"] = 7602,
+        ["Ag'tor Bloodfist"] = 7871,
+        ["Jediga"] = 7876,
+        ["Gatekeeper Rageroar"] = 1012,
+        ["Gorn One Eye"] = 1012,
+        -- Quest givers' models from Wowhead's WoW Forever data.
+        ["Commander Truesong"] = 127408,
+        ["Saria Fairmoon"] = 127409,
+        ["Ekkal"] = 5851,
+        ["Korsa"] = 5851,
+        ["Graal"] = 2003,
+        ["Furze"] = 3028,
+        ["Elder Bramblesnap"] = 6829,
+        ["Keldara Sunblade"] = 7603,
+        ["Belgrom Rockmaul"] = 5535,
     },
 
     chapters = {
@@ -81,7 +101,8 @@ SM.ForeverAzsharaData = {
             summary = "Belgrom Rockmaul sent warriors to Azshara to guard Magus Rimtori, a blood elf mage who promised him the riches of the highborne. Go to the Horde camp at Valormok and learn what that bargain has cost.",
             recap = "The warriors Belgrom had sent to protect Rimtori were dead, a dozen of them, cut down by the mage they guarded. She had played Belgrom like a lute with her talk of riches and powerful relics. You hunted her reclaimers and surveyors along the bluffs of the northern peninsula and found her camp, where three sealed crystals fed a summoning spell. Her officers carried the seals. You took them and broke them, the crystals erupted, and you struck Rimtori down while she reeled, then carried her head to Belgrom in Orgrimmar. Her tome went to Jediga, then to the warlock Zevrost, who found in its diagrams a ritual to call the demon Vek'zol. You performed it at the Altar of Storms in the Blasted Lands and brought the demon's heart back to the Cleft of Shadow.",
             quests = {
-                { id = 3505, name = "Betrayed", faction = "Horde", location = "Valormok, Azshara", gameVersions = { forever = true } },
+                { id = 3504, name = "Betrayed", npc = "Belgrom Rockmaul", faction = "Horde", gameVersions = { forever = true } },
+                { id = 3505, name = "Betrayed", npc = "Ag'tor Bloodfist", faction = "Horde", location = "Valormok, Azshara", gameVersions = { forever = true } },
                 { id = 91497, name = "Seals of the Sin'dorei", faction = "Horde", location = "Magus Rimtori's camp, Azshara", gameVersions = { forever = true } },
                 { id = 91500, name = "An Explosive Gambit", faction = "Horde", location = "Magus Rimtori's camp, Azshara", gameVersions = { forever = true } },
                 { id = 91531, name = "Revenge Exacted", npc = "Ag'tor Bloodfist", faction = "Horde", gameVersions = { forever = true } },

@@ -28,6 +28,20 @@ SM.ClassicDruidQuestData = {
         ["Aquatic Form"] = 132112,
     },
 
+    npcDisplayIDs = {
+        -- Quest givers' models from the cmangos Classic database.
+        ["Kal"] = 1706,
+        ["Mathrengyl Bearwalker"] = 2261,
+        ["Dendrite Starblaze"] = 11769,
+        ["Alanndarian Nightsong"] = 4487,
+        ["Torwa Pathfinder"] = 8832,
+        ["Tajarri"] = 11766,
+        ["Great Cat Spirit"] = 11910,
+        -- Quest givers' models from Wowhead's WoW Forever data.
+        ["Urs'endris"] = 139269,
+        ["Avatar of Saeyleenan"] = 146918,
+    },
+
     chapters = {
         {
             chapter = "Bear Form",
@@ -62,7 +76,7 @@ SM.ClassicDruidQuestData = {
                 { id = 6125, name = "Power over Poison", npc = "Dendrite Starblaze", faction = "Alliance", mapID = 80, x = 0.5621, y = 0.3064, location = "Dendrite Starblaze, Nighthaven, Moonglade" },
                 { id = 6126, name = "Lessons Anew", npc = "Turak Runetotem", faction = "Horde", mapID = 88, x = 0.7648, y = 0.2722, location = "Turak Runetotem, Thunder Bluff" },
                 { id = 6127, name = "The Principal Source", npc = "Dendrite Starblaze", faction = "Horde", mapID = 80, x = 0.5621, y = 0.3064, location = "Dendrite Starblaze, Nighthaven, Moonglade" },
-                { id = 6128, name = "Gathering the Cure", npc = "Torwa Pathfinder", faction = "Horde", mapID = 78, x = 0.7161, y = 0.7593, location = "Torwa Pathfinder, Un'Goro Crater" },
+                { id = 6128, name = "Gathering the Cure", npc = "Tonga Runetotem", faction = "Horde", mapID = 10, x = 0.5226, y = 0.3193, location = "Tonga Runetotem, The Barrens" },
                 { id = 6129, name = "Curing the Sick", npc = "Tonga Runetotem", faction = "Horde", mapID = 10, x = 0.5226, y = 0.3193, location = "Tonga Runetotem, The Barrens" },
                 { id = 6130, name = "Power over Poison", npc = "Dendrite Starblaze", faction = "Horde", mapID = 80, x = 0.5621, y = 0.3064, location = "Dendrite Starblaze, Nighthaven, Moonglade" },
             },

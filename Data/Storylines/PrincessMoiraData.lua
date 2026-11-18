@@ -90,7 +90,7 @@ SM.PrincessMoiraData = {
                 { id = 3981, name = "Commander Gor'shak", npc = "Galamav the Marksman" },
                 { id = 3982, name = "What Is Going On?", npc = "Commander Gor'shak" },
                 { id = 4001, name = "What Is Going On?", npc = "Commander Gor'shak" },
-                { id = 4002, name = "The Eastern Kingdom", displayName = "The Eastern Kingdoms", npc = "Thrall" },
+                { id = 4002, name = "The Eastern Kingdoms", npc = "Thrall" },
                 { id = 4003, name = "The Royal Rescue", npc = "Thrall" },
                 { id = 4004, name = "The Princess Saved?", npc = "Princess Moira Bronzebeard" },
             },

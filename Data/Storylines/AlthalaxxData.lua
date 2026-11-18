@@ -74,7 +74,7 @@ SM.AlthalaxxData = {
                 { id = 970, name = "The Tower of Althalaxx", displayName = "Glowing Soul Gem", npc = "Delgren the Purifier" },
                 { id = 973, name = "The Tower of Althalaxx", displayName = "Ilkrud Magthrull's Tome", npc = "Delgren the Purifier" },
                 { id = 1140, name = "The Tower of Althalaxx", displayName = "Highborne Souls", npc = "Delgren the Purifier" },
-                { id = 1167, name = "The Tower of Althalaxx part 7", displayName = "Return to Balthule", npc = "Delgren the Purifier" },
+                { id = 1167, name = "The Tower of Althalaxx", displayName = "Return to Balthule", npc = "Delgren the Purifier" },
             },
         },
         {
@@ -82,7 +82,7 @@ SM.AlthalaxxData = {
             summary = "Return to the tower with Balthule's command and face Athrikus Narassin at the summit.",
             recap = "With Athrikus Narassin weakened, Balthule sent you back into Althalaxx. You climbed past the warlocks of the Dark Strand and ended their master where he had gathered them.",
             quests = {
-                { id = 1143, name = "The Tower of Althalaxx part 8", displayName = "Athrikus Narassin", npc = "Balthule Shadowstrike" },
+                { id = 1143, name = "The Tower of Althalaxx", displayName = "Athrikus Narassin", npc = "Balthule Shadowstrike" },
                 { id = 981, name = "The Tower of Althalaxx", displayName = "Report to Delgren", npc = "Balthule Shadowstrike" },
             },
         },

@@ -61,6 +61,8 @@ SM.DungeonSetTwoData = {
         ["Mor Grayhoof"] = 15997,
         ["Spirit of Lord Valthalak"] = 15987,
         ["Lord Valthalak"] = 14308,
+        -- Quest givers' models from the cmangos Classic database.
+        ["Hermit Ortell"] = 15326,
     },
 
     chapterDisplayIDs = {

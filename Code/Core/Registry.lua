@@ -22,7 +22,8 @@ local playerRace
 
 -- Stories are sorted by how many quests one character does in them (the
 -- longer faction's path): Short Stories up to 9, Stories 10 to 29, Epic
--- Stories 30 or more. The Retail stories keep their earlier places.
+-- Stories 30 or more. The Brazier of Invocation is Epic for its scale, and
+-- the Retail stories keep their earlier places.
 local contentRegistry = {
     { key = "ArugalData", category = "Stories" },
     { key = "ANewPlagueData", category = "Stories" },
@@ -31,7 +32,6 @@ local contentRegistry = {
     { key = "DarrowshireData", category = "Stories" },
     { key = "FallenHeroData", category = "Stories" },
     { key = "OnyxiaData", category = "Stories" },
-    { key = "DungeonSetTwoData", category = "Stories" },
     { key = "ScholomanceData", category = "Stories" },
     { key = "LinkenData", category = "Stories" },
     { key = "MissingCourierData", category = "Stories" },
@@ -48,6 +48,7 @@ local contentRegistry = {
     { key = "DefiasBrotherhoodData", category = "Epic Stories" },
     { key = "DuskwoodData", category = "Epic Stories" },
     { key = "ScarletCrusadeData", category = "Epic Stories" },
+    { key = "DungeonSetTwoData", category = "Epic Stories" },
     { key = "ShiftingSandsData", category = "Epic Stories" },
     { key = "FrozenThroneData", category = "Epic Stories" },
     { key = "JadeForestData", category = "Epic Stories" },
