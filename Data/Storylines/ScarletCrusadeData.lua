@@ -84,6 +84,12 @@ SM.ScarletCrusadeData = {
         ["Crusader Lord Valdelmar"] = 11836,
         ["Tirion Fordring"] = 9477,
         ["Highlord Taelan Fordring"] = 10341,
+        -- Quest givers' models from the cmangos Classic database.
+        ["Brother Crowley"] = 13049,
+        ["High Executor Derrington"] = 10150,
+        ["Commander Ashlam Valorfist"] = 10151,
+        ["Artist Renfray"] = 11890,
+        ["Myranda the Hag"] = 11800,
     },
 
     chapterDisplayIDs = {
@@ -114,9 +120,10 @@ SM.ScarletCrusadeData = {
         {
             chapter = "Deathknell's Red Messenger",
             faction = "Horde",
-            summary = "Deathknell's newly risen are not alone. Strike the Scarlet converts and take the courier's message before it leaves the valley.",
-            recap = "Deathknell taught the Forsaken their first lesson about Lordaeron's living survivors: the Scarlet Crusade did not see people, only infection. Executor Arren sent you against Scarlet converts and their courier, then read the stolen intelligence and understood the warning. The Crusade was watching Deathknell, counting the dead, and preparing for war.",
+            summary = "Executor Arren, in Deathknell, has work for the newly risen. Spiders first. But the Scarlet Crusade has made camp at the edge of the valley, and Arren hasn't forgotten them for a moment.",
+            recap = "Deathknell is a graveyard with a town attached, and the Scarlet Crusade had camped right next door. Executor Arren had me thin them out first and wanted their armbands as proof. Executors like a tally.\n\nThe real prize was their messenger, Meven Korgal, sitting in the Crusader camp with papers meant for somebody important. They reached somebody important, all right. Ours.\n\nArren read the documents and didn't care for a word of them. Next thing I'm carrying them up the road to Executor Zygand in Brill at a brisk walk. When an executor wants something delivered, you don't stop to admire the pumpkins.",
             quests = {
+                { id = 380, name = "Night Web's Hollow", npc = "Executor Arren" },
                 { id = 381, name = "The Scarlet Crusade", npc = "Executor Arren" },
                 { id = 382, name = "The Red Messenger", npc = "Executor Arren" },
                 { id = 383, name = "Vital Intelligence", npc = "Executor Arren" },
@@ -125,8 +132,8 @@ SM.ScarletCrusadeData = {
         {
             chapter = "The Brill Campaign",
             faction = "Horde",
-            summary = "In Brill, the Forsaken answer the Crusade with prisoners, poison, and attacks against the camps west of town.",
-            recap = "By the time you reached Brill, the Scarlet Crusade was no rumor. Deathguard Simmer's stolen pumpkins became Apothecary Johaan's experiment, and a captured Scarlet Zealot learned how the Royal Apothecary Society meant to answer holy certainty. Outside town, Executor Zygand sent you into the Scarlet camps again and again until their officers broke. Brill's campaign was not only defense. It was the Forsaken answer taking shape.",
+            summary = "Brill is at war with the Scarlet Crusade camps west of town, and everyone in Brill has a part for you. Deathguard Simmer starts small: steal some pumpkins off a farm north of Deathknell. Executor Zygand thinks bigger.",
+            recap = "Brill's war on the Crusade started with pumpkins. I stole ten off a farm up by Deathknell and hauled them to Apothecary Johaan, who did something to one of them that I didn't watch too closely. A laced pumpkin, for the Scarlet Zealot they kept in the tavern cellar. I carried it down myself. The zealot got a pumpkin. That's as far as I'm taking that story.\n\nExecutor Zygand preferred the direct approach, and kept sending me out to the Scarlet camps west of town until there weren't many captains left in them.\n\nOne of the deathguards wanted their rings as proof. My word, apparently, wasn't enough. Ten rings later, it was.",
             quests = {
                 { id = 365, name = "Fields of Grief", npc = "Deathguard Simmer" },
                 { id = 407, name = "Fields of Grief", npc = "Apothecary Johaan" },
@@ -140,8 +147,8 @@ SM.ScarletCrusadeData = {
         {
             chapter = "The Scarlet Path",
             faction = "Alliance",
-            summary = "Alliance priests carry word of Scarlet activity from Stormwind to Desolace, Southshore, and finally the Monastery.",
-            recap = "For the Alliance, the Scarlet Crusade first looked like a distant Lordaeron problem: troubling enough for Brother Crowley to send word to Brother Anton, and troubling enough for Anton to send you onward. Raleigh the Devout understood what the red tabards meant. The Monastery was not merely a garrison. It was the heart of a militant faith losing its way.",
+            summary = "Brother Crowley, in Stormwind's Cathedral Square, wants you to call on Brother Anton. Anton is at Nijel's Point in Desolace, which is a long way to go for a conversation. Crowley doesn't say what it's about. Anton will.",
+            recap = "Brother Crowley in the Stormwind Cathedral wanted me to go and see a Brother Anton. In Desolace. You don't just wander over to Desolace, but I went, and at Nijel's Point Anton had a job ready and waiting.\n\nThirty undead ravagers. Not twenty, not a handful. Thirty. I counted, because I knew Anton would.\n\nThat earned me a letter of commendation to Raleigh the Devout in Southshore. That's how it goes with the devout. You do them one favor, they write you a reference, and the reference gets you a bigger favor. Raleigh read it and started talking about a monastery up in Tirisfal Glades, and how badly it needed a visit.",
             quests = {
                 { id = 6141, name = "Brother Anton", npc = "Brother Crowley" },
                 { id = 261, name = "Down the Scarlet Path", npc = "Brother Anton" },
@@ -150,10 +157,12 @@ SM.ScarletCrusadeData = {
         },
         {
             chapter = "Graveyard and Library",
-            summary = "Enter the Monastery's graveyard and library for prisoners, forbidden books, and the records the Crusade keeps locked away.",
-            recap = "The Graveyard and Library showed the Crusade's order from the inside. Vorrel Sengutz lay tortured by Interrogator Vishas. Scholars wanted books the Crusade had locked away. Horde agents wanted the Compendium of the Fallen, and Parqual Fintallas wanted the book the Crusade used to teach itself how to fight the dead. Alliance scholars wanted the Mythology of the Titans. Every shelf and cell told the same truth: the Scarlet Crusade did not only kill enemies. It controlled what its followers were allowed to know.",
+            summaryAlliance = "Librarian Mae Paledust, in Ironforge's Hall of Explorers, wants one book: the Mythology of the Titans. The copy Mae has in mind sits in the library of the Scarlet Monastery in Tirisfal Glades, and the Crusade doesn't lend.",
+            summaryHorde = "Deep in the Scarlet Monastery's graveyard, in Tirisfal Glades, a prisoner named Vorrel Sengutz is waiting for someone to get that far. The library has customers too: Sage Truthseeker, in Thunder Bluff, wants a book off its shelves.",
+            recapAlliance = "Librarian Mae Paledust works in the Hall of Explorers in Ironforge and wanted one book in particular, the Mythology of the Titans. The copy Mae had in mind was sitting in the library of the Scarlet Monastery, where, as far as I could tell, nobody was reading it.\n\nSo a few of us went in to borrow a book. That's how I put it to myself, anyway. The Library wing is long halls, tall shelves and a great many serious people in red who don't care for visitors. Borrowing took some doing.\n\nWe came out with the book. Mae took it the way most people take a newborn, very carefully and without looking at anyone else in the room. I've had warmer thanks. I've rarely seen anybody happier, though, and I've watched people find gold.",
+            recapHorde = "There's a prisoner in the Monastery graveyard, Vorrel Sengutz, and Interrogator Vishas had been working on Vorrel for a long while. Vorrel didn't have much left to ask for. Two things: Vishas dead, and Vorrel's wedding ring, which Vishas had kept, taken to Monika Sengutz in Tarren Mill. Same last name. You can work out the rest.\n\nVishas didn't enjoy being interrupted. I took the ring back and walked it all the way to Tarren Mill. Light thing, a ring. Long walk, though.\n\nThe Library had its own customers. Half the scholars in the Horde seem to want a book off those shelves, and the Crusade guards its reading like it's gold. Can't think why. Most of it's about how to kill the rest of us.",
             quests = {
-                { id = 1051, name = "Vorrel's Revenge", npc = "Vorrel Sengutz" },
+                { id = 1051, name = "Vorrel's Revenge", npc = "Vorrel Sengutz", faction = "Horde" },
                 { id = 1049, name = "Compendium of the Fallen", npc = "Sage Truthseeker", faction = "Horde", excludeRace = "Scourge", parallel = true,
                     guidanceQuest = {
                         name = "Compendium of the Fallen",
@@ -180,8 +189,10 @@ SM.ScarletCrusadeData = {
         },
         {
             chapter = "Armory and Cathedral",
-            summary = "Push into the Armory and Cathedral, where the Crusade's champions guard the heart of the Monastery.",
-            recap = "The Armory and Cathedral were the Crusade's creed made flesh. Houndmaster Loksey guarded the Library with trained violence. Herod turned recruits into zealots through spectacle and blood. In the Cathedral, Scarlet Commander Mograine and High Inquisitor Whitemane embodied the order's shining lie: holy words wrapped around endless war. Whether sent by Varimathras or Raleigh, you cut through the Monastery's saints and executioners alike.",
+            summaryAlliance = "Raleigh the Devout, in Southshore, wants the leaders of the Scarlet Monastery dead, in the name of the Light. They would say they do everything in its name too. There are four of them, from the kennels to the Cathedral.",
+            summaryHorde = "Varimathras wants a word in the Undercity's Royal Quarter. The dreadlord has four names for you, the leaders of the Scarlet Monastery from the kennels to the Cathedral, and wants every one of them dead. Say yes quickly.",
+            recapAlliance = "Raleigh the Devout wanted the Scarlet Monastery's leaders dead, in the name of the Light. Funny thing to ask, since they'd tell you they did everything in the name of the Light too. I didn't argue theology. I packed.\n\nThe Armory belonged to Herod, a big man with a bigger axe, who spun like a top and announced he'd been waiting for a real challenge. Happy to oblige. In the Cathedral we put down the Scarlet Commander, and High Inquisitor Whitemane swept in and raised him right back up, which hardly seems fair. So we did it again, both of them this time, and nobody got up.\n\nRaleigh thanked me in the name of the Light as well. The Light, I'm told, was very grateful.",
+            recapHorde = "When Varimathras asks you for something, you say yes, and you say it quickly. What the dreadlord wanted was the Scarlet Monastery's leadership dead, all four of them, kennel to altar.\n\nThe one I remember is the Cathedral. We put down the Scarlet Commander, and High Inquisitor Whitemane came in behind him and stood him right back up, which I thought was poor sportsmanship. So we knocked them both down together, and this time nobody got up. Herod, back in the Armory, had told us he'd been waiting for a real challenge. I hope we lived up to it.\n\nBack in the Royal Quarter I made my report. Varimathras looked pleased, which is the most worrying thing a dreadlord can do.",
             quests = {
                 { id = 1048, name = "Into The Scarlet Monastery", npc = "Varimathras", faction = "Horde" },
                 { id = 1053, name = "In the Name of the Light", npc = "Raleigh the Devout", faction = "Alliance" },
@@ -189,8 +200,8 @@ SM.ScarletCrusadeData = {
         },
         {
             chapter = "Stratholme's Scarlet Secret",
-            summary = "In Stratholme, search the Scarlet Bastion for the archive and the truth hidden behind its holy face.",
-            recap = "The Scarlet Bastion in Stratholme did not only guard soldiers and sermons. Its archive held the evidence Duke Nicholas Zverenhoff wanted burned, and Balnazzar's fall showed the deeper rot under the Crusade's purity. The order's zeal was not merely human cruelty. Something worse had been wearing it like a vestment.",
+            summary = "Duke Nicholas Zverenhoff of the Argent Dawn, at Light's Hope Chapel, wants a fire started. The Scarlet Crusade keeps an archive in Stratholme, and the duke wants it burned, along with the archivist who keeps it.",
+            recap = "Duke Nicholas Zverenhoff of the Argent Dawn wanted the Scarlet Archive in Stratholme burned and its archivist dead. Fine. Archives burn nicely.\n\nThe part worth telling came after. The Scarlet Bastion answers to the Grand Crusader, holiest man in the city. We hit him hard enough and he came apart into Balnazzar, a dreadlord, who'd been wearing the Grand Crusader the whole time like a borrowed tabard. Explains a few things about the Crusade, that. I brought the duke the head.\n\nThe duke would take Baron Rivendare's head too, from the dead side of town, if anyone was offering. Some folk collect spoons.",
             quests = {
                 { id = 5251, name = "The Archivist", npc = "Duke Nicholas Zverenhoff" },
                 { id = 5262, name = "The Truth Comes Crashing Down", npc = "Duke Nicholas Zverenhoff" },
@@ -199,8 +210,8 @@ SM.ScarletCrusadeData = {
         },
         {
             chapter = "Hearthglen Reconnaissance",
-            summary = "Kirsta Deepshadow sends you into the Scarlet lines around Hearthglen to kill their specialists and scout the fortress.",
-            recap = "Before Tirion Fordring's search for his son, Hearthglen already stood as a military problem. Kirsta Deepshadow wanted the Scarlet Crusade measured in practical terms: medics, hunters, magi, knights, named officers, and the strength of the town itself. The reconnaissance made one thing clear. Hearthglen was not a remnant. It was an army still drilling under red banners.",
+            summary = "Kirsta Deepshadow, in the north of the Western Plaguelands, has unfinished business with the Scarlet Crusade and could use a hand with it. Their outer lines are close by. Behind them sits Hearthglen.",
+            recap = "Kirsta Deepshadow keeps to the north end of the Western Plaguelands and has a professional interest in the Scarlet Crusade. Unfinished business, Kirsta calls it, which is the kind of phrase that means somebody owes somebody blood. The first few jobs were a sampler of their outer lines, two of everything, like ordering off a menu.\n\nThe one worth telling is Hearthglen. Kirsta wanted the town itself measured, so I walked into a fortress full of Crusaders and went looking for somewhere high to stand and have a good long look. You'd think somebody would wonder what a stranger was doing up there. Nobody did.\n\nI came back with a count of everything they had. It wasn't a garrison. It was an army.",
             quests = {
                 { id = 6004, name = "Unfinished Business", npc = "Kirsta Deepshadow" },
                 { id = 6023, name = "Unfinished Business", npc = "Kirsta Deepshadow" },
@@ -210,8 +221,8 @@ SM.ScarletCrusadeData = {
         {
             chapter = "Tyr's Hand",
             faction = "Horde",
-            summary = "Turn stolen Scarlet orders against Tyr's Hand and use Nathanos' disguise to walk inside their ranks.",
-            recap = "Nathanos Blightcaller understood the Scarlet Crusade as an enemy of logistics as much as faith. The Crimson Courier carried command papers through the Plaguelands. Varimathras wanted them read. Nathanos wanted them used. With a rotten apple and a Scarlet disguise, you walked into Tyr's Hand as if you belonged there, then returned with enough truth to send Demetria and her escort to their deaths on the road.",
+            summary = "Nathanos Blightcaller keeps to Marris Stead in the Eastern Plaguelands and doesn't do small talk. He has orders for you, and they start with a trip home: Varimathras, in the Undercity, is expecting you.",
+            recap = "Nathanos Blightcaller doesn't do small talk. I'd taken the Grand Crusader's orders off a dead Scarlet courier, and Nathanos had a better idea than reading them.\n\nHe handed me a rotten apple. One bite and I looked every inch a Scarlet Crusader, and off I went to Tyr's Hand to deliver those orders to the Crusader Lord in person. A whole town of zealots, and me strolling through it with the taste of bad fruit in my mouth. Nobody looked twice. The Crusader Lord took the orders and gave me plenty to carry back.\n\nWhat I brought Nathanos put the Scarlet Oracle, Demetria, on the road to Stratholme with an escort. She never got there.",
             quests = {
                 { id = 6144, name = "The Call to Command", npc = "Nathanos Blightcaller" },
                 { id = 6145, name = "The Crimson Courier", npc = "Varimathras" },
@@ -222,8 +233,9 @@ SM.ScarletCrusadeData = {
         },
         {
             chapter = "The Fordring Name",
-            summary = "Tirion Fordring asks for aid in a personal matter that leads through Stratholme and Scarlet-held country.",
-            recap = "The Plaguelands proved the Crusade had become more than a monastery. Scarlet banners flew over towers and towns, Stratholme's living quarter hid the Fordring family painting, and Hearthglen stood as a fortress of certainty. Tirion Fordring, exiled and alone, still believed his son could be saved from it. Forgotten memories, lost honor, and the painting became weapons against fanatic teaching. Disguised as Scarlet, you reached Taelan and watched him remember who he was before the Crusade taught him whom to hate.",
+            summaryAlliance = "At the western edge of the Eastern Plaguelands, an old man named Tirion Fordring lives alone in a cottage, a long way from anybody. He has a story to tell and a favor to ask. Sit down for the story.",
+            summaryHorde = "High Executor Derrington, at the Bulwark, wants the Scarlet Crusade busy fighting somebody other than the Forsaken, starting with their camp near Felstone Field. Over in the Eastern Plaguelands, Tirion Fordring lives alone in a cottage and has a favor to ask.",
+            recap = "Tirion Fordring lives alone in a cottage in the Eastern Plaguelands, and once he starts talking, you sit down. He lost his title and his home for standing up for the wrong orc, and his son Taelan grew up to be a Highlord of the Scarlet Crusade. Tirion wanted him back.\n\nSo I went collecting memories, the best of them a family painting hidden in Stratholme behind a picture of the twin moons. A hag at Uther's Tomb gave me a Scarlet face, and I walked into Hearthglen and handed Taelan his father's gift.\n\nIt worked. Taelan remembered, and we fought our way out together. On the road, Grand Inquisitor Isillien caught us. Taelan died there. Tirion arrived a moment too late, and Isillien didn't last long after.",
             quests = {
                 { id = 5096, name = "Scarlet Diversions", npc = "High Executor Derrington", faction = "Horde" },
                 { id = 5097, name = "All Along the Watchtowers", npc = "Commander Ashlam Valorfist", faction = "Alliance", optional = true },

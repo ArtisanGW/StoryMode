@@ -64,6 +64,7 @@ function parseQuest(line, chapter, chapterMeta, dataMeta) {
     optional: /\boptional\s*=\s*true/.test(line),
     chapter,
     chapterFaction: chapterMeta.faction,
+    chapterRequiredLevel: chapterMeta.requiredLevel ?? null,
     storyFaction: dataMeta.faction,
     storyClass: dataMeta.class,
     storyRace: dataMeta.race,
@@ -96,12 +97,22 @@ export function parseDataFile(root, file, text) {
   let chapter = "";
   let chapterMeta = {};
 
+  let chapterHeader = false;
   for (const line of text.split(/\r?\n/)) {
     const chapterName = extractString(line, "chapter");
     if (chapterName) {
       chapter = chapterName;
-      chapterMeta = { faction: extractString(line, "faction") };
+      chapterMeta = { faction: extractString(line, "faction"), requiredLevel: extractNumber(line, "requiredLevel") };
       chapters.push({ chapter, faction: chapterMeta.faction });
+      chapterHeader = true;
+    } else if (chapterHeader && /\bquests\s*=\s*\{/.test(line)) {
+      chapterHeader = false;
+    } else if (chapterHeader && /^\s*faction\s*=\s*"/.test(line)) {
+      // A chapter's faction may sit on its own line under the chapter name.
+      chapterMeta = { ...chapterMeta, faction: extractString(line, "faction") };
+      chapters[chapters.length - 1].faction = chapterMeta.faction;
+    } else if (chapterHeader && /^\s*requiredLevel\s*=/.test(line)) {
+      chapterMeta = { ...chapterMeta, requiredLevel: extractNumber(line, "requiredLevel") };
     }
 
     if (/npcLocations\s*=\s*\{/.test(line)) table = "locations";

@@ -37,6 +37,7 @@ SM.ANewPlagueData = {
         ["Nethander Stead"] = { mapID = 25, x = 0.6400, y = 0.6200, location = "Nethander Stead, Hillsbrad Foothills" },
         ["Dun Garok"] = { mapID = 25, x = 0.7100, y = 0.8000, location = "Dun Garok, southeastern Hillsbrad Foothills" },
         ["Dusty Rug"] = { mapID = 25, x = 0.6200, y = 0.1800, location = "upstairs in the Tarren Mill inn" },
+        ["Theodore Griffs"] = { mapID = 1458, x = 0.4640, y = 0.7140, location = "the Apothecarium, Undercity" },
     },
 
     npcDisplayIDs = {
@@ -66,8 +67,8 @@ SM.ANewPlagueData = {
     chapters = {
         {
             chapter = "Johaan's Formula",
-            summary = "Gather Johaan's ingredients around Brill and bring the mixture to the prisoner in the Gallows' End Tavern.",
-            recap = "Apothecary Johaan began with blood, scales, and venom gathered from the creatures near Brill. In the tavern cellar, a captured mountaineer became the first proof that the new plague could be more than theory.",
+            summary = "Apothecary Johaan, at the Gallows' End Tavern in Brill, needs darkhound blood. Then other things. He's working on something new for the Royal Apothecary Society, and he hums while he works, which is never a good sign.",
+            recap = "So there's this apothecary in Brill. Johaan. Hums while he works. First day, he sends me out to kill dogs for their blood. Then murlocs for their scales, then spiders for their venom, and I'm thinking this had better be a soup.\n\nIt was not a soup. It was a drink, and the lucky guest was a dwarf they were keeping in the tavern cellar. I'll spare you that part. Johaan was thrilled. He wrote it all down, handed me his findings for Silverpine and told me to walk carefully.\n\nI walked very carefully.",
             quests = {
                 { id = 367, name = "A New Plague", displayName = "Darkhound Blood", npc = "Apothecary Johaan" },
                 { id = 368, name = "A New Plague", displayName = "Vile Fin Scales", npc = "Apothecary Johaan" },
@@ -78,8 +79,8 @@ SM.ANewPlagueData = {
         },
         {
             chapter = "A Recipe for Death",
-            summary = "Take Johaan's work to Silverpine, recover Berard's research, and bring Faranell the samples he requires.",
-            recap = "Renferrel and Faranell carried the work beyond Brill. Berard's journal, Pyrewood's danger, and the samples from Lake Lordamere gave the apothecaries older knowledge to add to their new recipe.",
+            summary = "Johaan's findings are with Apothecary Renferrel now, at the Sepulcher in Silverpine Forest. Renferrel has a shopping list of bear hearts and spider blood, all bound for Master Apothecary Faranell in the Undercity. Don't ask what for.",
+            recap = "Silverpine is where Johaan's work goes to grow up. Renferrel at the Sepulcher wanted bear hearts and spider blood, which by then felt like ordinary shopping, and I hauled the lot down to Master Apothecary Faranell in the Undercity. He looked at it the way most people look at cake.\n\nTurns out somebody had tried this recipe before. A fellow called Berard, whose journal was still lying around in Pyrewood Village. Lovely place. Do not stay the night. I got the journal out, and then Faranell wanted moss off the things in Lake Lordamere and a hardened tumor, and I stopped asking what any of it was for.\n\nThat's the trick with apothecaries. The less you ask, the better you sleep.",
             quests = {
                 { id = 447, name = "A Recipe For Death", npc = "Apothecary Renferrel" },
                 { id = 450, name = "A Recipe For Death", displayName = "Berard's Journal", npc = "Master Apothecary Faranell" },
@@ -88,8 +89,8 @@ SM.ANewPlagueData = {
         },
         {
             chapter = "Tarren Mill Trials",
-            summary = "Report to Apothecary Lydon in Hillsbrad and gather what he needs for his next field trials.",
-            recap = "Lydon's work in Tarren Mill turned research into local experiment. Tongues, ichor, and mountain lion blood became elixirs, and the tests on Umpi and Stanley showed how cruelly effective they could be.",
+            summary = "Apothecary Lydon, in Tarren Mill, wants gray bear tongues and creeper ichor for a new elixir. Lydon likes to see his work tested, on somebody other than Lydon. That's where you come in.",
+            recap = "Apothecary Lydon runs things in Tarren Mill, and Lydon likes to test his work on whoever's handy. I brought him bear tongues and creeper ichor, he cooked up the Elixir of Suffering, and then he handed it back to me. Not to drink. For Umpi, the poor beast he keeps in his room. Umpi did not enjoy it.\n\nNext came mountain lion blood for the Elixir of Pain, and that one was for Stanley. Stanley lived on a farm down in Hillsbrad Fields and was, until I came along, a very good dog. One sip and he was something else entirely, and we had words, and I won.\n\nLydon was delighted. Lydon is always delighted.",
             quests = {
                 { id = 496, name = "Elixir of Suffering", npc = "Apothecary Lydon" },
                 { id = 499, name = "Elixir of Suffering", displayName = "Umpi", npc = "Apothecary Lydon" },
@@ -99,14 +100,23 @@ SM.ANewPlagueData = {
         },
         {
             chapter = "Plagued Brew",
-            summary = "Help Lydon finish the Elixir of Agony and find a way to deliver it to the captured farmers upstairs.",
-            recap = "The Elixir of Agony passed from blossom to composite, from Faranell's decay to Lydon's final activation. With Dun Garok stout as the vessel, the inn itself became the last test.",
+            summary = "Apothecary Lydon, in Tarren Mill, has his eye on a greater work: the Elixir of Agony. It starts with mudsnout blossoms. It does not end there. Lydon's recipes never do.",
+            recap = "The Elixir of Agony was Lydon's masterpiece, and it took half of Hillsbrad to make. Mudsnout blossoms. A trip down to Faranell so he could add his own little touch. Troll's blood, scales off the naga on the coast, eyes off the murlocs. And then the secret ingredient: beer. A keg of Shindigger Stout from Dun Garok.\n\nLydon had some farmers locked upstairs at the inn, and the farmers, he figured, would drink anything. He tainted the keg and I carried it up and set it on their rug, friendly as you like.\n\nThen I went downstairs and had a drink of my own. Not from that keg.",
             quests = {
                 { id = 509, name = "Elixir of Agony", displayName = "Mudsnout Blossoms", npc = "Apothecary Lydon" },
                 { id = 513, name = "Elixir of Agony", displayName = "Mudsnout Composite", npc = "Apothecary Lydon" },
                 { id = 515, name = "Elixir of Agony", displayName = "Faranell's Mixture", npc = "Master Apothecary Faranell" },
                 { id = 517, name = "Elixir of Agony", displayName = "Shindigger Stout", npc = "Apothecary Lydon" },
                 { id = 524, name = "Elixir of Agony", displayName = "Tainted Keg", npc = "Apothecary Lydon" },
+            },
+        },
+        {
+            chapter = "The Apothecarium",
+            gameVersions = { forever = true },
+            summary = "Theodore Griffs, in the Undercity's Apothecarium, has heard of a spider in the ruins above the city, Witherfang, whose venom eats through undead flesh. He wants a sample. In the Undercity, that isn't a rumor. It's a job offer.",
+            recap = "Last job for the Society was back home in the Apothecarium, for a fellow named Theodore Griffs. He'd heard about a spider up in the ruins over the city, Witherfang, whose venom eats right through dead flesh. In the Undercity that's not a rumor. That's a job offer.\n\nSo into the Ruins of Lordaeron we went, a few of us, because nobody sane goes in there alone. Witherfang was big and quick and not at all happy to see us. We brought Griffs his Highly Toxic Strain anyway, and he held the vial up to the light like a jeweler.\n\nEverything else I'd fetched them was for killing the living. That one was for the dead. I went up for some air after that, which in the Undercity takes a while.",
+            quests = {
+                { id = 95216, name = "The New Plague", npc = "Theodore Griffs", gameVersions = { forever = true } },
             },
         },
     },

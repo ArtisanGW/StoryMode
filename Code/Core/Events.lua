@@ -227,6 +227,10 @@ function SM.ShouldSuppressQuestAcceptedSystemMessage(message)
 end
 
 function SM.QuestAcceptedSystemMessageFilter(_, _, message, ...)
+    -- A secret system line (newer clients) can't be read: pass it on as is.
+    if (issecretvalue and issecretvalue(message)) or type(message) ~= "string" then
+        return false, message, ...
+    end
     if SM.ShouldSuppressQuestAcceptedSystemMessage(message) then
         return true
     end
@@ -235,8 +239,11 @@ end
 
 function SM.RegisterQuestAcceptedSystemMessageFilter()
     if SM.questAcceptedSystemMessageFilterRegistered then return end
-    if ChatFrame_AddMessageEventFilter then
-        ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", SM.QuestAcceptedSystemMessageFilter)
+    -- The game's filter registry (newer clients run filters securely), or the
+    -- older global.
+    local addFilter = ChatFrameUtil and ChatFrameUtil.AddMessageEventFilter or ChatFrame_AddMessageEventFilter
+    if addFilter then
+        addFilter("CHAT_MSG_SYSTEM", SM.QuestAcceptedSystemMessageFilter)
         SM.questAcceptedSystemMessageFilterRegistered = true
     end
 end
@@ -251,6 +258,7 @@ end
 function SM.CheckQuestCompletion(completedQuestID)
     local data, quest, chapter = SM.FindQuestStory(completedQuestID)
     if not (data and quest and chapter) then return end
+    if SM.Client.isForever then SM.RecordQuestTurnInDate(completedQuestID) end
 
     local questName = quest.name
     local questNpc = quest.npc
@@ -365,6 +373,8 @@ function SM.InitializeSlashCommands()
                 end
             end
             print(L["Addon Legacy Prefix"] .. L["Slash All Complete"])
+        elseif msg:match("^scan") and SM.HandleScanCommand then
+            SM.HandleScanCommand(msg)
         elseif msg:match("^debug") then
             local filter = msg:match("^debug%s+(.+)$")
             local found = false
@@ -412,7 +422,10 @@ function SM.InitializeCoreEvents(storyFrame)
     -- The Scarlet secret lives where its host story lives: on clients where
     -- The Scarlet Crusade isn't registered (e.g. retail), never count kills —
     -- otherwise the reveal would announce a tab that cannot exist.
-    if SM.ScarletCrusadeData and SM.IsContentAvailableForClient
+    -- The Retail engine (Retail and WoW Forever) forbids addons the combat
+    -- log: registering it raises the "blocked from an action" popup, so the
+    -- named-kill ledger only counts on Classic clients.
+    if SM.IsClassicClient() and SM.ScarletCrusadeData and SM.IsContentAvailableForClient
         and SM.IsContentAvailableForClient(SM.ScarletCrusadeData) then
         eventFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
         eventFrame:RegisterEvent("UNIT_PET")

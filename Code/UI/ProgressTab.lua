@@ -38,7 +38,8 @@ function SM.LayoutProgressTab(data, w, contentW, visibleContentW)
         dProgSummary:SetText(string.format(L["Progress Summary Format"], chapDone, #chapters, done, total))
         dProgSummary:ClearAllPoints()
         dProgSummary:SetPoint("TOP", dTitle, "BOTTOM", 0, -4)
-        dProgSummary:Show()
+        -- The Forever window shows this in its header bar already.
+        dProgSummary:SetShown(not SM.ForeverWindow)
 
         -- ── Horizontal chapter track + quest cards ────────────────────
         local GREEN_R, GREEN_G, GREEN_B = RING_GREEN[1], RING_GREEN[2], RING_GREEN[3]
@@ -83,9 +84,11 @@ function SM.LayoutProgressTab(data, w, contentW, visibleContentW)
             if hasDataBackedPortrait then questPortraitID = nil end
             SM.SetChapterPortrait(node.portrait, displayID, chapterIcon, questPortraitID)
 
-            -- Tooltip
+            -- Tooltip. Forever keeps a chapter's summary to itself until
+            -- the player reaches the chapter, as it does under the track.
+            local showSummary = not SM.ForeverWindow or SM.IsChapterReached(data, ch)
             node.tooltipTitle = ch.chapter
-            node.tooltipBody = ch.summary or nil
+            node.tooltipBody = showSummary and SM.GetChapterText(ch, "summary") or nil
             node.tooltipProgress = cDone .. " / " .. cTotal .. " quests"
             node.tooltipAchievementID = ch.achievementID or nil
 
@@ -94,32 +97,32 @@ function SM.LayoutProgressTab(data, w, contentW, visibleContentW)
                 node.isDimmed = true
                 node.portrait:SetVertexColor(0.80, 0.80, 0.80)
                 node.portrait:SetDesaturation(0.4)
-                node.ring:SetVertexColor((SM.IsRetailClient()) and 0.55 or 1, (SM.IsRetailClient()) and 0.48 or 1, (SM.IsRetailClient()) and 0.38 or 1)
-                node.ring:SetAlpha((SM.IsRetailClient()) and 0.55 or 1.0)
+                node.ring:SetVertexColor((SM.IsMainlineClient()) and 0.55 or 1, (SM.IsMainlineClient()) and 0.48 or 1, (SM.IsMainlineClient()) and 0.38 or 1)
+                node.ring:SetAlpha((SM.IsMainlineClient()) and 0.55 or 1.0)
                 SM.SetSimpleBorder(node.portraitBorder, 0.55, 0.48, 0.38, node.hasRingAtlas and 0 or 0.55)
                 node.checkmark:Hide()
             elseif isComplete then
                 node.isDimmed = false
                 node.portrait:SetVertexColor(1, 1, 1)
                 node.portrait:SetDesaturation(0)
-                node.ring:SetVertexColor((SM.IsRetailClient()) and GREEN_R or 1, (SM.IsRetailClient()) and GREEN_G or 1, (SM.IsRetailClient()) and GREEN_B or 1)
-                node.ring:SetAlpha((SM.IsRetailClient()) and 0.8 or 1.0)
+                node.ring:SetVertexColor((SM.IsMainlineClient()) and GREEN_R or 1, (SM.IsMainlineClient()) and GREEN_G or 1, (SM.IsMainlineClient()) and GREEN_B or 1)
+                node.ring:SetAlpha((SM.IsMainlineClient()) and 0.8 or 1.0)
                 SM.SetSimpleBorder(node.portraitBorder, GREEN_R, GREEN_G, GREEN_B, node.hasRingAtlas and 0 or 0.8)
                 node.checkmark:Show()
             elseif isActive then
                 node.isDimmed = false
                 node.portrait:SetVertexColor(1, 1, 1)
                 node.portrait:SetDesaturation(0)
-                node.ring:SetVertexColor((SM.IsRetailClient()) and GOLD_R or 1, (SM.IsRetailClient()) and GOLD_G or 1, (SM.IsRetailClient()) and GOLD_B or 1)
-                node.ring:SetAlpha((SM.IsRetailClient()) and 0.9 or 1.0)
+                node.ring:SetVertexColor((SM.IsMainlineClient()) and GOLD_R or 1, (SM.IsMainlineClient()) and GOLD_G or 1, (SM.IsMainlineClient()) and GOLD_B or 1)
+                node.ring:SetAlpha((SM.IsMainlineClient()) and 0.9 or 1.0)
                 SM.SetSimpleBorder(node.portraitBorder, GOLD_R, GOLD_G, GOLD_B, node.hasRingAtlas and 0 or 0.9)
                 node.checkmark:Hide()
             else
                 node.isDimmed = true
                 node.portrait:SetVertexColor(0.6, 0.6, 0.6)
                 node.portrait:SetDesaturation(0.7)
-                node.ring:SetVertexColor((SM.IsRetailClient()) and 0.4 or 1, (SM.IsRetailClient()) and 0.35 or 1, (SM.IsRetailClient()) and 0.30 or 1)
-                node.ring:SetAlpha((SM.IsRetailClient()) and 0.5 or 1.0)
+                node.ring:SetVertexColor((SM.IsMainlineClient()) and 0.4 or 1, (SM.IsMainlineClient()) and 0.35 or 1, (SM.IsMainlineClient()) and 0.30 or 1)
+                node.ring:SetAlpha((SM.IsMainlineClient()) and 0.5 or 1.0)
                 SM.SetSimpleBorder(node.portraitBorder, 0.4, 0.35, 0.30, node.hasRingAtlas and 0 or 0.5)
                 node.checkmark:Hide()
             end
@@ -130,7 +133,7 @@ function SM.LayoutProgressTab(data, w, contentW, visibleContentW)
             -- ch.prerequisites = explicit quest gate; ch.gated = manual flag for
             -- chapters locked behind progress that can't be expressed as a quest ID.
             local CIRC = "Interface/CHARACTERFRAME/TempPortraitAlphaMask"
-            local isGated = SM.IsRetailClient()
+            local isGated = SM.IsMainlineClient()
                 and (ch.prerequisites ~= nil or ch.gated == true or ch.chapterNodeStyle == "rectangle")
             node.isGated = isGated
             if isGated then
@@ -158,6 +161,11 @@ function SM.LayoutProgressTab(data, w, contentW, visibleContentW)
                 SM.SetSimpleBorder(node.portraitBorder, node.borderR, node.borderG, node.borderB, node.hasRingAtlas and 0 or node.borderA)
             end
 
+            if node.isLegacyNode then
+                SM.ForeverWindow.StyleChapterNode(node, isComplete, isActive, false,
+                    select(3, SM.FindNextQuest(data)) == ch)
+            end
+
             -- Position
             node:ClearAllPoints()
             local x = (i - 1) * TRACK_STEP
@@ -175,8 +183,12 @@ function SM.LayoutProgressTab(data, w, contentW, visibleContentW)
 
             node:Show()
 
-            -- Arrow between nodes (except after last)
-            if i < #chapters then
+            -- Arrow between nodes (except after last). The Forever window
+            -- uses the Legacy tree's arrow, placed once the next node exists.
+            if i < #chapters and SM.ForeverWindow then
+                dTrackArrows[i] = dTrackArrows[i] or SM.ForeverWindow.CreateChapterArrow(dTrackInner)
+                dTrackArrows[i].chapterDone = isComplete
+            elseif i < #chapters then
                 if not dTrackArrows[i] then
                     dTrackArrows[i] = dTrackInner:CreateTexture(nil, "ARTWORK")
                     SM.SetStoryArrowTexture(dTrackArrows[i], "right", false)
@@ -196,12 +208,25 @@ function SM.LayoutProgressTab(data, w, contentW, visibleContentW)
                 arrow:Show()
             end
         end
+        if SM.ForeverWindow then
+            for i = 1, #chapters - 1 do
+                local arrow = dTrackArrows[i]
+                SM.ForeverWindow.PlaceChapterArrow(arrow, dTrackNodes[i], dTrackNodes[i + 1], arrow.chapterDone)
+            end
+        end
         for i = #chapters + 1, #dTrackNodes do dTrackNodes[i]:Hide() end
         for i = #chapters, #dTrackArrows do if dTrackArrows[i] then dTrackArrows[i]:Hide() end end
 
-        -- Position track container
+        -- Position track container. The Forever window has no story or
+        -- chapter name above the quests (they'd only repeat the list card and
+        -- the chapter's node), so its track starts near the top of the pane.
         dTrackContainer:ClearAllPoints()
-        dTrackContainer:SetPoint("TOP", dProgSummary, "BOTTOM", 0, -18)
+        if SM.ForeverWindow then
+            dTitle:Hide()
+            dTrackContainer:SetPoint("TOP", detailChild, "TOP", 0, -24)
+        else
+            dTrackContainer:SetPoint("TOP", dProgSummary, "BOTTOM", 0, -18)
+        end
         dTrackContainer:SetPoint("LEFT", detailChild, "LEFT", 0, 0)
         dTrackContainer:SetPoint("RIGHT", detailChild, "RIGHT", 0, 0)
         dTrackContainer:Show()
@@ -214,18 +239,32 @@ function SM.LayoutProgressTab(data, w, contentW, visibleContentW)
             dTrackRightBtn:Show()
         end)
 
-        -- Chapter title + summary below track
+        -- Chapter title + summary below track. On Forever the title is
+        -- hidden and marks the track's foot, for what goes below it when the
+        -- summary is hidden too.
         dChapterTitle:ClearAllPoints()
-        dChapterTitle:SetPoint("TOPLEFT", dTrackContainer, "BOTTOMLEFT", CP, -10)
-        dChapterTitle:SetPoint("TOPRIGHT", dTrackContainer, "BOTTOMRIGHT", -CP, -10)
+        if SM.ForeverWindow then
+            dChapterTitle:SetPoint("BOTTOMLEFT", dTrackContainer, "BOTTOMLEFT", CP, 0)
+            dChapterTitle:SetPoint("BOTTOMRIGHT", dTrackContainer, "BOTTOMRIGHT", -CP, 0)
+        else
+            dChapterTitle:SetPoint("TOPLEFT", dTrackContainer, "BOTTOMLEFT", CP, -10)
+            dChapterTitle:SetPoint("TOPRIGHT", dTrackContainer, "BOTTOMRIGHT", -CP, -10)
+        end
 
         dChapterSummary:ClearAllPoints()
-        dChapterSummary:SetPoint("TOPLEFT", dChapterTitle, "BOTTOMLEFT", 0, -4)
-        dChapterSummary:SetPoint("TOPRIGHT", dChapterTitle, "BOTTOMRIGHT", 0, -4)
+        if SM.ForeverWindow then
+            dChapterSummary:SetPoint("TOPLEFT", dTrackContainer, "BOTTOMLEFT", CP, -10)
+            dChapterSummary:SetPoint("TOPRIGHT", dTrackContainer, "BOTTOMRIGHT", -CP, -10)
+        else
+            dChapterSummary:SetPoint("TOPLEFT", dChapterTitle, "BOTTOMLEFT", 0, -4)
+            dChapterSummary:SetPoint("TOPRIGHT", dChapterTitle, "BOTTOMRIGHT", 0, -4)
+        end
 
-        dChapterNote:ClearAllPoints()
-        dChapterNote:SetPoint("TOPLEFT", dChapterSummary, "BOTTOMLEFT", 0, -8)
-        dChapterNote:SetPoint("TOPRIGHT", dChapterSummary, "BOTTOMRIGHT", 0, -8)
+        if not SM.ForeverWindow then  -- Forever places it with the chapter
+            dChapterNote:ClearAllPoints()
+            dChapterNote:SetPoint("TOPLEFT", dChapterSummary, "BOTTOMLEFT", 0, -8)
+            dChapterNote:SetPoint("TOPRIGHT", dChapterSummary, "BOTTOMRIGHT", 0, -8)
+        end
 
         -- Render quest cards for selected chapter
         SM.LayoutSelectedChapter()

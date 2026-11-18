@@ -78,10 +78,14 @@ function SM.LayoutStoryTab(data, w, contentW, visibleContentW)
                 sTrackBtn.lockReason = gateReason
             else
                 sTrackBtn:SetText(done > 0 and L["Button Continue Story"] or L["Button Begin Story"])
-                if SM.IsClassicClient() then
+                -- The secure overlay runs its action through /run. Clients
+                -- with user scripts off ignore that, and on WoW Forever the
+                -- overlay's click did nothing in game, so Forever always
+                -- takes the plain click, as Classic does.
+                if SM.IsClassicClient() or SM.Client.isForever or not SM.CanRunMacroScripts() then
                     SM.SetSecureOverlayActive(false)
                     sTrackBtn:SetScript("OnClick", function()
-                        ExecuteTrackButton(data, quest)
+                        SM.RunTrackButton(data, quest)
                     end)
                 else
                     -- PreClick on the secure overlay queues the action BEFORE the
@@ -111,16 +115,7 @@ function SM.LayoutStoryTab(data, w, contentW, visibleContentW)
         SM.SyncSecureOverlay()
         lastAnchor = sTrackBtn
 
-        local storyBottomEl = lastAnchor
-        -- Set scroll height
-        C_Timer.After(0, function()
-            local bot = storyBottomEl:GetBottom()
-            local top = detailChild:GetTop()
-            if bot and top then
-                detailChild:SetHeight(math.max(top - bot + 40, 400))
-            else
-                detailChild:SetHeight(500)
-            end
-        end)
+        -- The page ends 40 below the button, and follows it if it moves.
+        SM.FitDetailPageTo(lastAnchor, 40, 400)
 end
 

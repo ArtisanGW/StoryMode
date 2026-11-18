@@ -8,7 +8,7 @@ const args = process.argv.slice(2);
 const version = args.find((arg) => !arg.startsWith("--"));
 const skipChecks = args.includes("--no-check") || args.includes("--skip-checks");
 const root = process.cwd();
-const tocFiles = ["StoryMode.toc", "StoryMode_Vanilla.toc", "StoryMode_TBC.toc"];
+const tocFiles = ["StoryMode.toc", "StoryMode_Vanilla.toc", "StoryMode_TBC.toc", "StoryMode_Camelot.toc"];
 
 if (!version || !/^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$/.test(version)) {
   console.error("Usage: node _Dev/tools/prepare-release.mjs <version> [--no-check]");

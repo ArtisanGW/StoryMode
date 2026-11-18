@@ -5,3 +5,5 @@
 .quest-audit-cache/
 .meta-audit-cache/
 .localization-cache/
+.forever-scan-cache/
+_Dev/reports/

@@ -80,6 +80,39 @@ function SM.SetLoreChapterViewed(storylineTitle, chapterName)
     if SM.InvalidateProgressCache then SM.InvalidateProgressCache() end
 end
 
+-- When this character turned in a story quest, for the date WoW Forever's
+-- Legacy cards show. The game keeps no such date, so only quests turned in
+-- while Story Mode is installed have one.
+function SM.RecordQuestTurnInDate(questID)
+    local dates = questID and GetCharacterChapterFlags("questTurnInDates", true)
+    if dates then dates[questID] = time() end
+end
+
+function SM.GetQuestTurnInDate(quest)
+    local dates = GetCharacterChapterFlags("questTurnInDates", false)
+    if not (dates and quest) then return nil end
+    for _, questID in ipairs(SM.GetQuestIDs(quest)) do
+        if dates[questID] then return dates[questID] end
+    end
+    return nil
+end
+
+-- How quest cards show a story (WoW Forever): "guided" shows every quest,
+-- "explorer" keeps the ones the player hasn't reached yet hidden. One
+-- choice for the whole account; guided until the player picks explorer.
+function SM.GetQuestCardMode()
+    return StoryModeDB and StoryModeDB.questCardMode == "explorer" and "explorer" or "guided"
+end
+
+function SM.SetQuestCardMode(mode)
+    if not StoryModeDB then return end
+    StoryModeDB.questCardMode = mode == "explorer" and "explorer" or nil
+end
+
+function SM.IsExplorerMode()
+    return SM.GetQuestCardMode() == "explorer"
+end
+
 local function GetCharacterRecord(create)
     if not StoryModeDB then return nil end
     local characterKey = CharacterKey()

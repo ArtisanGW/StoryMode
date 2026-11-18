@@ -20,6 +20,16 @@ local function EnsureTrivialQuestsVisible()
     end
 end
 
+-- On WoW Forever the player decides whether Story Mode marks the map: it
+-- adds a waypoint, makes a quest the tracked one or turns on trivial quest
+-- tracking only while the world map's Quest Objectives filter is on.
+-- Track Quest still watches the quest and opens the map at the spot.
+local function MapPinsWanted()
+    if not (SM.Client and SM.Client.isForever) then return true end
+    local value = GetCVar and GetCVar("questPOI")
+    return value == nil or value == "1"
+end
+
 -- Map data provider for the "begin tracking" ping. We can't parent an insecure
 -- frame to WorldMapFrame.ScrollContainer.Child directly — that taints the secure
 -- canvas and propagates into AreaPOI tooltip widgets. Going through a proper
@@ -165,21 +175,22 @@ local function GetTrackedQuestID(quest)
 end
 
 local function GetQuestLocation(data, quest)
-    local questLocation = quest.mapID and quest.x and quest.y and { mapID = quest.mapID, x = quest.x, y = quest.y } or nil
+    local questLocation = quest.mapID and quest.x and quest.y
+        and SM.GetClientLocation({ mapID = quest.mapID, x = quest.x, y = quest.y }) or nil
+    local npcLocation = data.npcLocations and SM.GetClientLocation(data.npcLocations[quest.npc]) or nil
     local mapHint = (questLocation and questLocation.mapID)
-        or (data.npcLocations and data.npcLocations[quest.npc] and data.npcLocations[quest.npc].mapID)
-        or data.startMapID
+        or (npcLocation and npcLocation.mapID)
+        or SM.GetClientMapID(data.startMapID)
     local qid = GetTrackedQuestID(quest)
     local live = GetLiveQuestLocation(qid, mapHint)
     if live then return live end
 
     if questLocation then return questLocation end
 
-    local loc = data.npcLocations and data.npcLocations[quest.npc]
-    if loc then return loc end
+    if npcLocation then return npcLocation end
 
     if data.startQuest and quest.id == data.startQuest.id and data.startMapID and data.startX and data.startY then
-        return { mapID = data.startMapID, x = data.startX, y = data.startY }
+        return SM.GetClientLocation({ mapID = data.startMapID, x = data.startX, y = data.startY })
     end
 
     return nil
@@ -238,19 +249,27 @@ function SM.SetWaypointForQuest(data, quest)
         return TrackResult("classic_guidance", GetTrackedQuestID(quest))
     end
 
-    EnsureTrivialQuestsVisible()
+    local pinsWanted = MapPinsWanted()
+    if pinsWanted then EnsureTrivialQuestsVisible() end
 
-    if SM.IsQuestEntryInLog(quest) then
+    local inLog, logQuestID = SM.IsQuestEntryInLog(quest)
+    if inLog then
         local qid = GetTrackedQuestID(quest)
         SM.AddQuestWatch(qid)
-        if C_SuperTrack and C_SuperTrack.SetSuperTrackedQuestID then
+        if pinsWanted and C_SuperTrack and C_SuperTrack.SetSuperTrackedQuestID then
             C_SuperTrack.SetSuperTrackedQuestID(qid)
         end
+        -- On WoW Forever the quest opens in the quest log beside the map, as
+        -- it does on Classic. Its details turn the map to the quest's zone and
+        -- close when the map moves on, so the ping only goes on that map.
+        local opened = SM.Client.isForever and SM.OpenQuestLogToQuest(logQuestID or qid) or false
         local loc = GetQuestLocation(data, quest)
-        if loc then
+        local shownMapID = opened and WorldMapFrame and WorldMapFrame.GetMapID and WorldMapFrame:GetMapID()
+        if loc and (not opened or shownMapID == loc.mapID) then
             PingOnWorldMap(loc.mapID, loc.x, loc.y)
         end
-        return TrackResult("supertracked", qid, loc)
+        -- Not followed without map pins, so it points to the quest log.
+        return TrackResult(pinsWanted and "supertracked" or "classic_in_log", qid, loc, opened)
     end
 
     local guidanceQuest = GetQuestGuidanceOverride(quest)
@@ -258,12 +277,12 @@ function SM.SetWaypointForQuest(data, quest)
     local loc = GetQuestLocation(data, trackQuest)
     local qid = GetTrackedQuestID(trackQuest)
 
-    if qid and C_SuperTrack and C_SuperTrack.SetSuperTrackedMapPin
+    if pinsWanted and qid and C_SuperTrack and C_SuperTrack.SetSuperTrackedMapPin
         and Enum and Enum.SuperTrackingMapPinType and Enum.SuperTrackingMapPinType.QuestOffer then
         C_SuperTrack.SetSuperTrackedMapPin(Enum.SuperTrackingMapPinType.QuestOffer, qid)
     end
 
-    if loc and C_Map and C_Map.CanSetUserWaypointOnMap and C_Map.CanSetUserWaypointOnMap(loc.mapID)
+    if pinsWanted and loc and C_Map and C_Map.CanSetUserWaypointOnMap and C_Map.CanSetUserWaypointOnMap(loc.mapID)
         and UiMapPoint and C_Map.SetUserWaypoint then
         local point = UiMapPoint.CreateFromCoordinates(loc.mapID, loc.x, loc.y)
         C_Map.SetUserWaypoint(point)
@@ -279,8 +298,9 @@ function SM.SetWaypointForQuest(data, quest)
         return TrackResult("waypoint_approx", qid, loc, false, guidanceQuest)
     end
 
-    if data.startMapID then
-        OpenStoryMap(data.startMapID)
+    local startMapID = SM.GetClientMapID(data.startMapID)
+    if startMapID then
+        OpenStoryMap(startMapID)
     end
     return TrackResult("no_location", qid, nil, false, guidanceQuest)
 end

@@ -49,6 +49,12 @@ SM.FallenHeroData = {
         ["Archmage Allistarj"] = 6769,
         ["Lady Sevine"] = 6768,
         ["Razelikh the Defiler"] = 10543,
+        -- Quest givers' models from the cmangos Classic database.
+        ["Dispatch Commander Ruag"] = 6571,
+        ["Bengor"] = 6570,
+        ["Ambassador Ardalan"] = 7010,
+        ["Corporal Thund Splithoof"] = 6777,
+        ["Spirit of Kirith"] = 6878,
     },
 
     chapterDisplayIDs = {
@@ -73,8 +79,8 @@ SM.FallenHeroData = {
         {
             chapter = "Orders That Never Came",
             faction = "Horde",
-            summary = "The Fallen Hero speaks of a regiment lost waiting for orders. Begin in Stonard and search the southern swamps for the command that never reached him.",
-            recap = "The Fallen Hero's grief began with obedience. He led his soldiers toward the Blasted Lands and waited for orders that never came. Dispatch Commander Ruag remembered the lost message, Bengor remembered the ambush, and the Swamp Talker still held the Warchief's command. The truth was bitter: the regiment had been told to withdraw. The order never reached them.",
+            summary = "A ghost waits on the road where the Swamp of Sorrows gives way to the Blasted Lands. The Fallen Hero of the Horde, they call him, and he has a story for anyone willing to stop and listen.",
+            recap = "There's a ghost on the road where the Swamp of Sorrows gives way to the Blasted Lands. The Fallen Hero of the Horde, they call him, and his is a sorry tale. He took his soldiers toward the Blasted Lands and waited for orders. The orders never came.\n\nStonard knew the story. A few questions there, and I knew where the orders had actually gone: out to the murloc camps, into the keeping of something called the Swamp Talker. I went and took them back. The Warchief's own orders, long overdue and a bit damp.\n\nI carried them to the ghost. A dead man, finally reading the orders he'd waited for. I let him have a minute.",
             quests = {
                 { id = 2784, name = "Fall From Grace", npc = "Fallen Hero of the Horde" },
                 { id = 2621, name = "The Disgraced One", npc = "Fallen Hero of the Horde" },
@@ -84,8 +90,10 @@ SM.FallenHeroData = {
         },
         {
             chapter = "A Tale of Sorrow",
-            summary = "Return with the lost command, or answer Nethergarde's summons, and hear what Razelikh did to the soldiers who crossed into the Blasted Lands.",
-            recap = "From Stonard or Nethergarde, the road ended at the same ghost. The Fallen Hero told what waited beyond the swamp: Razelikh's servants took his fallen regiment, denied them rest, and bound them to stones of demonic power. His regret became an order of its own. If his soldiers could not live, they could still be set free.",
+            summaryAlliance = "Ambassador Ardalan at Nethergarde Keep has an odd errand for you: go and hear out a Horde ghost. The Fallen Hero of the Horde waits on the road where the Blasted Lands meet the swamp, with a story to tell.",
+            summaryHorde = "The Fallen Hero of the Horde isn't done talking. On his road at the edge of the Blasted Lands, he has the rest of his story to tell: what became of the soldiers who crossed over.",
+            recapAlliance = "An ambassador at Nethergarde Keep had an errand for me I didn't see coming: go and talk to a Horde ghost. With demons camped on the doorstep, I suppose the old squabbles can wait.\n\nThe Fallen Hero of the Horde stands where the swamp gives way to the Blasted Lands, and he told me all of it. Soldiers who crossed over, and what Razelikh the Defiler's people did with them after. Out there the dead don't get to rest. They get bound to stones and put to work.\n\nSo he gave me a job: set them loose, eighteen of them, at the Stones of Binding. You have to stay right by the stone while you work or it all comes apart, and fighting well while rooted to one spot is harder than it sounds.\n\nOdd work for the Alliance. The dead don't seem to mind whose colors you wear.",
+            recapHorde = "With the orders read, the Fallen Hero told me the rest of it. What happened to the soldiers who crossed into the Blasted Lands, and what Razelikh the Defiler's people did with them after. Out there the dead don't get to rest. They get bound to stones and put to work.\n\nSo he gave me a job: set them loose, eighteen of them, at the Stones of Binding. The catch is that you have to stay close to the stone while you work, or the whole thing comes apart. Nobody tells you how hard it is to fight well while rooted to one spot.\n\nWhen it was done, he didn't thank me, exactly. He started remembering names.",
             quests = {
                 { id = 2783, name = "Petty Squabbles", npc = "Ambassador Ardalan", faction = "Alliance" },
                 { id = 2801, name = "A Tale of Sorrow", npc = "Fallen Hero of the Horde" },
@@ -94,19 +102,19 @@ SM.FallenHeroData = {
         },
         {
             chapter = "The Last Souls",
-            summary = "Break the Stones of Binding and seek the last names left to the Fallen Hero: Corporal Thund Splithoof and Lieutenant Kirith.",
-            recap = "Breaking the Stones of Binding turned battle into mercy. One by one, the servants of Razelikh, Grol, Allistarj, and Sevine lost their anchors, and the dead soldiers were released from a fate worse than death. Corporal Thund Splithoof appeared long enough to honor the work and leave a token behind. Then one name remained: Lieutenant Kirith. Finding him in the Serpent's Coil revealed the next truth. Razelikh could not be reached until his protections were understood.",
+            summary = "The Fallen Hero of the Horde has two names for you. Corporal Thund Splithoof is waiting near the road into the Blasted Lands. Lieutenant Kirith is another matter: nobody knows what became of the lieutenant.",
+            recap = "Once the stones were quiet, the Fallen Hero gave me a name: Corporal Thund Splithoof, one of his own. Thund was waiting near the road into the Blasted Lands, with a spectral lockbox and something inside it for me. The dead, it turns out, pay their debts.\n\nThe second name was Lieutenant Kirith. Find out what became of Kirith, the Fallen Hero said. So I went looking, and out at the Serpent's Coil I found what was left: a spirit, with news.\n\nI carried the news back to the road. The Fallen Hero took it in, and then said two words I didn't expect from an old soldier of the Horde. Demon hunter.",
             quests = {
-                { id = 2701, name = "Heroes of Old", displayName = "Corporal Thund", npc = "Corporal Thund Splithoof" },
                 { id = 2702, name = "Heroes of Old", displayName = "The Splithoof Shard", npc = "Fallen Hero of the Horde" },
+                { id = 2701, name = "Heroes of Old", displayName = "Corporal Thund", npc = "Corporal Thund Splithoof" },
                 { id = 2721, name = "Kirith", npc = "Fallen Hero of the Horde" },
                 { id = 2743, name = "The Cover of Darkness", npc = "Spirit of Kirith" },
             },
         },
         {
             chapter = "Loramus and the Beast's Name",
-            summary = "Seek Loramus Thalipedes in Azshara. The demon hunter knows how Razelikh is warded, but he needs a name torn from the deep.",
-            recap = "The fight moved from ghostly remorse to demon-hunter craft. Loramus Thalipedes understood Razelikh's ward, but knowledge had to be earned. Lord Arkkoroc gave up the beast's name only after Hetaera's heads were brought from the Bay of Storms, and Loramus used the blood to name the enemy properly. The demon's protections were no longer a mystery. Felbane had to be made.",
+            summary = "The Fallen Hero of the Horde has a name for you, and it's a long way off: Loramus Thalipedes, a demon hunter who lives by the Bay of Storms in Azshara. Loramus has a story of his own.",
+            recap = "The demon hunter was Loramus Thalipedes, who lives on the coast of Azshara by the Bay of Storms. Loramus told me his story, then worked a spell of enlightenment while I stood there waiting, and when it was done I understood the problem. Razelikh is warded, and getting through that ward takes the beast's name.\n\nThe name came by way of a temple down by the water, whose lord wanted Hetaera dead first and the heads brought as proof. All three of them. Bloodied, beaten and bruised, which tells you how that fight went.\n\nLast came twenty chunks of Azsharite, hidden all over southern Azshara, and a felhound to sniff them out. Best partner I had that year. Never said a word.",
             quests = {
                 { id = 2744, name = "The Demon Hunter", npc = "Fallen Hero of the Horde" },
                 { id = 3141, name = "Loramus", npc = "Loramus Thalipedes" },
@@ -119,8 +127,8 @@ SM.FallenHeroData = {
         },
         {
             chapter = "Felbane",
-            summary = "Carry the Azsharite to Galvan the Ancient so Felbane can be forged for the Blasted Lands.",
-            recap = "The Azsharite was raw possibility: crystal from a dangerous coast, named by a demon hunter, and meant for a foe normal steel could not touch. Galvan the Ancient gave that possibility form. Felbane was not an heirloom or a trophy. It was a blade for one brutal task: wound Razelikh's protected servants, gather the shattered amulet, and open the way to the demon himself.",
+            summary = "Loramus Thalipedes has packed your Azsharite into a shipment for Galvan the Ancient, in northern Stranglethorn Vale. It's most of the world away from Azshara, and Loramus has very particular plans for what's inside.",
+            recap = "The demon hunter packed the Azsharite into a shipment and sent me off with it to Galvan the Ancient, in northern Stranglethorn. That's one end of the world to the other, near enough, hauling a crate of crystal somebody had very particular plans for.\n\nGalvan is called the Ancient for a reason, and nobody hurries Galvan. I stood by while the forge did its work, and what came out of the fire was Felbane, made for the one job ordinary steel can't do. Razelikh's lieutenants can't be killed by anything else.\n\nThen I carried it all the way back to the Blasted Lands, to the Fallen Hero on his road. I'd like to think it was the first good news he'd had since he died.",
             quests = {
                 { id = 3621, name = "The Formation of Felbane", npc = "Loramus Thalipedes" },
                 { id = 3625, name = "Enchanted Azsharite Fel Weaponry", npc = "Galvan the Ancient" },
@@ -129,8 +137,8 @@ SM.FallenHeroData = {
         },
         {
             chapter = "Rakh'likh",
-            summary = "With Felbane in hand, follow the last names the Fallen Hero gives you and prepare for the demon's reckoning.",
-            recap = "The last climb belonged to the dead as much as the living. Grol the Destroyer, Archmage Allistarj, and Lady Sevine each held a piece of Razelikh's power, and Felbane made them mortal enough to fall. The united ward opened the Rise of the Defiler. There, above the ruined land that had swallowed a Horde regiment, Razelikh finally answered for the souls he chained. The Fallen Hero could not undo his failure, but he saw the demon broken and his soldiers released.",
+            summary = "The Fallen Hero of the Horde has a use for Felbane. Razelikh the Defiler keeps three lieutenants in the Blasted Lands, each wearing a piece of a shattered amulet, and ordinary steel won't finish any of them.",
+            recap = "Razelikh kept three lieutenants, and each of them wore a piece of a shattered amulet. None of them could die until Felbane had weakened them, and the weapons only had so much in them. Use them wisely, the Fallen Hero said. I did. Mostly.\n\nThree pieces made one, and with that I went up the Rise of the Defiler to see the demon himself. The Fallen Hero had a name for him by then. Rakh'likh.\n\nI came back with the demon's severed horn, and the Ward of the Defiler with it, so the Fallen Hero could destroy that ward before it fell into the wrong hands. He didn't get his soldiers back. He got the horn.",
             quests = {
                 { id = 3627, name = "Uniting the Shattered Amulet", npc = "Fallen Hero of the Horde" },
                 { id = 3628, name = "You Are Rakh'likh, Demon", npc = "Fallen Hero of the Horde" },

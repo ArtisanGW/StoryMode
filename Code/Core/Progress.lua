@@ -133,8 +133,9 @@ end
 
 function SM.IsQuestEffectivelyComplete(questIndex, chapterQuests)
     local q = chapterQuests[questIndex]
-    -- Quests for the opposing faction are irrelevant.
-    if not SM.IsQuestForPlayer(q) then return true end
+    -- Quests for the opposing faction, or hidden by a choice the player made
+    -- (hideIf / showIf), are irrelevant.
+    if not SM.IsQuestForPlayer(q) or SM.ShouldHideQuest(q) then return true end
 
     if SM.IsQuestEntryInLog(q) then return false end
     if SM.IsQuestEntryComplete(q) then return true end
@@ -147,7 +148,8 @@ function SM.IsQuestEffectivelyComplete(questIndex, chapterQuests)
 
     for i = questIndex + 1, #chapterQuests do
         local laterQuest = chapterQuests[i]
-        if laterQuest and not laterQuest.parallel and SM.IsQuestForPlayer(laterQuest) and SM.IsQuestEntryComplete(laterQuest) then
+        if laterQuest and not laterQuest.parallel and SM.IsQuestForPlayer(laterQuest) and not SM.ShouldHideQuest(laterQuest)
+            and SM.IsQuestEntryComplete(laterQuest) then
             return true
         end
     end
@@ -324,13 +326,16 @@ function SM.GetChapterProgress(ch)
     return 0, 0
 end
 
+-- The story's quests done and in all, optional ones included, so the count
+-- still shows what's left after the story is finished. Whether it is
+-- finished is FindNextQuest's call, which skips optional quests.
 function SM.GetCampaignProgress(data)
     local cached = progressCache.campaignProgress[data]
     if cached then return cached.done, cached.total end
     local total, done = 0, 0
     for _, ch in ipairs(SM.GetAllChapters(data)) do
         for _, q in ipairs(ch.quests or {}) do
-            if not q.optional and SM.IsQuestForPlayer(q) and not SM.ShouldHideQuest(q) then
+            if SM.IsQuestForPlayer(q) and not SM.ShouldHideQuest(q) then
                 total = total + 1
                 if SM.IsQuestEntryComplete(q) then done = done + 1 end
             end
@@ -452,8 +457,8 @@ function SM.FindNextQuest(data)
                     local section = ch._section or 1
 
                     for j, q in ipairs(ch.quests or {}) do
-                        if not SM.IsQuestForPlayer(q) then
-                            -- skip opposing-faction variant
+                        if not SM.IsQuestForPlayer(q) or SM.ShouldHideQuest(q) then
+                            -- skip the opposing faction's variant, or a branch the player didn't take
                         elseif SM.IsQuestEntryInLog(q) then
                             logCandidates[#logCandidates + 1] = {
                                 quest = q, chapter = ch.chapter,
@@ -519,4 +524,20 @@ function SM.FindNextQuest(data)
 
     progressCache.nextQuest[data] = { quest = nil, chapter = nil, chapterData = nil }
     return nil, nil
+end
+
+-- Whether the player has reached a chapter: it's done or under way (a quest
+-- turned in or in the log), or it's where the story sends them next. Chapters
+-- you watch or replay instead of quest through always count, since their
+-- summary says what to do.
+function SM.IsChapterReached(data, ch)
+    if not (data and ch) then return false end
+    if ch.loreOnly or ch.replayable then return true end
+    if SM.GetChapterProgress(ch) > 0 then return true end
+    for _, q in ipairs(ch.quests or {}) do
+        if SM.IsQuestForPlayer(q) and SM.IsQuestEntryInLog(q) then return true end
+    end
+    local _, _, nextChapter = SM.FindNextQuest(data)
+    if nextChapter then return nextChapter == ch end
+    return SM.GetAllChapters(data)[1] == ch
 end

@@ -142,7 +142,7 @@ for (const data of datasets) {
 const examples = [
   snapshots.find((item) => item.file.endsWith("FrozenThroneData.lua") && item.scenario === "continue:alliance"),
   snapshots.find((item) => item.file.endsWith("DuskwoodData.lua") && item.scenario === "start"),
-  snapshots.find((item) => item.file.endsWith("ClassicClassQuestData.lua") && item.message.includes("Mathias")),
+  snapshots.find((item) => item.file.endsWith("ClassicRogueQuestData.lua") && item.message.includes("Mathias")),
   snapshots.find((item) => item.file.endsWith("SylvanasData.lua") && item.scenario === "continue:horde"),
 ].filter(Boolean);
 

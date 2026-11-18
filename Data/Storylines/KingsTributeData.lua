@@ -51,8 +51,8 @@ SM.KingsTributeData = {
     chapters = {
         {
             chapter = "The Waterlogged Letter",
-            summary = "Recover the waterlogged letter beneath the Thandol Span and carry its last words home.",
-            recap = "The trail began beneath the broken Thandol Span, beside a dwarf pinned in the riverbed. Sully Balloo's letter was not a weapon, a map, or a royal order. It was a husband's goodbye, written before war turned private love into public loss. Sara Balloo received the letter in Ironforge and asked for only one thing more: that her king know what had been given in his name.",
+            summary = "Under the broken Thandol Span, where few travelers think to look, lie a dwarf's remains and a waterlogged envelope. It's addressed to Sara Balloo in Ironforge. It never got there.",
+            recap = "Under the Thandol Span, where the bridge is broken, there's a stretch of riverbed nobody bothers to look at. I looked. There was what was left of a dwarf down there, and a waterlogged envelope.\n\nIt was a letter from Sully Balloo to Sara Balloo in Ironforge. Not orders. Not a map to anything. A man writing home to his wife, saying goodbye in case he didn't get another chance. He didn't.\n\nSo I carried it to Ironforge and found Sara. You don't want to be the one handing over a letter like that, but somebody has to. Sara read it, wrote a note of her own and asked me to take it to King Magni. She wanted her king to know what Sully had given. So up to the High Seat I went.",
             quests = {
                 { id = 637, name = "Sully Balloo's Letter", npc = "Waterlogged Envelope" },
                 { id = 683, name = "Sara Balloo's Plea", npc = "Sara Balloo" },
@@ -60,8 +60,8 @@ SM.KingsTributeData = {
         },
         {
             chapter = "The Memorial",
-            summary = "King Magni sends the letter on to Grand Mason Marblesten, who needs Alterac Granite before Sully's memorial can stand.",
-            recap = "Magni could not answer Sara's grief with victory, so he answered with remembrance. Grand Mason Marblesten took the commission seriously, sending you into the Darrow Hill cave for Alterac Granite worthy of the memorial. When the stone was cut and the work was done, the tribute no longer belonged only to Sully Balloo. It stood for every soldier whose death had been reduced to orders, borders, and reports until someone stopped long enough to read the letter.",
+            summary = "Sara Balloo's plea is in King Magni's hands now, up on the High Seat in Ironforge. The king has read it and made up his mind. It involves the Grand Mason, and it involves you.",
+            recap = "Kings get a lot of letters. Magni read Sara's and decided Sully Balloo would have a memorial, and that the Grand Mason would build it.\n\nThe Grand Mason took one look at the commission and decided only the best stone would do: Alterac Granite, five pieces of it. Long way to go for rocks. Very good rocks, I'm told. I carried every one of them back to Ironforge and felt each of them in my shoulders the next morning.\n\nThen I reported back to the king, and Sully got his memorial. Kings hand out a lot of things, titles and medals and land. A stone for one soldier nobody else was out looking for isn't the grandest of them. I liked it best.",
             quests = {
                 { id = 686, name = "A King's Tribute", displayName = "Magni's Commission", npc = "King Magni Bronzebeard" },
                 { id = 689, name = "A King's Tribute", displayName = "Alterac Granite", npc = "Grand Mason Marblesten" },

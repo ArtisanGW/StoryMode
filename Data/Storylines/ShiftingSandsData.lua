@@ -11,7 +11,8 @@ SM.ShiftingSandsData = {
     zone = "Silithus / Tanaris / Moonglade / Azshara / Blackwing Lair",
     expansion = "Classic",
     recommendedLevel = 60,
-    gameVersions = { classicEra = true, tbc = true },
+    -- Hidden on WoW Forever until Ahn'Qiraj opens: its server refused every quest in the 1.60.1.70938 scan.
+    gameVersions = { classicEra = true, tbc = true, forever = false },
     achievements = {},
     factions = {
         { id = 910, name = "Down at the Docks", displayName = "Brood of Nozdormu", description = "Earn the trust of the bronze dragonflight's ancient brood." },

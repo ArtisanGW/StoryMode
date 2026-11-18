@@ -56,8 +56,18 @@ local HEADER_H = 68
 -- Outer container  (invisible, handles dragging + ESC close)
 -- ════════════════════════════════════════════════════════════════════════════
 
-local storyFrame = CreateFrame("Frame", "StoryModeFrame", UIParent)
-storyFrame:SetSize(FRAME_W, FRAME_H)
+-- On WoW Forever the window is built like Forever's own windows
+-- (ForeverWindow.lua); the sections below go where its layout says.
+local storyFrame, skinLayout
+if SM.ForeverWindow then
+    storyFrame, skinLayout = SM.ForeverWindow.Create("StoryModeFrame")
+end
+if skinLayout then
+    LEFT_W, RIGHT_W, FRAME_H, GAP, HEADER_H = skinLayout.listW, skinLayout.detailW, skinLayout.detailH, 0, skinLayout.headerH
+else
+    storyFrame = CreateFrame("Frame", "StoryModeFrame", UIParent)
+    storyFrame:SetSize(FRAME_W, FRAME_H)
+end
 storyFrame:SetPoint("CENTER")
 storyFrame:SetMovable(true); storyFrame:EnableMouse(true)
 storyFrame:RegisterForDrag("LeftButton")
@@ -73,28 +83,50 @@ tinsert(UISpecialFrames, "StoryModeFrame")
 -- ════════════════════════════════════════════════════════════════════════════
 
 local leftSection = CreateFrame("Frame", nil, storyFrame)
-leftSection:SetSize(LEFT_W, FRAME_H)
-leftSection:SetPoint("TOPLEFT", storyFrame, "TOPLEFT", 0, 0)
+if skinLayout then
+    leftSection:SetSize(LEFT_W, skinLayout.listH)
+    leftSection:SetPoint("TOPLEFT", skinLayout.anchor, "TOPLEFT", skinLayout.listX, -skinLayout.listTop)
+else
+    leftSection:SetSize(LEFT_W, FRAME_H)
+    leftSection:SetPoint("TOPLEFT", storyFrame, "TOPLEFT", 0, 0)
+end
 SM.CreateStoryPanel(leftSection)
 
--- Scrollable card list (no scrollbar — mousewheel only)
-local leftScrollTopInset = SM.PanelScrollTopInset - (SM.IsRetailClient() and 2 or 0)
-local leftScrollBottomInset = SM.PanelScrollBottomInset - (SM.IsRetailClient() and 2 or 0)
+-- Scrollable card list (no scrollbar — mousewheel only). On the Forever
+-- window it fills its column, which ForeverWindow.lua fits to the frame.
+local leftScrollTopInset = skinLayout and 0 or SM.PanelScrollTopInset - (SM.IsMainlineClient() and 2 or 0)
+local leftScrollBottomInset = skinLayout and 0 or SM.PanelScrollBottomInset - (SM.IsMainlineClient() and 2 or 0)
+-- The Forever window shows a scroll bar right of the list, as Legacy's
+-- category list does; elsewhere the list scrolls with the mouse wheel only.
+local leftScrollRight = skinLayout and 20 or 12
 local leftScroll = CreateFrame("ScrollFrame", nil, leftSection, "ScrollFrameTemplate")
 leftScroll:SetPoint("TOPLEFT",     leftSection, "TOPLEFT",     12, -leftScrollTopInset)
-leftScroll:SetPoint("BOTTOMRIGHT", leftSection, "BOTTOMRIGHT", -12, leftScrollBottomInset)
-if leftScroll.ScrollBar then leftScroll.ScrollBar:Hide() end
+leftScroll:SetPoint("BOTTOMRIGHT", leftSection, "BOTTOMRIGHT", -leftScrollRight, leftScrollBottomInset)
+if leftScroll.ScrollBar then
+    if skinLayout then
+        -- Same spacing as the detail's scroll bar: 8 below the gold line, 6
+        -- above the frame's bottom border.
+        leftScroll.ScrollBar:ClearAllPoints()
+        leftScroll.ScrollBar:SetPoint("TOPLEFT", leftScroll, "TOPRIGHT", 2, -8)
+        leftScroll.ScrollBar:SetPoint("BOTTOMLEFT", leftScroll, "BOTTOMRIGHT", 2, 6)
+        leftScroll:HookScript("OnScrollRangeChanged", function(self)
+            C_Timer.After(0, function() SM.UpdateScrollbarVisibility(self) end)
+        end)
+    else
+        leftScroll.ScrollBar:Hide()
+    end
+end
 local leftChild = CreateFrame("Frame", nil, leftScroll)
-leftChild:SetWidth(LEFT_W - 24)
+leftChild:SetWidth(LEFT_W - 12 - leftScrollRight)
 leftScroll:SetScrollChild(leftChild)
 SM.LeftScroll = leftScroll
 SM.LeftStoryChild = leftChild
-SM.LeftWidth = LEFT_W
+SM.LeftWidth = LEFT_W - (leftScrollRight - 12)  -- LeftContextPanel takes 24 off for the insets
 SM.LeftPanelMode = "story"
 SM.LeftStoryScrollOffset = 0
 SM.EnableMouseWheelScroll(leftScroll)
 SM.LeftContextChild = CreateFrame("Frame", nil, leftScroll)
-SM.LeftContextChild:SetWidth(LEFT_W - 24)
+SM.LeftContextChild:SetWidth(LEFT_W - 12 - leftScrollRight)
 SM.LeftContextChild:Hide()
 SM.InitializeLeftContextPanel()
 
@@ -104,13 +136,18 @@ SM.InitializeLeftContextPanel()
 
 local rightSection = CreateFrame("Frame", nil, storyFrame)
 rightSection:SetSize(RIGHT_W, FRAME_H)
-rightSection:SetPoint("TOPLEFT", leftSection, "TOPRIGHT", GAP, 0)
+if skinLayout then
+    rightSection:SetPoint("TOPLEFT", skinLayout.anchor, "TOPLEFT", skinLayout.detailX, -skinLayout.detailTop)
+else
+    rightSection:SetPoint("TOPLEFT", leftSection, "TOPRIGHT", GAP, 0)
+end
 SM.CreateStoryPanel(rightSection)
 
 -- ── Close button (standard Blizzard X) ──────────────────────────────────────
 local closeBtn = CreateFrame("Button", nil, rightSection, "UIPanelCloseButton")
 closeBtn:SetPoint("TOPRIGHT", rightSection, "TOPRIGHT", -4, -4)
 closeBtn:SetScript("OnClick", function() storyFrame:Hide() end)
+if skinLayout then closeBtn:Hide() end  -- the portrait frame has its own
 
 -- ── Right header  (68px, title + selected story name) ────────────────────────
 local rightHeader = CreateFrame("Frame", nil, rightSection)
@@ -178,19 +215,28 @@ smHeaderSub:SetJustifyH("RIGHT")
 local headerDiv = SM.CreateMajorDivider(rightSection)
 headerDiv:SetPoint("LEFT",  rightHeader, "BOTTOMLEFT",  28, 0)
 headerDiv:SetPoint("RIGHT", rightHeader, "BOTTOMRIGHT", -36, 0)
+if skinLayout then
+    -- The Forever window has side tabs and a progress bar in the header band
+    -- instead (ForeverWindow.lua); the band keeps its height above the detail.
+    headerDiv:Hide()
+    rightHeader:Hide()
+end
 
 -- ── Tab container  (fills right section below header) ────────────────────────
+-- Anchored to the section, not to the header's bottom: the Forever window's
+-- header is 0 high, and WoW treats a 0 height as no size, so a frame hung
+-- from its bottom never gets placed and the whole detail pane disappears.
 local tabContainer = CreateFrame("Frame", nil, rightSection)
-tabContainer:SetPoint("TOPLEFT",     rightHeader,  "BOTTOMLEFT",  0,  0)
+tabContainer:SetPoint("TOPLEFT",     rightSection, "TOPLEFT",     0, -HEADER_H)
 tabContainer:SetPoint("BOTTOMRIGHT", rightSection, "BOTTOMRIGHT", 0,  0)
 
 -- ════════════════════════════════════════════════════════════════════════════
 -- Detail pane  (scrollable, lives inside tabContainer)
 -- ════════════════════════════════════════════════════════════════════════════
 
-local detailScrollTemplate = (SM.IsRetailClient()) and "ScrollFrameTemplate" or "UIPanelScrollFrameTemplate"
-local detailScrollName = (SM.IsRetailClient()) and nil or "StoryModeDetailScrollFrame"
-local detailScrollBottomInset = SM.PanelScrollBottomInset - (SM.IsRetailClient() and 2 or 0)
+local detailScrollTemplate = (SM.IsMainlineClient()) and "ScrollFrameTemplate" or "UIPanelScrollFrameTemplate"
+local detailScrollName = (SM.IsMainlineClient()) and nil or "StoryModeDetailScrollFrame"
+local detailScrollBottomInset = skinLayout and 0 or SM.PanelScrollBottomInset - (SM.IsMainlineClient() and 2 or 0)
 local detailScroll = CreateFrame("ScrollFrame", detailScrollName, tabContainer, detailScrollTemplate)
 detailScroll:SetPoint("TOPLEFT",     tabContainer, "TOPLEFT",      2,  -2)
 detailScroll:SetPoint("BOTTOMRIGHT", tabContainer, "BOTTOMRIGHT", -2, detailScrollBottomInset)
@@ -200,10 +246,50 @@ detailScroll:SetScrollChild(detailChild)
 function SM.GetDetailChild() return detailChild end
 SM.EnableMouseWheelScroll(detailScroll)
 
+-- The start page and the Story tab are as tall as it takes to reach their
+-- last element. Text there can settle a moment after the page is laid out,
+-- most of all on the first open after a reload, so the page is measured again
+-- a few times; a measure taken before the page is laid out is thrown away.
+local pageEnd = { serial = 0 }
+local PAGE_END_REMEASURE = { 0, 0.1, 0.5, 1.5 }
+local function FitPageToEnd(serial)
+    if serial ~= pageEnd.serial or not pageEnd.target then return end
+    local top, bottom = detailChild:GetTop(), pageEnd.target:GetBottom()
+    if not (top and bottom) then return end
+    local height = top - bottom
+    if height ~= height or height <= 0 or height > 20000 then return end
+    detailChild:SetHeight(math.max(height + pageEnd.padding, pageEnd.minHeight))
+end
+
+-- Makes the page end padding below target, at least minHeight tall. nil
+-- stops it, for pages that set their own height.
+function SM.FitDetailPageTo(target, padding, minHeight)
+    pageEnd.serial = pageEnd.serial + 1
+    pageEnd.target, pageEnd.padding, pageEnd.minHeight = target, padding or 0, minHeight or 0
+    if not target then return end
+    -- On a fresh load the page has no height yet, and nothing on a page with
+    -- no height has a position to measure, so it would stay blank. Give it
+    -- its least height first; the measures below then fit it.
+    if (detailChild:GetHeight() or 0) < pageEnd.minHeight then
+        detailChild:SetHeight(math.max(pageEnd.minHeight, 1))
+    end
+    local serial = pageEnd.serial
+    FitPageToEnd(serial)
+    for _, delay in ipairs(PAGE_END_REMEASURE) do
+        C_Timer.After(delay, function() FitPageToEnd(serial) end)
+    end
+end
+
 -- Move scrollbar inside the panel. Classic uses the options/settings scroll art.
 local detailScrollbar = SM.GetScrollBar(detailScroll)
 if detailScrollbar then
-    if SM.IsRetailClient() then
+    if skinLayout then
+        -- Just outside the detail pane, where the Legacy page puts its scroll
+        -- bar, level with the list's (the pane starts 1 lower than the list).
+        detailScrollbar:ClearAllPoints()
+        detailScrollbar:SetPoint("TOPLEFT",    detailScroll, "TOPRIGHT",    6, -7)
+        detailScrollbar:SetPoint("BOTTOMLEFT", detailScroll, "BOTTOMRIGHT", 6,  6)
+    elseif SM.IsMainlineClient() then
         detailScrollbar:ClearAllPoints()
         detailScrollbar:SetPoint("TOPRIGHT",    detailScroll, "TOPRIGHT",    -10, -16)
         detailScrollbar:SetPoint("BOTTOMRIGHT", detailScroll, "BOTTOMRIGHT", -10,  16)
@@ -217,7 +303,7 @@ if detailScrollbar then
 end
 
 local DP  = 32   -- divider padding (left/right)
-local CP  = 80   -- content padding (left/right) — narrower than dividers
+local CP  = SM.ForeverWindow and 40 or 80   -- content padding (left/right); the Forever window's detail is narrower
 
 -- ── Intro (visible when no story is selected) ──────────────────────────────
 local INTRO = {
@@ -269,12 +355,27 @@ local introCoverTexture = introCoverFrame:CreateTexture(nil, "ARTWORK")
 introCoverTexture:SetPoint("CENTER")
 introCoverTexture:SetTexture(STORYMODE_BG_TEXTURE)
 introCoverTexture:SetTexCoord(0, 1, 0, 1)
+introCoverTexture:SetVertexColor(0.8, 0.8, 0.8)  -- dimmed a little, so the logo stands out
 AddCoverFadeMask(introCoverFrame, introCoverTexture, introCoverFrame)
 
 local introCoverLayout = introCoverFrame:CreateTexture(nil, "OVERLAY")
 introCoverLayout:SetPoint("CENTER")
 introCoverLayout:SetTexture(STORYMODE_LAYOUT_TEXTURE)
 introCoverLayout:SetTexCoord(0, 1, 0, 1)
+
+-- The logo's file is 1536 pixels wide but shows far smaller, and the game
+-- shrinks it by skipping pixels, which leaves jagged edges. Copies shrunk
+-- ahead of time with an area filter (storymode_layout_<width>) are used
+-- instead: the smallest one at least as wide as the logo is on screen.
+local LOGO_WIDTHS = { 512, 768, 1024 }
+local function LogoTextureFor(width)
+    local _, screenH = GetPhysicalScreenSize and GetPhysicalScreenSize()
+    local pixels = width * introCoverFrame:GetEffectiveScale() * ((screenH or 768) / 768)
+    for _, size in ipairs(LOGO_WIDTHS) do
+        if size >= pixels then return STORYMODE_LAYOUT_TEXTURE .. "_" .. size end
+    end
+    return STORYMODE_LAYOUT_TEXTURE
+end
 
 local introText = SM.NoShadow(detailChild:CreateFontString(nil, "ARTWORK", "QuestFont"))
 introText:SetJustifyH("LEFT"); introText:SetSpacing(5)
@@ -289,7 +390,9 @@ local function SetIntroVisible(show)
     else
         introCoverFrame:Hide()
         introText:Hide()
+        SM.FitDetailPageTo(nil)
     end
+    if SM.ForeverWindow then SM.ForeverWindow.ShowQuestModeChoice(show) end
 end
 
 SetIntroVisible(false)
@@ -309,6 +412,7 @@ local function LayoutIntro()
     introCoverTexture:SetSize(coverW, coverH)
     SM.SetCenteredCoverTexCoord(introCoverTexture, INTRO.bgAspectW, INTRO.bgAspectH, coverW, coverH)
     local layoutW = coverW * INTRO.layoutScale
+    introCoverLayout:SetTexture(LogoTextureFor(layoutW))
     introCoverLayout:SetSize(layoutW, layoutW * (INTRO.layoutAspectH / INTRO.layoutAspectW))
     introCoverLayout:SetTexCoord(0, 1, 0, 1)
 
@@ -317,8 +421,9 @@ local function LayoutIntro()
     introText:SetPoint("TOPRIGHT", detailChild, "TOPRIGHT", -CP, -(coverH + INTRO.textGap))
     if contentW > 20 then introText:SetWidth(contentW) end
 
-    local textH = introText:GetStringHeight() or 0
-    detailChild:SetHeight(math.max(coverH + textH + INTRO.textGap + 40, 400))
+    -- The Forever window puts its Guided/Explorer choice under the text.
+    local pageBottom = SM.ForeverWindow and SM.ForeverWindow.PlaceQuestModeChoice(introText) or introText
+    SM.FitDetailPageTo(pageBottom, 40, 400)
 end
 
 -- ══════════════════════════════════════════════════════════════════════════════
@@ -365,82 +470,9 @@ dTitle:SetJustifyH("CENTER"); dTitle:SetWordWrap(false)
 dTitle:SetTextColor(C_GOLD[1], C_GOLD[2], C_GOLD[3])
 
 local ADVENTURE_COVER = SM.AdventureCover
-local ADVENTURE_COVER_W = ADVENTURE_COVER.width
-local ADVENTURE_COVER_H = ADVENTURE_COVER.height
-local ADVENTURE_COVER_TEX_LEFT = ADVENTURE_COVER.texLeft
-local ADVENTURE_COVER_TEX_RIGHT = ADVENTURE_COVER.texRight
-local ADVENTURE_COVER_TEX_TOP = ADVENTURE_COVER.texTop
-local ADVENTURE_COVER_TEX_BOTTOM = ADVENTURE_COVER.texBottom
-
-local aCoverFrame = CreateFrame("Frame", nil, detailChild)
-aCoverFrame:SetSize(ADVENTURE_COVER_W, ADVENTURE_COVER_H)
-aCoverFrame:Hide()
-
-local aCoverTexture = aCoverFrame:CreateTexture(nil, "ARTWORK")
-aCoverTexture:SetPoint("CENTER")
-aCoverTexture:SetSize(ADVENTURE_COVER_W, ADVENTURE_COVER_H)
-aCoverTexture:SetTexCoord(
-    ADVENTURE_COVER_TEX_LEFT,
-    ADVENTURE_COVER_TEX_RIGHT,
-    ADVENTURE_COVER_TEX_TOP,
-    ADVENTURE_COVER_TEX_BOTTOM
-)
-
--- Soft-edge fade mask: alpha-channel rounded rect that fades to transparent on
--- all four sides. Authored in Figma, exported as 32-bit TGA. The mask stretches
--- to fit the cover, so changing fade thickness is a matter of re-exporting.
-local aCoverFadeMask = aCoverFrame:CreateMaskTexture()
-aCoverFadeMask:SetTexture(COVER_FADE_MASK_TEXTURE, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
-aCoverFadeMask:SetAllPoints(aCoverTexture)
-aCoverTexture:AddMaskTexture(aCoverFadeMask)
-
-local aCoverTitle = aCoverFrame:CreateFontString(nil, "OVERLAY", "QuestFont_Huge")
-aCoverTitle:SetPoint("CENTER", aCoverFrame, "CENTER", 0, 0)
-aCoverTitle:SetWidth(ADVENTURE_COVER_W - 56)
-aCoverTitle:SetJustifyH("CENTER")
-aCoverTitle:SetWordWrap(false)
-aCoverTitle:SetTextColor(C_GOLD[1], C_GOLD[2], C_GOLD[3])
-do
-    local font, _, flags = aCoverTitle:GetFont()
-    aCoverTitle:SetFont(font, 30, flags)
-end
--- Soft shadow so the title stays readable on bright/busy parts of the cover.
-aCoverTitle:SetShadowColor(0, 0, 0, 0.55)
-aCoverTitle:SetShadowOffset(2, -2)
-
--- Gold gradient divider under the title (matches achievements page style).
-local aCoverDivider = CreateFrame("Frame", nil, aCoverFrame)
-aCoverDivider:SetHeight(1)
-local aCoverDividerL = aCoverDivider:CreateTexture(nil, "OVERLAY")
-aCoverDividerL:SetTexture(SOLID)
-aCoverDividerL:SetHeight(1)
-aCoverDividerL:SetPoint("LEFT",  aCoverDivider, "LEFT",   0, 0)
-aCoverDividerL:SetPoint("RIGHT", aCoverDivider, "CENTER", 0, 0)
-aCoverDividerL:SetGradient("HORIZONTAL",
-    CreateColor(C_GOLD[1], C_GOLD[2], C_GOLD[3], 0),
-    CreateColor(C_GOLD[1], C_GOLD[2], C_GOLD[3], 0.7))
-local aCoverDividerR = aCoverDivider:CreateTexture(nil, "OVERLAY")
-aCoverDividerR:SetTexture(SOLID)
-aCoverDividerR:SetHeight(1)
-aCoverDividerR:SetPoint("LEFT",  aCoverDivider, "CENTER", 0, 0)
-aCoverDividerR:SetPoint("RIGHT", aCoverDivider, "RIGHT",  0, 0)
-aCoverDividerR:SetGradient("HORIZONTAL",
-    CreateColor(C_GOLD[1], C_GOLD[2], C_GOLD[3], 0.7),
-    CreateColor(C_GOLD[1], C_GOLD[2], C_GOLD[3], 0))
-
-local aCoverLevel = SM.NoShadow(aCoverFrame:CreateFontString(nil, "OVERLAY", "QuestFont"))
-aCoverLevel:SetJustifyH("CENTER")
-aCoverLevel:SetWordWrap(false)
-aCoverLevel:SetTextColor(C_GOLD[1], C_GOLD[2], C_GOLD[3])
-aCoverLevel:SetShadowColor(0, 0, 0, 0.55)
-aCoverLevel:SetShadowOffset(1, -1)
-aCoverLevel:Hide()
-
-local adventureCoverFrame = {
-    texture = aCoverTexture,
-    title = aCoverTitle,
-    level = aCoverLevel,
-}
+-- The Adventure tab's cover (AdventureCover.lua builds and fills it).
+local adventureCoverFrame = SM.CreateAdventureCover(detailChild)
+local aCoverFrame = adventureCoverFrame.frame
 
 -- ════════════════════════════════════════════════════════════════════════════
 -- STORY TAB elements
@@ -692,10 +724,10 @@ dProgSummary:SetTextColor(C_BODY[1], C_BODY[2], C_BODY[3])
 -- Horizontal chapter track with quest detail cards below
 
 local TRACK_NODE_SIZE = 48      -- portrait circle diameter
-local TRACK_ARROW_GAP = 24      -- space between nodes (contains arrow)
+local TRACK_ARROW_GAP = SM.ForeverWindow and SM.ForeverWindow.ChapterArrowGap or 24  -- space between nodes (contains arrow); wider for Legacy's arrow
 local TRACK_STEP = TRACK_NODE_SIZE + TRACK_ARROW_GAP  -- 72px per step
 local TRACK_H = 72              -- track container height
-SM.TrackArrowSize = (SM.IsRetailClient()) and 14 or 18
+SM.TrackArrowSize = (SM.IsMainlineClient()) and 14 or 18
 
 local QCARD_GAP = 3            -- gap between cards
 
@@ -929,7 +961,7 @@ function SM.CreateTrackNode(parent)
             or SM.SafeSetTexture(ring, "Interface\\Buttons\\UI-ActionButton-Border")
     end
     if hasRingAtlas then
-        if SM.IsRetailClient() then
+        if SM.IsMainlineClient() then
             ring:SetPoint("TOPLEFT", portrait, "TOPLEFT", -3, 3)
             ring:SetPoint("BOTTOMRIGHT", portrait, "BOTTOMRIGHT", 3, -3)
         else
@@ -1013,8 +1045,8 @@ function SM.CreateTrackNode(parent)
     -- Down-arrow indicator (below node, points to quest cards)
     local downArrow = btn:CreateTexture(nil, "OVERLAY", nil, 3)
     SM.SetStoryArrowTexture(downArrow, "down", false)
-    local downArrowSize = (SM.IsRetailClient()) and 16 or 22
-    local downArrowOffsetY = (SM.IsRetailClient()) and 3 or 6
+    local downArrowSize = (SM.IsMainlineClient()) and 16 or 22
+    local downArrowOffsetY = (SM.IsMainlineClient()) and 3 or 6
     downArrow:SetSize(downArrowSize, downArrowSize)
     downArrow:SetPoint("TOP", portrait, "BOTTOM", 0, downArrowOffsetY)
     downArrow:SetVertexColor(C_GOLD[1], C_GOLD[2], C_GOLD[3])
@@ -1075,6 +1107,7 @@ function SM.CreateTrackNode(parent)
         SMTooltip:Hide()
     end)
 
+    if SM.ForeverWindow then SM.ForeverWindow.DecorateChapterNode(btn) end
     return btn
 end
 
@@ -1278,16 +1311,16 @@ SM.DetailUI = {
     C_DIM = C_DIM,
     RING_GREEN = { RING_GREEN_R, RING_GREEN_G, RING_GREEN_B },
     RING_GOLD = { RING_GOLD_R, RING_GOLD_G, RING_GOLD_B },
-    ADVENTURE_COVER_W = ADVENTURE_COVER_W,
-    ADVENTURE_COVER_TEX_LEFT = ADVENTURE_COVER_TEX_LEFT,
-    ADVENTURE_COVER_TEX_RIGHT = ADVENTURE_COVER_TEX_RIGHT,
-    ADVENTURE_COVER_TEX_TOP = ADVENTURE_COVER_TEX_TOP,
-    ADVENTURE_COVER_TEX_BOTTOM = ADVENTURE_COVER_TEX_BOTTOM,
+    ADVENTURE_COVER_W = ADVENTURE_COVER.width,
+    ADVENTURE_COVER_TEX_LEFT = ADVENTURE_COVER.texLeft,
+    ADVENTURE_COVER_TEX_RIGHT = ADVENTURE_COVER.texRight,
+    ADVENTURE_COVER_TEX_TOP = ADVENTURE_COVER.texTop,
+    ADVENTURE_COVER_TEX_BOTTOM = ADVENTURE_COVER.texBottom,
     aCoverFrame = aCoverFrame,
-    aCoverTexture = aCoverTexture,
-    aCoverTitle = aCoverTitle,
-    aCoverDivider = aCoverDivider,
-    aCoverLevel = aCoverLevel,
+    aCoverTexture = adventureCoverFrame.texture,
+    aCoverTitle = adventureCoverFrame.title,
+    aCoverDivider = adventureCoverFrame.divider,
+    aCoverLevel = adventureCoverFrame.level,
     sIntro = sIntro,
     sTrackBtn = sTrackBtn,
     sTrackBtnSecure = sTrackBtnSecure,
@@ -1348,12 +1381,12 @@ LayoutSelectedChapter = function()
     -- Deselected nodes get their completion-state ring color restored.
     -- Retail gated nodes (with prerequisites) use squareBorder instead of ring.
     local function SetNodeBorder(node, r, g, b, a)
-        if SM.IsRetailClient() then
+        if SM.IsMainlineClient() then
             node.ring:SetVertexColor(r, g, b)
         else
             node.ring:SetVertexColor(1, 1, 1)
         end
-        local ringAlpha = (SM.IsRetailClient()) and a or 1.0
+        local ringAlpha = (SM.IsMainlineClient()) and a or 1.0
         node.ring:SetAlpha(ringAlpha)
         node.borderR, node.borderG, node.borderB, node.borderA = r, g, b, ringAlpha
         if node.isGated then
@@ -1406,15 +1439,23 @@ LayoutSelectedChapter = function()
                 end
             end
         end
+        if node.isLegacyNode then
+            -- The chapter the story sends the player to next is marked selected.
+            SM.ForeverWindow.StyleChapterNode(node, isComp, isAct, i == dSelectedChapter,
+                thCh ~= nil and select(3, SM.FindNextQuest(data)) == thCh)
+        end
     end
 
     -- Chapter title + summary
     dChapterTitle:SetText(ch.chapter)
     dChapterTitle:SetTextColor(C_GOLD[1], C_GOLD[2], C_GOLD[3])
-    dChapterTitle:Show()
+    dChapterTitle:SetShown(not SM.ForeverWindow)  -- Forever names it on its node only
 
-    if ch.summary then
-        dChapterSummary:SetText(ch.summary)
+    -- Forever keeps the summary of a chapter the player hasn't reached yet
+    -- to itself, so it doesn't give the story away.
+    local summary = SM.GetChapterText(ch, "summary")
+    if summary and not (SM.ForeverWindow and not SM.IsChapterReached(data, ch)) then
+        dChapterSummary:SetText(summary)
         dChapterSummary:Show()
     else
         dChapterSummary:Hide()
@@ -1426,6 +1467,9 @@ LayoutSelectedChapter = function()
         dChapterNote:SetText(string.format(L["Lock Required Level Format"], chapterRequiredLevel))
         dChapterNote:SetTextColor(C_GOLD[1], C_GOLD[2], C_GOLD[3])
         dChapterNote:Show()
+    elseif SM.ForeverWindow then
+        -- The Forever window keeps only the level lock above the quests.
+        dChapterNote:Hide()
     elseif ch.note then
         dChapterNote:SetText(ch.note)
         dChapterNote:SetTextColor(C_GOLD[1], C_GOLD[2], C_GOLD[3])
@@ -1446,6 +1490,14 @@ LayoutSelectedChapter = function()
         end
     else
         dChapterNote:Hide()
+    end
+
+    if SM.ForeverWindow then
+        -- The level lock sits under the summary, or right under the track
+        -- when the summary is hidden (the hidden title marks the track's foot).
+        dChapterNote:ClearAllPoints()
+        dChapterNote:SetPoint("TOPLEFT", dChapterSummary:IsShown() and dChapterSummary or dChapterTitle, "BOTTOMLEFT", 0, -8)
+        dChapterNote:SetPoint("TOPRIGHT", dChapterSummary:IsShown() and dChapterSummary or dChapterTitle, "BOTTOMRIGHT", 0, -8)
     end
 
     local cdNote, ctNote = SM.GetChapterProgress(ch)
@@ -1523,6 +1575,7 @@ LayoutSelectedChapter = function()
     -- Quest cards — skipped for replayable chapters (button is the sole interaction point)
     local nextQuest = SM.FindNextQuest(data)
     local nextQuestID = nextQuest and nextQuest.id
+    local stepNumber = 0
 
     for i, q in ipairs(ch.quests) do
         if not dQuestCards[i] then
@@ -1568,6 +1621,15 @@ LayoutSelectedChapter = function()
             end
             card.tooltipRequirement = lockReason
 
+            if card.SetLegacyState then
+                -- WoW Forever's Legacy cards draw their state themselves.
+                stepNumber = stepNumber + 1
+                card:SetLegacyState((qDoneDisplay and "done") or (qInLog and "active")
+                    or (qPassed and "passed")
+                    or (qIsNextRecommended and "next") or (qOptional and "optional")
+                    or (lockReason and "locked") or "later", stepNumber, data, ch, q)
+                card:Show()
+            else
             card.icon:SetSize(14, 14)
             card.icon:SetDesaturation(0)
             if qDoneDisplay then
@@ -1598,12 +1660,14 @@ LayoutSelectedChapter = function()
                 card:SetAlpha(0.8)
             end
             card:Show()
+            end
         end
     end
     for i = #ch.quests + 1, #dQuestCards do dQuestCards[i]:Hide() end
 
     -- For chapters with no quests, show a full achievement card instead.
-    local CARD_W = 280
+    local CARD_W = SM.ForeverWindow and SM.LegacyQuestCardWidth or 280
+    local cardGap = SM.ForeverWindow and SM.LegacyQuestCardGap or QCARD_GAP
     if #ch.quests == 0 and ch.achievementID then
         local _, achName, _, achDone, _,_,_,_,_, achIcon = GetAchievementInfo(ch.achievementID)
         if achName then
@@ -1644,7 +1708,7 @@ LayoutSelectedChapter = function()
                             or dChapterTitle
                 card:SetPoint("TOP", anchor, "BOTTOM", 0, -20)
             else
-                card:SetPoint("TOP", prevCard, "BOTTOM", 0, -QCARD_GAP)
+                card:SetPoint("TOP", prevCard, "BOTTOM", 0, -cardGap)
             end
             -- Center horizontally: anchor LEFT relative to detailChild center
             card:SetPoint("LEFT", detailChild, "CENTER", -CARD_W / 2, 0)
@@ -1698,6 +1762,8 @@ function SM.ShowDetail(show)
 end
 
 function SM.ShowTab(tab)
+    -- Each tab sets the page's height; the Story tab fits it to its button.
+    SM.FitDetailPageTo(nil)
     -- Hide all tab-specific elements
     for _, el in ipairs(storyElements) do el:Hide() end
     for _, el in ipairs(journalElements) do el:Hide() end
@@ -1742,6 +1808,7 @@ end
 
 function SM.SetActiveTab(tab)
     activeTab = tab
+    if SM.ForeverWindow then SM.ForeverWindow.SetDetailTab(tab) end
     tabStoryLabel:SetTextColor(C_GOLD[1], C_GOLD[2], C_GOLD[3])
     tabProgressLabel:SetTextColor(C_GOLD[1], C_GOLD[2], C_GOLD[3])
     tabJournalLabel:SetTextColor(C_GOLD[1], C_GOLD[2], C_GOLD[3])
@@ -1803,20 +1870,26 @@ function SM.LayoutDetailTab()
 end
 
 -- ── Tab hover + click handlers ──────────────────────────────────────────────
+-- silent: the caller already played the tab sound (the Forever side tabs do).
+function SM.SelectDetailTab(tab, silent)
+    if activeTab == tab or not currentStoryData then return end
+    if not silent then PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB) end
+    SM.SetActiveTab(tab)
+    detailScroll:SetVerticalScroll(0)
+    SM.LayoutDetailTab()
+end
+
+if skinLayout then
+    SM.ForeverWindow.AddDetailTabs(storyFrame, function(tab) SM.SelectDetailTab(tab, true) end)
+end
+
 tabStoryHit:SetScript("OnEnter", function()
     if activeTab ~= "story" then tabStoryLabel:SetTextColor(1, 1, 1) end
 end)
 tabStoryHit:SetScript("OnLeave", function()
     if activeTab ~= "story" then tabStoryLabel:SetTextColor(C_GOLD[1], C_GOLD[2], C_GOLD[3]) end
 end)
-tabStoryHit:SetScript("OnClick", function()
-    if activeTab ~= "story" and currentStoryData then
-        PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
-        SM.SetActiveTab("story")
-        detailScroll:SetVerticalScroll(0)
-        SM.LayoutDetailTab()
-    end
-end)
+tabStoryHit:SetScript("OnClick", function() SM.SelectDetailTab("story") end)
 
 tabProgressHit:SetScript("OnEnter", function()
     if activeTab ~= "progress" then tabProgressLabel:SetTextColor(1, 1, 1) end
@@ -1824,14 +1897,7 @@ end)
 tabProgressHit:SetScript("OnLeave", function()
     if activeTab ~= "progress" then tabProgressLabel:SetTextColor(C_GOLD[1], C_GOLD[2], C_GOLD[3]) end
 end)
-tabProgressHit:SetScript("OnClick", function()
-    if activeTab ~= "progress" and currentStoryData then
-        PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
-        SM.SetActiveTab("progress")
-        detailScroll:SetVerticalScroll(0)
-        SM.LayoutDetailTab()
-    end
-end)
+tabProgressHit:SetScript("OnClick", function() SM.SelectDetailTab("progress") end)
 
 tabJournalHit:SetScript("OnEnter", function()
     if activeTab ~= "journal" then tabJournalLabel:SetTextColor(1, 1, 1) end
@@ -1839,14 +1905,7 @@ end)
 tabJournalHit:SetScript("OnLeave", function()
     if activeTab ~= "journal" then tabJournalLabel:SetTextColor(C_GOLD[1], C_GOLD[2], C_GOLD[3]) end
 end)
-tabJournalHit:SetScript("OnClick", function()
-    if activeTab ~= "journal" and currentStoryData then
-        PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
-        SM.SetActiveTab("journal")
-        detailScroll:SetVerticalScroll(0)
-        SM.LayoutDetailTab()
-    end
-end)
+tabJournalHit:SetScript("OnClick", function() SM.SelectDetailTab("journal") end)
 
 tabScarletHit:SetScript("OnEnter", function()
     if activeTab ~= "scarlet" then tabScarletLabel:SetTextColor(1, 1, 1) end
@@ -1854,14 +1913,7 @@ end)
 tabScarletHit:SetScript("OnLeave", function()
     if activeTab ~= "scarlet" then tabScarletLabel:SetTextColor(C_SCARLET[1], C_SCARLET[2], C_SCARLET[3]) end
 end)
-tabScarletHit:SetScript("OnClick", function()
-    if activeTab ~= "scarlet" and currentStoryData then
-        PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
-        SM.SetActiveTab("scarlet")
-        detailScroll:SetVerticalScroll(0)
-        SM.LayoutDetailTab()
-    end
-end)
+tabScarletHit:SetScript("OnClick", function() SM.SelectDetailTab("scarlet") end)
 
 -- ── Main entry point ────────────────────────────────────────────────────────
 function SM.UpdateStoryDetail(data)
@@ -1891,6 +1943,7 @@ function SM.UpdateStoryDetail(data)
         tabStoryLabel:Hide(); tabProgressLabel:Hide(); tabJournalLabel:Hide()
         tabStoryHit:Hide(); tabProgressHit:Hide(); tabJournalHit:Hide()
         tabScarletLabel:Hide(); tabScarletHit:Hide()
+        if SM.ForeverWindow then SM.ForeverWindow.ShowStory(nil) end
         LayoutIntro()
         C_Timer.After(0, function()
             local w = detailScroll:GetWidth()
@@ -1916,6 +1969,7 @@ function SM.UpdateStoryDetail(data)
     if activeTab == "scarlet" and not showScarletTab then
         SM.SetActiveTab("story")
     end
+    if SM.ForeverWindow then SM.ForeverWindow.ShowStory(data, showScarletTab) end
 
     -- Portrait icon (creature portrait or texture)
     heroIcon:SetTexture(nil)
@@ -2066,3 +2120,4 @@ SM.MinimapButton_Init = SM.CreateMinimapButton(storyFrame, SMTooltip, C_BODY)
 SM.ShowStoryBanner, SM.ShowStoryComplete = SM.CreateBanners()
 SM.InitializeSlashCommands()
 SM.InitializeCoreEvents(storyFrame)
+if skinLayout then SM.ForeverWindow.Attach(storyFrame) end

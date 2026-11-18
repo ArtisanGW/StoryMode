@@ -19,13 +19,13 @@ SM.ScytheOfEluneData = {
     adventureCoverTexture = 131869, -- Shadowfang Keep: closest Classic cover for the worgen trail into Duskwood
     adventureCoverIsLoadingScreen = true,
 
-    startQuest = { id = 1022, name = "The Howling Vale", npc = "Sentinel Melyria Frostshadow", location = "Forest Song, Ashenvale" },
+    startQuest = { id = 1022, name = "The Howling Vale", npc = "Sentinel Melyria Frostshadow", location = "the Shrine of Aessina, Ashenvale" },
     startMapID = 63,
-    startX = 0.8600,
-    startY = 0.4400,
+    startX = 0.2220,
+    startY = 0.5280,
 
     npcLocations = {
-        ["Sentinel Melyria Frostshadow"] = { mapID = 63, x = 0.8600, y = 0.4400, location = "Forest Song, Ashenvale" },
+        ["Sentinel Melyria Frostshadow"] = { mapID = 63, x = 0.2220, y = 0.5280, location = "the Shrine of Aessina, Ashenvale" },
         ["Tome of Mel'Thandris"] = { mapID = 63, x = 0.5000, y = 0.3900, location = "the Howling Vale, Ashenvale" },
         ["Thyn'tel Bladeweaver"] = { mapID = 89, x = 0.6200, y = 0.3900, location = "the Warrior's Terrace, Darnassus" },
         ["Velinde's Chest"] = { mapID = 89, x = 0.6200, y = 0.8100, location = "the Sentinels' bunkhouse, Darnassus" },
@@ -54,16 +54,16 @@ SM.ScytheOfEluneData = {
     chapters = {
         {
             chapter = "The Howling Vale",
-            summary = "Study the Tome of Mel'Thandris and learn why worgen have appeared near the Felwood border.",
-            recap = "The Tome of Mel'Thandris did not give a plain report. It showed Velinde Starsong praying for help against demons and receiving the Scythe of Elune in answer. The worgen in the Howling Vale were no local accident. They were tied to a night elf priestess, a weapon, and a call that had gone wrong.",
+            summary = "Sentinel Melyria Frostshadow, at the Shrine of Aessina in Ashenvale, has a wolf problem. These wolves walk on two legs and roam the Howling Vale, where they have no business being. An old book there, the Tome of Mel'Thandris, may explain them.",
+            recap = "Sentinel Melyria Frostshadow had a problem with wolves. Wolves on two legs, up in the Howling Vale, where they had no business being. Worgen, in Ashenvale. The Sentinel thought an old book might explain it, the Tome of Mel'Thandris, and the book was right there in the Vale with the worgen.\n\nSo I went and read it. Not the most relaxing reading I've ever done.\n\nIt told a story, and not a happy one. A priestess named Velinde Starsong prayed for help against the demons, and the help she was given was the Scythe of Elune. Whatever she did with it, the worgen came after. Melyria liked that story about as much as I did, which is to say not at all.",
             quests = {
                 { id = 1022, name = "The Howling Vale", npc = "Sentinel Melyria Frostshadow" },
             },
         },
         {
             chapter = "Velinde Starsong",
-            summary = "Carry Melyria's concern to Darnassus and search Velinde's stored effects.",
-            recap = "Darnassus remembered Velinde as a trusted priestess, not a villain. Thyn'tel Bladeweaver opened her stored belongings, and the journal inside changed the search from a military report into a missing-person trail. Velinde had used the scythe, lost control of the worgen, and disappeared while seeking help far from Ashenvale.",
+            summary = "The Tome of Mel'Thandris gave Sentinel Melyria a name: Velinde Starsong. Melyria wants to know what became of Velinde, and sends you to Darnassus to ask Thyn'tel Bladeweaver on the Warrior's Terrace.",
+            recap = "Darnassus remembered Velinde fondly. Melyria sent me to Thyn'tel Bladeweaver on the Warrior's Terrace, and Thyn'tel handed me the key to Velinde's chest, which had sat in storage since she left.\n\nGoing through somebody else's chest feels like burglary, even with the key. I found what I was after, Velinde's journal, and brought it back with the key.\n\nIt wasn't a confession, exactly. Velinde had used the scythe and the worgen had come, and then she couldn't hold them. So she'd gone looking for help, somewhere a long way from Ashenvale. The journal knew where she'd meant to go. It didn't know whether she'd got there. Neither did anybody in Darnassus.",
             quests = {
                 { id = 1037, name = "Velinde Starsong", npc = "Sentinel Melyria Frostshadow" },
                 { id = 1038, name = "Velinde's Effects", npc = "Thyn'tel Bladeweaver" },
@@ -71,8 +71,8 @@ SM.ScytheOfEluneData = {
         },
         {
             chapter = "Across the Sea",
-            summary = "Follow Velinde's travel records from Ratchet to Booty Bay and onto the roads north.",
-            recap = "Velinde's journal sent the trail across the world instead of deeper into Ashenvale. Ratchet remembered her passage to Booty Bay, and Booty Bay's caravan records pointed north toward Duskwood. The scythe had crossed continents, leaving only ship ledgers, goblin memory, and a road through dangerous country.",
+            summary = "Velinde Starsong left Ashenvale to find help a long way off, and Darnassus hasn't heard from Velinde since. Thyn'tel Bladeweaver thinks the trail starts at the docks. Wharfmaster Dizzywig, in Ratchet, might remember a passenger.",
+            recap = "Velinde's trail started at the docks. Thyn'tel sent me to Ratchet, and the wharfmaster there remembered Velinde taking passage to Booty Bay. So I took passage to Booty Bay. Following a priestess's travel plans across the world is a strange way to spend your days.\n\nIn Booty Bay the caravan records had her on the road north. Up through Stranglethorn. Toward Duskwood.\n\nNobody goes to Duskwood on purpose. Velinde apparently did, so I did too, and the road north was as friendly as it always is, which is not at all. At the end of it was Darkshire, where the sun doesn't bother.",
             quests = {
                 { id = 1039, name = "The Barrens Port", npc = "Thyn'tel Bladeweaver" },
                 { id = 1040, name = "Passage to Booty Bay", npc = "Wharfmaster Dizzywig" },
@@ -81,8 +81,8 @@ SM.ScytheOfEluneData = {
         },
         {
             chapter = "The Carevin Family",
-            summary = "Ask Darkshire's records and the Carevin family what they know about worgen in Duskwood.",
-            recap = "Darkshire had no clean record of Velinde, but it had worgen. Clerk Daltry pointed to Jonathan Carevin, whose family made a business of hunting the forest's monsters. Carevin's suspicion gave way to a practical bargain: if the trail led into Roland's Doom, then any answer found there should be shared with Darkshire.",
+            summary = "Velinde's trail has come all the way to Darkshire, in Duskwood, where the sun doesn't bother. Clerk Daltry, at the town hall, keeps the records. Somebody here must remember a night elf priestess passing through.",
+            recap = "Clerk Daltry had no Velinde in any of the Darkshire records. What Daltry did have was a name: Jonathan Carevin. The Carevins hunt the things in Duskwood's woods and have done for a long while, and if anybody in town knew about worgen, it'd be them.\n\nCarevin wasn't thrilled to have a stranger asking about the Scythe of Elune. Fair enough. But we came to an arrangement: whatever I found out there, Darkshire would hear about it too.\n\nWhat I found was in Roland's Doom, an old mine I'd rather not go back to, under a mound of dirt. Not the scythe. Evidence of it. Proof it had been there, in Duskwood, a very long way from home. I took it back to Carevin as promised.",
             quests = {
                 { id = 1042, name = "The Carevin Family", npc = "Clerk Daltry" },
                 { id = 1043, name = "The Scythe of Elune", npc = "Jonathan Carevin" },
@@ -90,8 +90,8 @@ SM.ScytheOfEluneData = {
         },
         {
             chapter = "Answered Questions",
-            summary = "Return to Darnassus with what the Duskwood cave revealed about Velinde and the scythe.",
-            recap = "Roland's Doom gave no triumphant recovery, only signs of what the scythe had unleashed and where Velinde's trail had broken. Thyn'tel accepted the report with gratitude and unease. The worgen could be contained for now, but the Scythe of Elune remained out of night elf hands, waiting for another chapter.",
+            summary = "What you dug out of Roland's Doom belongs in Darnassus. Jonathan Carevin, in Darkshire, wants Thyn'tel Bladeweaver to see it, and that means crossing the sea again. Mind it on the boat.",
+            recap = "Darnassus again. Carevin sent me back to Thyn'tel Bladeweaver with what I'd found, and that's a long way to carry an answer nobody's going to like.\n\nThyn'tel heard me out. The scythe had been in Duskwood. Velinde's trail had come apart somewhere around Roland's Doom. And whatever she'd called up with it was still loose in the world, in more forests than one.\n\nThyn'tel thanked me and meant it, and looked as uneasy as I've ever seen anyone look while saying thank you. I understood. We had answers now. That was the trouble. None of them came with the scythe attached, and the scythe was still out there somewhere.\n\nI've followed a lot of trails. That's the only one that crossed the whole world and finished on a question.",
             quests = {
                 { id = 1044, name = "Answered Questions", npc = "Jonathan Carevin" },
             },

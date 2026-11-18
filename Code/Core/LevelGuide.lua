@@ -3,17 +3,21 @@ local L = SM.L
 
 function SM.IsClassicLevelGuideShown(data)
     if not (data and SM.Client) then return false end
-    local versions = data.gameVersions
-    if SM.Client.isClassicEra then
-        return type(versions) == "table" and versions.classicEra == true
-    elseif SM.Client.isTBC then
-        return type(versions) == "table" and versions.tbc == true
-    end
-    return false
+    if SM.Client.isRetail then return false end
+    return SM.IsForClientGameVersion(data.gameVersions) == true
 end
 
 function SM.GetRecommendedLevelText(data)
     if not SM.IsClassicLevelGuideShown(data) then return nil end
+
+    -- WoW Forever: the range of the story's own quests on Forever
+    -- (Data/Forever/ForeverStoryLevels.lua), which counts its new quests.
+    -- Keyed by the English title; data.title is translated in place.
+    local forever = SM.Client.isForever and SM.ForeverStoryLevels
+        and SM.ForeverStoryLevels[data._originalTitle or data.title]
+    if forever then
+        return forever[1] == forever[2] and tostring(forever[1]) or string.format("%d-%d", forever[1], forever[2])
+    end
 
     local level = data.recommendedLevel
     if type(level) == "number" then
@@ -66,8 +70,14 @@ function SM.GetQuestlineCardSubline(data)
     return zoneText
 end
 
+-- A story whose Alliance and Horde sides start with different people keeps a
+-- description for each (descriptionAlliance, descriptionHorde), so neither
+-- reads about the other side's contacts.
 function SM.GetStoryIntroText(data)
-    return data and data.description or ""
+    if not data then return "" end
+    local faction = UnitFactionGroup and UnitFactionGroup("player")
+    local text = (faction == "Alliance" or faction == "Horde") and data["description" .. faction] or nil
+    return text or data.description or ""
 end
 
 function SM.GetStorySuggestedLevelText(data)

@@ -3,6 +3,7 @@ local _, SM = ...
 local SOLID = "Interface\\Buttons\\WHITE8x8"
 SM.SOLID_TEXTURE = SOLID
 SM.StoryModeIconTexture = "Interface\\AddOns\\StoryMode\\Art\\Icons\\storymode_icon"
+SM.StoryModeAvatarTexture = "Interface\\AddOns\\StoryMode\\Art\\Icons\\storymode_avatar"
 SM.StoryModeBgTexture = "Interface\\AddOns\\StoryMode\\Art\\Hero\\storymode_bg"
 SM.StoryModeLayoutTexture = "Interface\\AddOns\\StoryMode\\Art\\Hero\\storymode_layout"
 SM.CoverFadeMaskTexture = "Interface\\AddOns\\StoryMode\\Art\\Masks\\CoverFadeMask"
@@ -85,7 +86,7 @@ function SM.SetStoryArrowTexture(tex, direction, large)
         return
     end
 
-    if large or (SM.IsRetailClient()) then
+    if large or (SM.IsMainlineClient()) then
         if direction == "left" and SM.IsClassicClient() then
             if SM.SafeSetTexture(tex, "Interface\\Buttons\\UI-SpellbookIcon-PrevPage-Up") then
                 return
@@ -209,6 +210,13 @@ function SM.CreateCompletionRibbon(parent)
     end
 
     local check = ribbon:CreateTexture(nil, "OVERLAY", nil, 2)
+    -- WoW Forever uses Legacy's own green check, untinted (40 x 35), at the
+    -- size Legacy's objective rows draw it.
+    if SM.Client and SM.Client.isForever and SM.SafeSetAtlas(check, "worldquest-tracker-checkmark", false) then
+        check:SetSize(16, 14)
+        check:SetPoint("CENTER", ribbon, "CENTER", 0, hasFlag and 3 or 0)
+        return ribbon
+    end
     if not SM.SafeSetAtlas(check, "common-icon-checkmark", false) then
         SM.SafeSetTexture(check, "Interface\\Buttons\\UI-CheckBox-Check")
     end
@@ -237,7 +245,14 @@ local PERKS_LAYOUT = {
 }
 
 function SM.CreateStoryPanel(section)
-    local useRetailArt = SM.IsRetailClient()
+    -- The WoW Forever window draws one background for the whole window, so
+    -- its sections stay bare.
+    if SM.ForeverWindow then
+        local f = CreateFrame("Frame", nil, section)
+        f:SetAllPoints(section)
+        return f
+    end
+    local useRetailArt = SM.IsMainlineClient()
     local template = (useRetailArt and NineSliceUtil) and "NineSlicePanelTemplate" or "BackdropTemplate"
     local f = CreateFrame("Frame", nil, section, template)
     f:SetAllPoints(section)
@@ -298,7 +313,7 @@ function SM.UpdateScrollbarVisibility(scrollFrame)
     if not scrollbar then return end
 
     local range = scrollFrame:GetVerticalScrollRange() or 0
-    if SM.IsRetailClient() then
+    if SM.IsMainlineClient() then
         if range > 1 then
             scrollbar:Show()
         else
@@ -343,9 +358,9 @@ end
 
 function SM.CreateMajorDivider(parent)
     local f = CreateFrame("Frame", nil, parent)
-    f:SetHeight((SM.IsRetailClient()) and 16 or 8)
+    f:SetHeight((SM.IsMainlineClient()) and 16 or 8)
     local tex = f:CreateTexture(nil, "ARTWORK")
-    if SM.IsRetailClient() and tex.SetAtlas then
+    if SM.IsMainlineClient() and tex.SetAtlas then
         pcall(tex.SetAtlas, tex, "ui-journeys-renown-divider", false)
         tex:SetPoint("LEFT",  f, "LEFT",  0, 0)
         tex:SetPoint("RIGHT", f, "RIGHT", 0, 0)
