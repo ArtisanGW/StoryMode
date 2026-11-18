@@ -106,7 +106,9 @@ function questTooltipUrl(source, wowheadLocale, id) {
 }
 
 function officialNameFromTooltip(json) {
-  const name = typeof json?.name === "string" ? json.name.trim() : "";
+  // Wowhead writes French punctuation with non-breaking spaces; the locale
+  // files use plain ones (localization-audit.mjs).
+  const name = typeof json?.name === "string" ? json.name.replace(/[\u00A0\u202F]/g, " ").trim() : "";
   // Untranslated entries come back as "[English Name]".
   return name && !/^\[.*\]$/.test(name) ? name : null;
 }
