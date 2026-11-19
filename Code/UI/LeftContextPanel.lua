@@ -43,6 +43,7 @@ function SM.UseStoryLeftPanel()
     SM.LeftStoryChild:Show()
     SM.LeftScroll:SetScrollChild(SM.LeftStoryChild)
     SM.LeftPanelMode = "story"
+    if SM.SetStoryListFilterBarShown then SM.SetStoryListFilterBarShown(true) end
     SM.LeftStoryScrollOffset = scrollOffset
     SM.RestoreLeftStoryScroll()
 end
@@ -55,6 +56,7 @@ function SM.UseContextLeftPanel()
     SM.LeftScroll:SetScrollChild(SM.LeftContextChild)
     SM.LeftScroll:SetVerticalScroll(0)
     SM.LeftPanelMode = "context"
+    if SM.SetStoryListFilterBarShown then SM.SetStoryListFilterBarShown(false) end
     SM.HideLeftContext()
 end
 

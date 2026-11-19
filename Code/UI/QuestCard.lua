@@ -464,9 +464,35 @@ local function LayoutObjectives(card, list, top)
     return numRows * CARD.rowHeight + (numRows - 1) * CARD.rowGapY
 end
 
+-- The quest a search found (SM.SelectStory): its card keeps the open card's
+-- outline, and flashes and scrolls into view the first time it's laid out.
+local highlightedQuest, highlightPending
+
+function SM.HighlightQuestCard(quest)
+    highlightedQuest, highlightPending = quest, quest ~= nil
+end
+
+local function ScrollCardIntoView(card)
+    local ui = SM.DetailUI
+    local scroll, child = ui and ui.detailScroll, ui and ui.detailChild
+    if not (scroll and child) then return end
+    -- After the chapter has placed its cards and sized the page.
+    C_Timer.After(0.05, function()
+        if not card:IsVisible() then return end
+        local childTop, cardTop, cardBottom = child:GetTop(), card:GetTop(), card:GetBottom()
+        if not (childTop and cardTop and cardBottom) then return end
+        local top, bottom = childTop - cardTop, childTop - cardBottom
+        local view, current = scroll:GetHeight(), scroll:GetVerticalScroll()
+        if top >= current and bottom <= current + view then return end
+        local target = top - math.max(0, (view - (bottom - top)) / 2)
+        scroll:SetVerticalScroll(math.max(0, math.min(target, scroll:GetVerticalScrollRange())))
+    end)
+end
+
 -- Only a card with two or more objectives opens; any other stays a plain
 -- card that tracks its quest when clicked.
 local function ToggleLegacyQuestCard(card)
+    highlightedQuest = nil
     expandedQuest = (expandedQuest ~= card.questEntry) and card.questEntry or nil
     SMTooltip:Hide()
     PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
@@ -537,6 +563,27 @@ local function CreateLegacyQuestCard(parent)
 
     card.selected = CreateOutline(card, "BORDER", 1)
     SetOutlineShown(card.selected, false)
+    -- A brighter copy of the outline that flashes on a card a search found.
+    card.flash = CreateFrame("Frame", nil, card)
+    card.flash:SetAllPoints()
+    card.flash:SetFrameLevel(card:GetFrameLevel() + 2)
+    CreateOutline(card.flash, "OVERLAY", 1)
+    card.flash:Hide()
+    local flash = card.flash:CreateAnimationGroup()
+    for i = 1, 3 do
+        local fadeIn = flash:CreateAnimation("Alpha")
+        fadeIn:SetFromAlpha(0)
+        fadeIn:SetToAlpha(1)
+        fadeIn:SetDuration(0.25)
+        fadeIn:SetOrder(i * 2 - 1)
+        local fadeOut = flash:CreateAnimation("Alpha")
+        fadeOut:SetFromAlpha(1)
+        fadeOut:SetToAlpha(0)
+        fadeOut:SetDuration(0.35)
+        fadeOut:SetOrder(i * 2)
+    end
+    flash:SetScript("OnFinished", function() card.flash:Hide() end)
+    card.flash.anim = flash
     CreateOutline(card, "HIGHLIGHT", 0.35)
 
     card.ribbon = card:CreateTexture(nil, "ARTWORK")
@@ -654,7 +701,18 @@ local function CreateLegacyQuestCard(parent)
         self.top:SetShown(expanded)
         self.bottom:SetShown(expanded)
         SetAtlas(self.ribbon, done and LEGACY.ribbon or LEGACY.ribbonDim)
-        SetOutlineShown(self.selected, expanded)
+        local highlighted = quest ~= nil and quest == highlightedQuest
+        SetOutlineShown(self.selected, expanded or highlighted)
+        if highlighted and highlightPending then
+            highlightPending = false
+            self.flash:Show()
+            self.flash.anim:Stop()
+            self.flash.anim:Play()
+            ScrollCardIntoView(self)
+        elseif not highlighted and self.flash:IsShown() then
+            self.flash.anim:Stop()
+            self.flash:Hide()
+        end
         SetAtlas(self.plusMinus, expanded and LEGACY.minus or LEGACY.plus)
         self.plusMinus:SetShown(expandable)
 

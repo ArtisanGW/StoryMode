@@ -10,10 +10,180 @@ local storyContentBuilt = false
 local storyIndexToData = {}
 local storyListFrames = {}
 local activeStoriesSignature = ""
+-- Cards and dividers are built once and reused whenever the list is laid out
+-- again (a search keystroke, a filter change, a story becoming active): WoW
+-- never frees a frame, so building new ones each time would pile them up.
+local cardPool = { active = {}, list = {} }
+local dividerPool = {}
+local introRowPooled
+local emptyText
 
 local function RememberStoryListFrame(frame)
     storyListFrames[#storyListFrames + 1] = frame
     return frame
+end
+
+-- ── Search and status filter ─────────────────────────────────────────────
+-- The Forever window has a search box and a status filter above the list,
+-- as Legacy's challenge list does. The search also finds a story by its zone,
+-- chapters, and the quests the player can see (all of them in Guided mode,
+-- the revealed ones in Explorer mode) by title or giver; a story found by a
+-- quest opens on that quest's card. The filter shows how many stories each
+-- choice holds, and the list says so when nothing matches.
+local STATUS_ALL, STATUS_IN_PROGRESS, STATUS_NOT_STARTED, STATUS_COMPLETE = "all", "inProgress", "notStarted", "complete"
+local STATUS_OPTIONS = {
+    { key = STATUS_ALL, label = "Story Filter All" },
+    { key = STATUS_IN_PROGRESS, label = "Story Filter In Progress" },
+    { key = STATUS_NOT_STARTED, label = "Story Filter Not Started" },
+    { key = STATUS_COMPLETE, label = "Story Filter Complete" },
+}
+local searchWords
+local searchTextCache = setmetatable({}, { __mode = "k" })
+-- What the current search found in a story (see SearchStory), until the
+-- search or the list changes.
+local searchResults = setmetatable({}, { __mode = "k" })
+local filterBar, filterDropdown
+local FILTER_BAR_H = 34
+
+local function GetStatusFilter()
+    local status = SM.ForeverWindow and StoryModeDB and StoryModeDB.storyListStatus
+    for _, option in ipairs(STATUS_OPTIONS) do
+        if option.key == status then return status end
+    end
+    return STATUS_ALL
+end
+
+-- Finished, under way (a quest done or in the log) or not yet begun.
+function SM.GetStoryListStatus(data)
+    local state = SM.GetStoryState(data)
+    if state and state.isFinished then return STATUS_COMPLETE end
+    if SM.IsStoryActive(data) then return STATUS_IN_PROGRESS end
+    local done = SM.GetCampaignProgress(data)
+    if done and done > 0 then return STATUS_IN_PROGRESS end
+    return STATUS_NOT_STARTED
+end
+
+-- The words a story is named by (its title and zone), and all it always
+-- shows (those and its chapter names).
+local storyNameCache = setmetatable({}, { __mode = "k" })
+local function StoryNameTextOf(data)
+    local text = storyNameCache[data]
+    if text then return text end
+    text = ((data.title or "") .. "\n" .. (data.zone or "")):lower()
+    storyNameCache[data] = text
+    return text
+end
+
+local function StoryTextOf(data)
+    local text = searchTextCache[data]
+    if text then return text end
+    local parts = { StoryNameTextOf(data) }
+    for _, ch in ipairs(SM.GetAllChapters(data)) do
+        parts[#parts + 1] = (ch.chapter or ""):lower()
+    end
+    text = table.concat(parts, "\n")
+    searchTextCache[data] = text
+    return text
+end
+
+-- A quest's words: its title and who gives it.
+local function QuestTextOf(q)
+    local text = searchTextCache[q]
+    if text then return text end
+    text = table.concat({ q.displayName or "", q.name or "", q.npc or "" }, "\n"):lower()
+    searchTextCache[q] = text
+    return text
+end
+
+local function HasAllWords(text, words)
+    for _, word in ipairs(words) do
+        if not text:find(word, 1, true) then return false end
+    end
+    return true
+end
+
+-- Whether the search finds a story, and the quest it found there. The
+-- story's own name or zone wins; then a quest whose title or giver holds
+-- every word (a chapter is often named after its quest); then one that
+-- holds the words the story's name, zone and chapters lack. Only quests the
+-- player can see count: every quest with a card in Guided mode, in Explorer
+-- mode just the ones it has revealed.
+local function SearchStory(data, words)
+    if HasAllWords(StoryNameTextOf(data), words) then return true end
+    local storyText = StoryTextOf(data)
+    local missing = {}
+    for _, word in ipairs(words) do
+        if not storyText:find(word, 1, true) then missing[#missing + 1] = word end
+    end
+    local explorer = SM.IsExplorerMode and SM.IsExplorerMode()
+    local nextQuestID
+    if explorer then
+        local nextQuest = SM.FindNextQuest(data)
+        nextQuestID = nextQuest and nextQuest.id
+    end
+    local partial, partialChapter
+    for chapterIndex, ch in ipairs(SM.GetAllChapters(data)) do
+        if not ch.replayable then
+            for questIndex, q in ipairs(ch.quests or {}) do
+                local text = QuestTextOf(q)
+                local full = HasAllWords(text, words)
+                if (full or (not partial and #missing > 0 and HasAllWords(text, missing)))
+                    and SM.IsQuestForPlayer(q) and not SM.ShouldHideQuest(q)
+                    and (not explorer or SM.IsQuestDiscovered(questIndex, ch.quests, nextQuestID)) then
+                    if full then return true, q, chapterIndex end
+                    partial, partialChapter = q, chapterIndex
+                end
+            end
+        end
+    end
+    if partial then return true, partial, partialChapter end
+    return #missing == 0
+end
+
+local function MatchesSearch(data)
+    if not searchWords then return true end
+    local result = searchResults[data]
+    if result == nil then
+        result = SearchStory(data, searchWords) and true or false
+        searchResults[data] = result
+    end
+    return result
+end
+
+-- The quest the current search found in a story, and its chapter's place
+-- among the story's chapters; nil when the story itself matched (or no
+-- search is on).
+function SM.GetStorySearchQuest(data)
+    if not (searchWords and data) then return nil end
+    local _, quest, chapterIndex = SearchStory(data, searchWords)
+    return quest, chapterIndex
+end
+
+local function PassesListFilter(data)
+    if not MatchesSearch(data) then return false end
+    local status = GetStatusFilter()
+    return status == STATUS_ALL or SM.GetStoryListStatus(data) == status
+end
+
+local function IsListFiltered()
+    return searchWords ~= nil or GetStatusFilter() ~= STATUS_ALL
+end
+
+local function CountStoriesByStatus()
+    local counts, seen = { [STATUS_ALL] = 0 }, {}
+    for _, cat in ipairs(categories) do
+        if not cat.disabled then
+            for _, data in ipairs(cat.questlines) do
+                if not seen[data] and MatchesSearch(data) then
+                    seen[data] = true
+                    local status = SM.GetStoryListStatus(data)
+                    counts[status] = (counts[status] or 0) + 1
+                    counts[STATUS_ALL] = counts[STATUS_ALL] + 1
+                end
+            end
+        end
+    end
+    return counts
 end
 
 local function CollectActiveStorylines()
@@ -44,7 +214,7 @@ end
 local function CategoryHasVisibleQuestlines(cat, activeSet)
     if not cat or not cat.questlines then return false end
     for _, data in ipairs(cat.questlines) do
-        if cat.active or not activeSet[data] then
+        if (cat.active or not activeSet[data]) and PassesListFilter(data) then
             return true
         end
     end
@@ -173,7 +343,9 @@ function SM.RestoreLeftStoryScroll()
     end
 end
 
-function SM.SelectStory(index, chapterIndex)
+-- quest: a quest card to mark on the Progress tab (a search found it).
+function SM.SelectStory(index, chapterIndex, quest)
+    if SM.HighlightQuestCard then SM.HighlightQuestCard(quest) end
     SM.SaveLeftStoryScroll()
     PlaySound(SOUNDKIT.IG_MAINMENU_OPTION)
     StoryModeDB.selectedQuestline = index
@@ -247,6 +419,7 @@ end
 
 function SM.RebuildStoryWindow()
     if not storyContentBuilt then return end
+    wipe(searchResults)
     SM.SaveLeftStoryScroll()
     for _, frame in ipairs(storyListFrames) do
         frame:Hide()
@@ -433,7 +606,21 @@ local function GetStoryCardSubline(data)
     return zoneText
 end
 
+local function PlacePooledCard(card, cardPadding, yOffset)
+    card:ClearAllPoints()
+    card:SetPoint("TOPLEFT", SM.LeftStoryChild, "TOPLEFT", cardPadding, yOffset)
+    card:SetPoint("TOPRIGHT", SM.LeftStoryChild, "TOPRIGHT", -cardPadding, yOffset)
+    card:Show()
+    RememberStoryListFrame(card)
+end
+
 local function CreateIntroStoryCard(cardHeight, cardPadding, yOffset)
+    if introRowPooled then
+        PlacePooledCard(introRowPooled.btn, cardPadding, yOffset)
+        storyLeftRows[0] = introRowPooled
+        SM.ApplyIntroCompletionState(introRowPooled)
+        return introRowPooled
+    end
     local introCard, introBg = CreateListCardFrame(cardHeight, cardPadding, yOffset, 2, 4)
     local _, introIcon = CreateMaskedIcon(introCard, SM.StoryModeIconTexture)
 
@@ -465,6 +652,7 @@ local function CreateIntroStoryCard(cardHeight, cardPadding, yOffset)
         nameColor = nameColor,
     }
     storyLeftRows[0] = row
+    introRowPooled = row
 
     introCard:SetScript("OnClick", function() SM.SelectStory(0) end)
     introCard:SetScript("OnEnter", function()
@@ -478,7 +666,15 @@ local function CreateIntroStoryCard(cardHeight, cardPadding, yOffset)
     return row
 end
 
-local function CreateStoryListCard(data, idx, cardHeight, cardPadding, yOffset)
+local function CreateStoryListCard(data, idx, cardHeight, cardPadding, yOffset, section)
+    local pooled = cardPool[section][data]
+    if pooled then
+        PlacePooledCard(pooled.btn, cardPadding, yOffset)
+        pooled.index = idx
+        storyLeftRows[idx] = pooled
+        RefreshStoryRow(pooled)
+        return pooled
+    end
     local card, bg = CreateListCardFrame(cardHeight, cardPadding, yOffset, 2, 4)
 
     local coverTex = card:CreateTexture(nil, "BACKGROUND", nil, (SM.IsMainlineClient()) and 0 or 2)
@@ -552,14 +748,24 @@ local function CreateStoryListCard(data, idx, cardHeight, cardPadding, yOffset)
         checkmark = cardCheckmark,
         nameColor = nameColor,
         zoneColor = zoneColor,
+        index     = idx,
     }
     storyLeftRows[idx] = row
+    cardPool[section][data] = row
 
     card:SetScript("OnClick", function(_, button)
         if button == "LeftButton" and IsShiftKeyDown() and SM.InsertStoryChatLink(data) then
             return
         end
-        SM.SelectStory(idx)
+        -- Found by one of its quests: open that quest's chapter on the
+        -- Progress tab, its card marked.
+        local quest, chapterIndex = SM.GetStorySearchQuest(data)
+        if quest and SM.SetActiveTab then
+            SM.SetActiveTab("progress")
+            SM.SelectStory(row.index, chapterIndex, quest)
+            return
+        end
+        SM.SelectStory(row.index)
     end)
     card:SetScript("OnEnter", function(self)
         SM.ApplyStoryCardBorderState(row, true)
@@ -579,7 +785,17 @@ local function CreateStoryListCard(data, idx, cardHeight, cardPadding, yOffset)
 end
 
 local function AddCategoryDivider(text, yOffset, bottomPadding)
+    local pooled = dividerPool[text]
+    if pooled then
+        pooled.frame:ClearAllPoints()
+        pooled.frame:SetPoint("TOPLEFT", SM.LeftStoryChild, "TOPLEFT", 4, yOffset)
+        pooled.frame:SetPoint("TOPRIGHT", SM.LeftStoryChild, "TOPRIGHT", -4, yOffset)
+        pooled.frame:Show()
+        RememberStoryListFrame(pooled.frame)
+        return yOffset - pooled.height - bottomPadding
+    end
     local divH, div = SM.CreateCatDivider(SM.LeftStoryChild, text, yOffset)
+    dividerPool[text] = { frame = div, height = divH }
     RememberStoryListFrame(div)
     return yOffset - divH - bottomPadding
 end
@@ -594,10 +810,10 @@ local function RenderStoryCategory(cat, activeSet, globalIdx, cardHeight, cardPa
 
     yOffset = AddCategoryDivider(cat.displayName or cat.name, yOffset, 4)
     for _, data in ipairs(cat.questlines) do
-        if not (activeSet[data] and not cat.active) then
+        if not (activeSet[data] and not cat.active) and PassesListFilter(data) then
             globalIdx = globalIdx + 1
             storyIndexToData[globalIdx] = data
-            CreateStoryListCard(data, globalIdx, cardHeight, cardPadding, yOffset)
+            CreateStoryListCard(data, globalIdx, cardHeight, cardPadding, yOffset, cat.active and "active" or "list")
             yOffset = yOffset - cardHeight - 5
         end
     end
@@ -613,6 +829,9 @@ function SM.BuildStoryWindow()
     if SM.RegisterQuestlines then SM.RegisterQuestlines() end
     if SM.IsQuestlineRegistryReady and not SM.IsQuestlineRegistryReady() then return end
     storyContentBuilt = true
+    -- The saved filter is only known once the saved variables load, after
+    -- the bar was made: name it on the button now.
+    if filterDropdown and filterDropdown.GenerateMenu then filterDropdown:GenerateMenu() end
     for _, data in ipairs(allQuestlines) do SM.ResolveAchievementID(data) end
     wipe(storyIndexToData)
     local activeQuestlines, activeSet = CollectActiveStorylines()
@@ -625,14 +844,109 @@ function SM.BuildStoryWindow()
     local yOffset  = -16
     local globalIdx = 0
 
-    local playerName = UnitName("player")
-    yOffset = AddCategoryDivider(playerName and string.format(L["Greeting Format"], playerName) or L["Greeting Fallback"], yOffset, 4)
-    CreateIntroStoryCard(CARD_H, CARD_PAD, yOffset)
-    yOffset = yOffset - CARD_H - 4
+    local filtered = IsListFiltered()
+    if not filtered then
+        local playerName = UnitName("player")
+        yOffset = AddCategoryDivider(playerName and string.format(L["Greeting Format"], playerName) or L["Greeting Fallback"], yOffset, 4)
+        CreateIntroStoryCard(CARD_H, CARD_PAD, yOffset)
+        yOffset = yOffset - CARD_H - 4
+    end
 
     for _, cat in ipairs(displayCategories) do
-        globalIdx, yOffset = RenderStoryCategory(cat, activeSet, globalIdx, CARD_H, CARD_PAD, yOffset)
+        if not (filtered and cat.disabled) then
+            globalIdx, yOffset = RenderStoryCategory(cat, activeSet, globalIdx, CARD_H, CARD_PAD, yOffset)
+        end
+    end
+    if filtered and globalIdx == 0 then
+        if not emptyText then
+            emptyText = SM.NoShadow(SM.LeftStoryChild:CreateFontString(nil, "OVERLAY", "GameFontNormal"))
+            emptyText:SetJustifyH("CENTER")
+            emptyText:SetText(L["Story Filter No Match"])
+        end
+        emptyText:ClearAllPoints()
+        emptyText:SetPoint("TOPLEFT", SM.LeftStoryChild, "TOPLEFT", 16, yOffset - 24)
+        emptyText:SetPoint("TOPRIGHT", SM.LeftStoryChild, "TOPRIGHT", -16, yOffset - 24)
+        emptyText:Show()
+        RememberStoryListFrame(emptyText)
+        yOffset = yOffset - 60
     end
     SM.LeftStoryChild:SetHeight(math.abs(yOffset) + 16)
     ApplyCurrentSelectionState()
+end
+
+-- Lays the list out again for the current search and filter, from the top.
+local function ApplyListFilter()
+    wipe(searchResults)
+    if filterDropdown and filterDropdown.GenerateMenu then filterDropdown:GenerateMenu() end
+    if not storyContentBuilt then return end
+    SM.LeftScroll:SetVerticalScroll(0)
+    SM.RebuildStoryWindow()
+end
+
+-- The bar shows only while the left column lists stories (the Journal tab
+-- puts factions there instead); the list moves down to make room for it.
+function SM.SetStoryListFilterBarShown(shown)
+    if not filterBar then return end
+    filterBar:SetShown(shown)
+    SM.LeftScroll:SetPoint("TOPLEFT", filterBar:GetParent(), "TOPLEFT", 12, shown and -FILTER_BAR_H or 0)
+end
+
+function SM.CreateStoryListFilterBar(parent, rightInset)
+    if filterBar then return filterBar end
+    -- The bar lines up with the cards below it: the list starts 12 in and
+    -- each card sits CARD_PAD (4) inside it on both sides.
+    filterBar = CreateFrame("Frame", nil, parent)
+    filterBar:SetPoint("TOPLEFT", parent, "TOPLEFT", 12 + 4, -6)
+    filterBar:SetPoint("TOPRIGHT", parent, "TOPRIGHT", -((rightInset or 12) + 4), -6)
+    filterBar:SetHeight(FILTER_BAR_H - 8)
+
+    filterDropdown = CreateFrame("DropdownButton", nil, filterBar, "WowStyle1DropdownTemplate")
+    filterDropdown:SetWidth(132)
+    filterDropdown:SetPoint("RIGHT", filterBar, "RIGHT", 0, 0)
+    -- The button names the choice; the menu also shows how many stories each holds.
+    if filterDropdown.SetSelectionTranslator then
+        filterDropdown:SetSelectionTranslator(function(selection)
+            local key = selection.GetData and selection:GetData()
+            for _, option in ipairs(STATUS_OPTIONS) do
+                if option.key == key then return L[option.label] end
+            end
+            return L["Story Filter All"]
+        end)
+    end
+    filterDropdown:SetupMenu(function(_, root)
+        local counts = CountStoriesByStatus()
+        for _, option in ipairs(STATUS_OPTIONS) do
+            root:CreateRadio(string.format(L["Story Filter Count Format"], L[option.label], counts[option.key] or 0),
+                function() return GetStatusFilter() == option.key end,
+                function()
+                    StoryModeDB.storyListStatus = option.key
+                    ApplyListFilter()
+                end,
+                option.key)
+        end
+    end)
+
+    local search = CreateFrame("EditBox", nil, filterBar, "SearchBoxTemplate")
+    search:SetHeight(20)
+    search:SetPoint("LEFT", filterBar, "LEFT", 5, 0)  -- its border reaches 5 left of the box
+    search:SetPoint("RIGHT", filterDropdown, "LEFT", -10, 0)
+    search:SetAutoFocus(false)
+    if search.Instructions then search.Instructions:SetText(L["Story Search Instructions"]) end
+    search:HookScript("OnTextChanged", function(self)
+        local text = strtrim(self:GetText() or ""):lower()
+        local words = {}
+        for word in text:gmatch("%S+") do words[#words + 1] = word end
+        local key = table.concat(words, " ")
+        if key == (searchWords and table.concat(searchWords, " ") or "") then return end
+        searchWords = #words > 0 and words or nil
+        if SM.DebounceTask then
+            SM.DebounceTask("story-list-search", 0.15, ApplyListFilter)
+        else
+            ApplyListFilter()
+        end
+    end)
+    filterBar.search = search
+
+    SM.SetStoryListFilterBarShown(true)
+    return filterBar
 end

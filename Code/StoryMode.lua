@@ -121,6 +121,11 @@ leftChild:SetWidth(LEFT_W - 12 - leftScrollRight)
 leftScroll:SetScrollChild(leftChild)
 SM.LeftScroll = leftScroll
 SM.LeftStoryChild = leftChild
+-- The Forever window searches and filters the list from a bar above it, as
+-- Legacy's challenge list does (StoryList.lua).
+if skinLayout and SM.CreateStoryListFilterBar then
+    SM.CreateStoryListFilterBar(leftSection, leftScrollRight)
+end
 SM.LeftWidth = LEFT_W - (leftScrollRight - 12)  -- LeftContextPanel takes 24 off for the insets
 SM.LeftPanelMode = "story"
 SM.LeftStoryScrollOffset = 0
