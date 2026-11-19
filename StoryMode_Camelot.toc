@@ -88,6 +88,7 @@ Data\Forever\RivergladesData.lua
 Data\Forever\ShendralasData.lua
 Data\Forever\AzsharaData.lua
 Data\Forever\CozySleepingBagData.lua
+Data\Forever\HighwayRobberyData.lua
 Code\Core\Compatibility.lua
 Code\Core\SavedVariables.lua
 Code\Core\Scheduler.lua
