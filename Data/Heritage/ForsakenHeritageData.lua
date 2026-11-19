@@ -79,7 +79,7 @@ SM.ForsakenHeritageData = {
         {
             chapter = "Heritage of the Forsaken",
             summary = "The Scarlet Crusade has returned to Silverpine Forest. Lilian Voss needs a champion to go in quietly, earn their trust, and open the way for the Forsaken to strike.",
-            recap = "With Lordaeron newly reclaimed, old enemies resurfaced. The Scarlet Crusade established a foothold in Silverpine Forest, determined to purge the Forsaken from their ancestral lands. Under Lilian Voss's guidance, you gathered alchemical weapons, donned a stolen disguise, slipped into the enemy’s ranks, and opened the way for the Forsaken to strike back in force. When the dust settled, you stood as a proven champion — Forsaken by death, but not by purpose.",
+            recap = "With Lordaeron newly reclaimed, old enemies resurfaced. The Scarlet Crusade established a foothold in Silverpine Forest, determined to purge the Forsaken from their ancestral lands. Under Lilian Voss's guidance, you gathered alchemical weapons, donned a stolen disguise, slipped into the enemy’s ranks, and opened the way for the Forsaken to strike back in force. When the dust settled, you stood as a proven champion, Forsaken by death, but not by purpose.",
             quests = {
                 { id = 76530, name = "Unliving Summons", npc = "Lilian Voss" },
                 { id = 72854, name = "Our Enemies Abound", npc = "Lilian Voss" },
@@ -111,7 +111,7 @@ SM.ForsakenHeritageData = {
             gated = true,
             note = "Complete the Forsaken Heritage questline as an Undead character. Requires having sided with Sylvanas during the war campaign.",
             summary = "Not everyone who followed the Banshee Queen has made peace with what came after. A message finds its way to the ruins of Lordaeron for those who haven't.",
-            recap = "For those who once swore loyalty to the Banshee Queen, a final message arrives — not to excuse the past, but to acknowledge it. The Forsaken move forward, but the echoes of old vows still linger in the ruins of Lordaeron.",
+            recap = "For those who once swore loyalty to the Banshee Queen, a final message arrives: not to excuse the past, but to acknowledge it. The Forsaken move forward, but the echoes of old vows still linger in the ruins of Lordaeron.",
             quests = {
                 { id = 75519, name = "The Long Hunt", npc = "Dori'thur", optional = true },
             },

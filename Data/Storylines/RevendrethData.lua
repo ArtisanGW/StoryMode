@@ -98,7 +98,7 @@ SM.RevendrethData = {
             gated = true,
             note = "Be careful with the Threads of Fate choice from Fatescribe Roh-Tahl in Oribos. Choosing Threads of Fate skips the Shadowlands leveling campaign and marks Revendreth's main story quests complete, so use the replay storyline option if you want to play this chapter.",
             summary = "The Winter Queen needs anima, and Revendreth is supposed to be the realm that knows how to harvest it. Your request begins in Darkhaven, where every sin has a stone.",
-            recap = "Tal-Inara sent you toward Revendreth with a plea for aid: Ardenweald was starving, the Heart of the Forest was weakening, and Sire Denathrius was said to be a master of anima. Revendreth greeted you with teeth behind every smile. Rendle introduced the rules of the realm — sinstones, punishment, service, and the long work of repentance. Lord Chamberlain offered polished courtesy while rebels struck at the roads and Darkhaven buckled under the anima drought. The place looked like a vampire court and spoke like a church of atonement, but something in its foundations was already cracking.",
+            recap = "Tal-Inara sent you toward Revendreth with a plea for aid: Ardenweald was starving, the Heart of the Forest was weakening, and Sire Denathrius was said to be a master of anima. Revendreth greeted you with teeth behind every smile. Rendle introduced the rules of the realm: sinstones, punishment, service, and the long work of repentance. Lord Chamberlain offered polished courtesy while rebels struck at the roads and Darkhaven buckled under the anima drought. The place looked like a vampire court and spoke like a church of atonement, but something in its foundations was already cracking.",
             quests = {
                 { id = 57025, name = "A Plea to Revendreth",       npc = "Tal-Inara" },
                 { id = 57026, name = "The Sinstone",               npc = "Rendle" },
@@ -114,7 +114,7 @@ SM.RevendrethData = {
 
         {
             chapter = "The Master",
-            summary = "Lord Chamberlain escorts you toward Castle Nathria. Sire Denathrius receives your plea with perfect elegance — and asks you to help restore order first.",
+            summary = "Lord Chamberlain escorts you toward Castle Nathria. Sire Denathrius receives your plea with perfect elegance, and asks you to help restore order first.",
             recap = "Darkhaven's crisis brought you into the shadow of Castle Nathria. Lord Chamberlain showed you the Stoneborn, Revendreth's gargoyle guardians, and carried your request to the Harvesters. Then you met Sire Denathrius: ancient, immaculate, and utterly certain of his own necessity. He promised aid, but only after you helped him discipline the rebellion tearing through his realm. His authority filled the court like perfume and poison. Revendreth's nobles bowed. The Stoneborn obeyed. And for the moment, you were expected to do the same.",
             quests = {
                 { id = 57174, name = "The Stoneborn",              npc = "Lord Chamberlain" },
@@ -127,7 +127,7 @@ SM.RevendrethData = {
         {
             chapter = "The Accuser",
             summary = "Denathrius sends you after the Accuser, a rebel Harvester whose sinstone may prove she is no righteous dissenter.",
-            recap = "Sire Denathrius pointed you at the Accuser, one of the Harvesters standing against him. Lord Chamberlain's hunt was brutal and theatrical: tear through her followers, read the sinstones of her inquisitors, and use those names to drag the guilty into judgment. But the deeper you went, the less clean the story became. The Accuser had punished pride for ages, and she understood what Denathrius's court had become. When her own secret was revealed, it was not simple innocence that saved her — it was the terrible truth that Revendreth's ruler had turned repentance into control.",
+            recap = "Sire Denathrius pointed you at the Accuser, one of the Harvesters standing against him. Lord Chamberlain's hunt was brutal and theatrical: tear through her followers, read the sinstones of her inquisitors, and use those names to drag the guilty into judgment. But the deeper you went, the less clean the story became. The Accuser had punished pride for ages, and she understood what Denathrius's court had become. When her own secret was revealed, it was not simple innocence that saved her. It was the terrible truth that Revendreth's ruler had turned repentance into control.",
             quests = {
                 { id = 57161, name = "I Don't Get My Hands Dirty", npc = "Lord Chamberlain" },
                 { id = 57173, name = "The Accuser's Sinstone",     npc = "Echelon" },
@@ -201,7 +201,7 @@ SM.RevendrethData = {
         {
             chapter = "The Master of Lies",
             summary = "Renathal's rebellion marches on Castle Nathria. Denathrius reveals the truth: Revendreth's stolen anima is being sent into the Maw.",
-            recap = "Renathal gathered the Harvesters and turned Sinfall's mirrors against Castle Nathria. Light cut across the ramparts, loyalists scattered, and the rebellion surged toward Denathrius. Then the Master stopped pretending. He had not failed to save the Shadowlands from the anima drought — he had helped cause it, hoarding the realm's lifeblood and pouring it into the Maw for the Jailer. Revendreth's gothic theater became something far larger and worse: the first clear proof that the machinery of Death itself had been betrayed. Denathrius retreated into Castle Nathria, and the fight for the Shadowlands changed forever.",
+            recap = "Renathal gathered the Harvesters and turned Sinfall's mirrors against Castle Nathria. Light cut across the ramparts, loyalists scattered, and the rebellion surged toward Denathrius. Then the Master stopped pretending. He had not failed to save the Shadowlands from the anima drought. He had helped cause it, hoarding the realm's lifeblood and pouring it into the Maw for the Jailer. Revendreth's gothic theater became something far larger and worse: the first clear proof that the machinery of Death itself had been betrayed. Denathrius retreated into Castle Nathria, and the fight for the Shadowlands changed forever.",
             quests = {
                 { id = 59644, name = "Blinded By The Light",       npc = "Prince Renathal" },
                 { id = 58086, name = "The Master of Lies",         npc = "Projection of Prince Renathal" },

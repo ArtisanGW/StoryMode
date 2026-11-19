@@ -64,7 +64,7 @@ SM.WarriorCampaignData = {
         {
             chapter = "Odyn and the Valarjar",
             summary = "A val'kyr claims you worthy of Odyn's attention. You ascend to Skyhold, the warrior paradise above the clouds, and take up a weapon of legend.",
-            recap = "Danica the Reclaimer appeared to you in Dalaran bearing a message from Odyn himself — the All-Father had been watching, and he found you worthy. You ascended to Skyhold, the legendary warrior paradise suspended above the clouds, where Odyn named you champion of the Valarjar and bade you claim an artifact weapon fit for the battles ahead.",
+            recap = "Danica the Reclaimer appeared to you in Dalaran bearing a message from Odyn himself: the All-Father had been watching, and he found you worthy. You ascended to Skyhold, the legendary warrior paradise suspended above the clouds, where Odyn named you champion of the Valarjar and bade you claim an artifact weapon fit for the battles ahead.",
             quests = {
                 { id = 39654, name = "Odyn and the Valarjar",      npc = "Danica the Reclaimer" },
                 { id = 40579, name = "Weapons of Legend",           npc = "Odyn" },
@@ -77,7 +77,7 @@ SM.WarriorCampaignData = {
         {
             chapter = "Champions of Skyhold",
             summary = "Odyn summons the greatest warriors to serve under your command. Build your forces and prepare Skyhold for war against the Legion.",
-            recap = "At Odyn's command, you rallied the finest warriors the world had to offer. Finna Bjornsdottir and Ragnvald Drakeborn pledged their blades to your cause. Under Skyseer Ghrent's guidance, you recruited troops, dispatched them to the Broken Isles, and established Skyhold as a true war machine — Einar the Runecaster fortifying your forces with ancient vrykul magic.",
+            recap = "At Odyn's command, you rallied the finest warriors the world had to offer. Finna Bjornsdottir and Ragnvald Drakeborn pledged their blades to your cause. Under Skyseer Ghrent's guidance, you recruited troops, dispatched them to the Broken Isles, and established Skyhold as a true war machine, Einar the Runecaster fortifying your forces with ancient vrykul magic.",
             quests = {
                 { id = 42597, name = "Odyn's Summons",             npc = "Danica the Reclaimer" },
                 { id = 42598, name = "Champions of Skyhold",        npc = "Odyn" },
@@ -93,8 +93,8 @@ SM.WarriorCampaignData = {
         -- CHAPTER 3: The Gjallarhorn
         {
             chapter = "The Gjallarhorn",
-            summary = "The Gjallarhorn — the horn that calls the worthy to battle — has been stolen. Hunt down the thieves across Stormheim and reclaim it.",
-            recap = "Odyn called you to battle, but the Gjallarhorn — the sacred horn that summons the Valarjar to war — had been stolen. Hymdall sent you into Stormheim where you found Svergan Stormcloak, a vrykul king whose honor had been stripped by the thieves. Together you broke his chains, recovered the horn, and tracked a massive worm to the summit of Highmountain. With Svergan's oath sworn and the beast Jorhuttam slain, the Valarjar stood ready for war once more.",
+            summary = "The Gjallarhorn, the horn that calls the worthy to battle, has been stolen. Hunt down the thieves across Stormheim and reclaim it.",
+            recap = "Odyn called you to battle, but the Gjallarhorn, the sacred horn that summons the Valarjar to war, had been stolen. Hymdall sent you into Stormheim where you found Svergan Stormcloak, a vrykul king whose honor had been stripped by the thieves. Together you broke his chains, recovered the horn, and tracked a massive worm to the summit of Highmountain. With Svergan's oath sworn and the beast Jorhuttam slain, the Valarjar stood ready for war once more.",
             quests = {
                 { id = 43750, name = "The Call of Battle",          npc = "Skyseer Ghrent" },
                 { id = 42193, name = "The Gjallarhorn",             npc = "Hymdall" },
@@ -115,7 +115,7 @@ SM.WarriorCampaignData = {
         {
             chapter = "Ulduar's Oath",
             summary = "Odyn reaches out to old allies in Ulduar and sends you to deliver a message to Helya in the Maw of Souls. Titan keepers join the fight.",
-            recap = "Odyn sent you into the Maw of Souls with a defiant message for Helya — the Valarjar would not be broken. In the ancient halls of Ulduar, you rallied the titan keepers to the cause. Dvalen Ironrune, steadfast guardian of the forge, and Thorim, Odyn's own son, pledged themselves to the Valarjar. You retrieved Ymiron's broken blade from the Maw as proof that even the mightiest of Helya's champions could fall.",
+            recap = "Odyn sent you into the Maw of Souls with a defiant message for Helya: the Valarjar would not be broken. In the ancient halls of Ulduar, you rallied the titan keepers to the cause. Dvalen Ironrune, steadfast guardian of the forge, and Thorim, Odyn's own son, pledged themselves to the Valarjar. You retrieved Ymiron's broken blade from the Maw as proof that even the mightiest of Helya's champions could fall.",
             quests = {
                 { id = 43586, name = "Maw of Souls: Message to Helya", npc = "Odyn" },
                 { id = 43090, name = "Ulduar's Oath",               npc = "Odyn" },
@@ -129,7 +129,7 @@ SM.WarriorCampaignData = {
         {
             chapter = "A Hero's Weapon",
             summary = "The final test. Decipher demonic runes, rescue Hodir from a Legion prison world, and prove yourself worthy of the Battlelord title.",
-            recap = "The final campaign began with demonic runes appearing across the Broken Isles — the Legion was closing in. You deciphered their meaning in Black Rook Hold, captured a Legion gateway, and stormed Niskara to rescue Hodir, imprisoned by demons since the war began. With every titan keeper free and every rune decoded, Odyn forged your weapon anew and declared you Battlelord of the Valarjar — a title not bestowed in ten thousand years.",
+            recap = "The final campaign began with demonic runes appearing across the Broken Isles: the Legion was closing in. You deciphered their meaning in Black Rook Hold, captured a Legion gateway, and stormed Niskara to rescue Hodir, imprisoned by demons since the war began. With every titan keeper free and every rune decoded, Odyn forged your weapon anew and declared you Battlelord of the Valarjar, a title not bestowed in ten thousand years.",
             quests = {
                 { id = 44667, name = "Will of the Valarjar",        npc = "Odyn" },
                 { id = 42918, name = "Demonic Runes",               npc = "Odyn" },
@@ -145,7 +145,7 @@ SM.WarriorCampaignData = {
         {
             chapter = "Return of the Battlelord",
             summary = "The war moves to the Broken Shore. Rally the Valarjar for a final push, brave the depths of Helheim, and earn your war wyrm.",
-            recap = "The Broken Shore burned with felfire, and Odyn sent you to lead the Valarjar into the heart of the assault. You recruited new forces, armed them for the battles ahead, and ventured into Helheim itself to recover stolen souls and claim Helya's own horn as a trophy. When Kvaldir raiders answered your call and the last of the missing champions returned, Odyn summoned you for one final trial — the Trial of Rage. You emerged victorious, and a bloodthirsty war wyrm knelt before its new master.",
+            recap = "The Broken Shore burned with felfire, and Odyn sent you to lead the Valarjar into the heart of the assault. You recruited new forces, armed them for the battles ahead, and ventured into Helheim itself to recover stolen souls and claim Helya's own horn as a trophy. When Kvaldir raiders answered your call and the last of the missing champions returned, Odyn summoned you for one final trial: the Trial of Rage. You emerged victorious, and a bloodthirsty war wyrm knelt before its new master.",
             quests = {
                 { id = 46173, name = "Tactical Planning",           npc = "Odyn" },
                 { id = 47137, name = "Champions of Legionfall",     npc = "Maiev Shadowsong" },
@@ -166,7 +166,7 @@ SM.WarriorCampaignData = {
         {
             chapter = "Strom'kar, the Warbreaker",
             summary = "Journey to the Broken Shore and the ruins of Stromgarde to claim the legendary two-handed sword once wielded by the troll-slaying king.",
-            recap = "Odyn spoke of Strom'kar, the Warbreaker — a blade forged in the ancient empire of Arathor and wielded by King Thoradin against the Amani trolls. You traveled to the ruins of Stromgarde and fought through the shadows to reclaim the sword from its cursed resting place. The blade hummed with ancient power as you raised it — a weapon worthy of the Battlelord.",
+            recap = "Odyn spoke of Strom'kar, the Warbreaker, a blade forged in the ancient empire of Arathor and wielded by King Thoradin against the Amani trolls. You traveled to the ruins of Stromgarde and fought through the shadows to reclaim the sword from its cursed resting place. The blade hummed with ancient power as you raised it, a weapon worthy of the Battlelord.",
             quests = {
                 { id = 41105, name = "The Sword of Kings",          npc = "Odyn" },
             },
@@ -174,7 +174,7 @@ SM.WarriorCampaignData = {
         {
             chapter = "Warswords of the Valarjar",
             summary = "Hunt the legendary hero-slayer in Stormheim to claim a pair of rune-etched swords forged for the fury of battle.",
-            recap = "The Warswords of the Valarjar called to you — twin blades said to contain the fury of a hundred battles. Odyn sent you to Stormheim to hunt the hero-slayer who had stolen them. Through storm and fire, you tracked the thief to their lair and pried the swords from their grip. The runes along the blades blazed to life in your hands, as if they had been waiting.",
+            recap = "The Warswords of the Valarjar called to you: twin blades said to contain the fury of a hundred battles. Odyn sent you to Stormheim to hunt the hero-slayer who had stolen them. Through storm and fire, you tracked the thief to their lair and pried the swords from their grip. The runes along the blades blazed to life in your hands, as if they had been waiting.",
             quests = {
                 { id = 40043, name = "The Hunter of Heroes",        npc = "Odyn" },
             },
@@ -182,7 +182,7 @@ SM.WarriorCampaignData = {
         {
             chapter = "Scale of the Earth-Warder",
             summary = "Seek out a shield forged from a scale of Neltharion himself, hidden deep within the mountains where the earth remembers.",
-            recap = "Deep in the mountains of Highmountain lay a shield forged from a scale of Neltharion, the Earth-Warder — before madness claimed him and he became Deathwing. You braved the ancient caverns and faced the guardians left behind to protect it. The Scale of the Earth-Warder was heavier than any shield you had ever held, but it was unyielding — and so were you.",
+            recap = "Deep in the mountains of Highmountain lay a shield forged from a scale of Neltharion, the Earth-Warder, before madness claimed him and he became Deathwing. You braved the ancient caverns and faced the guardians left behind to protect it. The Scale of the Earth-Warder was heavier than any shield you had ever held, but it was unyielding, and so were you.",
             quests = {
                 { id = 39191, name = "Legacy of the Icebreaker",    npc = "Odyn" },
             },

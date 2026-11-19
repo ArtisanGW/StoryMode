@@ -68,7 +68,7 @@ SM.ShamanCampaignData = {
         {
             chapter = "A Ring Unbroken",
             summary = "Thrall calls you to the Maelstrom, where the Earthen Ring fights to keep the world from tearing apart.",
-            recap = "Thrall's summons brought you to the edge of the Maelstrom — the wound in the world where Deathwing had nearly torn Azeroth asunder. The Earthen Ring was losing the fight to hold it together. Farseer Nobundo stood at the eye of the storm, channeling what remained of the ring's power. You claimed an artifact weapon attuned to the elements, and Stormcaller Mylra and Duke Hydraxis pledged themselves as your first champions. The elements were restless — and they were listening.",
+            recap = "Thrall's summons brought you to the edge of the Maelstrom, the wound in the world where Deathwing had nearly torn Azeroth asunder. The Earthen Ring was losing the fight to hold it together. Farseer Nobundo stood at the eye of the storm, channeling what remained of the ring's power. You claimed an artifact weapon attuned to the elements, and Stormcaller Mylra and Duke Hydraxis pledged themselves as your first champions. The elements were restless, and they were listening.",
             quests = {
                 { id = 39746, name = "A Ring Unbroken",             npc = "Thrall" },
                 { id = 41335, name = "The Elements Call...",         npc = "Thrall" },
@@ -86,7 +86,7 @@ SM.ShamanCampaignData = {
         {
             chapter = "Return of the Windlord",
             summary = "The Maelstrom's Air Pillar weakens. Reforge the Blessed Blade of the Windseeker and return Thunderaan to power.",
-            recap = "The Maelstrom's Air Pillar was failing, and only an elemental lord could restore it. Advisor Sevel tracked the Blessed Blade of the Windseeker — the key to freeing Thunderaan, Prince of Air. You journeyed to Highlord Demitrian, reforged the blade, and climbed to the skies above. There, you recharged the weapon and broke Thunderaan's bonds. The Windlord surged free, his winds howling across the Broken Isles. He swore an oath to the Earthen Ring, and Consular Celestos and Nobundo stood with you as the Air Pillar blazed back to life.",
+            recap = "The Maelstrom's Air Pillar was failing, and only an elemental lord could restore it. Advisor Sevel tracked the Blessed Blade of the Windseeker, the key to freeing Thunderaan, Prince of Air. You journeyed to Highlord Demitrian, reforged the blade, and climbed to the skies above. There, you recharged the weapon and broke Thunderaan's bonds. The Windlord surged free, his winds howling across the Broken Isles. He swore an oath to the Earthen Ring, and Consular Celestos and Nobundo stood with you as the Air Pillar blazed back to life.",
             quests = {
                 { id = 42977, name = "Servant of the Windseeker",   npc = "Advisor Sevel" },
                 { id = 43002, name = "Blessed Blade of the Windseeker", npc = "Highlord Demitrian" },
@@ -102,7 +102,7 @@ SM.ShamanCampaignData = {
         {
             chapter = "The Great Stonemother",
             summary = "Deepholm stirs with twilight corruption. Seek Therazane the Stonemother and purge the Twilight's Hammer from her domain.",
-            recap = "Therazane the Stonemother sent a tremor through the Maelstrom — a cry for help. Deepholm, the elemental plane of earth, was being consumed by the Twilight's Hammer once more. You descended into the stone realm and found Therazane besieged, her domain crumbling. Together you destroyed the cult's forces, unmasked their master's plan, and unleashed the elements against them. Therazane promised the earth's strength to the Earthen Ring, and Muln Earthfury pledged himself as your champion.",
+            recap = "Therazane the Stonemother sent a tremor through the Maelstrom, a cry for help. Deepholm, the elemental plane of earth, was being consumed by the Twilight's Hammer once more. You descended into the stone realm and found Therazane besieged, her domain crumbling. Together you destroyed the cult's forces, unmasked their master's plan, and unleashed the elements against them. Therazane promised the earth's strength to the Earthen Ring, and Muln Earthfury pledged himself as your champion.",
             quests = {
                 { id = 41775, name = "The Great Stonemother",       npc = "Advisor Sevel" },
                 { id = 42068, name = "The Return of Twilight",       npc = "Therazane" },
@@ -119,7 +119,7 @@ SM.ShamanCampaignData = {
         {
             chapter = "Allegiance of Flame",
             summary = "Enter the Firelands and negotiate with Smolderon, the new Firelord, to secure the fire elementals' allegiance.",
-            recap = "With Air and Earth secured, Fire remained. You entered the Firelands — still scarred from Ragnaros' fall — and found a new Firelord reigning: Smolderon, younger and more calculating than his predecessor. Baron Scaldius served as intermediary while you proved yourself in trials of flame. The Brand of Damnation burned your skin as a mark of passage, and Smolderon's allegiance was won — grudgingly, but bound by elemental law. Rehgar Earthfury joined your champions, and your weapon was reforged with the power of all three elemental lords.",
+            recap = "With Air and Earth secured, Fire remained. You entered the Firelands, still scarred from Ragnaros' fall, and found a new Firelord reigning: Smolderon, younger and more calculating than his predecessor. Baron Scaldius served as intermediary while you proved yourself in trials of flame. The Brand of Damnation burned your skin as a mark of passage, and Smolderon's allegiance was won, grudgingly, but bound by elemental law. Rehgar Earthfury joined your champions, and your weapon was reforged with the power of all three elemental lords.",
             quests = {
                 { id = 42208, name = "Return to the Firelands",     npc = "Advisor Sevel" },
                 { id = 41772, name = "Ascendant of Flames",          npc = "Advisor Sevel" },
@@ -134,7 +134,7 @@ SM.ShamanCampaignData = {
         {
             chapter = "Farseer's Raging Tempest",
             summary = "The war moves to the Broken Shore. Contend with Magatha Grimtotem, secure Smolderon's flame, and earn a mount of living storm.",
-            recap = "The Broken Shore brought an unwelcome ally — Magatha Grimtotem, the elder crone who had murdered Cairne Bloodhoof. She demanded a place in the Earthen Ring in exchange for her considerable power, and the elements themselves seemed to agree. You worked alongside her through gritted teeth, breaking chains and quelling snakes, while Nobundo led the main assault. Firelord Smolderon's offense scorched the Legion's fortifications, and when the calm came after the storm, Consular Celestos summoned you to a gathering of storms — where a tempest given form became your mount, the Farseer's Raging Tempest.",
+            recap = "The Broken Shore brought an unwelcome ally: Magatha Grimtotem, the elder crone who had murdered Cairne Bloodhoof. She demanded a place in the Earthen Ring in exchange for her considerable power, and the elements themselves seemed to agree. You worked alongside her through gritted teeth, breaking chains and quelling snakes, while Nobundo led the main assault. Firelord Smolderon's offense scorched the Legion's fortifications, and when the calm came after the storm, Consular Celestos summoned you to a gathering of storms, where a tempest given form became your mount, the Farseer's Raging Tempest.",
             quests = {
                 { id = 47137, name = "Champions of Legionfall",     npc = "Maiev Shadowsong" },
                 { id = 45652, name = "A \"Humble\" Request",         npc = "Advisor Sevel" },
@@ -151,8 +151,8 @@ SM.ShamanCampaignData = {
 
         {
             chapter = "Doomhammer",
-            summary = "Thrall passes the Doomhammer to you — the weapon of Orgrim Doomhammer, carried through two wars and across worlds.",
-            recap = "Thrall could no longer hear the elements. The Doomhammer — Orgrim's weapon, carried through the First and Second Wars — had gone silent in his hands. He passed it to you, and the moment your fingers closed around the haft, thunder split the sky. The elements had chosen a new wielder. The Doomhammer was yours.",
+            summary = "Thrall passes the Doomhammer to you, the weapon of Orgrim Doomhammer, carried through two wars and across worlds.",
+            recap = "Thrall could no longer hear the elements. The Doomhammer (Orgrim's weapon, carried through the First and Second Wars) had gone silent in his hands. He passed it to you, and the moment your fingers closed around the haft, thunder split the sky. The elements had chosen a new wielder. The Doomhammer was yours.",
             quests = {
                 { id = 42931, name = "Where the Hammer Falls",      npc = "Stormcaller Mylra" },
             },
@@ -160,7 +160,7 @@ SM.ShamanCampaignData = {
         {
             chapter = "The Fist of Ra-den",
             summary = "Seek the Fist of Ra-den, a weapon forged by the titan keeper who tamed the storms of Azeroth.",
-            recap = "Nobundo spoke of Ra-den, the titan keeper who had shaped Azeroth's storms. His weapon — the Fist of Ra-den — lay hidden in a vault sealed since the ordering of the world. You braved the coming storm to claim it, and when lightning struck the weapon in your hands, the power of a titan keeper surged through you.",
+            recap = "Nobundo spoke of Ra-den, the titan keeper who had shaped Azeroth's storms. His weapon, the Fist of Ra-den, lay hidden in a vault sealed since the ordering of the world. You braved the coming storm to claim it, and when lightning struck the weapon in your hands, the power of a titan keeper surged through you.",
             quests = {
                 { id = 43334, name = "The Coming Storm",            npc = "Rehgar Earthfury" },
             },
@@ -168,7 +168,7 @@ SM.ShamanCampaignData = {
         {
             chapter = "Sharas'dal, Scepter of Tides",
             summary = "Descend into the depths to recover Sharas'dal, a scepter that commands the tides themselves.",
-            recap = "Erunak Stonespeaker called you to the deeps — Sharas'dal, the Scepter of Tides, had been sensed stirring beneath the ocean floor. You descended into the crushing darkness where water elementals guarded the weapon with fierce devotion. The Scepter of Tides chose to rise with you, and the seas themselves seemed to bow as you surfaced.",
+            recap = "Erunak Stonespeaker called you to the deeps: Sharas'dal, the Scepter of Tides, had been sensed stirring beneath the ocean floor. You descended into the crushing darkness where water elementals guarded the weapon with fierce devotion. The Scepter of Tides chose to rise with you, and the seas themselves seemed to bow as you surfaced.",
             quests = {
                 { id = 43644, name = "To the Deeps",                npc = "Erunak Stonespeaker" },
             },

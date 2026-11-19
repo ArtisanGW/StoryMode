@@ -67,8 +67,8 @@ SM.HunterCampaignData = {
         -- CHAPTER 1: Introduction
         {
             chapter = "The Unseen Path",
-            summary = "An eagle leads you to Trueshot Lodge, where the Unseen Path — an ancient order of hunters — calls you to serve as champion.",
-            recap = "Snowfeather, a majestic eagle, arrived in Dalaran bearing an urgent summons. You followed the bird to Trueshot Lodge high in the mountains, where Emmarel Shadewarden revealed the Unseen Path — a secret order of hunters that had watched over Azeroth for generations. You swore the Oath of Service, claimed a weapon of legend, and took your place among their ranks.",
+            summary = "An eagle leads you to Trueshot Lodge, where the Unseen Path, an ancient order of hunters, calls you to serve as champion.",
+            recap = "Snowfeather, a majestic eagle, arrived in Dalaran bearing an urgent summons. You followed the bird to Trueshot Lodge high in the mountains, where Emmarel Shadewarden revealed the Unseen Path, a secret order of hunters that had watched over Azeroth for generations. You swore the Oath of Service, claimed a weapon of legend, and took your place among their ranks.",
             quests = {
                 { id = 40384, name = "Needs of the Hunters",       npc = "Snowfeather" },
                 { id = 41415, name = "The Hunter's Call",           npc = "Emmarel Shadewarden" },
@@ -101,7 +101,7 @@ SM.HunterCampaignData = {
         {
             chapter = "Watchers in the Wild",
             summary = "Scouting reports reveal Legion assassins targeting the Unseen Path. Track them across Stormheim while recruiting Rexxar and Hilaire.",
-            recap = "Scouting reports painted a grim picture — Legion assassins had infiltrated the Broken Isles, targeting the Unseen Path's agents. You tracked them through Stormheim, rescuing Hudson Crawford from an ambush and calling Beastmaster Hilaire home from the wilds. In Highmountain, you found Rexxar living among the beasts and convinced the legendary hunter to join your cause. With new champions at your side, the Unseen Path's eyes grew sharper.",
+            recap = "Scouting reports painted a grim picture: Legion assassins had infiltrated the Broken Isles, targeting the Unseen Path's agents. You tracked them through Stormheim, rescuing Hudson Crawford from an ambush and calling Beastmaster Hilaire home from the wilds. In Highmountain, you found Rexxar living among the beasts and convinced the legendary hunter to join your cause. With new champions at your side, the Unseen Path's eyes grew sharper.",
             quests = {
                 { id = 42384, name = "Scouting Reports",           npc = "Tactician Tinderfell" },
                 { id = 42385, name = "Lending a Hand",              npc = "Emmarel Shadewarden" },
@@ -124,7 +124,7 @@ SM.HunterCampaignData = {
         {
             chapter = "The Nature of the Beast",
             summary = "The trail leads to Azsuna, where a leyworm infestation masks something far more dangerous. Hemet Nesingwary lends his expertise.",
-            recap = "Hemet Nesingwary joined the hunt in Highmountain, his expertise invaluable as you tracked the Legion's movements. But the true threat emerged in Azsuna — leyworms corrupted by demonic energy, twisting the beasts of the land into weapons. Working with Kira Iresoul, you lured out the source of the corruption and tamed it, proving that a hunter's bond with nature was stronger than any demon's magic.",
+            recap = "Hemet Nesingwary joined the hunt in Highmountain, his expertise invaluable as you tracked the Legion's movements. But the true threat emerged in Azsuna: leyworms corrupted by demonic energy, twisting the beasts of the land into weapons. Working with Kira Iresoul, you lured out the source of the corruption and tamed it, proving that a hunter's bond with nature was stronger than any demon's magic.",
             quests = {
                 { id = 42394, name = "Unseen Protection",          npc = "Emmarel Shadewarden" },
                 { id = 42403, name = "Highmountain Hunters",        npc = "Tactician Tinderfell" },
@@ -147,7 +147,7 @@ SM.HunterCampaignData = {
         {
             chapter = "In Defense of Dalaran",
             summary = "The Legion launches a direct assault on Dalaran through the Violet Hold. Rally the Unseen Path's champions for the final defense.",
-            recap = "All the threads came together when the Legion launched a full assault on Dalaran itself, breaching the Violet Hold with demonic forces. Halduron Brightwing helped you forge new weapons and prepare defenses, while Shandris Feathermoon rallied reinforcements. You led the Unseen Path into the Violet Hold and faced Hakkar the Houndmaster in a battle that shook the city. When the demon fell, Emmarel Shadewarden bestowed upon you the title of Huntmaster — the highest honor the Unseen Path could give.",
+            recap = "All the threads came together when the Legion launched a full assault on Dalaran itself, breaching the Violet Hold with demonic forces. Halduron Brightwing helped you forge new weapons and prepare defenses, while Shandris Feathermoon rallied reinforcements. You led the Unseen Path into the Violet Hold and faced Hakkar the Houndmaster in a battle that shook the city. When the demon fell, Emmarel Shadewarden bestowed upon you the title of Huntmaster, the highest honor the Unseen Path could give.",
             quests = {
                 { id = 42402, name = "Requesting Reinforcements",  npc = "Emmarel Shadewarden" },
                 { id = 42405, name = "Informing Our Allies",        npc = "Emmarel Shadewarden" },
@@ -164,7 +164,7 @@ SM.HunterCampaignData = {
         {
             chapter = "Night of the Wilds",
             summary = "The war moves to the Broken Shore. Lead the Unseen Path against the Legion's corrupted beasts and earn the trust of a loyal wolfhawk.",
-            recap = "On the Broken Shore, the Legion had corrupted wild beasts into felbound monstrosities. Shandris Feathermoon coordinated the assault while Nighthuntress Syrenne led you deep into enemy territory to soothe the wounded creatures and strike at the source of the corruption. When the Broken Shore was secured, you answered a final call — the Night of the Wilds, where a wolfhawk tested your worth as a hunter. It found you worthy, and pledged its loyalty to the Huntmaster.",
+            recap = "On the Broken Shore, the Legion had corrupted wild beasts into felbound monstrosities. Shandris Feathermoon coordinated the assault while Nighthuntress Syrenne led you deep into enemy territory to soothe the wounded creatures and strike at the source of the corruption. When the Broken Shore was secured, you answered a final call: the Night of the Wilds, where a wolfhawk tested your worth as a hunter. It found you worthy, and pledged its loyalty to the Huntmaster.",
             quests = {
                 { id = 47137, name = "Champions of Legionfall",     npc = "Maiev Shadowsong" },
                 { id = 45551, name = "Devastating Effects",         npc = "Shandris Feathermoon" },
@@ -185,7 +185,7 @@ SM.HunterCampaignData = {
         {
             chapter = "Titanstrike",
             summary = "Track down Titanstrike, a legendary rifle forged by the titan keeper Mimiron, lost in the wilds of Ulduar.",
-            recap = "Grif Wildheart spoke of Titanstrike — a rifle of immense power forged by Mimiron himself in the halls of Ulduar. You embarked on a beastly expedition to recover the weapon, facing titan constructs and wild guardians. When you finally held Titanstrike, its mechanisms hummed with the power of a thousand storms.",
+            recap = "Grif Wildheart spoke of Titanstrike, a rifle of immense power forged by Mimiron himself in the halls of Ulduar. You embarked on a beastly expedition to recover the weapon, facing titan constructs and wild guardians. When you finally held Titanstrike, its mechanisms hummed with the power of a thousand storms.",
             quests = {
                 { id = 41541, name = "A Beastly Expedition",        npc = "Emmarel Shadewarden" },
             },
@@ -193,7 +193,7 @@ SM.HunterCampaignData = {
         {
             chapter = "Thas'dorah, Legacy of the Windrunners",
             summary = "Recover the ancient bow of the Windrunner family, lost when Alleria Windrunner vanished beyond the Dark Portal.",
-            recap = "A courier brought word of Thas'dorah — the ancestral bow of the Windrunner family, carried by Alleria into the Twisting Nether and lost for decades. You followed the trail through ancient elven ruins, fighting off demons who sought to claim its power. The bow sang in your hands when you drew it, as if it had been waiting for a worthy archer all along.",
+            recap = "A courier brought word of Thas'dorah, the ancestral bow of the Windrunner family, carried by Alleria into the Twisting Nether and lost for decades. You followed the trail through ancient elven ruins, fighting off demons who sought to claim its power. The bow sang in your hands when you drew it, as if it had been waiting for a worthy archer all along.",
             quests = {
                 { id = 41540, name = "Rendezvous with the Courier", npc = "Emmarel Shadewarden" },
             },
@@ -201,7 +201,7 @@ SM.HunterCampaignData = {
         {
             chapter = "Talonclaw",
             summary = "Seek the ancient eagle spear Talonclaw in the peaks of Highmountain, a weapon sacred to the hunters of old.",
-            recap = "Apata Highmountain told the tale of Talonclaw — an eagle spear wielded by the greatest hunters of Highmountain since the age of the titans. You climbed into the highest peaks and proved yourself in trials of survival, tracking, and combat. When you claimed Talonclaw from its ancient resting place, the spirits of past hunters looked on with approval.",
+            recap = "Apata Highmountain told the tale of Talonclaw, an eagle spear wielded by the greatest hunters of Highmountain since the age of the titans. You climbed into the highest peaks and proved yourself in trials of survival, tracking, and combat. When you claimed Talonclaw from its ancient resting place, the spirits of past hunters looked on with approval.",
             quests = {
                 { id = 41542, name = "Preparation for the Hunt",    npc = "Emmarel Shadewarden" },
             },

@@ -65,7 +65,7 @@ SM.MageCampaignData = {
         {
             chapter = "The Tirisgarde Reborn",
             summary = "Meryl Felstorm, an ancient mage, pleads for help against a dreadlord. Together you reforge the Tirisgarde in the Hall of the Guardian.",
-            recap = "Meryl Felstorm appeared with an urgent plea — Kathra'natir, a cunning dreadlord, had broken free of his prison and threatened all of Dalaran. You fought the demon back and descended into the Hall of the Guardian, an ancient sanctum beneath the city. There, Meryl revealed the Tirisgarde — an ancient order of mages sworn to defend Azeroth against the Burning Legion. With a weapon of legend in hand and The Great Akazamzarak's theatrical assistance, you reforged the order and took your place as its champion.",
+            recap = "Meryl Felstorm appeared with an urgent plea: Kathra'natir, a cunning dreadlord, had broken free of his prison and threatened all of Dalaran. You fought the demon back and descended into the Hall of the Guardian, an ancient sanctum beneath the city. There, Meryl revealed the Tirisgarde, an ancient order of mages sworn to defend Azeroth against the Burning Legion. With a weapon of legend in hand and The Great Akazamzarak's theatrical assistance, you reforged the order and took your place as its champion.",
             quests = {
                 { id = 41035, name = "Felstorm's Plea",            npc = "Meryl Felstorm" },
                 { id = 41036, name = "The Dreadlord's Prize",       npc = "Meryl Felstorm" },
@@ -82,7 +82,7 @@ SM.MageCampaignData = {
         {
             chapter = "Rise, Champions",
             summary = "Recruit Archmage Kalec and Archmage Modera as champions. Build the Tirisgarde's forces and establish operations.",
-            recap = "The Tirisgarde needed power, and power came in the form of legends. Archmage Kalec — the blue dragon who once guarded the Sunwell — and Archmage Modera of the Council of Six both pledged their strength. Archmage Omniara trained troops while Archmage Melis provided the technical wizardry to keep the Hall of the Guardian running. The Tirisgarde was no longer a relic of history — it was a force.",
+            recap = "The Tirisgarde needed power, and power came in the form of legends. Archmage Kalec, the blue dragon who once guarded the Sunwell, and Archmage Modera of the Council of Six both pledged their strength. Archmage Omniara trained troops while Archmage Melis provided the technical wizardry to keep the Hall of the Guardian running. The Tirisgarde was no longer a relic of history. It was a force.",
             quests = {
                 { id = 42175, name = "Growing Power",              npc = "Meryl Felstorm" },
                 { id = 42663, name = "Rise, Champions",             npc = "Meryl Felstorm" },
@@ -100,7 +100,7 @@ SM.MageCampaignData = {
         {
             chapter = "The Empyrean Society",
             summary = "A secret society of rogue mages is hoarding dangerous knowledge. Infiltrate their ranks with Ravandwyr and Esara Verrinde.",
-            recap = "An unexpected visitor brought troubling news — a secret society called the Empyrean Society was gathering forbidden knowledge across the Broken Isles. Ravandwyr, apprentice to the missing Archmage Vargoth, led you on a covert infiltration of their ranks. With Esara Verrinde's help, you discovered the Society had been experimenting with powers far beyond their control. You shut them down from the inside, but the trail left behind raised a darker question — where was Archmage Vargoth?",
+            recap = "An unexpected visitor brought troubling news: a secret society called the Empyrean Society was gathering forbidden knowledge across the Broken Isles. Ravandwyr, apprentice to the missing Archmage Vargoth, led you on a covert infiltration of their ranks. With Esara Verrinde's help, you discovered the Society had been experimenting with powers far beyond their control. You shut them down from the inside, but the trail left behind raised a darker question: where was Archmage Vargoth?",
             quests = {
                 { id = 42418, name = "An Unexpected Visitor",       npc = "Archmage Melis" },
                 { id = 42434, name = "A Covert Operation",          npc = "Ravandwyr" },
@@ -119,7 +119,7 @@ SM.MageCampaignData = {
         {
             chapter = "The Search for Vargoth",
             summary = "Archmage Vargoth has vanished. Khadgar leads the search through his retreat, but a darker threat lurks behind his disappearance.",
-            recap = "The Council convened to address Archmage Vargoth's disappearance. Khadgar led you to Vargoth's retreat, where the signs of struggle told a grim story. Following in his footsteps, you traced magical residue across the Broken Isles. Kalec's investigation revealed the truth was worse than anyone feared — Vargoth hadn't simply vanished. Something had taken him, and that something was connected to the dreadlord Kathra'natir.",
+            recap = "The Council convened to address Archmage Vargoth's disappearance. Khadgar led you to Vargoth's retreat, where the signs of struggle told a grim story. Following in his footsteps, you traced magical residue across the Broken Isles. Kalec's investigation revealed the truth was worse than anyone feared: Vargoth hadn't simply vanished. Something had taken him, and that something was connected to the dreadlord Kathra'natir.",
             quests = {
                 { id = 42416, name = "The Council is in Session",   npc = "Archmage Khadgar" },
                 { id = 42423, name = "Archmage Vargoth's Retreat",  npc = "Archmage Ansirem Runeweaver" },
@@ -137,7 +137,7 @@ SM.MageCampaignData = {
         {
             chapter = "Into the Oculus",
             summary = "Kathra'natir has possessed Meryl Felstorm. Storm the Oculus with Khadgar to save the Tirisgarde's founder and destroy the dreadlord.",
-            recap = "The dreadlord Kathra'natir had been one step ahead all along — and his final move was possessing Meryl Felstorm himself. With the Tirisgarde's founder corrupted from within, Khadgar rallied every resource: a magical affliction cured in the Eye of Azshara, the might of the Tirisgarde focused into a single strike. You stormed the Oculus and faced Kathra'natir in Meryl's body, tearing the demon free without destroying the mage. Meryl stood free, Vargoth was rescued, and your weapon was reforged. The Kirin Tor bestowed upon you the title of Archmage.",
+            recap = "The dreadlord Kathra'natir had been one step ahead all along, and his final move was possessing Meryl Felstorm himself. With the Tirisgarde's founder corrupted from within, Khadgar rallied every resource: a magical affliction cured in the Eye of Azshara, the might of the Tirisgarde focused into a single strike. You stormed the Oculus and faced Kathra'natir in Meryl's body, tearing the demon free without destroying the mage. Meryl stood free, Vargoth was rescued, and your weapon was reforged. The Kirin Tor bestowed upon you the title of Archmage.",
             quests = {
                 { id = 42707, name = "Eye of Azshara: A Magical Affliction", npc = "Archmage Khadgar" },
                 { id = 44689, name = "The Might of the Tirisgarde", npc = "Archmage Khadgar" },
@@ -153,7 +153,7 @@ SM.MageCampaignData = {
         {
             chapter = "Return of the Archmage",
             summary = "The war moves to the Broken Shore. Aethas Sunreaver leads the Tirisgarde's assault, and you earn the Archmage's Prismatic Disc.",
-            recap = "The Broken Shore demanded the Tirisgarde's full power. Aethas Sunreaver, once exiled from Dalaran, returned to lead the mage offensive. You uncovered a nightborne workshop hidden on the Shore, secured its secrets, and armed Dalaran's defenses against a Legion counterattack. When the dust settled, Khadgar entrusted you with one final task — recovering the legendary Discs of Norgannon. From their power, the Archmage's Prismatic Disc was forged — a flying platform that shifted between arcane, fire, and frost as you willed it.",
+            recap = "The Broken Shore demanded the Tirisgarde's full power. Aethas Sunreaver, once exiled from Dalaran, returned to lead the mage offensive. You uncovered a nightborne workshop hidden on the Shore, secured its secrets, and armed Dalaran's defenses against a Legion counterattack. When the dust settled, Khadgar entrusted you with one final task: recovering the legendary Discs of Norgannon. From their power, the Archmage's Prismatic Disc was forged, a flying platform that shifted between arcane, fire, and frost as you willed it.",
             quests = {
                 { id = 47137, name = "Champions of Legionfall",     npc = "Maiev Shadowsong" },
                 { id = 45437, name = "An Urgent Situation",         npc = "Meryl Felstorm" },
@@ -174,24 +174,24 @@ SM.MageCampaignData = {
         -- CHAPTER 7-9: Artifact Weapons
         {
             chapter = "Aluneth, Greatstaff of the Magna",
-            summary = "Seek the staff of the Guardian Aegwynn — Aluneth, a weapon of pure arcane power that has a mind of its own.",
-            recap = "Meryl Felstorm pointed you toward Aluneth — the Greatstaff of the Magna, once wielded by Aegwynn, Guardian of Tirisfal. The staff had been sealed away for good reason: it was sentient, willful, and dangerously powerful. You found it in an arcane vault crackling with unbound energy, and when you grasped it, Aluneth's voice echoed in your mind — condescending, impatient, and undeniably brilliant. You had a weapon. It had opinions.",
+            summary = "Seek the staff of the Guardian Aegwynn: Aluneth, a weapon of pure arcane power that has a mind of its own.",
+            recap = "Meryl Felstorm pointed you toward Aluneth, the Greatstaff of the Magna, once wielded by Aegwynn, Guardian of Tirisfal. The staff had been sealed away for good reason: it was sentient, willful, and dangerously powerful. You found it in an arcane vault crackling with unbound energy, and when you grasped it, Aluneth's voice echoed in your mind: condescending, impatient, and undeniably brilliant. You had a weapon. It had opinions.",
             quests = {
                 { id = 42001, name = "Aluneth, Greatstaff of the Magna", npc = "Meryl Felstorm" },
             },
         },
         {
             chapter = "Felo'melorn",
-            summary = "Recover Felo'melorn, the Flamestrike — the ancient blade of the Sunstrider dynasty, lost in the frozen halls of Icecrown.",
-            recap = "An unexpected message revealed the location of Felo'melorn — the legendary sword of the Sunstrider dynasty, lost when Kael'thas fell. You traced it to the frozen depths of Icecrown, where it had lain since Arthas shattered it in single combat. You reforged the blade in phoenix fire and carried it from the ice, its flames burning hotter than ever — as if centuries of cold had only made it angrier.",
+            summary = "Recover Felo'melorn, the Flamestrike, the ancient blade of the Sunstrider dynasty, lost in the frozen halls of Icecrown.",
+            recap = "An unexpected message revealed the location of Felo'melorn, the legendary sword of the Sunstrider dynasty, lost when Kael'thas fell. You traced it to the frozen depths of Icecrown, where it had lain since Arthas shattered it in single combat. You reforged the blade in phoenix fire and carried it from the ice, its flames burning hotter than ever, as if centuries of cold had only made it angrier.",
             quests = {
                 { id = 40267, name = "An Unexpected Message",       npc = "Meryl Felstorm" },
             },
         },
         {
             chapter = "Ebonchill",
-            summary = "Find Ebonchill, the staff of Alodi — the first Guardian of Tirisfal — frozen in time within a pocket dimension.",
-            recap = "Meryl spoke of Ebonchill — the staff of Alodi, the very first Guardian of Tirisfal, sealed within a pocket dimension of frozen time. You breached the dimensional barrier and entered a world where time stood still, ice crystals hanging motionless in the air. At its heart, Ebonchill waited — cold, patient, and ancient beyond measure. When you took it, the pocket dimension shattered, and the staff's frost spread through your veins like a promise.",
+            summary = "Find Ebonchill, the staff of Alodi, the first Guardian of Tirisfal, frozen in time within a pocket dimension.",
+            recap = "Meryl spoke of Ebonchill: the staff of Alodi, the very first Guardian of Tirisfal, sealed within a pocket dimension of frozen time. You breached the dimensional barrier and entered a world where time stood still, ice crystals hanging motionless in the air. At its heart, Ebonchill waited, cold, patient, and ancient beyond measure. When you took it, the pocket dimension shattered, and the staff's frost spread through your veins like a promise.",
             quests = {
                 { id = 42452, name = "Finding Ebonchill",           npc = "Meryl Felstorm" },
             },

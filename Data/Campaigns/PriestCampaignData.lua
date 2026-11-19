@@ -60,8 +60,8 @@ SM.PriestCampaignData = {
     chapters = {
         {
             chapter = "Netherlight Temple",
-            summary = "A hooded priestess summons you to Netherlight Temple, where Alonsus Faol — the founder of the priesthood — reveals himself.",
-            recap = "A mysterious priestess led you through a portal to Netherlight Temple, a sanctuary floating in the Twisting Nether between the forces of Light and Void. There, Alonsus Faol — the man who had founded the original priesthood of Lordaeron — revealed he had survived as an undead, guiding the faith from the shadows for centuries. Prophet Velen stood beside him, and together they asked you to lead a new Conclave. Calia Menethil and High Priestess Ishanah pledged as your first champions.",
+            summary = "A hooded priestess summons you to Netherlight Temple, where Alonsus Faol, the founder of the priesthood, reveals himself.",
+            recap = "A mysterious priestess led you through a portal to Netherlight Temple, a sanctuary floating in the Twisting Nether between the forces of Light and Void. There, Alonsus Faol, the man who had founded the original priesthood of Lordaeron, revealed he had survived as an undead, guiding the faith from the shadows for centuries. Prophet Velen stood beside him, and together they asked you to lead a new Conclave. Calia Menethil and High Priestess Ishanah pledged as your first champions.",
             quests = {
                 { id = 40705, name = "Priestly Matters",            npc = "Hooded Priestess" },
                 { id = 40706, name = "A Legend You Can Hold",        npc = "Alonsus Faol" },
@@ -80,7 +80,7 @@ SM.PriestCampaignData = {
         {
             chapter = "Whispers in the Void",
             summary = "Investigate void disturbances in Azsuna alongside Zabra Hexx and Yalia Sagewhisper.",
-            recap = "Alonsus Faol sensed whispers in the Void — disturbances emanating from Azsuna that threatened the balance of Netherlight Temple itself. Prophet Velen sent his best: Zabra Hexx, a shadow priest of the Darkspear, and Yalia Sagewhisper, a Pandaren healer of quiet wisdom. Together you investigated the source, dealing with murloc mind control and disrupted ley lines. Both proved their worth and joined your Conclave as champions.",
+            recap = "Alonsus Faol sensed whispers in the Void: disturbances emanating from Azsuna that threatened the balance of Netherlight Temple itself. Prophet Velen sent his best: Zabra Hexx, a shadow priest of the Darkspear, and Yalia Sagewhisper, a Pandaren healer of quiet wisdom. Together you investigated the source, dealing with murloc mind control and disrupted ley lines. Both proved their worth and joined your Conclave as champions.",
             quests = {
                 { id = 43372, name = "Whispers in the Void",        npc = "Alonsus Faol" },
                 { id = 43373, name = "The Best and Brightest",       npc = "Prophet Velen" },
@@ -95,7 +95,7 @@ SM.PriestCampaignData = {
         {
             chapter = "Scarlet Redemption",
             summary = "Infiltrate the Scarlet Onslaught, the fanatical remnant of the Scarlet Crusade, and recruit a defector to your cause.",
-            recap = "The Scarlet Onslaught — fanatical remnants of the Crusade — were gathering strength, and Faol saw an opportunity. You infiltrated their ranks disguised as an envoy, walking among zealots who would have burned you alive. Deep inside, you found Mariella — a heretic within their own ranks who had seen through the madness. You liberated her fellow apostates and brought Mariella Ward into the Conclave, her faith tempered by hard truth rather than blind fury.",
+            recap = "The Scarlet Onslaught, fanatical remnants of the Crusade, were gathering strength, and Faol saw an opportunity. You infiltrated their ranks disguised as an envoy, walking among zealots who would have burned you alive. Deep inside, you found Mariella, a heretic within their own ranks who had seen through the madness. You liberated her fellow apostates and brought Mariella Ward into the Conclave, her faith tempered by hard truth rather than blind fury.",
             quests = {
                 { id = 43385, name = "Infiltrating Our Enemies",    npc = "Alonsus Faol" },
                 { id = 43386, name = "Onslaught Envoy",             npc = "Alonsus Faol" },
@@ -109,7 +109,7 @@ SM.PriestCampaignData = {
         {
             chapter = "Forgotten Shadows",
             summary = "Recover Natalie Seline, a priest who delved too deep into the Void, from the shadow realm where she has been lost.",
-            recap = "Alonsus Faol spoke of Natalie Seline — a brilliant priest who had studied the Void so deeply that it had consumed her. She was trapped in a shadow realm between worlds, and only you could reach her. With Micah Belford guiding you through the darkness, you entered the Void itself and found Seline — transformed, but not lost. She returned to the Conclave carrying shadows that whispered secrets even the Light could not reveal.",
+            recap = "Alonsus Faol spoke of Natalie Seline, a brilliant priest who had studied the Void so deeply that it had consumed her. She was trapped in a shadow realm between worlds, and only you could reach her. With Micah Belford guiding you through the darkness, you entered the Void itself and found Seline, transformed, but not lost. She returned to the Conclave carrying shadows that whispered secrets even the Light could not reveal.",
             quests = {
                 { id = 43390, name = "Forgotten Shadows",           npc = "Alonsus Faol" },
                 { id = 43391, name = "Secrets of the Void",          npc = "Micah Belford" },
@@ -122,7 +122,7 @@ SM.PriestCampaignData = {
         {
             chapter = "High Priest of Netherlight",
             summary = "Lead the united Conclave to Niskara, rescue captured allies, and earn the title of High Priest.",
-            recap = "The Conclave was united — Light and Shadow standing together for the first time. The final test came on Niskara, a Legion prison world where priests and paladins alike were held captive. With Aponi Brightmane and Lord Maxwell Tyrosus lending their strength, you crossed Legion lines and broke the chains. United as one, the Conclave shattered the demon garrison. Alonsus Faol himself pledged as your champion, and Moira Thaurissan forged your weapon anew. You were named High Priest of Netherlight — a title that carried the weight of every faith you had united.",
+            recap = "The Conclave was united: Light and Shadow standing together for the first time. The final test came on Niskara, a Legion prison world where priests and paladins alike were held captive. With Aponi Brightmane and Lord Maxwell Tyrosus lending their strength, you crossed Legion lines and broke the chains. United as one, the Conclave shattered the demon garrison. Alonsus Faol himself pledged as your champion, and Moira Thaurissan forged your weapon anew. You were named High Priest of Netherlight, a title that carried the weight of every faith you had united.",
             quests = {
                 { id = 43394, name = "Crossing Legion Lines",       npc = "Lord Maxwell Tyrosus" },
                 { id = 43396, name = "The Mind of the Enemy",        npc = "Aponi Brightmane" },
@@ -139,7 +139,7 @@ SM.PriestCampaignData = {
         {
             chapter = "The Sunken Vault",
             summary = "A contagion strikes the Broken Shore. Cure the plague, recruit Aelthalyste, and seek the High Priest's Seeker mount.",
-            recap = "A curious contagion swept the Broken Shore — a plague that twisted both body and spirit. Aelthalyste, a banshee who had rediscovered her faith, helped you trace the disease to its source, craft a cure, and administer it to the fallen. With the contagion contained and Aelthalyste as your newest champion, you answered a final call to the Sunken Vault, where a creature of pure Light awaited — the High Priest's Seeker, a mount that would carry you above the battlefield.",
+            recap = "A curious contagion swept the Broken Shore: a plague that twisted both body and spirit. Aelthalyste, a banshee who had rediscovered her faith, helped you trace the disease to its source, craft a cure, and administer it to the fallen. With the contagion contained and Aelthalyste as your newest champion, you answered a final call to the Sunken Vault, where a creature of pure Light awaited: the High Priest's Seeker, a mount that would carry you above the battlefield.",
             quests = {
                 { id = 47137, name = "Champions of Legionfall",     npc = "Maiev Shadowsong" },
                 { id = 45343, name = "A Curious Contagion",          npc = "Alonsus Faol" },
@@ -156,7 +156,7 @@ SM.PriestCampaignData = {
         {
             chapter = "T'uure, Beacon of the Naaru",
             summary = "Seek T'uure, a crystal beacon forged by the naaru, whose light has guided the faithful through the darkest ages.",
-            recap = "Alonsus Faol spoke of T'uure — a crystal of pure Light created by the naaru themselves, said to be a beacon that could pierce any darkness. You followed a vindicator's plea to its resting place and fought through the shadows to claim it. When T'uure's light filled the room, every wound healed, every doubt faded, and the darkness recoiled.",
+            recap = "Alonsus Faol spoke of T'uure, a crystal of pure Light created by the naaru themselves, said to be a beacon that could pierce any darkness. You followed a vindicator's plea to its resting place and fought through the shadows to claim it. When T'uure's light filled the room, every wound healed, every doubt faded, and the darkness recoiled.",
             quests = {
                 { id = 41957, name = "The Vindicator's Plea",       npc = "Alonsus Faol" },
             },
@@ -164,7 +164,7 @@ SM.PriestCampaignData = {
         {
             chapter = "Light's Wrath",
             summary = "Recover Light's Wrath, a staff of terrible holy power sealed away in the Nexus Vault because it was too dangerous to wield.",
-            recap = "Faol warned you about Light's Wrath — a staff of such devastating holy power that the Kirin Tor had sealed it in the Nexus Vault, deeming it too dangerous for any mortal. But desperate times demanded desperate weapons. You breached the Vault's defenses and claimed the staff, feeling its barely contained fury surge through you. Light's Wrath was not a gentle weapon — it was the Light's anger given form.",
+            recap = "Faol warned you about Light's Wrath, a staff of such devastating holy power that the Kirin Tor had sealed it in the Nexus Vault, deeming it too dangerous for any mortal. But desperate times demanded desperate weapons. You breached the Vault's defenses and claimed the staff, feeling its barely contained fury surge through you. Light's Wrath was not a gentle weapon. It was the Light's anger given form.",
             quests = {
                 { id = 41625, name = "The Light's Wrath",           npc = "Alonsus Faol" },
             },
@@ -172,7 +172,7 @@ SM.PriestCampaignData = {
         {
             chapter = "Xal'atath, Blade of the Black Empire",
             summary = "Claim Xal'atath, a dagger that whispers with the voice of the Void and remembers the Black Empire that ruled before the titans.",
-            recap = "In twilight shadows, Faol revealed the existence of Xal'atath — a blade forged in the age of the Black Empire, before even the titans came to Azeroth. The dagger whispered constantly, its voice ancient and knowing, full of secrets that could drive lesser minds mad. You claimed it from a twilight cult's grasp, and from that moment on, the whispers never stopped. Xal'atath remembered everything — and it wanted you to know.",
+            recap = "In twilight shadows, Faol revealed the existence of Xal'atath, a blade forged in the age of the Black Empire, before even the titans came to Azeroth. The dagger whispered constantly, its voice ancient and knowing, full of secrets that could drive lesser minds mad. You claimed it from a twilight cult's grasp, and from that moment on, the whispers never stopped. Xal'atath remembered everything, and it wanted you to know.",
             quests = {
                 { id = 40710, name = "Blade in Twilight",            npc = "Alonsus Faol" },
             },

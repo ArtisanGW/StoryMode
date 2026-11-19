@@ -56,7 +56,7 @@ SM.DemonHunterCampaignData = {
         {
             chapter = "Call of the Illidari",
             summary = "Kor'vas Bloodthorn calls you to the Fel Hammer on Mardum, where the Illidari prepare for war against the Legion.",
-            recap = "Kor'vas Bloodthorn found you in Dalaran with an urgent message — the Illidari needed a leader. You answered the call and claimed a weapon forged from the demons' own power. On Mardum, the Fel Hammer became your stronghold — a Legion command ship turned against its former masters. With Kayn Sunfury at your side, you gazed through the Hunter's Gaze across the Broken Isles and directed the Illidari's wrath.",
+            recap = "Kor'vas Bloodthorn found you in Dalaran with an urgent message: the Illidari needed a leader. You answered the call and claimed a weapon forged from the demons' own power. On Mardum, the Fel Hammer became your stronghold, a Legion command ship turned against its former masters. With Kayn Sunfury at your side, you gazed through the Hunter's Gaze across the Broken Isles and directed the Illidari's wrath.",
             quests = {
                 { id = 39261, name = "Call of the Illidari",        npc = "Kor'vas Bloodthorn" },
                 { id = 40814, name = "The Power to Survive",        npc = "Kayn Sunfury" },
@@ -74,7 +74,7 @@ SM.DemonHunterCampaignData = {
         {
             chapter = "Rise, Champions",
             summary = "Build the Illidari's strength on the Fel Hammer. Recruit champions, train troops, and prove yourself leader of the demon hunters.",
-            recap = "The Fel Hammer needed to become more than a ship — it needed to become an army. Battlelord Gaardoun helped recruit champions while Kor'vas organized the broken warriors scattered across the Broken Isles. You proved your immortal soul was strong enough to lead, and the Illidari acknowledged you as their commander. The demon hunters were no longer scattered outcasts — they were a blade pointed at the Legion's heart.",
+            recap = "The Fel Hammer needed to become more than a ship. It needed to become an army. Battlelord Gaardoun helped recruit champions while Kor'vas organized the broken warriors scattered across the Broken Isles. You proved your immortal soul was strong enough to lead, and the Illidari acknowledged you as their commander. The demon hunters were no longer scattered outcasts. They were a blade pointed at the Legion's heart.",
             quests = {
                 { id = 42671, name = "Rise, Champions",             npc = "Battlelord Gaardoun" },
                 { id = 42677, name = "Things Gaardoun Needs",       npc = "Kor'vas Bloodthorn" },
@@ -91,7 +91,7 @@ SM.DemonHunterCampaignData = {
         {
             chapter = "Back in Black",
             summary = "Return to the Black Temple to confront echoes of the past and secure reinforcements from Illidan's former stronghold.",
-            recap = "The Arcane Way opened a path back to the Black Temple — Illidan's fortress, now empty and echoing with memories. Belath Dawnblade led you through its halls where the ghosts of the Illidari's past still lingered. A confrontation with the temple's remaining defenses proved that the demon hunters had grown beyond what they once were. New recruits joined from among the temple's guards, and the Fel Hammer's ranks swelled.",
+            recap = "The Arcane Way opened a path back to the Black Temple, Illidan's fortress, now empty and echoing with memories. Belath Dawnblade led you through its halls where the ghosts of the Illidari's past still lingered. A confrontation with the temple's remaining defenses proved that the demon hunters had grown beyond what they once were. New recruits joined from among the temple's guards, and the Fel Hammer's ranks swelled.",
             quests = {
                 { id = 42593, name = "The Arcane Way",              npc = "Matron Mother Malevolence" },
                 { id = 42594, name = "Move Like No Other",          npc = "Archmage Lan'dalock" },
@@ -106,7 +106,7 @@ SM.DemonHunterCampaignData = {
         {
             chapter = "The Invasion of Niskara",
             summary = "Hunt a Legion commander through Stormheim, prepare the Fel Hammer for interdimensional travel, and invade the demon world Niskara.",
-            recap = "Belath's intelligence pointed to a Legion commander hiding in Stormheim. Malace Shade tracked the demon through vrykul lands while you disrupted their rune networks. The trail led to Niskara — a demon world that could only be reached by jumping the Fel Hammer through a portal. You forged deadlier warglaives, fueled the ship's engines with demonic power, and launched the invasion. On Niskara, you cut through the Legion's defenses, destroyed their command structure, and earned the title of Slayer — the demon hunters' highest honor.",
+            recap = "Belath's intelligence pointed to a Legion commander hiding in Stormheim. Malace Shade tracked the demon through vrykul lands while you disrupted their rune networks. The trail led to Niskara, a demon world that could only be reached by jumping the Fel Hammer through a portal. You forged deadlier warglaives, fueled the ship's engines with demonic power, and launched the invasion. On Niskara, you cut through the Legion's defenses, destroyed their command structure, and earned the title of Slayer, the demon hunters' highest honor.",
             quests = {
                 { id = 42787, name = "Deal With It Personally",     npc = "Belath Dawnblade" },
                 { id = 42735, name = "Malace in Vrykul Land",       npc = "Belath Dawnblade" },
@@ -127,7 +127,7 @@ SM.DemonHunterCampaignData = {
         {
             chapter = "To Fel and Back",
             summary = "Lead the Illidari to the Broken Shore. Defend the Fel Hammer, recruit Lady S'theno, and earn the Slayer's Felbroken Shrieker.",
-            recap = "The Broken Shore was crawling with demons, and Kor'vas coordinated the Illidari's assault from the Fel Hammer itself. When the Legion counterattacked, you defended the ship in a desperate battle above the battlefield. Lady S'theno, a naga exile who had fought demons for millennia, joined your cause after you restored balance to the Broken Shore's ley lines. When the war was won, a felbat — the Felbroken Shrieker — recognized you as its master, and the Slayer took to the skies.",
+            recap = "The Broken Shore was crawling with demons, and Kor'vas coordinated the Illidari's assault from the Fel Hammer itself. When the Legion counterattacked, you defended the ship in a desperate battle above the battlefield. Lady S'theno, a naga exile who had fought demons for millennia, joined your cause after you restored balance to the Broken Shore's ley lines. When the war was won, a felbat, the Felbroken Shrieker, recognized you as its master, and the Slayer took to the skies.",
             quests = {
                 { id = 47137, name = "Champions of Legionfall",     npc = "Maiev Shadowsong" },
                 { id = 45301, name = "Taking Charge",               npc = "Kor'vas Bloodthorn" },
@@ -146,8 +146,8 @@ SM.DemonHunterCampaignData = {
 
         {
             chapter = "Twinblades of the Deceiver",
-            summary = "Hunt down the Twinblades of the Deceiver — warglaives forged in felfire and wielded by a champion of the Legion.",
-            recap = "Kayn Sunfury arranged the hunt for the Twinblades of the Deceiver — a pair of warglaives crackling with felfire, wielded by one of the Legion's own champions. You tracked the demon through shadowed ruins and claimed the blades in combat. They burned in your hands, eager for the blood of their former masters.",
+            summary = "Hunt down the Twinblades of the Deceiver, warglaives forged in felfire and wielded by a champion of the Legion.",
+            recap = "Kayn Sunfury arranged the hunt for the Twinblades of the Deceiver, a pair of warglaives crackling with felfire, wielded by one of the Legion's own champions. You tracked the demon through shadowed ruins and claimed the blades in combat. They burned in your hands, eager for the blood of their former masters.",
             quests = {
                 { id = 41120, name = "Making Arrangements",         npc = "Altruis the Sufferer" },
                 { id = 41121, name = "By Any Means",                npc = "Altruis the Sufferer" },
@@ -157,7 +157,7 @@ SM.DemonHunterCampaignData = {
         {
             chapter = "Aldrachi Warblades",
             summary = "Seek the Aldrachi Warblades, weapons of a race that defeated a demon lord and chose death over servitude.",
-            recap = "Jace Darkweaver told the story of the Aldrachi — a warrior race so fierce they defeated the demon lord Sargeras sent to enslave them. Rather than serve, they fell on their own blades. Those weapons had been lost for millennia, but Jace had found a lead. You followed it through a series of trials, establishing a connection to the blades through sheer will. The Aldrachi Warblades chose you — the first wielder since the race that forged them chose extinction over submission.",
+            recap = "Jace Darkweaver told the story of the Aldrachi, a warrior race so fierce they defeated the demon lord Sargeras sent to enslave them. Rather than serve, they fell on their own blades. Those weapons had been lost for millennia, but Jace had found a lead. You followed it through a series of trials, establishing a connection to the blades through sheer will. The Aldrachi Warblades chose you, the first wielder since the race that forged them chose extinction over submission.",
             quests = {
                 { id = 41803, name = "Asking a Favor",              npc = "Altruis the Sufferer" },
                 { id = 41804, name = "Ask and You Shall Receive",   npc = "Archmage Khadgar" },

@@ -44,7 +44,7 @@ SM.TeddiesAndTeaData = {
         {
             chapter = "Teddies and Tea",
             summary = "A girl is singing by herself at an empty homestead. She asks you to find her stuffed animals for a tea party. As you collect each one, she recites little rhymes about what happened to the people who used to live here. The rhymes are not comforting.",
-            recap = "Abby Lewis stood alone at Glenbrook Homestead, singing softly to herself. The houses were abandoned. The village was silent. She said she just wanted friends for a tea party — three stuffed animals: Mr. Munchykins, Trunksy, and Mayor Striggs. You found them, each one near a place where something had clearly gone very wrong. Abby appeared each time to recite a cheerful little rhyme. The rhymes were about the dead.",
+            recap = "Abby Lewis stood alone at Glenbrook Homestead, singing softly to herself. The houses were abandoned. The village was silent. She said she just wanted friends for a tea party, three stuffed animals: Mr. Munchykins, Trunksy, and Mayor Striggs. You found them, each one near a place where something had clearly gone very wrong. Abby appeared each time to recite a cheerful little rhyme. The rhymes were about the dead.",
             quests = {
                 { id = 47289, name = "Teddies and Tea", npc = "Abby Lewis" },
                 { id = 47428, name = "Kitty?",          npc = "Abby Lewis" },
@@ -52,8 +52,8 @@ SM.TeddiesAndTeaData = {
         },
         {
             chapter = "A Tea Party",
-            summary = "Abby has vanished. You find a village register — nearly every name crossed out. Three people may still be alive: the Hayeses and Samuel Hawthorne. They are not. Then Abby reappears, lights the candles, pours the tea, and introduces the last guest.",
-            recap = "When Smoochums was found in the woods, Abby was gone. In her place: a register listing every Glenbrook villager — most names struck through. Jonathan Hayes had his heart removed for a ritual. Samuel Hawthorne lay dead in the trees. Mary Hayes had turned witch and killed her own husband. Only Annie Warren survived, barely, imprisoned in a cave.\n\nAbby came back. She led you to a circle of candles with Smoochums — the cat, now sacrificed — at the center. She poured the tea. She said there was one more guest to meet. Then she ran, and the Conjured Horror arrived in her place.",
+            summary = "Abby has vanished. You find a village register, nearly every name crossed out. Three people may still be alive: the Hayeses and Samuel Hawthorne. They are not. Then Abby reappears, lights the candles, pours the tea, and introduces the last guest.",
+            recap = "When Smoochums was found in the woods, Abby was gone. In her place: a register listing every Glenbrook villager, most names struck through. Jonathan Hayes had his heart removed for a ritual. Samuel Hawthorne lay dead in the trees. Mary Hayes had turned witch and killed her own husband. Only Annie Warren survived, barely, imprisoned in a cave.\n\nAbby came back. She led you to a circle of candles with Smoochums (the cat, now sacrificed) at the center. She poured the tea. She said there was one more guest to meet. Then she ran, and the Conjured Horror arrived in her place.",
             quests = {
                 { id = 53464, name = "The Village of Glenbrook", npc = "Annie Warren" },
                 { id = 53465, name = "Tea Party",                npc = "Mangled Body" },

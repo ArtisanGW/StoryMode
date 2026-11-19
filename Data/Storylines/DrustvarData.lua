@@ -70,7 +70,7 @@ SM.DrustvarData = {
         {
             chapter = "The Final Effigy",
             summary = "Lord Waycrest has vanished and a curse grips the village of Fallhaven. Lucille Waycrest enlists your help to hunt the witches responsible.",
-            recap = "Taelia sent you to Drustvar, where Lord Waycrest had vanished and a dark curse was spreading. In Fallhaven, Cyril White led you through the signs of witchcraft — hexed villagers, twisted familiars, and effigies that pulsed with dark magic. You met Lucille Waycrest, the lord's daughter, who refused to sit idle while her land rotted. Together you hunted the witches through Fallhaven, cracking their curses and burning their effigies. The final effigy crumbled, but the witches' power ran far deeper than one village.",
+            recap = "Taelia sent you to Drustvar, where Lord Waycrest had vanished and a dark curse was spreading. In Fallhaven, Cyril White led you through the signs of witchcraft: hexed villagers, twisted familiars, and effigies that pulsed with dark magic. You met Lucille Waycrest, the lord's daughter, who refused to sit idle while her land rotted. Together you hunted the witches through Fallhaven, cracking their curses and burning their effigies. The final effigy crumbled, but the witches' power ran far deeper than one village.",
             quests = {
                 { id = 48622, name = "The Vanishing Lord",          npc = "Taelia" },
                 { id = 47968, name = "Signs and Portents",          npc = "Cyril White" },
@@ -86,7 +86,7 @@ SM.DrustvarData = {
         {
             chapter = "The Burden of Proof",
             summary = "Lucille stands accused of witchcraft herself. Marshal Reade demands proof of her innocence through superstitious trials.",
-            recap = "The witch hunt turned on Lucille herself — Marshal Everit Reade accused the Waycrest daughter of sorcery. In a land gripped by paranoid suspicion, even nobility was not above the trials. You gathered proof of Lucille's innocence through the marshal's superstitious tests: walking through the woods that watched, enduring ambush, and passing the trial by superstition. A pungent alchemical solution revealed the true witches hiding in plain sight. The burden of proof was met, but the experience left its mark — in Drustvar, trust was a luxury no one could afford.",
+            recap = "The witch hunt turned on Lucille herself: Marshal Everit Reade accused the Waycrest daughter of sorcery. In a land gripped by paranoid suspicion, even nobility was not above the trials. You gathered proof of Lucille's innocence through the marshal's superstitious tests: walking through the woods that watched, enduring ambush, and passing the trial by superstition. A pungent alchemical solution revealed the true witches hiding in plain sight. The burden of proof was met, but the experience left its mark: in Drustvar, trust was a luxury no one could afford.",
             quests = {
                 { id = 48108, name = "The Waycrest Daughter",       npc = "Cyril White" },
                 { id = 48283, name = "Standing Accused",            npc = "Constable Henry Framer" },
@@ -103,8 +103,8 @@ SM.DrustvarData = {
         -- CHAPTER 3: An Airtight Alibi
         {
             chapter = "An Airtight Alibi",
-            summary = "Fletcher's Hollow is cursed — villagers turned to wicker constructs. Track the three witch sisters responsible and expose their matron.",
-            recap = "Fletcher's Hollow was worse than Fallhaven. The curse here had turned villagers into wicker constructs — living husks of thorns and hatred. Lucille led you through the ruins, saving who you could and putting down those beyond help. The trail pointed to three witch sisters working in concert. You charmed the lifeless, followed a revealing missive, and tracked the murderous matron to her lair. With the coven cell destroyed and an airtight alibi for who was truly behind the corruption, the pattern became clear — this was no scattered curse. It was organized. It was a war.",
+            summary = "Fletcher's Hollow is cursed: villagers turned to wicker constructs. Track the three witch sisters responsible and expose their matron.",
+            recap = "Fletcher's Hollow was worse than Fallhaven. The curse here had turned villagers into wicker constructs, living husks of thorns and hatred. Lucille led you through the ruins, saving who you could and putting down those beyond help. The trail pointed to three witch sisters working in concert. You charmed the lifeless, followed a revealing missive, and tracked the murderous matron to her lair. With the coven cell destroyed and an airtight alibi for who was truly behind the corruption, the pattern became clear: this was no scattered curse. It was organized. It was a war.",
             quests = {
                 { id = 48171, name = "The Curse of Fletcher's Hollow", npc = "Lucille Waycrest", mapID = 896, x = 0.7000, y = 0.4280, location = "Drustvar" },
                 { id = 48518, name = "Save Who We Can",             npc = "Evelyn Pare" },
@@ -122,8 +122,8 @@ SM.DrustvarData = {
         -- CHAPTER 4: The Order of Embers
         {
             chapter = "The Order of Embers",
-            summary = "In ancient Drust ruins, Lucille discovers the Order of Embers — an old organization of witch hunters. She vows to rebuild it.",
-            recap = "Lucille realized that scattered witch hunting would never be enough. A slight detour through the mountains — past yetis and salvaged supplies — led to the ruins of Gol Var, where ancient bones whispered of the Order of Embers. Centuries ago, the Order had been Drustvar's shield against the Drust and their dark magic. Lucille read the histories carved in stone and rune-etched bone, and made her decision: the Order of Embers would rise again. She would lead it, and you would be her blade.",
+            summary = "In ancient Drust ruins, Lucille discovers the Order of Embers, an old organization of witch hunters. She vows to rebuild it.",
+            recap = "Lucille realized that scattered witch hunting would never be enough. A slight detour through the mountains, past yetis and salvaged supplies, led to the ruins of Gol Var, where ancient bones whispered of the Order of Embers. Centuries ago, the Order had been Drustvar's shield against the Drust and their dark magic. Lucille read the histories carved in stone and rune-etched bone, and made her decision: the Order of Embers would rise again. She would lead it, and you would be her blade.",
             quests = {
                 { id = 49259, name = "And Justice For All",          npc = "Lucille Waycrest" },
                 { id = 48941, name = "A Slight Detour",             npc = "Lucille Waycrest" },
@@ -139,8 +139,8 @@ SM.DrustvarData = {
         -- CHAPTER 5: A New Order
         {
             chapter = "A New Order",
-            summary = "At Arom's Stand, recruit and train the first new Inquisitors. Learn the old ways of witch hunting — silver, fire, and sharp thinking.",
-            recap = "Arom's Stand became the Order's new headquarters. Inquisitor Sterntide — one of the few who still remembered the old ways — gave you a crash course in witch hunting: silver weapons for the cursed, fire for the wicker, and sharp thinking for the witches themselves. You rooted out hidden dealings in the camp, exposed infiltrators wearing friendly faces, and trained new guards to replace the corrupted ones. When Lucille raised the Order's banner over Arom's Stand, the message was clear — the witches had hunted long enough. Now they were the prey.",
+            summary = "At Arom's Stand, recruit and train the first new Inquisitors. Learn the old ways of witch hunting: silver, fire, and sharp thinking.",
+            recap = "Arom's Stand became the Order's new headquarters. Inquisitor Sterntide, one of the few who still remembered the old ways, gave you a crash course in witch hunting: silver weapons for the cursed, fire for the wicker, and sharp thinking for the witches themselves. You rooted out hidden dealings in the camp, exposed infiltrators wearing friendly faces, and trained new guards to replace the corrupted ones. When Lucille raised the Order's banner over Arom's Stand, the message was clear: the witches had hunted long enough. Now they were the prey.",
             quests = {
                 { id = 48986, name = "Take the High Road",          npc = "Lucille Waycrest" },
                 { id = 49443, name = "A Lesson in Witch Hunting",   npc = "Lucille Waycrest", mapID = 896, x = 0.3680, y = 0.5000, location = "Drustvar" },
@@ -156,7 +156,7 @@ SM.DrustvarData = {
         {
             chapter = "Drustfall",
             summary = "Inquisitor Cleardawn leads the southern campaign through the old roads, clearing Drust strongholds along the way.",
-            recap = "Inquisitor Cleardawn took command of the southern front. Through the old roads you marched — ancient paths the Drust had walked millennia before. The pieces of history you uncovered told a chilling story: the Drust had not simply been defeated in the past. They had been driven into hiding, and they had been waiting. You gave their soldiers an honorable discharge — the permanent kind — and pushed through to a clear victory. But the Drust ruins at Gol Osigr loomed ahead, and the fall of the Drust was far from over.",
+            recap = "Inquisitor Cleardawn took command of the southern front. Through the old roads you marched, ancient paths the Drust had walked millennia before. The pieces of history you uncovered told a chilling story: the Drust had not simply been defeated in the past. They had been driven into hiding, and they had been waiting. You gave their soldiers an honorable discharge (the permanent kind) and pushed through to a clear victory. But the Drust ruins at Gol Osigr loomed ahead, and the fall of the Drust was far from over.",
             quests = {
                 { id = 48504, name = "Through the Old Roads",       npc = "Inquisitor Cleardawn" },
                 { id = 48184, name = "Pieces of History",           npc = "Inquisitor Cleardawn" },
@@ -170,7 +170,7 @@ SM.DrustvarData = {
         {
             chapter = "Fighting With Fire",
             summary = "Falconhurst is under siege. Break the hag's hold on the village, forge weapons of old, and learn to fight the Drust with fire.",
-            recap = "Falconhurst was overrun — a hag had enslaved the village, and wicker monsters patrolled the streets. Inquisitor Cleardawn led the charge: you broke the hag's spell, freed the villagers, and held the barricade against waves of cursed attackers. Warren Ashton, the village blacksmith, remembered the old ways — weapons of silver and iron, blessed in ember. You forged an arsenal from his teachings and learned the most important lesson of all: the Drust feared fire. With blessed blades and burning brands, you were ready for the Crimsonwood.",
+            recap = "Falconhurst was overrun: a hag had enslaved the village, and wicker monsters patrolled the streets. Inquisitor Cleardawn led the charge: you broke the hag's spell, freed the villagers, and held the barricade against waves of cursed attackers. Warren Ashton, the village blacksmith, remembered the old ways: weapons of silver and iron, blessed in ember. You forged an arsenal from his teachings and learned the most important lesson of all: the Drust feared fire. With blessed blades and burning brands, you were ready for the Crimsonwood.",
             quests = {
                 { id = 49896, name = "To Falconhurst!",             npc = "Inquisitor Cleardawn" },
                 { id = 50001, name = "Breaking Hag",                npc = "Inquisitor Cleardawn" },
@@ -186,7 +186,7 @@ SM.DrustvarData = {
         {
             chapter = "Stick It To 'Em!",
             summary = "Enter the Crimsonwood, face Gorak Tul's grand rite, and drive a stake into the heart of the Drust king's power.",
-            recap = "The Crimsonwood was the Drust king's domain — a forest so thick with dark magic that the trees themselves attacked. You saved Master Ashton from the thorns, gathered what you needed from the cursed woods, and went deeper. Inquisitor Cleardawn never flinched as you faced the matrons of the Crimsonwood one by one. At the heart of it all stood Gorak Tul's hall, where the grand rite would have brought the Drust back in full force. You stopped it — barely — and stuck the embers into the heart of his power. Gorak Tul retreated, wounded but not destroyed. Lucille was waiting.",
+            recap = "The Crimsonwood was the Drust king's domain, a forest so thick with dark magic that the trees themselves attacked. You saved Master Ashton from the thorns, gathered what you needed from the cursed woods, and went deeper. Inquisitor Cleardawn never flinched as you faced the matrons of the Crimsonwood one by one. At the heart of it all stood Gorak Tul's hall, where the grand rite would have brought the Drust back in full force. You stopped it, barely, and stuck the embers into the heart of his power. Gorak Tul retreated, wounded but not destroyed. Lucille was waiting.",
             quests = {
                 { id = 50172, name = "Into the Crimsonwood",        npc = "Inquisitor Cleardawn" },
                 { id = 50265, name = "Saving Master Ashton",        npc = "Inquisitor Cleardawn" },
@@ -205,7 +205,7 @@ SM.DrustvarData = {
         {
             chapter = "Break On Through",
             summary = "March on Corlain, the seat of House Waycrest. Forge an arsenal of witchrending weapons and break through the coven's magical barrier.",
-            recap = "With the south secured, Marshal Reade led the march on Corlain — the ancestral seat of House Waycrest, now a fortress of the Heartsbane Coven. The first watch was grim: the town was sealed behind a magical barrier that killed anything that touched it. Inquisitor Notley scouted the approach while you gathered precious metals and crafted an improvised arsenal of witchrending weapons. Lucille herself struck the final blow against the barrier, shattering it with the Order's combined power. The road to Waycrest Manor was open.",
+            recap = "With the south secured, Marshal Reade led the march on Corlain, the ancestral seat of House Waycrest, now a fortress of the Heartsbane Coven. The first watch was grim: the town was sealed behind a magical barrier that killed anything that touched it. Inquisitor Notley scouted the approach while you gathered precious metals and crafted an improvised arsenal of witchrending weapons. Lucille herself struck the final blow against the barrier, shattering it with the Order's combined power. The road to Waycrest Manor was open.",
             quests = {
                 { id = 49926, name = "The Road to Corlain",         npc = "Marshal Everit Reade" },
                 { id = 50003, name = "The First Watch",             npc = "Marshal Everit Reade" },
@@ -223,7 +223,7 @@ SM.DrustvarData = {
         {
             chapter = "Storming the Manor",
             summary = "Fight through cursed Corlain, storm Waycrest Manor, and confront Lady Waycrest and Gorak Tul in the dungeon's depths.",
-            recap = "Corlain was a nightmare — hexed citizens wandered the streets, ruinous rituals played out in every alley, and the coven's strongest witches guarded the approach to the manor. You cut through them all. Lucille led the final charge to the gates of Waycrest Manor itself, where her mother — Lady Waycrest, consumed by Gorak Tul's power — waited in the depths. In the dungeon beneath the manor, you faced the fallen mother and broke the Drust king's hold on her. The curse over Drustvar shattered like glass. Lucille knelt beside her mother's body, the heir of a house that would rebuild. The witchwood was silent at last.",
+            recap = "Corlain was a nightmare: hexed citizens wandered the streets, ruinous rituals played out in every alley, and the coven's strongest witches guarded the approach to the manor. You cut through them all. Lucille led the final charge to the gates of Waycrest Manor itself, where her mother (Lady Waycrest, consumed by Gorak Tul's power) waited in the depths. In the dungeon beneath the manor, you faced the fallen mother and broke the Drust king's hold on her. The curse over Drustvar shattered like glass. Lucille knelt beside her mother's body, the heir of a house that would rebuild. The witchwood was silent at last.",
             quests = {
                 { id = 50583, name = "To the Other Side",           npc = "Lucille Waycrest" },
                 { id = 50585, name = "Hexecutioner",                npc = "Marshal Everit Reade" },

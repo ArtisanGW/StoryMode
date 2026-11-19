@@ -73,7 +73,7 @@ SM.NazmirData = {
         {
             chapter = "Deep in the Swamp",
             summary = "Nazmir is swallowed by blood and shadow. Princess Talanji leads the Horde into the swamp to find the loa and stop the blood troll advance.",
-            recap = "Talanji brought you to Nazmir, the oldest and most cursed of the Zandalari lands. The swamp had been swallowed — blood trolls pressed inward from every angle, their offerings feeding something dark and hungry beneath the earth. Rokhan read the signs: to push back the blood tide, you'd need the loa. Ancient, capricious, and rarely willing to be asked. You cut through the blood troll front lines, took in the full scope of the devastation, and prepared to seek out the only powers old enough to matter in Nazmir.",
+            recap = "Talanji brought you to Nazmir, the oldest and most cursed of the Zandalari lands. The swamp had been swallowed: blood trolls pressed inward from every angle, their offerings feeding something dark and hungry beneath the earth. Rokhan read the signs: to push back the blood tide, you'd need the loa. Ancient, capricious, and rarely willing to be asked. You cut through the blood troll front lines, took in the full scope of the devastation, and prepared to seek out the only powers old enough to matter in Nazmir.",
             quests = {
                 { id = 47512, name = "Nazmir",                  npc = "Princess Talanji" },
                 { id = 47103, name = "Journey to Nazmir",       npc = "Princess Talanji", mapID = 862, x = 0.4980, y = 0.4220, location = "Dazar'alor" },
@@ -90,8 +90,8 @@ SM.NazmirData = {
         -- CHAPTER 2: A Pact With Death
         {
             chapter = "A Pact With Death",
-            summary = "Hanzabu leads you to Bwonsamdi, loa of death, deep in his Necropolis. He will fight the blood trolls — for one million souls.",
-            recap = "Hanzabu, servant of the death loa, led you into Bwonsamdi's Necropolis — a place where the veil between the living and the dead was thin enough to talk through. Bwonsamdi was many things: charming, unsettling, and entirely in control of any room he entered. He had watched the blood trolls desecrate his death shrines and steal souls that were owed to him. He was not pleased. The deal he offered was simple — his power in exchange for one million souls delivered to his realm. You cleansed his temple of spirits who had fled to G'huun, repelled Grand Ma'da Ateena's interruption of the sealing ritual, and sealed the pact. A deal with a death loa is not something you walk back from.",
+            summary = "Hanzabu leads you to Bwonsamdi, loa of death, deep in his Necropolis. He will fight the blood trolls, for one million souls.",
+            recap = "Hanzabu, servant of the death loa, led you into Bwonsamdi's Necropolis, a place where the veil between the living and the dead was thin enough to talk through. Bwonsamdi was many things: charming, unsettling, and entirely in control of any room he entered. He had watched the blood trolls desecrate his death shrines and steal souls that were owed to him. He was not pleased. The deal he offered was simple: his power in exchange for one million souls delivered to his realm. You cleansed his temple of spirits who had fled to G'huun, repelled Grand Ma'da Ateena's interruption of the sealing ritual, and sealed the pact. A deal with a death loa is not something you walk back from.",
             quests = {
                 { id = 47241, name = "The Shadow of Death",     npc = "Princess Talanji" },
                 { id = 47244, name = "A Culling of Souls",      npc = "Hanzabu" },
@@ -110,7 +110,7 @@ SM.NazmirData = {
         -- CHAPTER 3: Undercover Sista
         {
             chapter = "Undercover Sista",
-            summary = "Infiltrate Zalamar disguised as a blood troll. The bat loa Hir'eek has been corrupted — you must end the corruption and the loa with it.",
+            summary = "Infiltrate Zalamar disguised as a blood troll. The bat loa Hir'eek has been corrupted. You must end the corruption and the loa with it.",
             recap = "Witch Doctor Kejabu had a plan that required a certain willingness to look like the enemy. Disguised as blood trolls, you slipped into Zalamar, one of the blood cult's most fortified settlements. Inside you found something worse than blood trolls: Hir'eek, the bat loa, had turned. Corrupted by G'huun's influence, the loa now fed on his own people, demanding sacrifice. A corrupted loa was more dangerous than no loa at all. You poisoned the blood troll's brood, stripped away their rituals, and faced Hir'eek at the heart of his lair. The bat loa fell. It was not a victory to celebrate.",
             quests = {
                 { id = 49440, name = "Blood Troll on the Outside", npc = "Witch Doctor Kejabu" },
@@ -128,8 +128,8 @@ SM.NazmirData = {
         -- CHAPTER 4: Turtle Power
         {
             chapter = "Turtle Power",
-            summary = "Torga, ancient sea turtle loa of Nazmir, is dying. The blood trolls have bled him for decades. You arrive too late to save him — but not too late to release him.",
-            recap = "Lashk brought you to Torga, and what you found broke something in the air around you. The sea turtle loa — ancient beyond reckoning, the kind of creature that outlasted empires — had been slowly bled by the blood trolls for years. He was almost gone when you arrived. You fought through the blood trolls claiming his shores, sought Bwonsamdi's intercession for a dying loa, and freed the souls trapped around him. Torga died. He just did it on his own terms, with the Horde at his side. Bwonsamdi, for once, was almost respectful. Lashk said nothing. Some losses don't require words.",
+            summary = "Torga, ancient sea turtle loa of Nazmir, is dying. The blood trolls have bled him for decades. You arrive too late to save him, but not too late to release him.",
+            recap = "Lashk brought you to Torga, and what you found broke something in the air around you. The sea turtle loa (ancient beyond reckoning, the kind of creature that outlasted empires) had been slowly bled by the blood trolls for years. He was almost gone when you arrived. You fought through the blood trolls claiming his shores, sought Bwonsamdi's intercession for a dying loa, and freed the souls trapped around him. Torga died. He just did it on his own terms, with the Horde at his side. Bwonsamdi, for once, was almost respectful. Lashk said nothing. Some losses don't require words.",
             quests = {
                 { id = 49185, name = "Catching Up",             npc = "Princess Talanji" },
                 { id = 49064, name = "Torga, the Turtle Loa",  npc = "Lashk" },
@@ -152,7 +152,7 @@ SM.NazmirData = {
         {
             chapter = "Bring the Boom",
             summary = "A goblin named Patch and a crew of demolitions experts blast a way through the blood troll defenses.",
-            recap = "Subtlety had its limits in Nazmir. Patch — a goblin with strong opinions about explosives and personal safety — had a solution for the blood troll barricades that was loud, expensive, and effective. You wrangled his scattered crew, gathered everything they needed, and let them do what goblins do best. The blood troll fortifications that had blocked the advance for weeks turned to rubble in an afternoon. Talanji watched the smoke rise with something close to satisfaction. The path deeper into Nazmir was open.",
+            recap = "Subtlety had its limits in Nazmir. Patch, a goblin with strong opinions about explosives and personal safety, had a solution for the blood troll barricades that was loud, expensive, and effective. You wrangled his scattered crew, gathered everything they needed, and let them do what goblins do best. The blood troll fortifications that had blocked the advance for weeks turned to rubble in an afternoon. Talanji watched the smoke rise with something close to satisfaction. The path deeper into Nazmir was open.",
             quests = {
                 { id = 47245, name = "Getting the Message",     npc = "Rokhan" },
                 { id = 47631, name = "Rendezvous with the Libation", npc = "Rokhan" },
@@ -169,7 +169,7 @@ SM.NazmirData = {
         -- CHAPTER 6: A Friend of the Frogs
         {
             chapter = "A Friend of the Frogs",
-            summary = "In Gloom Hollow, the great frog loa Krag'wa hungers — and he is willing to fight if you can earn his trust. Become a friend of the frogs.",
+            summary = "In Gloom Hollow, the great frog loa Krag'wa hungers, and he is willing to fight if you can earn his trust. Become a friend of the frogs.",
             recap = "Rokhan led you into Gloom Hollow, where the ancient frog loa Krag'wa brooded in the dark. The blood trolls had massacred his followers and desecrated his totems, and Krag'wa was in no mood for diplomacy. You hunted the hunters who had slaughtered his priests, restored his shrines, and prepared the kind of feast that only a frog loa the size of a temple could appreciate. Krag'wa was pleased. He was also terrifying. The agreement was simple enough: he would fight with the Horde against the blood trolls and G'huun. In Gloom Hollow, that counted as a warm welcome.",
             quests = {
                 { id = 49902, name = "To Gloom Hollow",         npc = "Kisha" },
@@ -188,8 +188,8 @@ SM.NazmirData = {
         -- CHAPTER 7: Everything Contained
         {
             chapter = "Everything Contained",
-            summary = "A damaged Titan Keeper has been protecting the swamp's darkest secret — a proto-god of blood and shadow sealed beneath the earth.",
-            recap = "Titan Keeper Hezrel had been running containment protocols in Nazmir longer than any troll civilization had existed. His facility was damaged, his routines degraded, and the thing he was containing was actively working to get out. G'huun — a failed titan experiment, a blood god born in a lab and deemed too dangerous to destroy — had been sealed beneath Nazmir since before the trolls arrived. You helped Hezrel repair his systems, purified the corrupted earth, cleared the undead and void creatures that had crept into the facility, and restored the containment. For now. What had already escaped, and the blood trolls' true purpose — feeding G'huun until he broke free on his own terms — was only becoming clear.",
+            summary = "A damaged Titan Keeper has been protecting the swamp's darkest secret: a proto-god of blood and shadow sealed beneath the earth.",
+            recap = "Titan Keeper Hezrel had been running containment protocols in Nazmir longer than any troll civilization had existed. His facility was damaged, his routines degraded, and the thing he was containing was actively working to get out. G'huun (a failed titan experiment, a blood god born in a lab and deemed too dangerous to destroy) had been sealed beneath Nazmir since before the trolls arrived. You helped Hezrel repair his systems, purified the corrupted earth, cleared the undead and void creatures that had crept into the facility, and restored the containment. For now. What had already escaped, and the blood trolls' true purpose (feeding G'huun until he broke free on his own terms) was only becoming clear.",
             quests = {
                 { id = 49932, name = "Slumber No More",         npc = "Lashk" },
                 { id = 49935, name = "How to Repair a Titan Keeper", npc = "Titan Keeper Hezrel" },
@@ -210,7 +210,7 @@ SM.NazmirData = {
         {
             chapter = "Bleeding the Blood Trolls",
             summary = "The final assault on Grand Ma'da Ateena. The Horde, the loa, and a death god march together into the Blood Gate. G'huun waits beneath.",
-            recap = "Patch rallied the assault force at Bloodfire Ravine. Talanji stood at the front. The loa — Krag'wa, what remained of Bwonsamdi's power, even the memory of Torga — were with you. The blood trolls had held the Blood Gate as the last barrier between Nazmir and the heart of their god's prison. You blew through their defenses, toppled their totems, and drove a path of fire through their strongest ranks. Grand Ma'da Ateena fell. In the silence after, Titan Keeper Hezrel delivered the final revelation: G'huun still breathed beneath the earth. Nazmir had been reclaimed — but the blood god's prison was cracking. The raid on Uldir was no longer optional.",
+            recap = "Patch rallied the assault force at Bloodfire Ravine. Talanji stood at the front. The loa (Krag'wa, what remained of Bwonsamdi's power, even the memory of Torga) were with you. The blood trolls had held the Blood Gate as the last barrier between Nazmir and the heart of their god's prison. You blew through their defenses, toppled their totems, and drove a path of fire through their strongest ranks. Grand Ma'da Ateena fell. In the silence after, Titan Keeper Hezrel delivered the final revelation: G'huun still breathed beneath the earth. Nazmir had been reclaimed, but the blood god's prison was cracking. The raid on Uldir was no longer optional.",
             quests = {
                 { id = 49569, name = "Down by the Riverside",   npc = "Princess Talanji", mapID = 863, x = 0.6740, y = 0.4220, location = "Nazmir" },
                 { id = 50076, name = "Rally the Warriors",      npc = "Princess Talanji" },
@@ -228,11 +228,11 @@ SM.NazmirData = {
             },
         },
 
-        -- CHAPTER 9: Uldir — Blood From Stone
+        -- CHAPTER 9: Uldir: Blood From Stone
         {
-            chapter = "Uldir — Blood From Stone",
+            chapter = "Uldir: Blood From Stone",
             summary = "Deep beneath the earth, a titan research facility holds the worst mistake the Pantheon ever made. G'huun has to die.",
-            recap = "The titans built Uldir to study the Old Gods — to understand the corruption before they tried to cure it. What they created instead was G'huun: a proto-god of blood and shadow, born in a lab, every safeguard bypassed. Sealed in stasis for millennia, fed by the blood trolls until he was strong enough to break containment himself. Uldir was not a dungeon. It was a prison that had started to answer back.\n\nYou fought through the facility's corrupted wards — past G'huun's lieutenants, through the experiments that had gone wrong in the age before trolls had language — and reached the heart of the prison. G'huun fell. The blood god's thousand-year campaign to break free ended in the same titan vault it began in. Nazmir would take generations to recover. The trolls who had given their lives feeding G'huun would never be fully redeemed. But the earth was quiet again, and the seal held.",
+            recap = "The titans built Uldir to study the Old Gods, to understand the corruption before they tried to cure it. What they created instead was G'huun: a proto-god of blood and shadow, born in a lab, every safeguard bypassed. Sealed in stasis for millennia, fed by the blood trolls until he was strong enough to break containment himself. Uldir was not a dungeon. It was a prison that had started to answer back.\n\nYou fought through the facility's corrupted wards, past G'huun's lieutenants, through the experiments that had gone wrong in the age before trolls had language, and reached the heart of the prison. G'huun fell. The blood god's thousand-year campaign to break free ended in the same titan vault it began in. Nazmir would take generations to recover. The trolls who had given their lives feeding G'huun would never be fully redeemed. But the earth was quiet again, and the seal held.",
             achievementID = 40960,
             quests = {},
         },
@@ -240,8 +240,8 @@ SM.NazmirData = {
         -- CHAPTER 10: The Battle of Dazar'alor
         {
             chapter = "The Battle of Dazar'alor",
-            summary = "The Alliance strikes at the heart of the Zandalari empire. King Rastakhan calls on Bwonsamdi — and pays the price.",
-            recap = "The Alliance fleet came while Dazar'alor was still recovering from everything the Horde had sacrificed to protect it. Jaina Proudmoore led the assault through the sacred pyramid, floor by floor, past every guardian the Zandalari could muster. King Rastakhan, knowing the city could not hold, made a desperate bargain — calling on Bwonsamdi's power directly, burning his own life force to drive the invaders back.\n\nBwonsamdi got his king in the end. Rastakhan fell. But the death loa was there to receive him, and the deal struck in Nazmir had never promised anything more than that — the power to fight, not the guarantee of survival. Talanji watched her father die holding a city that still stood. Bwonsamdi, for his part, was exactly as somber as a loa of death ever gets. The soul of a king is not nothing.",
+            summary = "The Alliance strikes at the heart of the Zandalari empire. King Rastakhan calls on Bwonsamdi, and pays the price.",
+            recap = "The Alliance fleet came while Dazar'alor was still recovering from everything the Horde had sacrificed to protect it. Jaina Proudmoore led the assault through the sacred pyramid, floor by floor, past every guardian the Zandalari could muster. King Rastakhan, knowing the city could not hold, made a desperate bargain, calling on Bwonsamdi's power directly, burning his own life force to drive the invaders back.\n\nBwonsamdi got his king in the end. Rastakhan fell. But the death loa was there to receive him, and the deal struck in Nazmir had never promised anything more than that: the power to fight, not the guarantee of survival. Talanji watched her father die holding a city that still stood. Bwonsamdi, for his part, was exactly as somber as a loa of death ever gets. The soul of a king is not nothing.",
             quests = {
                 { id = 54282, name = "Battle of Dazar'alor",  npc = "Princess Talanji", mapID = 863, x = 0.3660, y = 0.5380, location = "The Battle of Dazar'alor, Nazmir" },
             },

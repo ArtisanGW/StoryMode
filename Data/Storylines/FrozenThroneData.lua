@@ -577,7 +577,7 @@ SM.FrozenThroneData = {
         {
             chapter = "The Dragonblight Campaign",
             summary = "Hold Wintergarde Keep against the tide rolling down from Naxxramas.",
-            recap = "Wintergarde Keep clings to the broken edge of the Dragonblight, pinned between Naxxramas overhead and the plaguebearers boiling up from the Carrion Fields. Duke August Foehammer holds what he can. The 7th Legion bleeds for every mile of frozen ground. High Commander Wyrmbane has orders from Highlord Bolvar Fordragon — push east, past the dragonshrines, toward a black gate in a black mountain.",
+            recap = "Wintergarde Keep clings to the broken edge of the Dragonblight, pinned between Naxxramas overhead and the plaguebearers boiling up from the Carrion Fields. Duke August Foehammer holds what he can. The 7th Legion bleeds for every mile of frozen ground. High Commander Wyrmbane has orders from Highlord Bolvar Fordragon: push east, past the dragonshrines, toward a black gate in a black mountain.",
             portraitDisplayID = 24351,
             faction = "Alliance",
             quests = {
@@ -602,7 +602,7 @@ SM.FrozenThroneData = {
         {
             chapter = "Into the Dragonblight",
             summary = "Swear the blood oath at Agmar's Hammer and dig the Horde's claws into the frozen plain.",
-            recap = "The Horde's banner flies over Agmar's Hammer, driven into the permafrost like a spear into a cold chest. Emissary Brighthoof calls for warriors willing to bind themselves to the Warchief's campaign. Overlord Agmar tolerates no softness — the Scourge presses on every side, and a red-eyed gate on the horizon waits to be broken.",
+            recap = "The Horde's banner flies over Agmar's Hammer, driven into the permafrost like a spear into a cold chest. Emissary Brighthoof calls for warriors willing to bind themselves to the Warchief's campaign. Overlord Agmar tolerates no softness: the Scourge presses on every side, and a red-eyed gate on the horizon waits to be broken.",
             portraitDisplayID = 23805,
             faction = "Horde",
             quests = {
@@ -614,7 +614,7 @@ SM.FrozenThroneData = {
         {
             chapter = "The Nerubian Menace",
             summary = "Crush the Anub'ar climbing up from the ruins of a dead empire.",
-            recap = "The Anub'ar Nerubians boil up from the Pit of Narjun — spider-warriors of a civilization that should have stayed dead. They strike the Horde's supply lines by night and drag the wounded into the dark by morning. Senior Sergeant Juktok wants them ended at the source. Valnok Windrager is already saddling the wyverns. Agmar will not leave this flank open.",
+            recap = "The Anub'ar Nerubians boil up from the Pit of Narjun, spider-warriors of a civilization that should have stayed dead. They strike the Horde's supply lines by night and drag the wounded into the dark by morning. Senior Sergeant Juktok wants them ended at the source. Valnok Windrager is already saddling the wyverns. Agmar will not leave this flank open.",
             portraitDisplayID = 23806,
             faction = "Horde",
             quests = {
@@ -641,7 +641,7 @@ SM.FrozenThroneData = {
         {
             chapter = "The Forsaken Plague",
             summary = "Put the Royal Apothecary Society's new weapon through its paces.",
-            recap = "Chief Plaguebringer Middleton has been busy in the Carrion Fields. He has something new to test — a blight meant to undo the Scourge where steel cannot reach. The formula wants a subject. Middleton smiles through gritted teeth and swears the first dose is always the worst. Whatever the Apothecaries are cooking under the Horde's banner, it may reshape this war.",
+            recap = "Chief Plaguebringer Middleton has been busy in the Carrion Fields. He has something new to test: a blight meant to undo the Scourge where steel cannot reach. The formula wants a subject. Middleton smiles through gritted teeth and swears the first dose is always the worst. Whatever the Apothecaries are cooking under the Horde's banner, it may reshape this war.",
             portraitDisplayID = 23875,
             faction = "Horde",
             quests = {
@@ -659,7 +659,7 @@ SM.FrozenThroneData = {
         {
             chapter = "Wings of the Red Flight",
             summary = "Ride to Wyrmrest Temple and kneel before Alexstrasza, the Life-Binder.",
-            recap = "Highlord Bolvar Fordragon leads you up the spiral of Wyrmrest Temple. Alexstrasza the Life-Binder has watched the war in Dragonblight with ancient, weary eyes. She owes the Alliance nothing. She owes the living everything. If she can be moved, her fire will answer for Azeroth's dead — and a ruby wing will carry you over ground no army could cross.",
+            recap = "Highlord Bolvar Fordragon leads you up the spiral of Wyrmrest Temple. Alexstrasza the Life-Binder has watched the war in Dragonblight with ancient, weary eyes. She owes the Alliance nothing. She owes the living everything. If she can be moved, her fire will answer for Azeroth's dead, and a ruby wing will carry you over ground no army could cross.",
             portraitDisplayID = 24879,
             faction = "Alliance",
             quests = {
@@ -671,7 +671,7 @@ SM.FrozenThroneData = {
         {
             chapter = "The Kor'kron at Wyrmrest",
             summary = "Saurfang leads the Horde up the spiral of Wyrmrest to bargain with the Dragon Queen.",
-            recap = "Saurfang the Younger calls you to the Kor'kron Vanguard. The Taunka are blood-sworn, the Nerubians silenced, and the Forsaken have their weapons. The old Orc himself takes you to Wyrmrest Temple — to kneel, or rather to bargain, before Alexstrasza the Life-Binder. The dragons remember every Horde blade that ever flashed in anger at the Second War. Whether they answer the Warchief's call is another matter.",
+            recap = "Saurfang the Younger calls you to the Kor'kron Vanguard. The Taunka are blood-sworn, the Nerubians silenced, and the Forsaken have their weapons. The old Orc himself takes you to Wyrmrest Temple, to kneel, or rather to bargain, before Alexstrasza the Life-Binder. The dragons remember every Horde blade that ever flashed in anger at the Second War. Whether they answer the Warchief's call is another matter.",
             portraitDisplayID = 23034,
             faction = "Horde",
             quests = {
@@ -712,7 +712,7 @@ SM.FrozenThroneData = {
         -- ----------------------------------------------------------------
         {
             chapter = "The Culling of Stratholme",
-            summary = "Travel back to the hour that broke a prince — and make sure history unfolds as it always has.",
+            summary = "Travel back to the hour that broke a prince, and make sure history unfolds as it always has.",
             recap = "Chromie of the Bronze Dragonflight sends you back to Stratholme, to a day history remembers in silence. The Infinite Dragonflight would rewrite this moment. Yours is the harder task: walk beside a young Prince Arthas Menethil and keep time honest, whatever price the past demands.",
             portraitDisplayID = 24877,
             quests = {
@@ -727,7 +727,7 @@ SM.FrozenThroneData = {
         {
             chapter = "Argent Vanguard",
             summary = "Plant the Argent Crusade's banner at the rim of Icecrown and hold the line while Tirion looks north.",
-            recap = "The Argent Vanguard is the last friendly ground at the southern edge of Icecrown. Crusade Commander Entari drills the new arrivals into shape. Father Gustav's engineers run the fleshbeast bombardier; Siegemaster Fezzik's jumpbot waits for one more idiot willing to take the breach. Past the tent line, the ground sours into the Valley of Echoes — and past that, Crusaders' Pinnacle, where Tirion Fordring means to draw a line the Scourge cannot cross.",
+            recap = "The Argent Vanguard is the last friendly ground at the southern edge of Icecrown. Crusade Commander Entari drills the new arrivals into shape. Father Gustav's engineers run the fleshbeast bombardier; Siegemaster Fezzik's jumpbot waits for one more idiot willing to take the breach. Past the tent line, the ground sours into the Valley of Echoes, and past that, Crusaders' Pinnacle, where Tirion Fordring means to draw a line the Scourge cannot cross.",
             portraitDisplayID = 31011,
             quests = {
                 { id = 13036, name = "Honor Above All Else", npc = "Highlord Tirion Fordring", mapID = 118, x = 0.8740, y = 0.7580 },
@@ -747,7 +747,7 @@ SM.FrozenThroneData = {
         {
             chapter = "Valley of Echoes",
             summary = "Walk north through the ruin of Scourgeholme and onto the high plateau of Crusaders' Pinnacle.",
-            recap = "The Valley of Echoes is a bowl of old Scourge work. Plague altars cough smoke into the wind; restless dead pace the rim by moonlight. Father Gustav wants scourgestones. The Ebon Watcher wants the altars cold. The Argent Crusade wants the road cleared north — to the Pinnacle, where Tirion Fordring has already set his banner. When the banner flies, the whole rim of Icecrown hears it, and the gunships in the northern sky start warming their engines.",
+            recap = "The Valley of Echoes is a bowl of old Scourge work. Plague altars cough smoke into the wind; restless dead pace the rim by moonlight. Father Gustav wants scourgestones. The Ebon Watcher wants the altars cold. The Argent Crusade wants the road cleared north, to the Pinnacle, where Tirion Fordring has already set his banner. When the banner flies, the whole rim of Icecrown hears it, and the gunships in the northern sky start warming their engines.",
             portraitDisplayID = 31011,
             quests = {
                 { id = 13122, name = "The Scourgestone", npc = "The Ebon Watcher", mapID = 118, x = 0.8300, y = 0.7280 },
@@ -764,7 +764,7 @@ SM.FrozenThroneData = {
         {
             chapter = "Crusader's Pinnacle",
             summary = "Stand on the Pinnacle beside a dying paladin while the world's powers weigh his fate.",
-            recap = "The Pinnacle is won. Its flagstaff flies the white hand of the Argent Crusade above the whole of southern Icecrown. But at the edge of the Fleshwerks below, Crusader Bridenbrad is dying. The plague has him. Father Gustav cannot let a hero end this way. Keeper Remulos, Alexstrasza the Life-Binder, and A'dal — three ancient powers who still remember the Light — each in turn weigh the cost. Whatever answer comes will come in its own time. Meanwhile, gryphon-riders and wyvern-masters circle the Pinnacle, waiting to lift the next wave of soldiers up to the gunships — the Skybreaker and Orgrim's Hammer — hanging over the northern gates.",
+            recap = "The Pinnacle is won. Its flagstaff flies the white hand of the Argent Crusade above the whole of southern Icecrown. But at the edge of the Fleshwerks below, Crusader Bridenbrad is dying. The plague has him. Father Gustav cannot let a hero end this way. Keeper Remulos, Alexstrasza the Life-Binder, and A'dal (three ancient powers who still remember the Light) each in turn weigh the cost. Whatever answer comes will come in its own time. Meanwhile, gryphon-riders and wyvern-masters circle the Pinnacle, waiting to lift the next wave of soldiers up to the gunships, the Skybreaker and Orgrim's Hammer, hanging over the northern gates.",
             portraitDisplayID = 31011,
             quests = {
                 -- Bridenbrad
@@ -837,7 +837,7 @@ SM.FrozenThroneData = {
         {
             chapter = "Orgrim's Hammer",
             summary = "Ride the Horde gunship from Ymirheim to the Broken Front to the Desolation Gate.",
-            recap = "Orgrim's Hammer is Warchief Garrosh's answer to the Skybreaker — a Horde gunship with a bone to pick. Sky-Reaver Korm Blackscar runs the deck. Sky-Commander Ichman flies the line. Brother Keltan blesses the cannons. The first sortie drops into Ymirheim, where the Scourge mines its saronite. The second swings west to the Broken Front, where a Horde column was hit broadside and left scattered. After that comes the grind: Poke and Prod, Against the Giants, Coprous the Defiled, the goblin Nargle Lashcord and his Fringe Engineer Tezzla. Farther west, past the Valley of Lost Hope, Koltira Deathweaver pries the Desolation Gate open with bent Scourge gear and colder patience. By the time Orgrim's Hammer swings east, the Guardians of Corp'rethar are already bleeding.",
+            recap = "Orgrim's Hammer is Warchief Garrosh's answer to the Skybreaker, a Horde gunship with a bone to pick. Sky-Reaver Korm Blackscar runs the deck. Sky-Commander Ichman flies the line. Brother Keltan blesses the cannons. The first sortie drops into Ymirheim, where the Scourge mines its saronite. The second swings west to the Broken Front, where a Horde column was hit broadside and left scattered. After that comes the grind: Poke and Prod, Against the Giants, Coprous the Defiled, the goblin Nargle Lashcord and his Fringe Engineer Tezzla. Farther west, past the Valley of Lost Hope, Koltira Deathweaver pries the Desolation Gate open with bent Scourge gear and colder patience. By the time Orgrim's Hammer swings east, the Guardians of Corp'rethar are already bleeding.",
             portraitDisplayID = 27336,
             faction = "Horde",
             quests = {
@@ -892,7 +892,7 @@ SM.FrozenThroneData = {
         {
             chapter = "The Shadow Vault",
             summary = "Dress in Scarlet cloth, take the Vault for the Ebon Blade, and ride up to Malykriss to kill four riders.",
-            recap = "The Scarlet Onslaught has buried itself in the black ice of western Icecrown. The fortress is called the Shadow Vault. High Abbot Landgren commands it now. The Ebon Blade's plan is ugly — wear the Scarlet's own colors, pray nobody looks twice, and open every door from the inside. When the Vault falls, Baron Sliver holds court in its upper halls. Vereth the Cunning sketches the roads out in blood. The Lich King's saronite quarries are pried open. Above the Vault, the flying necropolis of Malykriss still hangs, with four riders of the Bloodbane order riding out the apocalypse in miniature: one of the Unholy, one of Frost, one of Blood, and the name that binds them.",
+            recap = "The Scarlet Onslaught has buried itself in the black ice of western Icecrown. The fortress is called the Shadow Vault. High Abbot Landgren commands it now. The Ebon Blade's plan is ugly: wear the Scarlet's own colors, pray nobody looks twice, and open every door from the inside. When the Vault falls, Baron Sliver holds court in its upper halls. Vereth the Cunning sketches the roads out in blood. The Lich King's saronite quarries are pried open. Above the Vault, the flying necropolis of Malykriss still hangs, with four riders of the Bloodbane order riding out the apocalypse in miniature: one of the Unholy, one of Frost, one of Blood, and the name that binds them.",
             portraitDisplayID = 28407,
             quests = {
                 -- Entering the Vault in Scarlet colors
@@ -935,7 +935,7 @@ SM.FrozenThroneData = {
         {
             chapter = "Blackwatch",
             summary = "Burn Doctor Olakin Sainrith's plague lab, save Father Kamaros's people, and finish the Runesmiths' work.",
-            recap = "South of the Pinnacle, past the rim of the Valley of Echoes, a little Scarlet outpost called Blackwatch keeps quiet company with the Scourge it claims to hate. The Argent Crusade has questions about that. Grimly wants the plague altars in pieces. Father Kamaros, somehow still alive, has a list of his own wounded. Doctor Olakin Sainrith is busy inside the lab cooking something that was never meant to breathe. Overhead, the Flesh Giant Champion walks the ice. Inside Malykriss's foundry, the Runesmiths still pound the Scourge's armor — and one old vrykul skeleton is about to do more work dead than it ever did alive.",
+            recap = "South of the Pinnacle, past the rim of the Valley of Echoes, a little Scarlet outpost called Blackwatch keeps quiet company with the Scourge it claims to hate. The Argent Crusade has questions about that. Grimly wants the plague altars in pieces. Father Kamaros, somehow still alive, has a list of his own wounded. Doctor Olakin Sainrith is busy inside the lab cooking something that was never meant to breathe. Overhead, the Flesh Giant Champion walks the ice. Inside Malykriss's foundry, the Runesmiths still pound the Scourge's armor, and one old vrykul skeleton is about to do more work dead than it ever did alive.",
             portraitDisplayID = 26608,
             quests = {
                 { id = 13106, name = "Blackwatch", npc = "Baron Sliver", mapID = 118, x = 0.4280, y = 0.2500 },
@@ -959,7 +959,7 @@ SM.FrozenThroneData = {
         {
             chapter = "Jotunheim",
             summary = "Put on vrykul skin, fight through Valhalas's trials, and pay a Bone Witch's debt in blood.",
-            recap = "Past the Argent line, the Ebon Blade works in cruder tools. Uzo Deathcaller keeps a pen of vrykul prisoners the Crusade cannot know about. Bragi the Mad waits at Jotunheim with a grudge, a list of vargul he wants back, and an increasingly unhinged plan for their recovery. The Bone Witch sells her favors in bones. And at Valhalas, the vrykul hold court for the worthy dead — which means admission, for the right kind of monster, can be earned. Read the bones. Kill the water terror. Find the ancient hero. Win the challenge rounds. Put on their skin. Walk out over their corpses. By the time the hall goes quiet, the Ebon Blade has one last errand — a banshee's revenge, and a Duke who needs his competition eliminated.",
+            recap = "Past the Argent line, the Ebon Blade works in cruder tools. Uzo Deathcaller keeps a pen of vrykul prisoners the Crusade cannot know about. Bragi the Mad waits at Jotunheim with a grudge, a list of vargul he wants back, and an increasingly unhinged plan for their recovery. The Bone Witch sells her favors in bones. And at Valhalas, the vrykul hold court for the worthy dead, which means admission, for the right kind of monster, can be earned. Read the bones. Kill the water terror. Find the ancient hero. Win the challenge rounds. Put on their skin. Walk out over their corpses. By the time the hall goes quiet, the Ebon Blade has one last errand: a banshee's revenge, and a Duke who needs his competition eliminated.",
             portraitDisplayID = 26608,
             quests = {
                 -- Uzo's off-books work
@@ -994,7 +994,7 @@ SM.FrozenThroneData = {
         {
             chapter = "Icecrown Citadel",
             summary = "Bomb the saronite pits beneath Sindragosa's Fall and shake the citadel's gates from within.",
-            recap = "The citadel's gates are not for hammering. Sergeant Stackhammer knows it. Sergeant Kregga knows it. The Alliance and Horde sappers have quieter work — crawl into the saronite pits beneath Sindragosa's Fall and set the charges that will shake the foundations from below. Before the pits go up, a voice begins to whisper out of the saronite dark. Whoever he is, he knows a name. He wants it spoken. He wants you to come back when the dust settles and hear the rest of his story at the First Legion Forward Camp.",
+            recap = "The citadel's gates are not for hammering. Sergeant Stackhammer knows it. Sergeant Kregga knows it. The Alliance and Horde sappers have quieter work: crawl into the saronite pits beneath Sindragosa's Fall and set the charges that will shake the foundations from below. Before the pits go up, a voice begins to whisper out of the saronite dark. Whoever he is, he knows a name. He wants it spoken. He wants you to come back when the dust settles and hear the rest of his story at the First Legion Forward Camp.",
             portraitDisplayID = 30686,
             quests = {
                 -- Alliance charges
@@ -1017,7 +1017,7 @@ SM.FrozenThroneData = {
         {
             chapter = "First Legion Forward Camp",
             summary = "Pitch camp in the lee of Sindragosa's fall and read the Lich King's ledger of ruin.",
-            recap = "Forward Camp is the last flat ground on the way to the citadel. Sappers finish what the bomb chain started. Sky-Commander Keller and Sky-Commander Ichman land their gunship crews to patch what the bombing shook loose. Matthias Lehner, the voice from the saronite pits, begins to speak plainly — and sends you into the Army of the Damned, into the wreckage beneath Sindragosa's broken hill, and into the futility of a hero's last charge. Everything he shows you has the shape of a confession.",
+            recap = "Forward Camp is the last flat ground on the way to the citadel. Sappers finish what the bomb chain started. Sky-Commander Keller and Sky-Commander Ichman land their gunship crews to patch what the bombing shook loose. Matthias Lehner, the voice from the saronite pits, begins to speak plainly, and sends you into the Army of the Damned, into the wreckage beneath Sindragosa's broken hill, and into the futility of a hero's last charge. Everything he shows you has the shape of a confession.",
             portraitDisplayID = 27522,
             quests = {
                 -- Field repairs
@@ -1040,7 +1040,7 @@ SM.FrozenThroneData = {
         {
             chapter = "Sindragosa's Fall",
             summary = "Follow Matthias Lehner through Arthas' own memories to the foot of the citadel and Tirion's final gambit.",
-            recap = "The voice in the dark has a name now — Matthias Lehner. He claims to know the Lich King better than any living thing should. His memories run like a buried river through the Frozen Wastes. He leads you to a dragon's corpse. To a hunter and a prince. To the knowledge that cannot be unknown. Whether he can be trusted is a judgement you will make when the road ends — at the foot of the citadel, where Tirion Fordring lifts the Ashbringer and calls for one more charge.",
+            recap = "The voice in the dark has a name now: Matthias Lehner. He claims to know the Lich King better than any living thing should. His memories run like a buried river through the Frozen Wastes. He leads you to a dragon's corpse. To a hunter and a prince. To the knowledge that cannot be unknown. Whether he can be trusted is a judgement you will make when the road ends, at the foot of the citadel, where Tirion Fordring lifts the Ashbringer and calls for one more charge.",
             portraitDisplayID = 27522,
             quests = {
                 { id = 13398, name = "Where Dragons Fell", npc = "Matthias Lehner", faction = "Alliance", mapID = 118, x = 0.7160, y = 0.3760 },
@@ -1064,7 +1064,7 @@ SM.FrozenThroneData = {
         {
             chapter = "The Frozen Halls",
             summary = "Lead a covert strike beneath Icecrown Citadel, closer to Frostmourne than any living hand has come.",
-            recap = "Lady Jaina Proudmoore — or Lady Sylvanas Windrunner, if you ride under a darker banner — has found a door. Not a welcome one. A seam in the citadel's foundation, wide enough for a small party willing to see what they should not. Through the Forge of Souls. Through the Pit of Saron. Into the Halls of Reflection, where something waits that has been waiting a long time.",
+            recap = "Lady Jaina Proudmoore (or Lady Sylvanas Windrunner, if you ride under a darker banner) has found a door. Not a welcome one. A seam in the citadel's foundation, wide enough for a small party willing to see what they should not. Through the Forge of Souls. Through the Pit of Saron. Into the Halls of Reflection, where something waits that has been waiting a long time.",
             portraitDisplayID = 30696,
             quests = {
                 { id = 24510, name = "Inside the Frozen Citadel", npc = "Apprentice Nelphi", faction = "Alliance", mapID = 125, x = 0.4500, y = 0.7180 },
@@ -1083,7 +1083,7 @@ SM.FrozenThroneData = {
             chapter = "Fall of the Lich King",
             achievementID = 4608,
             summary = "Climb the spire of Icecrown Citadel and write the last page of Arthas Menethil's story.",
-            recap = "Above the ice, at the roof of the world, the Frozen Throne waits. The Ashen Verdict — Argent Crusade and Ebon Blade, bound by a single purpose — stands at the citadel's door. Highlord Tirion Fordring lifts the Ashbringer. Every victory in Northrend, every fallen soldier, every mile of ground bought in blood has led here. One way or another, the reign of Arthas Menethil ends at the summit.",
+            recap = "Above the ice, at the roof of the world, the Frozen Throne waits. The Ashen Verdict (Argent Crusade and Ebon Blade, bound by a single purpose) stands at the citadel's door. Highlord Tirion Fordring lifts the Ashbringer. Every victory in Northrend, every fallen soldier, every mile of ground bought in blood has led here. One way or another, the reign of Arthas Menethil ends at the summit.",
             portraitDisplayID = 31011,
             quests = {},
         },

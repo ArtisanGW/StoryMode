@@ -70,7 +70,7 @@ SM.RogueCampaignData = {
         {
             chapter = "Call of The Uncrowned",
             summary = "A mysterious courier delivers an urgent summons to the sewers beneath Dalaran, where a secret order of assassins watches from the shadows.",
-            recap = "A cryptic summons led you into the sewers beneath Dalaran, where Lord Jorach Ravenholdt revealed The Uncrowned — a secret order of assassins operating outside the law. You proved your worth in the shadows and claimed a blade befitting the order's newest operative.",
+            recap = "A cryptic summons led you into the sewers beneath Dalaran, where Lord Jorach Ravenholdt revealed The Uncrowned, a secret order of assassins operating outside the law. You proved your worth in the shadows and claimed a blade befitting the order's newest operative.",
             quests = {
                 { id = 40832, name = "Call of The Uncrowned",       npc = "Ravenholdt Courier" },
                 { id = 40839, name = "The Final Shadow",            npc = "Lord Jorach Ravenholdt" },
@@ -102,7 +102,7 @@ SM.RogueCampaignData = {
         {
             chapter = "Saga of the Shadowblade",
             summary = "Bodies are turning up across the Broken Isles, and the trail leads to a chilling conspiracy deep within SI:7 itself.",
-            recap = "Bodies started appearing across the Broken Isles — agents killed with surgical precision. The trail led you through a web of betrayal reaching into SI:7 itself. Working with Fleet Admiral Tethys and Marin Noggenfogger, you gathered evidence and allies while throwing SI:7 off your scent, uncovering a conspiracy far deeper than anyone suspected.",
+            recap = "Bodies started appearing across the Broken Isles: agents killed with surgical precision. The trail led you through a web of betrayal reaching into SI:7 itself. Working with Fleet Admiral Tethys and Marin Noggenfogger, you gathered evidence and allies while throwing SI:7 off your scent, uncovering a conspiracy far deeper than anyone suspected.",
             quests = {
                 { id = 43958, name = "A Body of Evidence",          npc = "Lord Jorach Ravenholdt" },
                 { id = 43829, name = "Spy vs. Spy",                 npc = "Lord Jorach Ravenholdt" },
@@ -144,7 +144,7 @@ SM.RogueCampaignData = {
         {
             chapter = "The Captive Spymaster",
             summary = "Mathias Shaw, spymaster of SI:7, has gone missing. A daring rescue mission takes you deep behind enemy lines.",
-            recap = "Mathias Shaw, spymaster of SI:7, had been captured and replaced by a dreadlord impostor. You infiltrated the enemy stronghold alongside Taoshi, cutting through guards and wards to reach Shaw's cell. The rescue was harrowing — but when the real Shaw stood free and the impostor was exposed, the conspiracy's days were numbered.",
+            recap = "Mathias Shaw, spymaster of SI:7, had been captured and replaced by a dreadlord impostor. You infiltrated the enemy stronghold alongside Taoshi, cutting through guards and wards to reach Shaw's cell. The rescue was harrowing, but when the real Shaw stood free and the impostor was exposed, the conspiracy's days were numbered.",
             quests = {
                 { id = 43469, name = "Where In the World is Mathias?", npc = "Taoshi" },
                 { id = 43470, name = "Pruning the Garden",          npc = "Taoshi" },
@@ -166,7 +166,7 @@ SM.RogueCampaignData = {
             gated = true,
             note = "Complete Armies of Legionfall on the Broken Shore, then return to the Hall of Shadows to begin the final class mount chapter.",
             summary = "The dreadlord has been hiding among your allies all along. The hunt ends on the Broken Shore in a final confrontation.",
-            recap = "The final hunt led to the Broken Shore, where a dreadlord had been hiding among your allies in plain sight. With Lilian Voss at your side, you set the trap — false orders, planted evidence, and a trail that led the demon straight into your blade. The Uncrowned had done what armies could not: killed a devil wearing a friend's face.",
+            recap = "The final hunt led to the Broken Shore, where a dreadlord had been hiding among your allies in plain sight. With Lilian Voss at your side, you set the trap: false orders, planted evidence, and a trail that led the demon straight into your blade. The Uncrowned had done what armies could not: killed a devil wearing a friend's face.",
             prerequisites = {
                 { id = 46730, name = "Armies of Legionfall", npc = "Archmage Khadgar" },
             },
@@ -190,7 +190,7 @@ SM.RogueCampaignData = {
         {
             chapter = "The Kingslayers",
             summary = "Track down the legendary assassination daggers once wielded by Garona Halforcen, hidden away after the fall of a king.",
-            recap = "Princess Tess Greymane guided you through a web of coded messages and hidden vaults to recover the Kingslayers — Garona's legendary daggers, stained with the blood of a king. You infiltrated a Stormwind prison, broke codes, and retrieved the blades from their resting place, returning them to the hands of an assassin who knew their weight better than anyone.",
+            recap = "Princess Tess Greymane guided you through a web of coded messages and hidden vaults to recover the Kingslayers, Garona's legendary daggers, stained with the blood of a king. You infiltrated a Stormwind prison, broke codes, and retrieved the blades from their resting place, returning them to the hands of an assassin who knew their weight better than anyone.",
             quests = {
                 { id = 42501, name = "Finishing the Job",           npc = "Princess Tess Greymane" },
                 { id = 42502, name = "No Sanctuary",                npc = "Princess Tess Greymane" },
@@ -203,7 +203,7 @@ SM.RogueCampaignData = {
         {
             chapter = "Fangs of the Devourer",
             summary = "Delve into a demonic vault to claim a pair of shadow-forged blades that hunger for souls.",
-            recap = "Valeera Sanguinar tracked a pair of shadow-forged blades to a demonic vault hidden between worlds. You fought through the Twisting Nether itself, confronting the demon Val'zuun who guarded the Fangs of the Devourer. The blades pulsed with hunger as you claimed them — weapons that devoured souls and grew stronger with every kill.",
+            recap = "Valeera Sanguinar tracked a pair of shadow-forged blades to a demonic vault hidden between worlds. You fought through the Twisting Nether itself, confronting the demon Val'zuun who guarded the Fangs of the Devourer. The blades pulsed with hunger as you claimed them: weapons that devoured souls and grew stronger with every kill.",
             quests = {
                 { id = 41919, name = "The Shadows Reveal",          npc = "Valeera Sanguinar" },
                 { id = 41920, name = "A Matter of Finesse",         npc = "Valeera Sanguinar" },
@@ -215,7 +215,7 @@ SM.RogueCampaignData = {
         {
             chapter = "The Dreadblades",
             summary = "A pirate legend speaks of cursed cutlasses buried with their last captain. Fleet Admiral Tethys knows the way.",
-            recap = "Fleet Admiral Tethys told the tale of the Dreadblades — cursed cutlasses that brought ruin to every captain who wielded them. You sailed to the burial site and pried them from the skeletal grip of their last owner, accepting the curse along with the power. The sea itself seemed to shudder as you brought them aboard.",
+            recap = "Fleet Admiral Tethys told the tale of the Dreadblades, cursed cutlasses that brought ruin to every captain who wielded them. You sailed to the burial site and pried them from the skeletal grip of their last owner, accepting the curse along with the power. The sea itself seemed to shudder as you brought them aboard.",
             quests = {
                 { id = 40847, name = "A Friendly Accord",           npc = "Fleet Admiral Tethys" },
                 { id = 40849, name = "The Dreadblades",             npc = "Fleet Admiral Tethys" },

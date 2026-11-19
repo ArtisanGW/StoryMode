@@ -102,7 +102,7 @@ SM.SuramarData = {
         {
             chapter = "Nightfall",
             summary = "Discover the nightfallen exiles hiding in the ruins of Shal'Aran and learn the desperate truth behind Suramar's shimmering barrier.",
-            recap = "You answered Khadgar's call and journeyed into the ancient city of Suramar, finding it sealed behind a shimmering barrier of arcane power. Beyond the wall, you discovered First Arcanist Thalyssra — once a leader of the Nightborne, now exiled and starving for mana. Together you claimed the ruins of Shal'Aran as a hidden refuge, a fragile spark of rebellion in the shadow of the Grand Magistrix.",
+            recap = "You answered Khadgar's call and journeyed into the ancient city of Suramar, finding it sealed behind a shimmering barrier of arcane power. Beyond the wall, you discovered First Arcanist Thalyssra, once a leader of the Nightborne, now exiled and starving for mana. Together you claimed the ruins of Shal'Aran as a hidden refuge, a fragile spark of rebellion in the shadow of the Grand Magistrix.",
             achievement = nil, -- Part of Nightfallen But Not Forgotten (10617)
             completionAchievementID = 10617,
             quests = {
@@ -181,7 +181,7 @@ SM.SuramarData = {
         {
             chapter = "Masquerade",
             summary = "Disguise yourself as a Nightborne noble and infiltrate Suramar City to gather intelligence for the rebellion.",
-            recap = "Through Ly'leth Lunastre's connections, you obtained a magical disguise and walked the gilded streets of Suramar City as one of the Nightborne elite. Behind the masks and pleasantries, you made first contact with sympathizers among the nobility — those who whispered against Elisande but dared not act alone.",
+            recap = "Through Ly'leth Lunastre's connections, you obtained a magical disguise and walked the gilded streets of Suramar City as one of the Nightborne elite. Behind the masks and pleasantries, you made first contact with sympathizers among the nobility, those who whispered against Elisande but dared not act alone.",
             achievement = nil,
             completionAchievementID = 10617,
             quests = {
@@ -198,7 +198,7 @@ SM.SuramarData = {
         {
             chapter = "The Light Below",
             summary = "Explore ancient ley line tunnels beneath Suramar, discovering forgotten power that could turn the tide.",
-            recap = "Guided by Kel'danath's research, you descended into ancient caverns beneath Suramar, where moonlight filtered through crystal and the memories of the city's founding still lingered. You discovered the hidden legacy of Valewalker Farodin and the Arcan'dor — a tree of immense power that might hold the key to curing the nightfallen's addiction to the Nightwell.",
+            recap = "Guided by Kel'danath's research, you descended into ancient caverns beneath Suramar, where moonlight filtered through crystal and the memories of the city's founding still lingered. You discovered the hidden legacy of Valewalker Farodin and the Arcan'dor, a tree of immense power that might hold the key to curing the nightfallen's addiction to the Nightwell.",
             achievement = nil,
             completionAchievementID = 10617,
             quests = {
@@ -254,7 +254,7 @@ SM.SuramarData = {
         {
             chapter = "Blood and Wine",
             summary = "Infiltrate the Nightborne wine trade, disrupting the flow of arcwine that keeps the populace loyal to the Grand Magistrix.",
-            recap = "You infiltrated the arcwine vineyards that kept Suramar's populace docile and dependent on Elisande's generosity. Working with Vintner Iltheux and the defiant Margaux, you sabotaged the production, poisoned the supply, and struck at the very system of control the Grand Magistrix had built. When Margaux fell to the Duskwatch's retribution, you ensured her sacrifice was not in vain — the rebellion now had its own supply of arcwine and the loyalty of those she inspired.",
+            recap = "You infiltrated the arcwine vineyards that kept Suramar's populace docile and dependent on Elisande's generosity. Working with Vintner Iltheux and the defiant Margaux, you sabotaged the production, poisoned the supply, and struck at the very system of control the Grand Magistrix had built. When Margaux fell to the Duskwatch's retribution, you ensured her sacrifice was not in vain: the rebellion now had its own supply of arcwine and the loyalty of those she inspired.",
             quests = {
                 { id = 42828, name = "Moths to a Flame",                npc = "Valewalker Farodin", mapID = 680, x = 0.3680, y = 0.4660, location = "Suramar" },
                 { id = 42829, name = "Make an Entrance",                npc = "First Arcanist Thalyssra" },
@@ -281,7 +281,7 @@ SM.SuramarData = {
         {
             chapter = "Statecraft",
             summary = "Navigate the treacherous politics of Suramar's noble houses alongside the cunning Ly'leth Lunastre.",
-            recap = "Under Ly'leth Lunastre's guidance, you plunged into the viper pit of Nightborne politics — buying votes, silencing rivals, and navigating a web of alliances that shifted with every whispered rumor. Through cunning and carefully applied force, Ly'leth secured her position among the nobility and opened the path to the Arcway, an ancient tunnel network running beneath the city.",
+            recap = "Under Ly'leth Lunastre's guidance, you plunged into the viper pit of Nightborne politics, buying votes, silencing rivals, and navigating a web of alliances that shifted with every whispered rumor. Through cunning and carefully applied force, Ly'leth secured her position among the nobility and opened the path to the Arcway, an ancient tunnel network running beneath the city.",
             repRequirement = { faction = "The Nightfallen", level = "Honored" },
             quests = {
                 { id = 43309, name = "The Perfect Opportunity",         npc = "First Arcanist Thalyssra", mapID = 680, x = 0.3680, y = 0.4660, location = "Suramar" },
@@ -307,7 +307,7 @@ SM.SuramarData = {
         {
             chapter = "A Growing Crisis",
             summary = "The Arcan'dor is struggling to survive. Race against time to find what it needs before the tree withers.",
-            recap = "The Arcan'dor — the ancient tree nurtured in Shal'Aran — began to wither, its roots cracking and leaves curling despite all efforts. Valewalker Farodin led you on a desperate search for fragments of arcane power scattered across Suramar's ruins. In the end, you secured a branch of the Arcan'dor itself, stabilizing the tree and keeping alive the dream of a cure for the nightfallen.",
+            recap = "The Arcan'dor, the ancient tree nurtured in Shal'Aran, began to wither, its roots cracking and leaves curling despite all efforts. Valewalker Farodin led you on a desperate search for fragments of arcane power scattered across Suramar's ruins. In the end, you secured a branch of the Arcan'dor itself, stabilizing the tree and keeping alive the dream of a cure for the nightfallen.",
             repRequirement = { faction = "The Nightfallen", level = "Honored" },
             quests = {
                 { id = 44152, name = "A Growing Crisis",                npc = "Valewalker Farodin" },
@@ -324,7 +324,7 @@ SM.SuramarData = {
         {
             chapter = "A Change of Seasons",
             summary = "Journey to the ancient groves of Val'sharah to find a seed that could save the Arcan'dor.",
-            recap = "The Arcan'dor needed something that could not be found in Suramar — a seed blessed by the wild magic of Val'sharah. You journeyed with Thalyssra's allies to retrieve it, channeling ley energy through Oculeth's projectors and Valtrois's calculations. The seed took root, and the Arcan'dor bloomed with renewed strength, its fruit offering the first true cure for the nightfallen's dependence on the Nightwell.",
+            recap = "The Arcan'dor needed something that could not be found in Suramar: a seed blessed by the wild magic of Val'sharah. You journeyed with Thalyssra's allies to retrieve it, channeling ley energy through Oculeth's projectors and Valtrois's calculations. The seed took root, and the Arcan'dor bloomed with renewed strength, its fruit offering the first true cure for the nightfallen's dependence on the Nightwell.",
             repRequirement = { faction = "The Nightfallen", level = "Revered" },
             quests = {
                 { id = 43502, name = "A Change of Seasons",             npc = "Valewalker Farodin", mapID = 680, x = 0.3680, y = 0.4660, location = "Suramar" },
@@ -371,7 +371,7 @@ SM.SuramarData = {
         {
             chapter = "Missing Persons",
             summary = "Key members of the resistance have vanished. Search the city to find them before it's too late.",
-            recap = "Key members of the resistance vanished without a trace — taken in the night by Elisande's agents. You tracked them through Suramar's twisting streets, from soul cages to smuggler's routes, pulling allies from the jaws of captivity. The message was clear: the Grand Magistrix knew about the rebellion, and she was coming for them all.",
+            recap = "Key members of the resistance vanished without a trace, taken in the night by Elisande's agents. You tracked them through Suramar's twisting streets, from soul cages to smuggler's routes, pulling allies from the jaws of captivity. The message was clear: the Grand Magistrix knew about the rebellion, and she was coming for them all.",
             criteriaQuest = { id = 44814, name = "Waning Refuge" },
             quests = {
                 { id = 45261, name = "Continuing the Cure",             npc = "First Arcanist Thalyssra" },
@@ -390,7 +390,7 @@ SM.SuramarData = {
         {
             chapter = "Waxing Crescent",
             summary = "The rebellion grows bolder, establishing a foothold in the Waning Crescent district of Suramar City.",
-            recap = "The rebellion emerged from hiding and seized the Waning Crescent district in an act of open defiance. You helped Oculeth triangulate and rescue an imprisoned ally put on public display as a warning, then established the first openly rebel-held territory in Suramar City. The Dusk Lily — the rebellion's symbol — flew for the first time where Elisande's banners once hung.",
+            recap = "The rebellion emerged from hiding and seized the Waning Crescent district in an act of open defiance. You helped Oculeth triangulate and rescue an imprisoned ally put on public display as a warning, then established the first openly rebel-held territory in Suramar City. The Dusk Lily, the rebellion's symbol, flew for the first time where Elisande's banners once hung.",
             criteriaQuest = { id = 44756, name = "Sign of the Dusk Lily", mapID = 680, x = 0.4880, y = 0.6700, location = "Suramar" },
             quests = {
                 { id = 45262, name = "A Message From Ly'leth",          npc = "First Arcanist Thalyssra" },
@@ -458,7 +458,7 @@ SM.SuramarData = {
         {
             chapter = "March on Suramar",
             summary = "Lead the allied armies through the streets of Suramar in a desperate push toward the Nighthold.",
-            recap = "The allied armies — nightfallen, blood elves, night elves, and vrykul — marched through the streets of Suramar in a united front. You fought alongside Thalyssra at the vanguard, pushing through Elisande's desperate defenses block by block. The fighting was brutal, but the staging point was secured — the Nighthold was within reach.",
+            recap = "The allied armies (nightfallen, blood elves, night elves, and vrykul) marched through the streets of Suramar in a united front. You fought alongside Thalyssra at the vanguard, pushing through Elisande's desperate defenses block by block. The fighting was brutal, but the staging point was secured. The Nighthold was within reach.",
             criteriaQuest = { id = 44740, name = "Staging Point", mapID = 680, x = 0.5480, y = 0.7280, location = "Suramar" },
             quests = {
                 { id = 45266, name = "A United Front",                  npc = "First Arcanist Thalyssra" },
@@ -510,7 +510,7 @@ SM.SuramarData = {
         {
             chapter = "Breaking the Nighthold",
             summary = "The allied forces breach the Nighthold itself, confronting the source of Elisande's power.",
-            recap = "The final breach. You entered the Nighthold itself, fighting through the last of Elisande's loyalists to reach the seat of her power. When the Grand Magistrix fell and the Nightwell's corrupting influence was severed, Thalyssra stepped forward to lead her people into a new era. The nightfallen were nightborne once more — free to choose their own fate.",
+            recap = "The final breach. You entered the Nighthold itself, fighting through the last of Elisande's loyalists to reach the seat of her power. When the Grand Magistrix fell and the Nightwell's corrupting influence was severed, Thalyssra stepped forward to lead her people into a new era. The nightfallen were nightborne once more, free to choose their own fate.",
             criteriaQuest = { id = 44719, name = "Breaching the Sanctum", mapID = 680, x = 0.3660, y = 0.4500, location = "Suramar" },
             quests = {
                 { id = 45269, name = "A Taste of Freedom",              npc = "First Arcanist Thalyssra" },

@@ -12,7 +12,7 @@ SM.LilianVossData = {
     title = "The Forsaken Daughter",
     description = "Lilian Voss was raised by the Scarlet Crusade to hate the undead, and then she died, rose, and became one. Trained from childhood to purify the Forsaken, she wakes in Deathknell as the very thing her father taught her to burn.\n\nFollow her from the cellars of the Crusade through Scholomance and the politics of Lordaeron, where vengeance, identity, and belonging keep asking for different answers.",
     zone = "Tirisfal Glades / Kul Tiras / Lordaeron",
-    expansion = "Cataclysm — Shadowlands",
+    expansion = "Cataclysm – Shadowlands",
     achievements = {
         -- The Scarlet Halls
         7413,   -- Scarlet Halls (Normal)
@@ -122,8 +122,8 @@ SM.LilianVossData = {
         -- CHAPTER 1: Raised against her will
         {
             chapter = "The Wakening",
-            summary = "The Val'kyr raise new Forsaken in the crypt of Deathknell. One of them is Lilian Voss — daughter of the Scarlet Crusade's High Priest, raised as the very thing she was trained to destroy.",
-            recap = "You opened your eyes in the crypt of Deathknell, raised by the Val'kyr as one of the Forsaken. Among the newly risen was a young woman trembling with rage — Lilian Voss, daughter of the Scarlet Crusade's High Priest. While you accepted your new existence, she could not. She fled into the darkness, refusing to believe what she had become.",
+            summary = "The Val'kyr raise new Forsaken in the crypt of Deathknell. One of them is Lilian Voss, daughter of the Scarlet Crusade's High Priest, raised as the very thing she was trained to destroy.",
+            recap = "You opened your eyes in the crypt of Deathknell, raised by the Val'kyr as one of the Forsaken. Among the newly risen was a young woman trembling with rage: Lilian Voss, daughter of the Scarlet Crusade's High Priest. While you accepted your new existence, she could not. She fled into the darkness, refusing to believe what she had become.",
             quests = {
                 { id = 24960, name = "The Wakening",           npc = "Caretaker Caice" },
                 { id = 24961, name = "The Truth of the Grave",  npc = "Novice Elreth" },
@@ -134,7 +134,7 @@ SM.LilianVossData = {
         {
             chapter = "A Scarlet Letter",
             summary = "The Forsaken push into the farmlands of Tirisfal, where the Scarlet Crusade holds a fortified palisade. Someone from Deathknell has gone missing.",
-            recap = "Pushing through the farmlands around Deathknell, you clashed with the Scarlet Crusade at their palisade. Inside the fortifications you found Lilian — captured by the zealots she once served. Her captors didn't care that she had been one of them. To the Crusade, she was just another undead abomination to be purged.",
+            recap = "Pushing through the farmlands around Deathknell, you clashed with the Scarlet Crusade at their palisade. Inside the fortifications you found Lilian, captured by the zealots she once served. Her captors didn't care that she had been one of them. To the Crusade, she was just another undead abomination to be purged.",
             quests = {
                 { id = 24978, name = "Reaping the Reapers",    npc = "Deathguard Simmer" },
                 { id = 24979, name = "A Scarlet Letter",        npc = "Deathguard Simmer" },
@@ -146,8 +146,8 @@ SM.LilianVossData = {
         -- CHAPTER 3: Father and daughter, one last time
         {
             chapter = "A Daughter's Embrace",
-            summary = "The trail leads to Crusader's Run and the tower of High Priest Benedictus Voss. A daughter has come a long way to find her father — and what he says to her will determine everything.",
-            recap = "Something broke inside Lilian Voss. Shadow magic erupted from her hands as she tore through the crusaders with a fury that terrified even the Forsaken. She marched to the tower where her father, High Priest Benedictus Voss, waited — and when he condemned her as a monster, she killed him. Then she vanished, leaving nothing but silence and the smell of burning.",
+            summary = "The trail leads to Crusader's Run and the tower of High Priest Benedictus Voss. A daughter has come a long way to find her father, and what he says to her will determine everything.",
+            recap = "Something broke inside Lilian Voss. Shadow magic erupted from her hands as she tore through the crusaders with a fury that terrified even the Forsaken. She marched to the tower where her father, High Priest Benedictus Voss, waited, and when he condemned her as a monster, she killed him. Then she vanished, leaving nothing but silence and the smell of burning.",
             quests = {
                 { id = 25009, name = "At War With The Scarlet Crusade", npc = "High Executor Derrington" },
                 { id = 25010, name = "A Deadly New Ally",               npc = "High Executor Derrington" },
@@ -164,8 +164,8 @@ SM.LilianVossData = {
         -- CHAPTER 4: Infiltrating the Scarlet Halls
         {
             chapter = "The Scarlet Halls",
-            summary = "A hooded figure is paying coin inside the Scarlet Halls — silver for Scarlet blood. She wants their membership records. She calls herself the Hooded Crusader, and she is very thorough.",
-            recap = "Years passed before Lilian surfaced again — this time as a hooded figure lurking inside the Scarlet Halls. She hired you to slaughter your way through the Crusade's ranks and steal their membership records. Every name on that list was a target. Lilian Voss was no longer running from the Crusade — she was hunting them down, one by one.",
+            summary = "A hooded figure is paying coin inside the Scarlet Halls: silver for Scarlet blood. She wants their membership records. She calls herself the Hooded Crusader, and she is very thorough.",
+            recap = "Years passed before Lilian surfaced again, this time as a hooded figure lurking inside the Scarlet Halls. She hired you to slaughter your way through the Crusade's ranks and steal their membership records. Every name on that list was a target. Lilian Voss was no longer running from the Crusade. She was hunting them down, one by one.",
             quests = {
                 { id = 31490, name = "Rank and File",                    npc = "Hooded Crusader" },
                 { id = 31493, name = "Just for Safekeeping, Of Course",  npc = "Hooded Crusader" },
@@ -175,8 +175,8 @@ SM.LilianVossData = {
         -- CHAPTER 5: Destroying the Scarlet Monastery
         {
             chapter = "The Scarlet Monastery",
-            summary = "The Hooded Crusader's campaign reaches the Scarlet Monastery. Two blessed blades rest within its halls — consecrated weapons anointed to destroy the undead. High Inquisitor Whitemane commands everything inside.",
-            recap = "The Hooded Crusader's campaign reached the Scarlet Monastery itself. You retrieved the blessed blades of the Anointed — weapons consecrated to destroy the undead — and drove them into High Inquisitor Whitemane. The irony was not lost on Lilian: the Crusade's holiest weapons, wielded by the dead, against the Crusade's own champion.",
+            summary = "The Hooded Crusader's campaign reaches the Scarlet Monastery. Two blessed blades rest within its halls: consecrated weapons anointed to destroy the undead. High Inquisitor Whitemane commands everything inside.",
+            recap = "The Hooded Crusader's campaign reached the Scarlet Monastery itself. You retrieved the blessed blades of the Anointed, weapons consecrated to destroy the undead, and drove them into High Inquisitor Whitemane. The irony was not lost on Lilian: the Crusade's holiest weapons, wielded by the dead, against the Crusade's own champion.",
             quests = {
                 { id = 31513, name = "Blades of the Anointed",           npc = "Hooded Crusader" },
                 { id = 31514, name = "Unto Dust Thou Shalt Return",      npc = "Hooded Crusader" },
@@ -186,8 +186,8 @@ SM.LilianVossData = {
         -- CHAPTER 6: Scholomance — consumed by vengeance
         {
             chapter = "Scholomance",
-            summary = "Lilian's hunt for dark knowledge leads her into the cursed academy of Scholomance. Within its halls she confronts Darkmaster Gandling — but the darkness she wields threatens to consume her entirely. She must destroy the forbidden tomes and end the suffering, or become the very evil she hunts.",
-            recap = "Lilian's pursuit of power led her into Scholomance, the cursed academy of necromancy. Through a talking skull she guided you to destroy the Four Tomes of forbidden knowledge and end the suffering within those walls. But when she faced Darkmaster Gandling, the darkness she wielded nearly consumed her. She survived — but the line between hunter and monster grew thinner.",
+            summary = "Lilian's hunt for dark knowledge leads her into the cursed academy of Scholomance. Within its halls she confronts Darkmaster Gandling, but the darkness she wields threatens to consume her entirely. She must destroy the forbidden tomes and end the suffering, or become the very evil she hunts.",
+            recap = "Lilian's pursuit of power led her into Scholomance, the cursed academy of necromancy. Through a talking skull she guided you to destroy the Four Tomes of forbidden knowledge and end the suffering within those walls. But when she faced Darkmaster Gandling, the darkness she wielded nearly consumed her. She survived, but the line between hunter and monster grew thinner.",
             quests = {
                 { id = 31440, name = "The Four Tomes",                   npc = "Talking Skull" },
                 { id = 31447, name = "An End to the Suffering",          npc = "Talking Skull" },
@@ -205,8 +205,8 @@ SM.LilianVossData = {
             chapter = "The First Assault",
             gated = true,
             note = "Complete the Horde War Campaign introduction and travel to Zuldazar to unlock this chapter.",
-            summary = "Nathanos Blightcaller and Lilian Voss lead a covert strike into the heart of Tiragarde Sound. While Nathanos secures the mountain outpost, Lilian takes command of the Bridgeport operation — sabotaging Ashvane foundries, planting explosives, and riding through the chaos she created.",
-            recap = "Years later, Lilian served the Horde on the shores of Kul Tiras. While Nathanos Blightcaller secured a mountain outpost, Lilian led you through Bridgeport — sabotaging foundries, planting explosives, and riding through the flames of your own making. She was efficient, ruthless, and completely in her element. The girl who once trembled in Deathknell was gone.",
+            summary = "Nathanos Blightcaller and Lilian Voss lead a covert strike into the heart of Tiragarde Sound. While Nathanos secures the mountain outpost, Lilian takes command of the Bridgeport operation, sabotaging Ashvane foundries, planting explosives, and riding through the chaos she created.",
+            recap = "Years later, Lilian served the Horde on the shores of Kul Tiras. While Nathanos Blightcaller secured a mountain outpost, Lilian led you through Bridgeport, sabotaging foundries, planting explosives, and riding through the flames of your own making. She was efficient, ruthless, and completely in her element. The girl who once trembled in Deathknell was gone.",
             quests = {
                 { id = 51589, name = "Breaking Kul Tiran Will",          npc = "Nathanos Blightcaller" },
                 { id = 51590, name = "Into the Heart of Tiragarde",      npc = "Nathanos Blightcaller" },
@@ -226,8 +226,8 @@ SM.LilianVossData = {
         -- CHAPTER 8: Drustvar — The Marshal's Grave
         {
             chapter = "The Marshal's Grave",
-            summary = "The graveyards of Drustvar hold fallen Kul Tiran war heroes — soldiers too valuable to leave buried. Nathanos leads the expedition to unearth Marshal M. Valentine, while Lilian questions what separates the Horde's methods from the horrors she once suffered at the hands of the Scarlet Crusade.",
-            recap = "Nathanos led an expedition to dig up a fallen Kul Tiran war hero for resurrection. As you searched the graveyards of Drustvar, Lilian grew quiet. Unearthing the dead, raising them against their will — it was exactly what had been done to her. She carried out her orders, but the questions in her eyes said everything her lips would not.",
+            summary = "The graveyards of Drustvar hold fallen Kul Tiran war heroes, soldiers too valuable to leave buried. Nathanos leads the expedition to unearth Marshal M. Valentine, while Lilian questions what separates the Horde's methods from the horrors she once suffered at the hands of the Scarlet Crusade.",
+            recap = "Nathanos led an expedition to dig up a fallen Kul Tiran war hero for resurrection. As you searched the graveyards of Drustvar, Lilian grew quiet. Unearthing the dead, raising them against their will: it was exactly what had been done to her. She carried out her orders, but the questions in her eyes said everything her lips would not.",
             quests = {
                 { id = 51784, name = "A Stroll Through a Cemetery",           npc = "Nathanos Blightcaller" },
                 { id = 53065, name = "Operation: Grave Digger",               npc = "Nathanos Blightcaller", optional = true },
@@ -242,8 +242,8 @@ SM.LilianVossData = {
         -- CHAPTER 9: Stormsong Valley — Death of a Tidesage
         {
             chapter = "Death of a Tidesage",
-            summary = "The Horde needs a tidesage's power over the sea. Lilian and Rexxar track one down in Stormsong Valley — Thomas Zelling, a dying man willing to trade his humanity for a few more years with his family. When the ritual is done, Lilian must watch Zelling's wife recoil from the husband she no longer recognizes. The scene is painfully familiar.",
-            recap = "Thomas Zelling was a dying tidesage who traded his humanity for undeath, desperate for a few more years with his family. You and Lilian performed the ritual that raised him — and then watched his wife recoil in horror from the husband she no longer recognized. Lilian stood in silence as the scene played out, seeing her own story reflected in Zelling's shattered face. To be Forsaken, she finally understood, was not just a curse of the body.",
+            summary = "The Horde needs a tidesage's power over the sea. Lilian and Rexxar track one down in Stormsong Valley: Thomas Zelling, a dying man willing to trade his humanity for a few more years with his family. When the ritual is done, Lilian must watch Zelling's wife recoil from the husband she no longer recognizes. The scene is painfully familiar.",
+            recap = "Thomas Zelling was a dying tidesage who traded his humanity for undeath, desperate for a few more years with his family. You and Lilian performed the ritual that raised him, and then watched his wife recoil in horror from the husband she no longer recognized. Lilian stood in silence as the scene played out, seeing her own story reflected in Zelling's shattered face. To be Forsaken, she finally understood, was not just a curse of the body.",
             quests = {
                 { id = 51797, name = "Tracking Tidesages",               npc = "Nathanos Blightcaller" },
                 { id = 53066, name = "Operation: Water Wise",            npc = "Nathanos Blightcaller", optional = true },
@@ -268,8 +268,8 @@ SM.LilianVossData = {
             chapter = "At the Bottom of the Sea",
             gated = true,
             note = "Complete the Horde War Campaign through Stormsong Valley to unlock this chapter.",
-            summary = "The Horde's war at sea claims a significant prize: Derek Proudmoore, son of the Lord Admiral, goes down with his ship in the waters off Kul Tiras. Hobart Grapplehammer equips you with experimental diving gear as Dread-Admiral Tattersail leads the expedition into the deep. What Sylvanas intends to do with the body is not yet spoken aloud — but the silence on the ship ride home says enough.",
-            recap = "The war at sea gave the Horde what blades on land could not: Derek Proudmoore, heir to Kul Tiras, dead at the bottom of the ocean. Hobart Grapplehammer put you in a diving suit and you went down. The ocean floor was littered with the wreckage of the battle — dog tags, sunken ships, the bones of sailors on both sides. You found Derek and hauled him up. No one said what Sylvanas would do with him. No one had to.",
+            summary = "The Horde's war at sea claims a significant prize: Derek Proudmoore, son of the Lord Admiral, goes down with his ship in the waters off Kul Tiras. Hobart Grapplehammer equips you with experimental diving gear as Dread-Admiral Tattersail leads the expedition into the deep. What Sylvanas intends to do with the body is not yet spoken aloud, but the silence on the ship ride home says enough.",
+            recap = "The war at sea gave the Horde what blades on land could not: Derek Proudmoore, heir to Kul Tiras, dead at the bottom of the ocean. Hobart Grapplehammer put you in a diving suit and you went down. The ocean floor was littered with the wreckage of the battle: dog tags, sunken ships, the bones of sailors on both sides. You found Derek and hauled him up. No one said what Sylvanas would do with him. No one had to.",
             quests = {
                 { id = 52764, name = "Journey to the Middle of Nowhere", npc = "Nathanos Blightcaller" },
                 { id = 53067, name = "Operation: Bottom Feeder",         npc = "Nathanos Blightcaller", optional = true },
@@ -290,8 +290,8 @@ SM.LilianVossData = {
         -- CHAPTER 11: The Strike on Boralus
         {
             chapter = "The Strike on Boralus",
-            summary = "Derek Proudmoore's body is put to use before Lilian ever gets her orders: the Horde deploys him as bait to draw Kul Tiran warships away from Boralus, then drives a strike force into Stormsong Monastery to seize the Abyssal Scepter. Thomas Zelling — raised against his will just weeks ago — now fights for the Horde from inside the monastery walls. Lilian watches what the war makes of people.",
-            recap = "Derek Proudmoore had barely been hauled out of the sea before Sylvanas found a use for him — not as a weapon yet, but as bait. The Kul Tiran fleet chased his ghost while you and Nathanos hit Stormsong Monastery. Thomas Zelling, the tidesage whose raising Lilian had stood witness to, guided you from inside. He was doing what he was told. So was she. The Horde got its scepter. Lilian got her champion tabard. No one asked if any of it was right.",
+            summary = "Derek Proudmoore's body is put to use before Lilian ever gets her orders: the Horde deploys him as bait to draw Kul Tiran warships away from Boralus, then drives a strike force into Stormsong Monastery to seize the Abyssal Scepter. Thomas Zelling, raised against his will just weeks ago, now fights for the Horde from inside the monastery walls. Lilian watches what the war makes of people.",
+            recap = "Derek Proudmoore had barely been hauled out of the sea before Sylvanas found a use for him, not as a weapon yet, but as bait. The Kul Tiran fleet chased his ghost while you and Nathanos hit Stormsong Monastery. Thomas Zelling, the tidesage whose raising Lilian had stood witness to, guided you from inside. He was doing what he was told. So was she. The Horde got its scepter. Lilian got her champion tabard. No one asked if any of it was right.",
             quests = {
                 { id = 52183, name = "When a Plan Comes Together",       npc = "Nathanos Blightcaller" },
                 { id = 53068, name = "Operation: Hook and Line",         npc = "Nathanos Blightcaller", optional = true },
@@ -313,8 +313,8 @@ SM.LilianVossData = {
         -- CHAPTER 12: Testing Loyalties
         {
             chapter = "Testing Loyalties",
-            summary = "Baine Bloodhoof has decided Derek Proudmoore cannot be used as a weapon against his own family and asks for your help freeing him. The plan runs through Plunder Harbor under false colors, with Thomas Zelling — the very tidesage Lilian helped raise — guiding the escape from the inside. When Baine and Zelling are punished for their defiance, Lilian says nothing to Sylvanas. She tells Zelling's family he died a hero. Then the War Campaign rolls on regardless — Warfang Hold needs securing, and Nathanos is already planning the next move.",
-            recap = "Baine Bloodhoof looked at Derek Proudmoore — raised, hollowed out, aimed at his own kin — and decided he would not be part of it. He asked for your help. Thomas Zelling, the tidesage whose raising Lilian had stood witness to in Stormsong, helped guide Derek out from the inside. They freed him.\n\nSylvanas had Baine arrested and Zelling killed. Lilian said nothing aloud. Later, quietly, she went to Zelling's family and told them he had died a hero. It was not defiance. It was a choice. Small enough that no one noticed. Large enough that she did.\n\nAnd then the war moved on. Warfang Hold needed to be secured for a leadership summit. Boss Mida handled the SI:7 spies and the gate-crashers. Nathanos arrived to make a display of the Horde's strength. The machine kept turning, indifferent to what had just been lost.",
+            summary = "Baine Bloodhoof has decided Derek Proudmoore cannot be used as a weapon against his own family and asks for your help freeing him. The plan runs through Plunder Harbor under false colors, with Thomas Zelling, the very tidesage Lilian helped raise, guiding the escape from the inside. When Baine and Zelling are punished for their defiance, Lilian says nothing to Sylvanas. She tells Zelling's family he died a hero. Then the War Campaign rolls on regardless: Warfang Hold needs securing, and Nathanos is already planning the next move.",
+            recap = "Baine Bloodhoof looked at Derek Proudmoore (raised, hollowed out, aimed at his own kin) and decided he would not be part of it. He asked for your help. Thomas Zelling, the tidesage whose raising Lilian had stood witness to in Stormsong, helped guide Derek out from the inside. They freed him.\n\nSylvanas had Baine arrested and Zelling killed. Lilian said nothing aloud. Later, quietly, she went to Zelling's family and told them he had died a hero. It was not defiance. It was a choice. Small enough that no one noticed. Large enough that she did.\n\nAnd then the war moved on. Warfang Hold needed to be secured for a leadership summit. Boss Mida handled the SI:7 spies and the gate-crashers. Nathanos arrived to make a display of the Horde's strength. The machine kept turning, indifferent to what had just been lost.",
             quests = {
                 { id = 54961, name = "Righting Wrongs",                  npc = "Bluffwatcher Proudscar" },
                 { id = 55124, name = "Righting Wrongs",                  npc = "Bluffwatcher Proudscar" },
@@ -338,8 +338,8 @@ SM.LilianVossData = {
             chapter = "What Comes After",
             gated = true,
             note = "Unlocks after defeating N'Zoth. Speak with Valeera Sanguinar in Zuldazar to begin.",
-            summary = "Sylvanas is gone. The Horde's leaders gather to decide what it becomes without her — and Lilian Voss speaks for the Forsaken.",
-            recap = "When the gate went quiet and Sylvanas left, Lilian Voss was already in the room. Baine, Lor'themar, Ji Firepaw — all the leaders who had waited out the war with their doubts held close — and the question nobody wanted to be first to say: what do they do about the Warchief's throne? Before the full council assembled, Lilian stepped away from the main hall to arrange a quieter meeting — Forsaken leadership, Calia Menethil, and Derek Proudmoore. Hidden, necessary, and entirely hers to broker. Then she came back into the room and made the case for leaving the throne empty. No single voice. A council, where every people kept their own weight and no one leader could burn the world on a private conviction. She had spent years being used by the powerful as a tool. She knew exactly what concentrated authority looked like from the receiving end. The others listened. They agreed. It was the first time Lilian Voss had spoken in a room full of power and been heard.",
+            summary = "Sylvanas is gone. The Horde's leaders gather to decide what it becomes without her, and Lilian Voss speaks for the Forsaken.",
+            recap = "When the gate went quiet and Sylvanas left, Lilian Voss was already in the room. Baine, Lor'themar, Ji Firepaw (all the leaders who had waited out the war with their doubts held close) and the question nobody wanted to be first to say: what do they do about the Warchief's throne? Before the full council assembled, Lilian stepped away from the main hall to arrange a quieter meeting: Forsaken leadership, Calia Menethil, and Derek Proudmoore. Hidden, necessary, and entirely hers to broker. Then she came back into the room and made the case for leaving the throne empty. No single voice. A council, where every people kept their own weight and no one leader could burn the world on a private conviction. She had spent years being used by the powerful as a tool. She knew exactly what concentrated authority looked like from the receiving end. The others listened. They agreed. It was the first time Lilian Voss had spoken in a room full of power and been heard.",
             quests = {
                 { id = 57198, name = "Sense of Obligation",      npc = "Lilian Voss", mapID = 862, x = 0.5840, y = 0.6260, location = "Dazar'alor, Zuldazar" },
                 { id = 57376, name = "The Hidden Need",          npc = "Lilian Voss" },
@@ -360,8 +360,8 @@ SM.LilianVossData = {
             chapter = "Return to Lordaeron",
             gated = true,
             note = "Available to Horde players after completing the Shadowlands campaign.",
-            summary = "With Sylvanas defeated and the war over, Lilian Voss and Calia Menethil lead the Forsaken back to Lordaeron. The city is choked with Blight, the halls of Undercity dark and half-collapsed. Together they fight to reclaim it — cleansing what can be saved, burying what cannot — and at the end, form the Desolate Council: a governing body the Forsaken chose for themselves.",
-            recap = "The war ended. Sylvanas was gone. And Lilian Voss led the Forsaken home.\n\nThey came back to ruins — streets flooded with Blight, Undercity dark and broken. Calia Menethil walked beside her, daughter of the last king of Lordaeron, and between the two of them they held the Forsaken together through all of it: the plague work, the dead to bury, the city to reclaim room by room. At the end they formed the Desolate Council — Lilian, Calia, Velonara, Belmont, Faranell — not a Dark Lady, not a warchief. A council. Their own.\n\nLilian Voss, who had spent her whole life as something to be used and discarded, had become the person her people followed home.",
+            summary = "With Sylvanas defeated and the war over, Lilian Voss and Calia Menethil lead the Forsaken back to Lordaeron. The city is choked with Blight, the halls of Undercity dark and half-collapsed. Together they fight to reclaim it (cleansing what can be saved, burying what cannot) and at the end, form the Desolate Council: a governing body the Forsaken chose for themselves.",
+            recap = "The war ended. Sylvanas was gone. And Lilian Voss led the Forsaken home.\n\nThey came back to ruins: streets flooded with Blight, Undercity dark and broken. Calia Menethil walked beside her, daughter of the last king of Lordaeron, and between the two of them they held the Forsaken together through all of it: the plague work, the dead to bury, the city to reclaim room by room. At the end they formed the Desolate Council: Lilian, Calia, Velonara, Belmont, Faranell. Not a Dark Lady, not a warchief. A council. Their own.\n\nLilian Voss, who had spent her whole life as something to be used and discarded, had become the person her people followed home.",
             quests = {
                 { id = 65656, name = "Call to Lordaeron",                npc = "Calia Menethil" },
                 { id = 65657, name = "Assemble the Forsaken",            npc = "Calia Menethil" },
