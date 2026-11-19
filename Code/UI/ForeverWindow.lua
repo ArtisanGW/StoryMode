@@ -462,25 +462,19 @@ end
 
 -- ── Detail tabs ─────────────────────────────────────────────────────────────
 -- Adventure, Progress and Journal are side tabs on the window's right edge,
--- like the Legacy window's tabs (LegacySystemTabTemplate), with the character
--- window's own tab icons: its PvP tab for Adventure (by faction, as the
--- character window does), Reputation for Progress and Statistics for Journal.
-
-local function AdventureIcon()
-    return UnitFactionGroup("player") == "Alliance"
-        and "Interface/ICONS/INV_SideTab_Honor_Alliance_c60"
-        or "Interface/ICONS/INV_SideTab_Honor_Horde_c60"
-end
+-- like the Legacy window's tabs (LegacySystemTabTemplate): Forever's own
+-- side-tab icons for Adventure (the map) and Progress (the quest log's "!"),
+-- and a quill for the Journal.
 
 local DETAIL_TABS = {
-    { key = "story", label = "Tab Adventure", icon = AdventureIcon },
-    { key = "progress", label = "Tab Progress", icon = "Interface/ICONS/INV_SideTab_Reputation2_c60" },
-    { key = "journal", label = "Tab Journal", icon = "Interface/ICONS/INV_SideTab_Stats_c60" },
+    { key = "story", label = "Tab Adventure", icon = "Interface/ICONS/INV_SideTab_FullMap_c60" },
+    { key = "progress", label = "Tab Progress", icon = "Interface/ICONS/INV_SideTab_QuestLog_c60" },
+    { key = "journal", label = "Tab Journal", icon = "Interface/ICONS/INV_Feather_07" },
     { key = "scarlet", label = "Tab Scarlet Crusader", icon = "Interface\\Icons\\Spell_Holy_SealOfWrath" },
 }
 
 local function SetTabIcon(tab, icon)
-    tab.Icon:SetTexture(type(icon) == "function" and icon() or icon)
+    tab.Icon:SetTexture(icon)
 end
 local detailTabs = {}
 
@@ -490,7 +484,6 @@ function window.AddDetailTabs(frame, onSelect)
         local tab = CreateFrame("Frame", nil, frame, "LargeSideTabButtonTemplate")
         tab:EnableMouse(true)
         tab.tooltipText = L[info.label]
-        tab.iconSource = info.icon
         SetTabIcon(tab, info.icon)
         tab:SetFillToInterior(true)
         tab:SetCustomOnMouseUpHandler(function(_, button, upInside)
@@ -684,8 +677,6 @@ end
 function window.ShowStory(data, showScarletTab)
     for key, tab in pairs(detailTabs) do
         tab:SetShown(data ~= nil and (key ~= "scarlet" or showScarletTab == true))
-        -- The faction icon is only known once the character is in the world.
-        if data and type(tab.iconSource) == "function" then SetTabIcon(tab, tab.iconSource) end
     end
     ShowProgress(data)
     journal.story = data ~= nil
