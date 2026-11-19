@@ -122,7 +122,11 @@ function SM.IsQuestForPlayer(q)
     return true
 end
 
+-- A branch the player didn't take (showIf / hideIf) hides, but never a
+-- quest in the log: the player is on it, whichever branch it belongs to
+-- (Valley of Bones players can start both clans' paths).
 function SM.ShouldHideQuest(q)
+    if (q.showIf or q.hideIf) and SM.IsQuestEntryInLog(q) then return false end
     if q.showIf then
         if not SM.IsQuestComplete(q.showIf) then return true end
     elseif q.hideIf then
