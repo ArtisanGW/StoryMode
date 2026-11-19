@@ -14,7 +14,9 @@ SM.ThunderfuryData = {
     zone = "Molten Core / Silithus",
     expansion = "Classic",
     recommendedLevel = { min = 60, max = 60 },
-    gameVersions = { classicEra = true, tbc = true },
+    -- Hidden on WoW Forever until Molten Core opens: its first raids are Barrow
+    -- Deeps, Hyjal Summit and Onyxia's Lair, and the Bindings drop in Molten Core.
+    gameVersions = { classicEra = true, tbc = true, forever = false },
     achievements = {},
     color = { 0.38, 0.66, 0.96 },
     icon = 135349,

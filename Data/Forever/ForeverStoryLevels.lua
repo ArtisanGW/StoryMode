@@ -54,7 +54,6 @@ SM.ForeverStoryLevels = {
     ["The Tower of Althalaxx"] = { 13, 31 },
     ["The Valley of Bones"] = { 30, 49 },
     ["The Warrior's Trials"] = { 10, 40 },
-    ["Thunderfury"] = { 60, 60 },
     ["Twilight in the Riverglades"] = { 36, 47 },
     ["Waking Naralex"] = { 10, 26 },
     ["Wanted: Hogger"] = { 5, 11 },
