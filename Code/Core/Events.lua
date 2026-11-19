@@ -330,7 +330,11 @@ function SM.InitializeSlashCommands()
     SLASH_STORYMODE2 = "/storymode"
     SlashCmdList["STORYMODE"] = function(msg)
         msg = msg and msg:trim():lower() or ""
-        if msg == "loadingscreens" or msg == "loading" or msg == "covers" then
+        if msg == "minimap" then
+            -- Shows the minimap button again after its menu hid it (or hides it).
+            if SM.ToggleMinimapButton then SM.ToggleMinimapButton() end
+            return
+        elseif msg == "loadingscreens" or msg == "loading" or msg == "covers" then
             SM.ShowLoadingScreenBrowser()
             return
         elseif msg == "banner" then

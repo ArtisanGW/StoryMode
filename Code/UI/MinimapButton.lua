@@ -135,6 +135,23 @@ function SM.CreateMinimapButton(storyFrame, tooltip, bodyColor)
         ApplyIconStyle()
     end
 
+    -- Hidden from the right-click menu, back with /sm minimap. One choice for
+    -- the whole account, like the icon style.
+    local function ApplyShown()
+        minimapBtn:SetShown(not (StoryModeDB and StoryModeDB.minimapButtonHidden))
+    end
+
+    function SM.SetMinimapButtonShown(shown)
+        if StoryModeDB then StoryModeDB.minimapButtonHidden = (not shown) or nil end
+        tooltip:Hide()
+        ApplyShown()
+        print(L["Addon Prefix"] .. (shown and L["Minimap Shown Message"] or L["Minimap Hidden Message"]))
+    end
+
+    function SM.ToggleMinimapButton()
+        SM.SetMinimapButtonShown(StoryModeDB ~= nil and StoryModeDB.minimapButtonHidden == true)
+    end
+
     local function ShowIconStyleMenu(owner)
         tooltip:Hide()
 
@@ -151,6 +168,10 @@ function SM.CreateMinimapButton(storyFrame, tooltip, bodyColor)
                     function() return GetMinimapIconStyle() == MINIMAP_STYLE_DEFAULT_BORDER end,
                     function() SetIconStyle(MINIMAP_STYLE_DEFAULT_BORDER) end
                 )
+                rootDescription:CreateDivider()
+                rootDescription:CreateButton(L["Minimap Hide Button"], function()
+                    SM.SetMinimapButtonShown(false)
+                end)
             end)
             return
         end
@@ -174,6 +195,11 @@ function SM.CreateMinimapButton(storyFrame, tooltip, bodyColor)
                     text = L["Minimap Icon Style Default"],
                     checked = function() return GetMinimapIconStyle() == MINIMAP_STYLE_DEFAULT_BORDER end,
                     func = function() SetIconStyle(MINIMAP_STYLE_DEFAULT_BORDER) end,
+                },
+                {
+                    text = L["Minimap Hide Button"],
+                    notCheckable = true,
+                    func = function() SM.SetMinimapButtonShown(false) end,
                 },
             }, minimapMenuFrame, "cursor", 0, 0, "MENU")
         end
@@ -239,6 +265,7 @@ function SM.CreateMinimapButton(storyFrame, tooltip, bodyColor)
 
     return function()
         ApplyIconStyle()
+        ApplyShown()
         minimapBtn:SetAlpha(1)
         local angle = StoryModeDB and StoryModeDB.minimapAngle or 4.4  -- default: bottom
         UpdatePosition(angle)
