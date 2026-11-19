@@ -164,11 +164,15 @@ function SM.GetStorySearchQuest(data)
 end
 
 -- ── Dungeon and raid stories ──────────────────────────────────────────────
--- A story holds a dungeon (or raid) when one of its quests for the player is
--- one: the game's quest tag, as on the quest cards (SM.GetQuestInstanceType).
--- Quests the game hasn't loaded yet are loaded in the background, a few at a
--- time, once the player shows interest (hovers or opens the filter, or has
--- Dungeons or Raids chosen); the list follows as they arrive.
+-- A story holds a dungeon when one of its quests for the player is one: the
+-- game's quest tag, as on the quest cards (SM.GetQuestInstanceType). Quests
+-- the game hasn't loaded yet are loaded in the background, a few at a time,
+-- once the player shows interest (hovers or opens the filter, or has
+-- Dungeons chosen); the list follows as they arrive.
+-- Raids go by the story data alone (instance = "raid"): the game also tags
+-- open-world quests meant for raid groups (The Battle of Darrowshire) and
+-- the quests of raids a client doesn't have open (Zul'Gurub on Forever) as
+-- Raid, and those aren't raid chains.
 local storyKinds = setmetatable({}, { __mode = "k" })
 local kindsWanted = false
 local kindLoadQueue, kindLoadQueued, kindLoader = {}, {}, nil
@@ -234,6 +238,9 @@ local function StoryKinds(data)
         for _, q in ipairs(ch.quests or {}) do
             if SM.IsQuestForPlayer(q) and not SM.ShouldHideQuest(q) then
                 local kind, unknown = SM.GetQuestInstanceType(q)
+                if kind == "raid" and q.instance ~= "raid" then
+                    kind = "none"
+                end
                 if kind then
                     kinds[kind] = true
                 elseif kindsWanted then
