@@ -129,6 +129,8 @@ local function PingOnWorldMap(mapID, x, y)
     OpenStoryMap(mapID)
     PlaySound(SOUNDKIT.UI_MAP_WAYPOINT_SUPER_TRACK_ON or 167425)
 
+    -- Explorer mode opens the map without the gold ping on the spot.
+    if SM.IsExplorerMode and SM.IsExplorerMode() then return end
     if not hasMapCanvasPins then return end
     local provider = GetPingProvider()
     if not provider then return end
