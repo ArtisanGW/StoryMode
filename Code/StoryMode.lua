@@ -1778,7 +1778,7 @@ function SM.ShowTab(tab)
     -- Hide all tab-specific elements
     for _, el in ipairs(storyElements) do el:Hide() end
     for _, el in ipairs(journalElements) do el:Hide() end
-    for _, entry in ipairs(sJournalEntries) do entry.title:Hide(); entry.body:Hide() end
+    for _, entry in ipairs(sJournalEntries) do entry.title:Hide(); entry.body:Hide(); if entry.voice then entry.voice:Hide() end end
     for _, el in ipairs(progressElements) do el:Hide() end
     for _, el in ipairs(scarletElements) do el:Hide() end
     for _, entry in ipairs(sScarletSections) do entry.title:Hide(); entry.body:Hide() end
@@ -1934,7 +1934,7 @@ function SM.UpdateStoryDetail(data)
         -- Hide all tab elements
         for _, el in ipairs(storyElements) do el:Hide() end
         for _, el in ipairs(journalElements) do el:Hide() end
-        for _, entry in ipairs(sJournalEntries) do entry.title:Hide(); entry.body:Hide() end
+        for _, entry in ipairs(sJournalEntries) do entry.title:Hide(); entry.body:Hide(); if entry.voice then entry.voice:Hide() end end
         for _, el in ipairs(progressElements) do el:Hide() end
         for _, el in ipairs(scarletElements) do el:Hide() end
         for _, entry in ipairs(sScarletSections) do entry.title:Hide(); entry.body:Hide() end
