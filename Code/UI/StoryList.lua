@@ -31,11 +31,15 @@ end
 -- quest opens on that quest's card. The filter shows how many stories each
 -- choice holds, and the list says so when nothing matches.
 local STATUS_ALL, STATUS_IN_PROGRESS, STATUS_NOT_STARTED, STATUS_COMPLETE = "all", "inProgress", "notStarted", "complete"
+-- Below a divider, the stories that send the player into a dungeon or a raid.
+local KIND_DUNGEON, KIND_RAID = "dungeon", "raid"
 local STATUS_OPTIONS = {
     { key = STATUS_ALL, label = "Story Filter All" },
     { key = STATUS_IN_PROGRESS, label = "Story Filter In Progress" },
     { key = STATUS_NOT_STARTED, label = "Story Filter Not Started" },
     { key = STATUS_COMPLETE, label = "Story Filter Complete" },
+    { key = KIND_DUNGEON, label = "Story Filter Dungeons", kind = true },
+    { key = KIND_RAID, label = "Story Filter Raids", kind = true },
 }
 local searchWords
 local searchTextCache = setmetatable({}, { __mode = "k" })
@@ -159,10 +163,97 @@ function SM.GetStorySearchQuest(data)
     return quest, chapterIndex
 end
 
+-- ── Dungeon and raid stories ──────────────────────────────────────────────
+-- A story holds a dungeon (or raid) when one of its quests for the player is
+-- one: the game's quest tag, as on the quest cards (SM.GetQuestInstanceType).
+-- Quests the game hasn't loaded yet are loaded in the background, a few at a
+-- time, once the player shows interest (hovers or opens the filter, or has
+-- Dungeons or Raids chosen); the list follows as they arrive.
+local storyKinds = setmetatable({}, { __mode = "k" })
+local kindsWanted = false
+local kindLoadQueue, kindLoadQueued, kindLoader = {}, {}, nil
+
+local function IsKindFilter(status)
+    return status == KIND_DUNGEON or status == KIND_RAID
+end
+
+local function OnQuestKindsLoaded()
+    wipe(storyKinds)
+    if filterDropdown and filterDropdown.GenerateMenu then filterDropdown:GenerateMenu() end
+    if storyContentBuilt and IsKindFilter(GetStatusFilter()) then SM.RebuildStoryWindow() end
+end
+
+local kindTicker
+local function QueueQuestLoads(questIDs)
+    if not (C_QuestLog and C_QuestLog.RequestLoadQuestByID) then return end
+    for _, questID in ipairs(questIDs) do
+        if not kindLoadQueued[questID] then
+            kindLoadQueued[questID] = true
+            kindLoadQueue[#kindLoadQueue + 1] = questID
+        end
+    end
+    if kindTicker or #kindLoadQueue == 0 then return end
+    if not kindLoader then
+        kindLoader = CreateFrame("Frame")
+        kindLoader:SetScript("OnEvent", function()
+            if SM.DebounceTask then
+                SM.DebounceTask("story-list-kinds", 0.5, OnQuestKindsLoaded)
+            else
+                OnQuestKindsLoaded()
+            end
+        end)
+    end
+    pcall(kindLoader.RegisterEvent, kindLoader, "QUEST_DATA_LOAD_RESULT")
+    -- Twenty requests every tenth of a second, so the server isn't flooded.
+    local ticker
+    ticker = C_Timer.NewTicker(0.1, function()
+        for _ = 1, 20 do
+            local questID = table.remove(kindLoadQueue, 1)
+            if not questID then
+                ticker:Cancel()
+                if kindTicker == ticker then kindTicker = nil end
+                -- The last answers arrive a moment after the last request.
+                C_Timer.After(3, function()
+                    if not kindTicker then kindLoader:UnregisterAllEvents() end
+                    OnQuestKindsLoaded()
+                end)
+                return
+            end
+            pcall(C_QuestLog.RequestLoadQuestByID, questID)
+        end
+    end)
+    kindTicker = ticker
+end
+
+local function StoryKinds(data)
+    local kinds = storyKinds[data]
+    if kinds then return kinds end
+    kinds = {}
+    local pending
+    for _, ch in ipairs(SM.GetAllChapters(data)) do
+        for _, q in ipairs(ch.quests or {}) do
+            if SM.IsQuestForPlayer(q) and not SM.ShouldHideQuest(q) then
+                local kind, unknown = SM.GetQuestInstanceType(q)
+                if kind then
+                    kinds[kind] = true
+                elseif kindsWanted then
+                    pending = pending or {}
+                    for _, questID in ipairs(unknown) do pending[#pending + 1] = questID end
+                end
+            end
+        end
+    end
+    if pending then QueueQuestLoads(pending) end
+    storyKinds[data] = kinds
+    return kinds
+end
+
 local function PassesListFilter(data)
     if not MatchesSearch(data) then return false end
     local status = GetStatusFilter()
-    return status == STATUS_ALL or SM.GetStoryListStatus(data) == status
+    if status == STATUS_ALL then return true end
+    if IsKindFilter(status) then return StoryKinds(data)[status] == true end
+    return SM.GetStoryListStatus(data) == status
 end
 
 local function IsListFiltered()
@@ -179,6 +270,10 @@ local function CountStoriesByStatus()
                     local status = SM.GetStoryListStatus(data)
                     counts[status] = (counts[status] or 0) + 1
                     counts[STATUS_ALL] = counts[STATUS_ALL] + 1
+                    local kinds = StoryKinds(data)
+                    for _, kind in ipairs({ KIND_DUNGEON, KIND_RAID }) do
+                        if kinds[kind] then counts[kind] = (counts[kind] or 0) + 1 end
+                    end
                 end
             end
         end
@@ -420,6 +515,7 @@ end
 function SM.RebuildStoryWindow()
     if not storyContentBuilt then return end
     wipe(searchResults)
+    wipe(storyKinds)
     SM.SaveLeftStoryScroll()
     for _, frame in ipairs(storyListFrames) do
         frame:Hide()
@@ -829,6 +925,7 @@ function SM.BuildStoryWindow()
     if SM.RegisterQuestlines then SM.RegisterQuestlines() end
     if SM.IsQuestlineRegistryReady and not SM.IsQuestlineRegistryReady() then return end
     storyContentBuilt = true
+    if IsKindFilter(GetStatusFilter()) then kindsWanted = true end
     -- The saved filter is only known once the saved variables load, after
     -- the bar was made: name it on the button now.
     if filterDropdown and filterDropdown.GenerateMenu then filterDropdown:GenerateMenu() end
@@ -877,6 +974,7 @@ end
 -- Lays the list out again for the current search and filter, from the top.
 local function ApplyListFilter()
     wipe(searchResults)
+    wipe(storyKinds)
     if filterDropdown and filterDropdown.GenerateMenu then filterDropdown:GenerateMenu() end
     if not storyContentBuilt then return end
     SM.LeftScroll:SetVerticalScroll(0)
@@ -915,16 +1013,33 @@ function SM.CreateStoryListFilterBar(parent, rightInset)
     end
     filterDropdown:SetupMenu(function(_, root)
         local counts = CountStoriesByStatus()
+        local divided = false
         for _, option in ipairs(STATUS_OPTIONS) do
+            if option.kind and not divided then
+                root:CreateDivider()
+                divided = true
+            end
             root:CreateRadio(string.format(L["Story Filter Count Format"], L[option.label], counts[option.key] or 0),
                 function() return GetStatusFilter() == option.key end,
                 function()
                     StoryModeDB.storyListStatus = option.key
+                    if option.kind then kindsWanted = true end
                     ApplyListFilter()
                 end,
                 option.key)
         end
     end)
+
+    -- Dungeons and Raids need every story's quests loaded: start on the way
+    -- to the menu, so its counts are ready (or nearly) when it opens.
+    local function WantKinds()
+        if kindsWanted then return end
+        kindsWanted = true
+        wipe(storyKinds)
+        CountStoriesByStatus()
+    end
+    filterDropdown:HookScript("OnEnter", WantKinds)
+    filterDropdown:HookScript("OnMouseDown", WantKinds)
 
     local search = CreateFrame("EditBox", nil, filterBar, "SearchBoxTemplate")
     search:SetHeight(20)

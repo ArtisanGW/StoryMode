@@ -180,6 +180,58 @@ function SM.IsQuestDiscovered(questIndex, chapterQuests, nextQuestID)
     return false
 end
 
+-- ── Dungeon and raid quests ─────────────────────────────────────────────
+-- A quest's kind comes from the game's own quest tag (Dungeon, Raid), or for
+-- the few quests the game leaves untagged, the story data's instance field.
+-- The game knows a tag once it has loaded the quest, and a quest's kind never
+-- changes, so the answer is kept per account (StoryModeDB.questInstanceTypes).
+local INSTANCE_TAG_TYPES = { [81] = "dungeon", [62] = "raid", [88] = "raid", [89] = "raid" }
+
+local function IsQuestDataLoaded(questID)
+    if C_QuestLog and C_QuestLog.IsQuestDataCached then
+        local ok, cached = pcall(C_QuestLog.IsQuestDataCached, questID)
+        if ok and cached ~= nil then return cached and true or false end
+    end
+    local title = C_QuestLog and C_QuestLog.GetTitleForQuestID and C_QuestLog.GetTitleForQuestID(questID)
+    return title ~= nil and title ~= ""
+end
+
+-- "dungeon", "raid" or "none" for one quest ID; nil while the game hasn't
+-- loaded the quest.
+local function QuestIDInstanceType(questID)
+    local known = StoryModeDB and StoryModeDB.questInstanceTypes
+    if known and known[questID] then return known[questID] end
+    if not (C_QuestLog and C_QuestLog.GetQuestTagInfo) then return "none" end
+    local info = C_QuestLog.GetQuestTagInfo(questID)
+    local kind = info and INSTANCE_TAG_TYPES[info.tagID]
+    if not kind then
+        if not IsQuestDataLoaded(questID) then return nil end
+        kind = "none"
+    end
+    if StoryModeDB then
+        StoryModeDB.questInstanceTypes = StoryModeDB.questInstanceTypes or {}
+        StoryModeDB.questInstanceTypes[questID] = kind
+    end
+    return kind
+end
+
+-- "dungeon", "raid" or "none" for a story quest. nil while the game still has
+-- to load some of its IDs, which come second (a list) so they can be loaded.
+function SM.GetQuestInstanceType(q)
+    if q.instance then return q.instance end
+    local unknown
+    for _, questID in ipairs(SM.GetQuestIDs(q)) do
+        local kind = QuestIDInstanceType(questID)
+        if kind == "dungeon" or kind == "raid" then return kind end
+        if kind == nil then
+            unknown = unknown or {}
+            unknown[#unknown + 1] = questID
+        end
+    end
+    if unknown then return nil, unknown end
+    return "none"
+end
+
 function SM.IsQuestInLog(questID)
     return SM.GetLogIndexForQuestID(questID) ~= nil
 end
