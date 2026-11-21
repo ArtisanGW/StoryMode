@@ -433,7 +433,7 @@ end
 -- page. Read aloud, the journal turns to the page being read.
 
 local PAGE = {
-    top = 18,          -- the header's top, and the text's on later pages
+    top = 30,          -- the header's top, and the text's on later pages
     headerGap = 18,    -- from the subline to the first chapter title
     titleGap = 22,     -- from a title's top line to its text: divider and gaps
     entryGap = 20,     -- between a chapter's text and the next title
