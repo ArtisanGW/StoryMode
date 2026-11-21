@@ -31,6 +31,9 @@ end
 -- quest opens on that quest's card. The filter shows how many stories each
 -- choice holds, and the list says so when nothing matches.
 local STATUS_ALL, STATUS_IN_PROGRESS, STATUS_NOT_STARTED, STATUS_COMPLETE = "all", "inProgress", "notStarted", "complete"
+-- Begun and left, with no quest in the log: no filter of its own, so such a
+-- story shows under All stories only.
+local STATUS_STARTED = "started"
 -- Below a divider, the stories that send the player into a dungeon or a raid.
 local KIND_DUNGEON, KIND_RAID = "dungeon", "raid"
 local STATUS_OPTIONS = {
@@ -57,13 +60,14 @@ local function GetStatusFilter()
     return STATUS_ALL
 end
 
--- Finished, under way (a quest done or in the log) or not yet begun.
+-- Finished, in progress (one of its quests is in the log), begun and left
+-- (a quest done, none in the log) or not yet begun.
 function SM.GetStoryListStatus(data)
     local state = SM.GetStoryState(data)
     if state and state.isFinished then return STATUS_COMPLETE end
     if SM.IsStoryActive(data) then return STATUS_IN_PROGRESS end
     local done = SM.GetCampaignProgress(data)
-    if done and done > 0 then return STATUS_IN_PROGRESS end
+    if done and done > 0 then return STATUS_STARTED end
     return STATUS_NOT_STARTED
 end
 
