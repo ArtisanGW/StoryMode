@@ -94,7 +94,20 @@ function SM.IsQuestComplete(questID)
     return SM.IsQuestFlaggedCompleted(questID)
 end
 
+-- An item step (q.item, no quest behind it, as in a secret's hidden steps)
+-- is done once the character has held the item, and stays done.
+function SM.IsItemStepFound(itemID)
+    if not itemID then return false end
+    if SM.HasRecordedFoundItem and SM.HasRecordedFoundItem(itemID) then return true end
+    if SM.PlayerHasItem and SM.PlayerHasItem(itemID) then
+        if SM.RecordFoundItem then SM.RecordFoundItem(itemID) end
+        return true
+    end
+    return false
+end
+
 function SM.IsQuestEntryComplete(q)
+    if q.item and SM.IsItemStepFound(q.item) then return true end
     for _, questID in ipairs(SM.GetQuestIDs(q)) do
         if SM.IsQuestComplete(questID) then return true end
     end

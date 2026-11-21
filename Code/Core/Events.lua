@@ -418,6 +418,43 @@ function SM.InitializeSlashCommands()
     end
 end
 
+-- Adds the stories that can join the list now (SM.RegisterLateQuestlines) and
+-- announces a secret story the moment the player finds the way in, with a
+-- link that opens it.
+local function RegisterLateStories()
+    local added = SM.RegisterLateQuestlines and SM.RegisterLateQuestlines()
+    if not added then return end
+    InvalidateProgress()
+    if SM.RebuildStoryWindow then SM.RebuildStoryWindow() end
+    for _, data in ipairs(added) do
+        local link = (data.revealedBy or data.revealedByItems) and SM.GetStoryChatLink and SM.GetStoryChatLink(data)
+        if link then
+            print(L["Addon Prefix"] .. string.format(L["Scarlet Reveal Chat Format"], link))
+        end
+    end
+end
+
+local function QueueLateStories()
+    if SM.DebounceTask then
+        SM.DebounceTask("late-stories", 0.5, RegisterLateStories)
+    else
+        RegisterLateStories()
+    end
+end
+
+-- A story step that is an item (q.item) is done once the character has held
+-- the item; the bags and gear are checked again whenever they change.
+local function CheckItemSteps()
+    local found = false
+    for itemID in pairs(SM.GetItemStepIDs and SM.GetItemStepIDs() or {}) do
+        if not SM.HasRecordedFoundItem(itemID) and SM.PlayerHasItem(itemID) then
+            SM.RecordFoundItem(itemID)
+            found = true
+        end
+    end
+    if found then RefreshScarletStoryViews() end
+end
+
 function SM.InitializeCoreEvents(storyFrame)
     if eventFrame then return end
     eventFrame = CreateFrame("Frame")
@@ -428,6 +465,9 @@ function SM.InitializeCoreEvents(storyFrame)
     eventFrame:RegisterEvent("PLAYER_LEVEL_UP")
     eventFrame:RegisterEvent("PLAYER_LOGIN")
     eventFrame:RegisterEvent("PLAYER_REGEN_DISABLED")
+    eventFrame:RegisterEvent("SKILL_LINES_CHANGED")
+    eventFrame:RegisterEvent("BAG_UPDATE_DELAYED")
+    eventFrame:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
     -- The Scarlet secret lives where its host story lives: on clients where
     -- The Scarlet Crusade isn't registered (e.g. retail), never count kills —
     -- otherwise the reveal would announce a tab that cannot exist.
@@ -468,8 +508,10 @@ function SM.InitializeCoreEvents(storyFrame)
         elseif event == "QUEST_TURNED_IN" then
             InvalidateProgress()
             SM.CheckQuestCompletion(arg1)
+            QueueLateStories()
         elseif event == "QUEST_ACCEPTED" then
             InvalidateProgress()
+            QueueLateStories()
             local data = SM.FindQuestStory(arg2 or arg1)
             SM.PrintQuestAcceptedStory(arg2 or arg1)
             RefreshVisibleStoryList(data)
@@ -483,6 +525,15 @@ function SM.InitializeCoreEvents(storyFrame)
         elseif event == "PLAYER_LEVEL_UP" then
             InvalidateProgress()
             RefreshVisibleStoryList()
+        elseif event == "SKILL_LINES_CHANGED" then
+            QueueLateStories()
+        elseif event == "BAG_UPDATE_DELAYED" or event == "PLAYER_EQUIPMENT_CHANGED" then
+            QueueLateStories()  -- a secret's item can reveal its story
+            if SM.DebounceTask then
+                SM.DebounceTask("item-steps", 0.3, CheckItemSteps)
+            else
+                CheckItemSteps()
+            end
         end
     end)
 end

@@ -396,7 +396,7 @@ async function loadForeverStories(hiddenQuests = []) {
   const toc = await readFile(path.join(root, TOC), "utf8");
   const files = toc.split(/\r?\n/)
     .map((line) => line.trim().replace(/\\/g, "/"))
-    .filter((line) => /^Data\/(Storylines|ClassQuests)\/.*\.lua$/.test(line) || /^Data\/Forever\/\w+Data\.lua$/.test(line));
+    .filter((line) => /^Data\/(Storylines|ClassQuests|Professions)\/.*\.lua$/.test(line) || /^Data\/Forever\/\w+Data\.lua$/.test(line));
   const stories = [];
   for (const rel of files) {
     const text = await readFile(path.join(root, rel), "utf8");

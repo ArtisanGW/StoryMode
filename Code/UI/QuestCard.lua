@@ -731,7 +731,10 @@ local function CreateLegacyQuestCard(parent)
         end
         self.portrait:SetDesaturated(dimmed)
 
-        local objectiveText = not (undiscovered or offerOnly) and GetQuestCardText(quest and quest.id) or nil
+        -- An item step (quest.item) has no quest text of its own: the story's
+        -- data writes its objective.
+        local objectiveText = not (undiscovered or offerOnly) and (GetQuestCardText(quest and quest.id)
+            or (quest and quest.objective and SM.ApplyGenderTokens(quest.objective))) or nil
         local giverText = undiscovered and L["Quest Undiscovered Text"] or GetQuestGiverText(data, quest)
         local descriptionX = expandable and CARD.descriptionXOpenable or CARD.descriptionX
         self.npcLabel:ClearAllPoints()

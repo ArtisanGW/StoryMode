@@ -15,6 +15,7 @@ local questLookupByID = {}
 local questLookupByName = {}
 local questlineSortOrder = 0
 local registryReady = false
+local itemStepIDs = {}
 
 local playerClass
 local playerFaction
@@ -51,6 +52,7 @@ local contentRegistry = {
     { key = "ForeverAlcazPrisonData", category = "Stories" },
     { key = "ForeverDrownedCityData", category = "Stories" },
     { key = "ForeverExcavationSiteData", category = "Stories" },
+    { key = "ForeverDawnWakerData", category = "Stories" },  -- a secret: hidden until the player finds a way in
 
     { key = "DefiasBrotherhoodData", category = "Epic Stories" },
     { key = "DuskwoodData", category = "Epic Stories" },
@@ -92,6 +94,7 @@ local contentRegistry = {
     { key = "ForeverHighwayRobberyData", category = "Short Stories" },
     { key = "ForeverDalaranData", category = "Short Stories" },
     { key = "ForeverHallOfThanesData", category = "Short Stories" },
+    { key = "ForeverStrahnbradData", category = "Short Stories" },
 
     { key = "SylvanasData", category = "Character Stories" },
     { key = "JainaData", category = "Character Stories" },
@@ -133,6 +136,10 @@ local contentRegistry = {
     { key = "PandarenHeritageData", category = "Identity" },
     { key = "DarkIronHeritageData", category = "Identity" },
     { key = "ForeverZephrasIsleData", category = "Identity" },  -- the Skyborne's starting story
+    -- Profession stories: shown to characters who know the profession.
+    { key = "ClassicBlacksmithingData", category = "Identity" },
+    { key = "ClassicEngineeringData", category = "Identity" },
+    { key = "ClassicLeatherworkingData", category = "Identity" },
 }
 
 local function GetContentRegistryData(entry)
@@ -211,10 +218,17 @@ local function NormalizeQuestlineData(data)
                 if q.name and q.name ~= "" then
                     questLookupByName[q.name] = { story = data, quest = q, chapter = ch }
                 end
+                if q.item then itemStepIDs[q.item] = true end
             end
         end
     end
     data._storyModeNormalized = true
+end
+
+-- The items that registered stories use as steps (q.item), for the bag
+-- watch in Events.lua.
+function SM.GetItemStepIDs()
+    return itemStepIDs
 end
 
 -- Whether a story holds anything for this character. The class stories mix
@@ -236,6 +250,20 @@ local function HasContentForPlayer(data)
     return false
 end
 
+-- A secret story stays out of the list until the player has found a way in:
+-- one of its revealedBy quests is in the log or done, or the character holds
+-- (or has held) one of its revealedByItems.
+local function IsQuestlineRevealed(data)
+    if not (data.revealedBy or data.revealedByItems) then return true end
+    for _, questID in ipairs(data.revealedBy or {}) do
+        if SM.IsQuestComplete(questID) or SM.IsQuestInLog(questID) then return true end
+    end
+    for _, itemID in ipairs(data.revealedByItems or {}) do
+        if SM.IsItemStepFound and SM.IsItemStepFound(itemID) then return true end
+    end
+    return false
+end
+
 local function CanShowQuestline(data)
     RefreshPlayerContext()
     if not data then return false end
@@ -243,10 +271,16 @@ local function CanShowQuestline(data)
     if data.class and data.class ~= playerClass then return false end
     if data.faction and data.faction ~= playerFaction then return false end
     if data.race and data.race ~= playerRace then return false end
+    if data.profession and not SM.PlayerHasProfession(data.profession) then return false end
+    if not IsQuestlineRevealed(data) then return false end
     return HasContentForPlayer(data)
 end
 
+local registeredQuestlines = {}
+
 local function RegisterQuestline(data, categoryName)
+    if registeredQuestlines[data] then return end
+    registeredQuestlines[data] = true
     NormalizeQuestlineData(data)
     questlineSortOrder = questlineSortOrder + 1
     data._storyModeSortOrder = questlineSortOrder
@@ -349,6 +383,29 @@ end
 
 function SM.IsQuestlineRegistryReady()
     return registryReady
+end
+
+-- Stories that can join the list while playing: a profession story once the
+-- character knows the profession (the skill list can also arrive after
+-- login), a secret story once its way in is found. Events.lua calls this on
+-- SKILL_LINES_CHANGED, QUEST_ACCEPTED, QUEST_TURNED_IN and bag changes.
+-- Returns the stories it added, or nil.
+function SM.RegisterLateQuestlines()
+    if not registryReady then return nil end
+    local added
+    ForEachContentRegistryData(function(data, entry)
+        if (data.profession or data.revealedBy or data.revealedByItems)
+            and not registeredQuestlines[data] and CanShowQuestline(data) then
+            RegisterQuestline(data, data.category or entry.category)
+            added = added or {}
+            added[#added + 1] = data
+        end
+    end)
+    if added then
+        SortQuestlineCategories()
+        if SM.InvalidateProgressCache then SM.InvalidateProgressCache() end
+    end
+    return added
 end
 
 SM.LocalizeContentRegistry()

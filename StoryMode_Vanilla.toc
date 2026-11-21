@@ -66,6 +66,9 @@ Data\ClassQuests\ClassicRogueQuestData.lua
 Data\ClassQuests\ClassicShamanQuestData.lua
 Data\ClassQuests\ClassicWarlockQuestData.lua
 Data\ClassQuests\ClassicWarriorQuestData.lua
+Data\Professions\BlacksmithingData.lua
+Data\Professions\EngineeringData.lua
+Data\Professions\LeatherworkingData.lua
 Code\Core\Compatibility.lua
 Code\Core\SavedVariables.lua
 Code\Core\Scheduler.lua

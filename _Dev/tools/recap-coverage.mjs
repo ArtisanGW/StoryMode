@@ -6,7 +6,7 @@ import path from "node:path";
 const args = process.argv.slice(2);
 const root = args.find((arg) => !arg.startsWith("--")) || ".";
 const strict = args.includes("--strict");
-const dirs = ["Data/Storylines", "Data/Heritage", "Data/ClassQuests", "Data/Campaigns"];
+const dirs = ["Data/Storylines", "Data/Heritage", "Data/ClassQuests", "Data/Professions", "Data/Campaigns"];
 const locales = ["deDE", "esES", "esMX", "frFR", "itIT", "koKR", "ptBR", "ruRU", "zhCN", "zhTW"];
 
 function read(file) {

@@ -375,6 +375,58 @@ function SM.IsContentAvailableForClient(data)
     return not contentLevel or contentLevel <= maxExpansionLevel
 end
 
+-- Primary professions by skill line, with the spells that teach each rank
+-- (Apprentice to Master). Clients with GetProfessions (Retail and WoW
+-- Forever) report the skill line itself; Classic and TBC know the spells,
+-- and the skill list is the last resort, matched by the profession's name.
+local professionRankSpells = {
+    [164] = { 2018, 3100, 3538, 9785, 29844 },   -- Blacksmithing
+    [165] = { 2108, 3104, 3811, 10662, 32549 },  -- Leatherworking
+    [202] = { 4036, 4037, 4038, 12656, 30350 },  -- Engineering
+}
+
+local function GetSpellNameForClient(spellID)
+    if C_Spell and C_Spell.GetSpellName then return C_Spell.GetSpellName(spellID) end
+    if GetSpellInfo then return (GetSpellInfo(spellID)) end
+    return nil
+end
+
+function SM.PlayerHasProfession(skillLine)
+    if not skillLine then return false end
+    if GetProfessions and GetProfessionInfo then
+        local prof1, prof2 = GetProfessions()
+        for _, index in pairs({ prof1, prof2 }) do
+            if select(7, GetProfessionInfo(index)) == skillLine then return true end
+        end
+    end
+    local spells = professionRankSpells[skillLine]
+    if not spells then return false end
+    if IsPlayerSpell then
+        for _, spellID in ipairs(spells) do
+            if IsPlayerSpell(spellID) then return true end
+        end
+    end
+    local name = GetSpellNameForClient(spells[1])
+    if name and GetNumSkillLines and GetSkillLineInfo then
+        for i = 1, GetNumSkillLines() do
+            local skillName, isHeader = GetSkillLineInfo(i)
+            if not isHeader and skillName == name then return true end
+        end
+    end
+    return false
+end
+
+-- Whether the player holds an item: in the bags, the bank (as far as the
+-- client knows it) or worn.
+function SM.PlayerHasItem(itemID)
+    if not itemID then return false end
+    local getCount = (C_Item and C_Item.GetItemCount) or GetItemCount
+    local count = getCount and getCount(itemID, true)
+    if count and count > 0 then return true end
+    local isEquipped = (C_Item and C_Item.IsEquippedItem) or IsEquippedItem
+    return isEquipped ~= nil and isEquipped(itemID) == true
+end
+
 -- Story data stores Retail uiMapIDs. WoW Forever keeps the Classic zone maps
 -- (Elwynn Forest is 1429, not 37) and has no dungeon maps, so dungeon
 -- locations have no Forever map and return nil.

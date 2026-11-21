@@ -140,6 +140,24 @@ function SM.IncrementScarletKillCount()
     return record.scarletKills
 end
 
+-- Items this character has held, for story steps that are an item rather
+-- than a quest (q.item): once seen, the step stays done after the item is
+-- used up, sold or destroyed.
+function SM.HasRecordedFoundItem(itemID)
+    local record = GetCharacterRecord(false)
+    return (record and record.foundItems and record.foundItems[itemID]) == true
+end
+
+-- Returns true when the item is new to the record.
+function SM.RecordFoundItem(itemID)
+    local record = GetCharacterRecord(true)
+    if not (record and itemID) then return false end
+    record.foundItems = record.foundItems or {}
+    if record.foundItems[itemID] then return false end
+    record.foundItems[itemID] = true
+    return true
+end
+
 function SM.IsScarletCrusaderRevealed()
     local record = GetCharacterRecord(false)
     return (record and record.scarletCrusaderRevealed == true) or false

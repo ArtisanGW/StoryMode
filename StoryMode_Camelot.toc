@@ -70,6 +70,9 @@ Data\ClassQuests\ClassicRogueQuestData.lua
 Data\ClassQuests\ClassicShamanQuestData.lua
 Data\ClassQuests\ClassicWarlockQuestData.lua
 Data\ClassQuests\ClassicWarriorQuestData.lua
+Data\Professions\BlacksmithingData.lua
+Data\Professions\EngineeringData.lua
+Data\Professions\LeatherworkingData.lua
 Data\Forever\ForeverQuestIDs.lua
 Data\Forever\ForeverQuestText.lua
 Data\Forever\QuestText\deDE.lua
@@ -96,6 +99,8 @@ Data\Forever\HighwayRobberyData.lua
 Data\Forever\DalaranData.lua
 Data\Forever\ExcavationSiteData.lua
 Data\Forever\HallOfThanesData.lua
+Data\Forever\DawnWakerData.lua
+Data\Forever\StrahnbradData.lua
 Code\Core\Compatibility.lua
 Code\Core\SavedVariables.lua
 Code\Core\Scheduler.lua
