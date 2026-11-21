@@ -51,6 +51,11 @@ SM.ForeverHallOfThanesData = {
         -- Quest givers' models from the cmangos Classic database.
         ["Beldin Steelgrill"] = 3389,
         ["King Magni Bronzebeard"] = 3597,
+        -- Quest givers' models from Wowhead's WoW Forever data.
+        ["Earthseer Farsen"] = 144321,
+        ["Afadra Dunwall"] = 144322,
+        ["Thom Filch"] = 144349,
+        ["Ghostly Attendant"] = 144348,
     },
 
     chapterIcons = {

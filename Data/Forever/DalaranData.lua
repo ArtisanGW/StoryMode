@@ -69,9 +69,10 @@ SM.ForeverDalaranData = {
         ["Doctor Martin Felben"] = 10576,
         ["Shylamiir"] = 3296,
         ["High Sorcerer Andromath"] = 5076,
-        -- The Forever client's model for Archmage Modera (ForeverNPCDisplayIDs.lua),
-        -- taken to be her image's too.
+        -- Quest givers' models from Wowhead's WoW Forever data.
         ["Image of Archmage Modera"] = 130165,
+        ["Emissary Jacques"] = 130458,
+        ["Rexxie Copperclutch"] = 147507,
     },
 
     chapters = {

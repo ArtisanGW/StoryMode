@@ -64,6 +64,7 @@ SM.RazorfenData = {
         ["Andrew Brownell"] = 1585,
         -- Quest givers' models from Wowhead's WoW Forever data.
         ["Archmage Lan'dalock"] = 19744,
+        ["Sutara Plainstalker"] = 143985,
     },
 
     chapterDisplayIDs = {

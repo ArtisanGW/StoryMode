@@ -83,8 +83,9 @@ SM.ForeverExcavationSiteData = {
         ["Bashana Runetotem"] = 8356,
         -- Quest givers' models from the WoW Forever client's creature cache.
         ["Muln Earthfury"] = 137889,
-        -- Ardin Grassman (262681) and Daewyn Songblade (262465) are Forever's
-        -- own, inside the dungeon; their models aren't known yet.
+        -- Quest givers' models from Wowhead's WoW Forever data.
+        ["Ardin Grassman"] = 143332,
+        ["Daewyn Songblade"] = 143517,
     },
 
     chapters = {
