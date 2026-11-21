@@ -68,6 +68,12 @@
     },
     {
       "type": "duplicate-quest-in-story",
+      "file": "Data/Storylines/GnomereganData.lua",
+      "quest": 2841,
+      "reason": "The Mad King names Rig Wars as the Horde chapter's prerequisite, since Sovik offers Chief Engineer Scooty only while it is in the log, and lists it again in the Gnomeregan chapter where it is finished."
+    },
+    {
+      "type": "duplicate-quest-in-story",
       "file": "Data/Storylines/SuramarData.lua",
       "quest": 44955,
       "reason": "Suramar repeats several hub quests across Nightfallen and Insurrection chapters to preserve the playable story order."

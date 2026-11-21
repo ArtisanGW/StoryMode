@@ -44,9 +44,13 @@ local contentRegistry = {
     { key = "NaralexData", category = "Stories" },
     { key = "PrincessMoiraData", category = "Stories" },
     { key = "HakkariTrailData", category = "Stories" },
+    { key = "HiddenEnemiesData", category = "Stories" },
+    { key = "GnomereganData", category = "Stories" },
+    { key = "RazorfenData", category = "Stories" },
     -- WoW Forever's own questlines (Data/Forever).
     { key = "ForeverAlcazPrisonData", category = "Stories" },
     { key = "ForeverDrownedCityData", category = "Stories" },
+    { key = "ForeverExcavationSiteData", category = "Stories" },
 
     { key = "DefiasBrotherhoodData", category = "Epic Stories" },
     { key = "DuskwoodData", category = "Epic Stories" },
@@ -81,10 +85,13 @@ local contentRegistry = {
     { key = "NothingButTheTruthData", category = "Short Stories" },
     { key = "YetiData", category = "Short Stories" },
     { key = "MyzraelData", category = "Short Stories" },
+    { key = "BlackfathomData", category = "Short Stories" },
     { key = "ThunderfuryData", category = "Short Stories" },
     -- WoW Forever's own questlines (Data/Forever).
     { key = "ForeverCozySleepingBagData", category = "Short Stories" },
     { key = "ForeverHighwayRobberyData", category = "Short Stories" },
+    { key = "ForeverDalaranData", category = "Short Stories" },
+    { key = "ForeverHallOfThanesData", category = "Short Stories" },
 
     { key = "SylvanasData", category = "Character Stories" },
     { key = "JainaData", category = "Character Stories" },

@@ -42,7 +42,7 @@ SM.MissingCourierData = {
         ["Latronicus Moonspear"] = 2035,
         ["Ginro Hearthkindle"] = 6789,
         ["Quintis Jonespyre"] = 7232,
-        ["Falfindel Waywarder"] = 6978,
+        ["Falfindel Waywarder"] = 4201,
         ["Shandris Feathermoon"] = 2035,
         ["Gracina Spiritmight"] = 3796,
     },

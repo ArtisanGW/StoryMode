@@ -50,6 +50,10 @@ Data\Storylines\MankriksWifeData.lua
 Data\Storylines\ShadyRestInnData.lua
 Data\Storylines\GreenHillsData.lua
 Data\Storylines\NaralexData.lua
+Data\Storylines\HiddenEnemiesData.lua
+Data\Storylines\BlackfathomData.lua
+Data\Storylines\GnomereganData.lua
+Data\Storylines\RazorfenData.lua
 Data\Storylines\YetiData.lua
 Data\Storylines\MyzraelData.lua
 Data\Storylines\ThunderfuryData.lua
