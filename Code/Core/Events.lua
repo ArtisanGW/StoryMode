@@ -394,7 +394,12 @@ function SM.InitializeSlashCommands()
                                 local inLog = SM.IsQuestEntryInLog(q)
                                 local flagged = SM.IsQuestEntryComplete(q)
                                 local effective = SM.IsQuestEffectivelyComplete(j, ch.quests)
+                                local hidden = false
+                                for _, questID in ipairs(SM.GetQuestIDs(q)) do
+                                    if SM.IsQuestHiddenInLog(questID) then hidden = true end
+                                end
                                 local tag = inLog and "|cff00ff00[IN LOG]|r"
+                                    or (hidden and "|cff8888ff[hidden in log]|r")
                                     or (flagged and "|cffaaaaaa[done]|r")
                                     or (effective and "|cffff8800[eff-done]|r")
                                     or "|cffff4444[incomplete]|r"

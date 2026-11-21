@@ -185,15 +185,34 @@ function SM.IsQuestFlaggedCompleted(questID)
     return false
 end
 
+-- Where a quest the player is on sits in the quest log. Retail-engine
+-- clients (Retail and WoW Forever) also keep hidden entries there, such as
+-- tracking and system quests, and area tasks the player never accepted;
+-- those aren't quests the player is on, so they don't count.
+local function HiddenLogEntry(logIndex)
+    if not (logIndex and C_QuestLog and C_QuestLog.GetInfo) then return false end
+    local info = C_QuestLog.GetInfo(logIndex)
+    return info ~= nil and (info.isHidden or info.isTask) and true or false
+end
+
 function SM.GetLogIndexForQuestID(questID)
     if C_QuestLog and C_QuestLog.GetLogIndexForQuestID then
-        return C_QuestLog.GetLogIndexForQuestID(questID)
+        local logIndex = C_QuestLog.GetLogIndexForQuestID(questID)
+        if HiddenLogEntry(logIndex) then return nil end
+        return logIndex
     end
     if GetQuestLogIndexByID then
         local index = GetQuestLogIndexByID(questID)
         if index and index > 0 then return index end
     end
     return nil
+end
+
+-- Whether the quest log holds this quest only as a hidden entry or an area
+-- task (see above): for /sm debug.
+function SM.IsQuestHiddenInLog(questID)
+    if not (C_QuestLog and C_QuestLog.GetLogIndexForQuestID) then return false end
+    return HiddenLogEntry(C_QuestLog.GetLogIndexForQuestID(questID))
 end
 
 function SM.AddQuestWatch(questID)
