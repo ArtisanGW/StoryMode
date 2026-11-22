@@ -1596,6 +1596,7 @@ SM.ForeverQuestTextLocalized = {
     [98341] = "Busca al avatar de Saeyleenan al sur de Claro de la Luna y descubre lo que tiene que mostrarte sobre la naturaleza del felino natoviento.",
     [98342] = "Recupera la reliquia del colmillo, la reliquia de la garra y la reliquia de la sombra silenciosa en el Túmulo de Tempestira. Después, entrégaselas al gran espíritu felino.",
     [98362] = "Vuelve a Cima del Trueno para hablar con Turak Tótem Rúnico en Alto de los Ancestros.",
+    [98372] = "El guardia nocturno que yace ante ti está cubierto de profundos cortes y laceraciones. Es evidente que ha sido atacado por algún tipo de bestia de gran tamaño.$B$BTe das cuenta de que el cadáver tiene una antorcha apagada en la mano. Te agachas y se la arrancas de sus dedos rígidos. Esto podría resultarte útil en tus viajes por el Bosque del Ocaso y más allá para revelar lo que la oscuridad oculta.",
     [98393] = "Habla con Dendrita Rafagaestelar en el poblado Amparo de la Noche, en Claro de la Luna.",
     [98394] = "Busca al gran espíritu felino al sur de Claro de la Luna y descubre lo que tiene que mostrarte sobre la naturaleza del felino.",
     [98396] = "Recupera la reliquia del colmillo, la reliquia de la garra y la reliquia de la sombra silenciosa en el Túmulo de Tempestira. Después, entrégaselas al gran espíritu felino.",
@@ -1617,6 +1618,7 @@ SM.ForeverQuestTextLocalized = {
     [99257] = "Mata a un protector de pilón decrépito para obtener su corazón de cristal agotado y llévaselo al Historiador Biraxas, en el templo de Shen'dralas.",
     [99258] = "Arroja el corazón de cristal agotado a una falla de maná inestable. Vuelve con el Historiador Biraxas, en el templo de Shen'dralas, con pruebas de tu éxito o tu fracaso.",
     [99260] = "Habla con Elaadrin Vendaval del Atardecer en Valanaar.",
+    [99267] = "El guardia nocturno que yace ante ti está cubierto de profundos cortes y laceraciones. Es evidente que ha sido atacado por algún tipo de bestia de gran tamaño.$B$BTe das cuenta de que el cadáver tiene una antorcha apagada en la mano. Te agachas y se la arrancas de sus dedos rígidos. Esto podría resultarte útil en tus viajes por el Bosque del Ocaso y más allá para revelar lo que la oscuridad oculta.",
     [99435] = "Sigue a Reginald Windsor por Ventormenta. ¡Protégele del peligro!\\n\\nHabla con el escudero Rowe si necesitas volver a contactar con Reginald Windsor.",
     [99670] = "Vuelve con Jereman en la Cuna de la Tranquilidad.",
 }

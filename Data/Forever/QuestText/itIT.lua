@@ -1595,6 +1595,7 @@ SM.ForeverQuestTextLocalized = {
     [98341] = "Cerca l'Avatar di Saeyleenan nella parte meridionale di Radaluna e scopri cosa ha da insegnarti sulla natura del felino del vento.",
     [98342] = "Recupera la Reliquia della Zanna, la Reliquia dell'Artiglio e la Reliquia dell'Ombra Silente dalla Tana dei Tumuli di Grantempesta e riportale al Grande Spirito Felino.",
     [98362] = "Torna a Picco del Tuono e parla con Turak Totem Runico sull'Altura degli Anziani.",
+    [98372] = "Il Guardiano Notturno che giace davanti a te è coperto di tagli e ferite profonde. È evidente che è stato sbranato da una grossa bestia.$B$BNoti che il cadavere stringe in mano una torcia spenta. Ti chini e la sfili dalle sue dita irrigidite. Potrebbe esserti utile nei tuoi viaggi per Boscovespro e oltre, per rivelare ciò che l'oscurità nasconde.",
     [98393] = "Parla con Dendrite Ardistella nel villaggio di Nottequieta, a Radaluna.",
     [98394] = "Cerca il Grande Spirito Felino nella parte meridionale di Radaluna e scopri cosa ha da insegnarti sulla natura del felino.",
     [98396] = "Recupera la Reliquia della Zanna, la Reliquia dell'Artiglio e la Reliquia dell'Ombra Silente dalla Tana dei Tumuli di Grantempesta e riportale al Grande Spirito Felino.",
@@ -1616,6 +1617,7 @@ SM.ForeverQuestTextLocalized = {
     [99257] = "Uccidi un Protettore Decrepito del Pilone per ottenerne il Cuore di Cristallo Esaurito e portalo allo Storico Biraxas nel tempio di Shen'dralas.",
     [99258] = "Getta il Cuore di Cristallo Esaurito in una Fenditura di Mana Instabile. Torna dallo Storico Biraxas nel tempio di Shen'dralas con la prova del successo o del fallimento.",
     [99260] = "Parla con Elaadrin Evengale a Valanaar.",
+    [99267] = "Il Guardiano Notturno che giace davanti a te è coperto di tagli e ferite profonde. È evidente che è stato sbranato da una grossa bestia.$B$BNoti che il cadavere stringe ancora in mano una torcia spenta. A quanto pare, prima non l'avevi presa.$B$BTi chini e la sfili dalle sue dita irrigidite. Potrebbe esserti utile nei tuoi viaggi per Boscovespro e oltre, per rivelare ciò che l'oscurità nasconde.",
     [99435] = "Segui Reginald Windsor attraverso Roccavento. Proteggilo da ogni pericolo!\\n\\nParla con lo Scudiero Rowe se hai bisogno di contattare di nuovo Reginald Windsor.",
     [99670] = "Torna da Jereman alla Culla della Tranquillità.",
 }

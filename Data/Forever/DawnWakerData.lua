@@ -17,7 +17,9 @@ local addonName, SM = ...
 -- (wowhead.com/forever/guide/dawn-waker-secret-walkthrough, updated
 -- 2026-11-16).
 --
--- Only four steps are quests: The Ancient Hilt (93161), Eluvi'ana (97029),
+-- Only a few steps are quests: An Unfortunate End (98372, the Night
+-- Watchman's Torch from a dead guard in Duskwood; 99267 is the copy for a
+-- player who lost the torch), The Ancient Hilt (93161), Eluvi'ana (97029),
 -- Baron Marinous (98028, Alliance) or Baron Aquanis (6922, Horde), and
 -- Libram of Binding (98685). The rest happen in conversation or with hidden
 -- objects, so they are item steps (item = itemID): a step is done once the
@@ -80,6 +82,7 @@ SM.ForeverDawnWakerData = {
         ["Highborne Spirit"] = 147509,
         ["Mordent Evenshade"] = 30120,
         ["Lorekeeper Lydros"] = 14407,
+        ["Night Watch Guard"] = 2381,
         ["Prince Tortheldrin"] = 11256,
     },
 
@@ -90,6 +93,8 @@ SM.ForeverDawnWakerData = {
             recap = "I came by an old ring on Zephras Isle. It's dented, and the inside of the band carries a line of Kaldorei script worn so thin I could barely read it. I put it on because it fit.\n\nThere's a dragon asleep in the ruins of Ban'aethal and a hilt there that only shows up by torchlight. I let the dragon sleep and took the hilt to Ealaane Nimbuswalker. She went quiet for a while, then asked me to find the blade that belonged with it.\n\nThe blade wasn't anywhere you'd look on purpose, and I looked in a lot of places before I found it. Ealaane gave it its name, Eluvi'ana, the Night Dancer, and handed it back to me with the hilt. She watched the hilt until I put it away.",
             quests = {
                 { item = 264908, name = "Ancient Heirloom", npc = "Rorian the Dayseeker", objective = "Get the Ancient Heirloom. Rorian the Dayseeker gives one to the Skyborne once they come of age, and another lies on the top floor of a house close by.", gameVersions = { forever = true } },
+                -- The torch that shows the hilt: a dead Night Watch guard in western Duskwood.
+                { id = 98372, altIds = { 99267 }, name = "An Unfortunate End", npc = "Night Watch Guard", mapID = 1431, x = 0.1700, y = 0.5480, location = "Duskwood", gameVersions = { forever = true } },
                 { id = 93161, name = "The Ancient Hilt", npc = "Ancient Hilt", mapID = 2521, x = 0.5813, y = 0.2406, location = "the Ruins of Ban'aethal, Zephras Isle", gameVersions = { forever = true } },
                 { id = 97029, name = "Eluvi'ana", npc = "Ealaane Nimbuswalker", gameVersions = { forever = true } },
             },

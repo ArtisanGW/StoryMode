@@ -1596,6 +1596,7 @@ SM.ForeverQuestTextLocalized = {
     [98341] = "Sucht den Avatar von Saeyleenan im südlichen Teil von Moonglade auf und lernt alles, was er Euch über die Natur der windgetragenen Katze mitzuteilen hat.",
     [98342] = "Beschafft das Relikt des Reißzahns, das Relikt der Klaue und das Relikt des stillen Schattens aus dem Grabhügel des Stormrage und bringt die Relikte zum großen Katzengeist zurück.",
     [98362] = "Kehrt nach Thunder Bluff zurück und sprecht mit Turak Runetotem auf der Anhöhe der Ältesten.",
+    [98372] = "Der tote Nachtwächter, der vor Euch liegt, ist mit tiefen Wunden und Schnitten übersät. Er wurde eindeutig von einer Art großem Wildtier angefallen.$B$BIhr bemerkt, dass der Leichnam eine nicht angezündete Fackel in der Hand hält. Ihr beugt Euch hinunter und befreit sie aus seinen steifen Fingern. Sie könnte Euch bei Euren Reisen durch den Dämmerwald und darüber hinaus von Nutzen sein, um die in der Finsternis verborgenen Dinge zu enthüllen.",
     [98393] = "Sprecht mit Dendrite Starblaze in Nighthaven in Moonglade.",
     [98394] = "Sucht den großen Katzengeist im südlichen Teil von Moonglade auf und lernt alles, was er Euch über die Natur der Katze mitzuteilen hat.",
     [98396] = "Beschafft das Relikt des Reißzahns, das Relikt der Klaue und das Relikt des stillen Schattens aus dem Grabhügel des Stormrage und bringt die Relikte zum großen Katzengeist zurück.",
@@ -1617,6 +1618,7 @@ SM.ForeverQuestTextLocalized = {
     [99257] = "Erschlagt einen altersschwachen Pylonbeschützer, nehmt ihm sein erschöpftes Kristallherz ab und bringt es zu Historiker Biraxas im Tempel von Shen'dralas.",
     [99258] = "Werft das erschöpfte Kristallherz in einen instabilen Manariss. Kehrt mit einem Beweis für Erfolg oder Misserfolg zu Historiker Biraxas im Tempel von Shen'dralas zurück.",
     [99260] = "Sprecht mit Elaadrin Evengale in Valanaar.",
+    [99267] = "Der verstorbene Nachtwächter vor Euch ist mit tiefen Schnitten und klaffenden Wunden bedeckt. Es ist unverkennbar, dass er von einer großen Kreatur zerfleischt wurde.$B$BEuch fällt auf, dass der Leichnam eine nicht entzündete Fackel in der Hand hält. Ihr müsst sie vorhin doch nicht mitgenommen haben.$B$BIhr bückt Euch und löst sie aus seinen steifen Fingern. Sie könnte auf Euren Reisen durch den Dämmerwald und darüber hinaus nützlich sein, um zu enthüllen, was die Dunkelheit verbirgt.",
     [99435] = "Folgt Reginald Windsor durch Stormwind. Schützt ihn vor Gefahren!",
     [99670] = "Kehrt zu Jereman an der Wiege der Ruhe zurück.",
 }

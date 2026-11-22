@@ -683,7 +683,19 @@ local function CreateLegacyQuestCard(parent)
         local offerOnly = explorer and state == "next"
         self.undiscovered, self.offerOnly = undiscovered, offerOnly
         local objectives = (undiscovered or offerOnly) and {} or GetCardObjectives(self, done)
-        local expandable = #objectives > 1
+        -- An item step (quest.item) has no quest text of its own: the story's
+        -- data writes its objective.
+        local objectiveText = not (undiscovered or offerOnly) and (GetQuestCardText(quest and quest.id)
+            or (quest and quest.objective and SM.ApplyGenderTokens(quest.objective))) or nil
+        local giverText = undiscovered and L["Quest Undiscovered Text"] or GetQuestGiverText(data, quest)
+        -- A card opens when its closed face can't show everything: several
+        -- objectives, or text cut short at the closed card's lines (measured
+        -- at the open card's narrower width), which the open card shows whole.
+        self.npcLabel:SetWidth(CARD.descriptionRight - CARD.descriptionXOpenable)
+        self.npcLabel:SetMaxLines(CARD.collapsedLines)
+        self.npcLabel:SetText(objectiveText or giverText)
+        local cutShort = self.npcLabel.IsTruncated and self.npcLabel:IsTruncated() or false
+        local expandable = #objectives > 1 or cutShort
         local expanded = expandable and quest ~= nil and quest == expandedQuest
         -- Legacy has two looks, finished and not. A quest in the log keeps
         -- the unfinished art but is in full colour, so it doesn't read as not
@@ -731,11 +743,6 @@ local function CreateLegacyQuestCard(parent)
         end
         self.portrait:SetDesaturated(dimmed)
 
-        -- An item step (quest.item) has no quest text of its own: the story's
-        -- data writes its objective.
-        local objectiveText = not (undiscovered or offerOnly) and (GetQuestCardText(quest and quest.id)
-            or (quest and quest.objective and SM.ApplyGenderTokens(quest.objective))) or nil
-        local giverText = undiscovered and L["Quest Undiscovered Text"] or GetQuestGiverText(data, quest)
         local descriptionX = expandable and CARD.descriptionXOpenable or CARD.descriptionX
         self.npcLabel:ClearAllPoints()
         self.npcLabel:SetPoint("TOPLEFT", self, "TOPLEFT", descriptionX, -CARD.descriptionTop)

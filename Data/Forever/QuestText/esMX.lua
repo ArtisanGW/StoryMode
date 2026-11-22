@@ -1596,6 +1596,7 @@ SM.ForeverQuestTextLocalized = {
     [98341] = "Busca al Avatar de Saeyleenan en la parte sur del Claro de la Luna y descubre lo que tiene que contarte sobre la naturaleza del felino llevado por el viento.",
     [98342] = "Recupera la reliquia del colmillo, la reliquia de la garra y la reliquia de la sombra silenciosa del Túmulo de Tempestira, y devuélvelas al Gran espíritu felino.",
     [98362] = "Vuelve a Cima del Trueno y habla con Turak Tótem de Runa en Alto de los Ancestros.",
+    [98372] = "El velador de la noche yace muerto ante ti cubierto de tajos y cortes. Está claro que fue mutilado por una especie de bestia gigante.$B$BNotas que el cadáver tiene una antorcha apagada en la mano. Te agachas para sacarla de entre sus dedos rígidos. Esto podría ser útil en tus viajes por el Bosque del Ocaso y más allá para revelar lo que se oculta en la oscuridad.",
     [98393] = "Ve al poblado Amparo de la Noche en Claro de la Luna y habla con Dendrita Rafagaestelar.",
     [98394] = "Busca al gran espíritu felino en la parte sur de Claro de la Luna y aprende sobre la naturaleza del felino.",
     [98396] = "Recupera la reliquia del colmillo, la reliquia de la garra y la reliquia de la sombra silenciosa del Túmulo de Tempestira, y devuélvelas al Gran espíritu felino.",
@@ -1617,6 +1618,7 @@ SM.ForeverQuestTextLocalized = {
     [99257] = "Mata a un protector de pilón decrépito para obtener su corazón de cristal agotado y llévaselo al Historiador Biraxas en el templo de Shen'dralas.",
     [99258] = "Arroja el corazón de cristal agotado a una grieta de maná inestable. Regresa junto al Historiador Biraxas en el templo de Shen'dralas con una prueba de tu éxito o fracaso.",
     [99260] = "Habla con Elaadrin Ventopar en Valanaar.",
+    [99267] = "El guardia nocturno yace muerto ante ti cubierto de tajos y cortes. Está claro que fue mutilado por una especie de bestia gigante.$B$BNotas que el cadáver todavía tiene una antorcha apagada en la mano. Después de todo, parece que no la recogiste antes.$B$BTe agachas para sacarla de entre sus dedos rígidos. Esto podría ser útil en tus viajes por el Bosque del Ocaso y más allá para revelar lo que se oculta en la oscuridad.",
     [99435] = "Sigue a Reginald Windsor por Ventormenta. ¡Protégele del peligro!\\n\\nHabla con el Escudero Rowe si necesitas volver a contactar a Reginald Windsor.",
     [99670] = "Regresa junto a Jereman en la Cuna de Tranquilidad.",
 }

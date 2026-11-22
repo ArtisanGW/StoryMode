@@ -1596,6 +1596,7 @@ SM.ForeverQuestTextLocalized = {
     [98341] = "Partez à la recherche de l’avatar de Saeyleenan dans la partie sud de Reflet-de-Lune et découvrez ce qu’il peut vous apprendre sur la nature du félin du vent.",
     [98342] = "Récupérez la relique du croc, la relique de la griffe et la relique de l’ombre furtive dans le refuge des saisons de Malfurion, puis rapportez-les à l’esprit du Grand félin.",
     [98362] = "Retournez aux Pitons-du-Tonnerre et parlez à Turak Totem-runique, sur la cime des Anciens.",
+    [98372] = "Le guetteur de nuit qui gît devant vous est couvert de profondes griffures et de larges entailles. Il est évident qu’il a été mutilé par une bête de grande taille.$B$BVous remarquez qu’il serre encore une torche éteinte dans sa main. Vous vous penchez et l’arrachez à ses doigts raidis. Elle pourrait vous être utile au cours de vos voyages dans le bois de la Pénombre et au-delà, pour révéler ce que les ténèbres dissimulent.",
     [98393] = "Parlez à Dendrite Brasétoile au village de Havrenuit, à Reflet-de-Lune.",
     [98394] = "Partez à la recherche de l’esprit du Grand félin dans la partie sud de Reflet-de-Lune, et découvrez ce qu’il peut vous apprendre sur la nature du félin.",
     [98396] = "Récupérez la relique du croc, la relique de la griffe et la relique de l’ombre furtive dans le refuge des saisons de Malfurion, puis rapportez-les à l’esprit du Grand félin.",
@@ -1617,6 +1618,7 @@ SM.ForeverQuestTextLocalized = {
     [99257] = "Tuez un protecteur de pylône décrépit pour obtenir son cœur de cristal épuisé et apportez-le à l’Historien Biraxas dans le temple de Shen’dralas.",
     [99258] = "Jetez le cœur de cristal épuisé dans une faille de mana instable. Retournez voir l’Historien Biraxas dans le temple de Shen’dralas avec la preuve de votre réussite ou de votre échec.",
     [99260] = "Parlez à Elaadrin Trombecalme, à Valanaar.",
+    [99267] = "Le garde de nuit décédé qui git devant vous est couvert de profondes entailles et lacérations. Il apparaît clairement qu’il a été mutilé par un gros animal.$B$BVous remarquez que le cadavre tient une torche non allumée dans la main. Vous ne devez pas l’avoir prise plus tôt, comme vous le pensiez.$B$BVous vous penchez et la tirez de ses doigts raides. Elle pourrait vous servir au cours de vos voyages dans le bois de la Pénombre, et peut-être révéler ce qui se cache dans l’obscurité.",
     [99435] = "Suivez Reginald Windsor à travers Hurlevent. Protégez-le contre toute menace !\\n\\nParlez à l’Écuyer Rowe si vous devez de nouveau contacter Reginald Windsor.",
     [99670] = "Retournez voir Jereman au Berceau de la tranquillité.",
 }

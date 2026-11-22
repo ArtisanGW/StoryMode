@@ -376,7 +376,7 @@ introCoverLayout:SetTexCoord(0, 1, 0, 1)
 -- instead: the smallest one at least as wide as the logo is on screen.
 local LOGO_WIDTHS = { 512, 768, 1024 }
 local function LogoTextureFor(width)
-    local _, screenH = GetPhysicalScreenSize and GetPhysicalScreenSize()
+    local screenH = GetPhysicalScreenSize and select(2, GetPhysicalScreenSize())
     local pixels = width * introCoverFrame:GetEffectiveScale() * ((screenH or 768) / 768)
     for _, size in ipairs(LOGO_WIDTHS) do
         if size >= pixels then return STORYMODE_LAYOUT_TEXTURE .. "_" .. size end
@@ -390,21 +390,28 @@ introText:SetTextColor(C_BODY[1], C_BODY[2], C_BODY[3])
 introText:SetText(L["Intro Text"])
 introText:Hide()
 
+-- The Forever window draws its own start page (ForeverWindow.lua: a journal
+-- page with the welcome and the settings) in place of the cover; introText
+-- stays hidden there and only holds the text it shows.
+local ownStartPage = SM.ForeverWindow and SM.ForeverWindow.HasStartPage and SM.ForeverWindow.HasStartPage() or false
+
 local function SetIntroVisible(show)
-    if show then
-        introCoverFrame:Show()
-        introText:Show()
-    else
-        introCoverFrame:Hide()
-        introText:Hide()
-        SM.FitDetailPageTo(nil)
+    introCoverFrame:SetShown(show and not ownStartPage)
+    introText:SetShown(show and not ownStartPage)
+    if ownStartPage then
+        if show and SM.HideJournalPageText then SM.HideJournalPageText() end
+        SM.ForeverWindow.ShowStartPage(show)
     end
-    if SM.ForeverWindow then SM.ForeverWindow.ShowQuestModeChoice(show) end
+    if not show then SM.FitDetailPageTo(nil) end
 end
 
 SetIntroVisible(false)
 
 local function LayoutIntro()
+    if ownStartPage then
+        SM.FitDetailPageTo(SM.ForeverWindow.LayoutStartPage(detailChild, CP), 24, 400)
+        return
+    end
     local w = detailChild:GetWidth()
     local contentW = w - CP * 2
     local visibleTargetW = math.min(INTRO.coverMaxW, contentW)
@@ -428,9 +435,7 @@ local function LayoutIntro()
     introText:SetPoint("TOPRIGHT", detailChild, "TOPRIGHT", -CP, -(coverH + INTRO.textGap))
     if contentW > 20 then introText:SetWidth(contentW) end
 
-    -- The Forever window puts its Guided/Explorer choice under the text.
-    local pageBottom = SM.ForeverWindow and SM.ForeverWindow.PlaceQuestModeChoice(introText) or introText
-    SM.FitDetailPageTo(pageBottom, 40, 400)
+    SM.FitDetailPageTo(introText, 40, 400)
 end
 
 -- ══════════════════════════════════════════════════════════════════════════════

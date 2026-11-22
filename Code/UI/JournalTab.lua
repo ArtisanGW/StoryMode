@@ -353,7 +353,32 @@ local function ChooseVoice(sex, name)
 end
 
 -- The voices that speak the client's language (or don't say), to pick one
--- for this character's sex.
+-- for this character's sex: { value, text } with Automatic (value false)
+-- first. The start page's Journal voice row (ForeverWindow.lua) steps
+-- through them.
+function SM.GetJournalVoiceChoices()
+    local sex, language = CharacterSex(), ClientLanguage()
+    local saved = SavedVoiceName(sex)
+    local choices = { { value = false, text = L["Journal Voice Automatic"] } }
+    for _, voice in ipairs(GetVoices()) do
+        local name = voice.name
+        local lang = name and VoiceLanguage(name)
+        if name and (lang == nil or lang == language or name == saved) then
+            choices[#choices + 1] = { value = name, text = name }
+        end
+    end
+    return choices
+end
+
+-- The voice picked by hand for this character's sex, or false (Automatic).
+function SM.GetJournalVoice()
+    return SavedVoiceName(CharacterSex()) or false
+end
+
+function SM.SetJournalVoice(name)
+    ChooseVoice(CharacterSex(), name or nil)
+end
+
 local function ShowVoiceMenu(owner)
     if not (MenuUtil and MenuUtil.CreateContextMenu) then return end
     if SM.Tooltip then SM.Tooltip:Hide() end
@@ -524,6 +549,15 @@ local function BuildPages(entries, width, ref, firstTop, limit)
     return list, where
 end
 
+-- The text a chapter carries on to a later page lives on the journal page's
+-- layer, which the start page shows too (ForeverWindow.lua): hidden there,
+-- and the reading stops (it would turn the journal's pages). ShowPage shows
+-- the text again.
+function SM.HideJournalPageText()
+    Voice:Stop()
+    for _, body in ipairs(pageBodies) do body:Hide() end
+end
+
 -- Shows page n of the journal laid out last.
 local function ShowPage(n)
     local layout = pages.layout
@@ -607,6 +641,9 @@ local function HookPageFrames(detailScroll, layer)
     detailScroll:HookScript("OnMouseWheel", function(_, delta)
         local pager = pages.pager
         if not (pager and pages.layout and layer:IsVisible() and #pages.list > 1) then return end
+        -- The start page shares the journal page and turns its own pages.
+        local foreverWindow = SM.ForeverWindow
+        if foreverWindow and foreverWindow.IsStartPageShown and foreverWindow.IsStartPageShown() then return end
         if delta > 0 then pager:PreviousPage() else pager:NextPage() end
     end)
     layer:HookScript("OnHide", function() Voice:Stop() end)

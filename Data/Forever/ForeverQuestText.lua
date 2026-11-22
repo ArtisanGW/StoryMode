@@ -1597,6 +1597,7 @@ SM.ForeverQuestText = {
     [98341] = "Seek out the Avatar of Saeyleenan in the southern part Moonglade and learn what it has to share with you about the nature of the windborne cat.",
     [98342] = "Recover the Relic of the Fang, Relic of the Claw, and Relic of the Silent Shadow from the Stormrage Barrow Den, and return them to the Great Cat Spirit.",
     [98362] = "Return to Thunder Bluff and speak with Turak Runetotem on the Elder Rise.",
+    [98372] = "The deceased Night Watchman lying before you is covered in deep gashes and cuts. It's clear to see that he was mauled by some sort of large beast.$B$BYou notice that the corpse has an unlit torch in his hand. You reach down and pry it from his stiff fingers. This could be useful in your travels through Duskwood and beyond to reveal things hidden by darkness.",
     [98393] = "Speak with Dendrite Starblaze in the village of Nighthaven, Moonglade.",
     [98394] = "Seek out the Great Cat Spirit in southern part Moonglade and learn what it has to share with you about the nature of the cat.",
     [98396] = "Recover the Relic of the Fang, Relic of the Claw, and Relic of the Silent Shadow from the Stormrage Barrow Den, and return them to the Great Cat Spirit.",
@@ -1618,6 +1619,7 @@ SM.ForeverQuestText = {
     [99257] = "Slay a Decrepit Pylon Protector for their Depleted Crystal Heart and bring it to Historian Biraxas within the temple of Shen'dralas.",
     [99258] = "Throw the Depleted Crystal Heart into an Unstable Mana Rift. Return to Historian Biraxas within the temple of Shen'dralas with proof of success or failure.",
     [99260] = "Speak with Elaadrin Evengale in Valanaar.",
+    [99267] = "The deceased Night Watchman lying before you is covered in deep gashes and cuts. It's clear to see that he was mauled by some sort of large beast.$B$BYou notice that the corpse still has an unlit torch in his hand. You must not have taken it earlier after all.$B$BYou reach down and pry it from his stiff fingers. This could be useful in your travels through Duskwood and beyond to reveal things hidden by darkness.",
     [99435] = "Follow Reginald Windsor through Stormwind. Protect him from harm!\n\nSpeak to Squire Rowe if you need to contact Reginald Windsor again.",
     [99670] = "Return to Jereman at the Cradle of Tranquility.",
 }

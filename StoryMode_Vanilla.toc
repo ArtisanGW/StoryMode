@@ -13,6 +13,7 @@
 ## SavedVariables: StoryModeDB
 ## OptionalDeps: LibDataBroker-1.1
 ## Version: 2.0.1
+## X-Build: @project-revision@
 ## Author: Rafael Polutta
 ## IconTexture: Interface\AddOns\StoryMode\Art\Icons\storymode_icon
 
