@@ -224,7 +224,20 @@ function SM.AddQuestWatch(questID)
     end
 end
 
+-- Newer clients (WoW Forever, and retail since Midnight) leave the world map
+-- to the player. Addon code may not open it (C_Map.OpenWorldMap is
+-- restricted), and every pin the map places calls SetPassThroughButtons,
+-- which is restricted too. When Story Mode opened the map and quest log
+-- itself, the pins kept its taint, and a later click on one (a shift-click
+-- to untrack, say) was blocked with "StoryMode has been blocked from an
+-- action only available to the Blizzard UI". There Story Mode never opens
+-- or draws on the map.
+function SM.MapIsRestricted()
+    return issecretvalue ~= nil
+end
+
 function SM.OpenQuestLogToQuest(questID)
+    if SM.MapIsRestricted() then return false end
     local logIndex = SM.GetLogIndexForQuestID(questID)
     if not logIndex then return false end
 
@@ -509,13 +522,16 @@ end
 
 -- A quest line can name the ID WoW Forever uses for it (foreverId), where
 -- Forever reworked a quest under a new ID. On Forever the line takes that ID
--- and keeps the Classic one in classicId.
+-- and keeps the Classic one in classicId. foreverOptional makes a quest
+-- optional on Forever only: one Forever's server won't describe (/sm scan)
+-- and no one has reported doing there, so its chapter can't stall on it.
 local function ApplyForeverQuestID(quest)
     if type(quest) ~= "table" then return end
     if quest.foreverId and not quest.classicId then
         quest.classicId = quest.id
         quest.id = quest.foreverId
     end
+    if quest.foreverOptional then quest.optional = true end
     ApplyForeverQuestID(quest.guidanceQuest)
     for _, guidanceQuest in ipairs(quest.guidanceQuests or {}) do
         ApplyForeverQuestID(guidanceQuest)

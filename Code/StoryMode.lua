@@ -518,9 +518,10 @@ function SM.QueueSecureTrack(data, quest)
     pendingSecureTrack = { data = data, quest = quest }
 end
 
--- Called from the macro via /run — runs in secure context, so its calls to
--- OpenWorldMap / AddQuestWatch / SetSuperTrackedQuestID / SetUserWaypoint
--- don't taint the execution path. SM.ExecuteTrackButton resolves at call time.
+-- Called from the macro via /run. Code run by /run is tainted like any addon
+-- code, so this doesn't make the tracking calls secure; where the world map
+-- is restricted, Tracking.lua keeps them off the map instead
+-- (SM.MapIsRestricted). SM.ExecuteTrackButton resolves at call time.
 function StoryMode_ExecuteSecureTrack()
     local pending = pendingSecureTrack
     pendingSecureTrack = nil

@@ -68,7 +68,12 @@ SM.ClassicPaladinQuestData = {
             summary = "In Deathknell, Aramis Hammerhand teaches what the Light still asks of a paladin, and Aramis isn't one for long lectures. The Deathguard nearby are hurt, the Light heals, and you know the words. Start there.",
             recap = "My training started in Deathknell, under Aramis Hammerhand. What I learned there: the Light doesn't care what you were, only what you do with it. Also, it takes some getting used to.\n\nAramis put me to work on the injured Deathguard. Five of them, five times the Holy Light, five soldiers back on their feet. Not glamorous. It's the job, and I've always liked the job.\n\nThen there was a frightened paladin in Deathknell, a brother of the order who couldn't make his peace with what he'd become. I didn't have a speech ready. I offered what help I could and hoped it was a start. Some wounds the Light reaches slowly.\n\nAfter that, Aramis pointed me down the road to Brill, where Shari Stilwell was waiting to take over my education. I'm good at going where I'm pointed. It's one of my better qualities, and I have several.",
             quests = {
-                { id = 90902, name = "Rediscovering the Light", npc = "Aramis Hammerhand", faction = "Horde", race = "Scourge", mapID = 1420, x = 0.3100, y = 0.6620, location = "Aramis Hammerhand, Deathknell, Tirisfal Glades", gameVersions = { forever = true } },
+                { id = 90902, name = "Rediscovering the Light", npc = "Aramis Hammerhand", faction = "Horde", race = "Scourge", mapID = 1420, x = 0.3100, y = 0.6620, location = "Aramis Hammerhand, Deathknell, Tirisfal Glades", gameVersions = { forever = true },
+                    guidanceQuests = {
+                        { id = 364, name = "The Mindless Ones", npc = "Shadow Priest Sarvis", mapID = 1420, x = 0.3080, y = 0.6620 },
+                        { id = 98601, name = "A Difficult Path", npc = "Shadow Priest Sarvis", mapID = 1420, x = 0.3080, y = 0.6620 },
+                    },
+                },
                 { id = 91208, name = "Coming to Terms", npc = "Aramis Hammerhand", faction = "Horde", race = "Scourge", mapID = 1420, x = 0.3100, y = 0.6620, location = "Aramis Hammerhand, Deathknell, Tirisfal Glades", gameVersions = { forever = true } },
                 { id = 91209, name = "Continue Your Training", npc = "Aramis Hammerhand", faction = "Horde", race = "Scourge", mapID = 1420, x = 0.3100, y = 0.6620, location = "Aramis Hammerhand, Deathknell, Tirisfal Glades", gameVersions = { forever = true } },
             },

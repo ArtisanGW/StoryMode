@@ -23,11 +23,33 @@ end
 -- On WoW Forever the player decides whether Story Mode marks the map: it
 -- adds a waypoint, makes a quest the tracked one or turns on trivial quest
 -- tracking only while the world map's Quest Objectives filter is on.
--- Track Quest still watches the quest and opens the map at the spot.
+-- Track Quest still watches the quest.
 local function MapPinsWanted()
     if not (SM.Client and SM.Client.isForever) then return true end
     local value = GetCVar and GetCVar("questPOI")
     return value == nil or value == "1"
+end
+
+-- Where the map is restricted (SM.MapIsRestricted), a quest watch or a
+-- waypoint set while the map is open redraws its pins inside Story Mode's
+-- call, which the game blocks. Those wait until the map is closed; the
+-- latest Track Quest wins.
+local pendingMapWork, mapWaitTicker
+local function WhenMapClosed(work)
+    if not (SM.MapIsRestricted() and WorldMapFrame and WorldMapFrame:IsShown()) then
+        work()
+        return
+    end
+    pendingMapWork = work
+    if mapWaitTicker then return end
+    mapWaitTicker = C_Timer.NewTicker(0.25, function()
+        if WorldMapFrame:IsShown() then return end
+        mapWaitTicker:Cancel()
+        mapWaitTicker = nil
+        local run = pendingMapWork
+        pendingMapWork = nil
+        if run then run() end
+    end)
 end
 
 -- Map data provider for the "begin tracking" ping. We can't parent an insecure
@@ -95,6 +117,7 @@ end
 end
 
 local function OpenStoryMap(mapID)
+    if SM.MapIsRestricted() then return false end
     if WorldMapFrame then
         if not WorldMapFrame:IsShown() then
             if ToggleWorldMap then
@@ -126,8 +149,10 @@ end
 
 local function PingOnWorldMap(mapID, x, y)
     if not WorldMapFrame then return end
-    OpenStoryMap(mapID)
     PlaySound(SOUNDKIT.UI_MAP_WAYPOINT_SUPER_TRACK_ON or 167425)
+    -- The player opens a restricted map; the waypoint is already on it.
+    if SM.MapIsRestricted() then return end
+    OpenStoryMap(mapID)
 
     -- Explorer mode opens the map without the gold ping on the spot.
     if SM.IsExplorerMode and SM.IsExplorerMode() then return end
@@ -257,13 +282,16 @@ function SM.SetWaypointForQuest(data, quest)
     local inLog, logQuestID = SM.IsQuestEntryInLog(quest)
     if inLog then
         local qid = GetTrackedQuestID(quest)
-        SM.AddQuestWatch(qid)
-        if pinsWanted and C_SuperTrack and C_SuperTrack.SetSuperTrackedQuestID then
-            C_SuperTrack.SetSuperTrackedQuestID(qid)
-        end
-        -- On WoW Forever the quest opens in the quest log beside the map, as
-        -- it does on Classic. Its details turn the map to the quest's zone and
-        -- close when the map moves on, so the ping only goes on that map.
+        WhenMapClosed(function()
+            SM.AddQuestWatch(qid)
+            if pinsWanted and C_SuperTrack and C_SuperTrack.SetSuperTrackedQuestID then
+                C_SuperTrack.SetSuperTrackedQuestID(qid)
+            end
+        end)
+        -- On WoW Forever the quest opened in the quest log beside the map, as
+        -- it does on Classic, until the map became restricted there; where it
+        -- still isn't, its details turn the map to the quest's zone and close
+        -- when the map moves on, so the ping only goes on that map.
         local opened = SM.Client.isForever and SM.OpenQuestLogToQuest(logQuestID or qid) or false
         local loc = GetQuestLocation(data, quest)
         local shownMapID = opened and WorldMapFrame and WorldMapFrame.GetMapID and WorldMapFrame:GetMapID()
@@ -279,18 +307,23 @@ function SM.SetWaypointForQuest(data, quest)
     local loc = GetQuestLocation(data, trackQuest)
     local qid = GetTrackedQuestID(trackQuest)
 
-    if pinsWanted and qid and C_SuperTrack and C_SuperTrack.SetSuperTrackedMapPin
-        and Enum and Enum.SuperTrackingMapPinType and Enum.SuperTrackingMapPinType.QuestOffer then
-        C_SuperTrack.SetSuperTrackedMapPin(Enum.SuperTrackingMapPinType.QuestOffer, qid)
-    end
-
-    if pinsWanted and loc and C_Map and C_Map.CanSetUserWaypointOnMap and C_Map.CanSetUserWaypointOnMap(loc.mapID)
-        and UiMapPoint and C_Map.SetUserWaypoint then
-        local point = UiMapPoint.CreateFromCoordinates(loc.mapID, loc.x, loc.y)
-        C_Map.SetUserWaypoint(point)
-        if C_SuperTrack and C_SuperTrack.SetSuperTrackedUserWaypoint then
-            C_SuperTrack.SetSuperTrackedUserWaypoint(true)
+    local superTrackOffer = pinsWanted and qid and C_SuperTrack and C_SuperTrack.SetSuperTrackedMapPin
+        and Enum and Enum.SuperTrackingMapPinType and Enum.SuperTrackingMapPinType.QuestOffer
+    local setWaypoint = pinsWanted and loc and C_Map and C_Map.CanSetUserWaypointOnMap and C_Map.CanSetUserWaypointOnMap(loc.mapID)
+        and UiMapPoint and C_Map.SetUserWaypoint
+    WhenMapClosed(function()
+        if superTrackOffer then
+            C_SuperTrack.SetSuperTrackedMapPin(Enum.SuperTrackingMapPinType.QuestOffer, qid)
         end
+        if setWaypoint then
+            C_Map.SetUserWaypoint(UiMapPoint.CreateFromCoordinates(loc.mapID, loc.x, loc.y))
+            if C_SuperTrack and C_SuperTrack.SetSuperTrackedUserWaypoint then
+                C_SuperTrack.SetSuperTrackedUserWaypoint(true)
+            end
+        end
+    end)
+
+    if setWaypoint then
         PingOnWorldMap(loc.mapID, loc.x, loc.y)
         return TrackResult("waypoint", qid, loc, false, guidanceQuest)
     end

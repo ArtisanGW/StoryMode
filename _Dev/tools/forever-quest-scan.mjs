@@ -425,8 +425,11 @@ async function loadForeverStories(hiddenQuests = []) {
           quest.ids[0] = quest.id;
         }
       }
+      // allQuests keeps the guidance hints in place, for check's order;
+      // quests is the story's own steps.
       const seen = new Set();
-      story.quests = story.quests.filter((quest) => !seen.has(quest.id) && seen.add(quest.id));
+      story.allQuests = story.quests.filter((quest) => quest.guidance || (!seen.has(quest.id) && seen.add(quest.id)));
+      story.quests = story.allQuests.filter((quest) => !quest.guidance);
       stories.push(story);
     }
   }
@@ -1130,19 +1133,29 @@ async function checkQuests() {
   const stories = await loadForeverStories([]);
   const findings = [];
   const add = (story, quest, type, detail, claim = null) => findings.push({ story: story.title, file: story.rel, chapter: quest.chapter, id: quest.id, name: quest.name, type, detail, claim });
+  // Quests by the quest they unlock (cmangos NextQuestId), and the quests of
+  // each negative exclusive group, which all have to be done.
+  const unlockedBy = {};
+  const groupMembers = {};
+  for (const [questID, classic] of Object.entries(db.quests)) {
+    if (classic.next) (unlockedBy[Math.abs(classic.next)] ||= []).push(Number(questID));
+    if (classic.group < 0) (groupMembers[classic.group] ||= []).push(Number(questID));
+  }
 
   for (const story of stories) {
     // Where each quest sits in the story, by every ID it goes by.
     const order = new Map();
-    story.quests.forEach((quest, index) => {
-      // A guidance hint points to what its quest needs first: it counts as
-      // coming just before that quest.
-      const at = /^guidanceQuest\s*=/.test(quest.line) ? index - 1.5 : index;
+    let owner = 0;
+    story.allQuests.forEach((quest, index) => {
+      // A guidance hint points to what the quest above it needs first: it
+      // counts as coming just before that quest.
+      if (!quest.guidance) owner = index;
+      const at = quest.guidance ? owner - 0.5 : index;
       for (const id of [quest.id, quest.classicId, ...(quest.ids || [])]) if (id && !order.has(id)) order.set(id, at);
     });
-    story.quests.forEach((quest, index) => {
+    story.allQuests.forEach((quest, index) => {
       // A guidance hint inside another quest isn't a step of the story.
-      if (/^guidanceQuest\s*=/.test(quest.line)) return;
+      if (quest.guidance) return;
       const title = scan?.titles.get(quest.id);
       // No answer can mean the request timed out: Wowhead's Forever data has
       // some of these quests, so it's worth a look, not proof they're gone.
@@ -1187,11 +1200,31 @@ async function checkQuests() {
         else if (classMask & ~classic.classes) add(story, quest, "class", `only ${namesOf(classic.classes, CLASS_BITS).join(", ")}, but the story names ${list(quest.class || quest.storyClass).join(", ")}`, { classes: classic.classes });
       }
 
-      // What has to come first.
+      // What has to come first. As the cmangos server decides it
+      // (Player::SatisfyQuestPreviousQuest), a quest's previous quests are its
+      // own PrevQuestId (negative: it only has to be in the log) and every
+      // quest that names it as NextQuestId, and finishing any one of them is
+      // enough, except that one in a negative exclusive group needs its whole
+      // group. Only quests the story's faction can take count.
+      const forFaction = (questID) => {
+        const races = db.quests[questID]?.races;
+        return !races || !faction || !!(races & FACTION_RACES[faction]);
+      };
+      const groupOf = (questID) => {
+        const group = db.quests[questID].group;
+        return group < 0 ? (groupMembers[group] || [questID]).filter(forFaction) : [questID];
+      };
+      const prevs = new Set();
       const prev = Math.abs(classic.prev);
-      if (prev && db.quests[prev]) {
-        if (order.has(prev) && order.get(prev) > index) add(story, quest, "order", `needs ${prev} "${db.quests[prev].title}" first, which the story puts later`);
-        else if (!order.has(prev)) add(story, quest, "prerequisite", `needs ${prev} "${db.quests[prev].title}" first, which isn't in the story`);
+      if (prev && db.quests[prev]) prevs.add(prev);
+      for (const from of unlockedBy[id] || []) prevs.add(from);
+      const options = [...new Map([...prevs].filter(forFaction).map(groupOf).filter((all) => all.length)
+        .map((all) => [all.slice().sort((a, b) => a - b).join(","), all])).values()];
+      const done = (all) => all.every((questID) => order.has(questID) && order.get(questID) < index);
+      if (options.length && !options.some(done)) {
+        const names = options.map((all) => all.map((questID) => `${questID} "${db.quests[questID].title}"`).join(" and ")).join(" or ");
+        if (options.some((all) => all.every((questID) => order.has(questID)))) add(story, quest, "order", `needs ${names} first, which the story puts later`);
+        else add(story, quest, "prerequisite", `needs ${names} first, which isn't in the story`);
       }
     });
   }

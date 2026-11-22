@@ -194,7 +194,11 @@ SM.OnyxiaData = {
                 { id = 4867, name = "Urok Doomhowl", npc = "Warosh", optional = true, recap = "Urok Doomhowl had cursed Warosh mute, so all Warosh could do was hand me a scroll that came down to: get my mojo. I got the mojo, and with a voice again Warosh told me I was a fool to think I'd reach the top of the Spire, but that my bravery was beyond question. I've had warmer thanks, and worse." },
                 { id = 5160, name = "The Matron Protectorate", npc = "Awbee", optional = true, recap = "Deep in the Spire, Awbee gave me a scale and sent me to Winterspring, where you stand on a cobalt rune in the caves of Mazthoril and end up in front of Haleh. Haleh scried what Awbee had seen in that doomed place. Dragons, I learned, are forbidden to meddle in mortal affairs, unless one of their own starts it." },
                 { id = 5047, name = "Pip Quickwit, At Your Service!", npc = "Pip Quickwit", optional = true, recap = "We skinned the Beast in the upper Spire, and out climbed a gnome named Pip Quickwit, in a suit, delighted with how the suit had held up. Pip sent me to Malyfous Darkhammer in Everlook with the news and a glowing lump of the Beast's insides. Malyfous asked if Pip was alive, if the suit worked, and then mostly about the lump." },
-                { id = 5127, name = "The Demon Forge", npc = "Lorax", optional = true, recap = "Lorax, out in the snows of Winterspring, had bought the soul of a Spire smith named Goraluk Anvilcrack and sent me to collect it with a fel-soaked pike. Goraluk died, the pike drank him up, and I brought back the breastplate he'd stolen too. Lorax thanked me in rhyme, which somehow made it worse." },
+                { id = 5127, name = "The Demon Forge", npc = "Lorax", optional = true, recap = "Lorax, out in the snows of Winterspring, had bought the soul of a Spire smith named Goraluk Anvilcrack and sent me to collect it with a fel-soaked pike. Goraluk died, the pike drank him up, and I brought back the breastplate he'd stolen too. Lorax thanked me in rhyme, which somehow made it worse.",
+                    guidanceQuests = {
+                        { id = 5126, name = "Lorax's Tale", npc = "Lorax", mapID = 83, x = 0.6380, y = 0.7380 },
+                    },
+                },
             },
         },
         {
@@ -260,7 +264,11 @@ SM.OnyxiaData = {
                 { id = 4867, name = "Urok Doomhowl", npc = "Warosh", optional = true, recap = "Urok Doomhowl had cursed Warosh mute, so all Warosh could do was hand me a scroll that came down to: get my mojo. I got the mojo, and with a voice again Warosh told me I was a fool to think I'd reach the top of the Spire, but that my bravery was beyond question. I've had warmer thanks, and worse." },
                 { id = 5160, name = "The Matron Protectorate", npc = "Awbee", optional = true, recap = "Deep in the Spire, Awbee gave me a scale and sent me to Winterspring, where you stand on a cobalt rune in the caves of Mazthoril and end up in front of Haleh. Haleh scried what Awbee had seen in that doomed place. Dragons, I learned, are forbidden to meddle in mortal affairs, unless one of their own starts it." },
                 { id = 5047, name = "Pip Quickwit, At Your Service!", npc = "Pip Quickwit", optional = true, recap = "We skinned the Beast in the upper Spire, and out climbed a gnome named Pip Quickwit, in a suit, delighted with how the suit had held up. Pip sent me to Malyfous Darkhammer in Everlook with the news and a glowing lump of the Beast's insides. Malyfous asked if Pip was alive, if the suit worked, and then mostly about the lump." },
-                { id = 5127, name = "The Demon Forge", npc = "Lorax", optional = true, recap = "Lorax, out in the snows of Winterspring, had bought the soul of a Spire smith named Goraluk Anvilcrack and sent me to collect it with a fel-soaked pike. Goraluk died, the pike drank him up, and I brought back the breastplate he'd stolen too. Lorax thanked me in rhyme, which somehow made it worse." },
+                { id = 5127, name = "The Demon Forge", npc = "Lorax", optional = true, recap = "Lorax, out in the snows of Winterspring, had bought the soul of a Spire smith named Goraluk Anvilcrack and sent me to collect it with a fel-soaked pike. Goraluk died, the pike drank him up, and I brought back the breastplate he'd stolen too. Lorax thanked me in rhyme, which somehow made it worse.",
+                    guidanceQuests = {
+                        { id = 5126, name = "Lorax's Tale", npc = "Lorax", mapID = 83, x = 0.6380, y = 0.7380 },
+                    },
+                },
             },
         },
         {
@@ -271,12 +279,17 @@ SM.OnyxiaData = {
             recapHorde = "The amulet got us through the door of Onyxia's Lair, down in the south of Dustwallow Marsh, and after that it was up to us. Onyxia didn't greet us. She breathed on us, which is how dragons say hello. Then came the whelps, a great many whelps, as if she'd been saving them for company.\n\nWe came out with her head, and I carried it to Thrall in Orgrimmar. Thrall sent me on to Overlord Runthak, who had it raised over the Valley of Strength for all to see. Every orc in the city stood a little taller that day, and so did I.\n\nRunthak had a reward for me afterwards, and a speech to go with it: the journey, he said, had only just begun. Easy for him to say. He wasn't the one who carried the head.",
             quests = {
                 { id = 7495, name = "Victory for the Alliance", location = "Onyxia's Lair, Dustwallow Marsh", faction = "Alliance", instance = "raid" },
-                { id = 7496, name = "Celebrating Good Times", npc = "Highlord Bolvar Fordragon", faction = "Alliance" },
-                { id = 7497, name = "The Journey Has Just Begun", npc = "Major Mattingly", faction = "Alliance" },
+                { id = 7496, name = "Celebrating Good Times", foreverOptional = true, npc = "Highlord Bolvar Fordragon", faction = "Alliance" },
+                { id = 7497, name = "The Journey Has Just Begun", foreverOptional = true, npc = "Major Mattingly", faction = "Alliance" },
                 { id = 7490, name = "Victory for the Horde", location = "Onyxia's Lair, Dustwallow Marsh", faction = "Horde", instance = "raid" },
-                { id = 7491, name = "For All To See", npc = "Thrall", faction = "Horde" },
-                { id = 7493, name = "The Journey Has Just Begun", npc = "Overlord Runthak", faction = "Horde" },
-                { id = 7509, name = "The Forging of Quel'Serrar", npc = "Lorekeeper Lydros", class = { "WARRIOR", "PALADIN" }, optional = true, instance = "raid", recap = "Lorekeeper Lydros had said the blade wasn't finished until a dragon breathed on it, which is an odd way to temper steel and a very common way to die. So in the middle of all that, I laid Quel'Serrar on the floor of Onyxia's Lair and let her do the forging. Lydros was right. It came out of the fire a proper sword." },
+                { id = 7491, name = "For All To See", foreverOptional = true, npc = "Thrall", faction = "Horde" },
+                { id = 7493, name = "The Journey Has Just Begun", foreverOptional = true, npc = "Overlord Runthak", faction = "Horde" },
+                { id = 7509, name = "The Forging of Quel'Serrar", npc = "Lorekeeper Lydros", class = { "WARRIOR", "PALADIN" }, optional = true, instance = "raid", recap = "Lorekeeper Lydros had said the blade wasn't finished until a dragon breathed on it, which is an odd way to temper steel and a very common way to die. So in the middle of all that, I laid Quel'Serrar on the floor of Onyxia's Lair and let her do the forging. Lydros was right. It came out of the fire a proper sword.",
+                    guidanceQuests = {
+                        { id = 7507, name = "Nostro's Compendium", npc = "Nostro's Compendium of Dragon Slaying" },
+                        { id = 7508, name = "The Forging of Quel'Serrar", npc = "A Dull and Flat Elven Blade" },
+                    },
+                },
             },
         },
     },

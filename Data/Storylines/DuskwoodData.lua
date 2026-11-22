@@ -145,14 +145,14 @@ SM.DuskwoodData = {
             chapter = "The Valor Family",
             gameVersions = { forever = true },
             summary = "Sirra Von'Indi keeps the library in Darkshire Town Hall, and it has next to nothing on Raven Hill. The village's history died with its people. If you turn up anything in the ruins, Sirra would like to see it.",
-            recap = "Sirra Von'Indi keeps a library in Darkshire, and Sirra had noticed what nobody else had bothered to: Raven Hill's history had died along with its people. I went poking through the ruins and came back with a tome about a family called Valor. Heroes, the whole lot of them. Dead heroes, which in Duskwood means they're still around.\n\nThere were four of them, each one had left a weapon behind, and every weapon came with a chore. One wanted a mace back from a skeleton that had walked off with it. The others wanted Defias, worgs and ogres seen to. Heroes to the last, and still handing out work.\n\nNone of it put them to rest. So I carried the family's weapons back to Raven Hill, to find out what single night had pinned them all there.",
+            recap = "Sirra Von'Indi keeps a library in Darkshire, and Sirra had noticed what nobody else had bothered to: Raven Hill's history had died along with its people. I went poking through the ruins and came back with a tome about a family called Valor. Heroes, the whole lot of them. Dead heroes, which in Duskwood means they're still around.\n\nThere were four of them, each one had left a weapon behind, and every weapon came with a chore. One wanted a mace back from a skeleton that had walked off with it. The others wanted Defias, worgs and ogres seen to. Heroes to the last, and still handing out work.",
             quests = {
                 { id = 96139, name = "The Valor Family", npc = "Sirra Von'Indi", gameVersions = { forever = true } },
                 { id = 79362, name = "Grant's Shield", location = "Raven Hill, Duskwood", gameVersions = { forever = true } },
                 { id = 79363, name = "Silvia's Sword", location = "Raven Hill, Duskwood", parallel = true, gameVersions = { forever = true } },
                 { id = 96137, name = "Ira's Dagger", location = "Raven Hill, Duskwood", parallel = true, gameVersions = { forever = true } },
                 { id = 96138, name = "Merrick's Bow", location = "Raven Hill, Duskwood", parallel = true, gameVersions = { forever = true } },
-                { id = 98447, name = "The Valor Family", npc = "Sirra Von'Indi", gameVersions = { forever = true } },
+                { id = 98447, name = "The Valor Family", npc = "Sirra Von'Indi", optional = true, gameVersions = { forever = true }, recap = "None of it put them to rest. So I carried the family's weapons back to Raven Hill, to find out what single night had pinned them all there." },
             },
         },
         {

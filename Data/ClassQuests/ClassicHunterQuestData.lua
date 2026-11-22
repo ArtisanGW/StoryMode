@@ -90,9 +90,9 @@ SM.ClassicHunterQuestData = {
             recap = "Out of Molten Core, if you're lucky, comes a leaf. Ancient Petrified Leaf. Looks like nothing. Its owner turned out to be Vartrus, an ancient up in Felwood, and Vartrus wanted four demons dead.\n\nThey weren't hard to kill. They were hard to find, because they were living among ordinary folk under friendly names. Artorius the Amiable, for one. Very amiable. Less so after the first arrow.\n\nIt had to be done alone, the ancients said. My pet and I agreed the pet didn't count. The pet did most of the tracking, so that seemed only fair.\n\nThe other two ancients wanted sinew from a grown black dragon and a grown blue one. Neither dragon was in a giving mood. What I got for it all was Rhok'delar, the longbow of the Ancient Keepers. My pet still hasn't forgiven me for not getting one too.",
             quests = {
                 { id = 7632, name = "The Ancient Leaf", npc = "Ancient Petrified Leaf", mapID = 77, x = 0.4800, y = 0.2400, location = "Irontree Woods, Felwood" },
-                { id = 7636, name = "Stave of the Ancients", npc = "Vartrus the Ancient", mapID = 77, x = 0.4800, y = 0.2400, location = "Vartrus the Ancient, Irontree Woods, Felwood" },
-                { id = 7635, name = "A Proper String", npc = "Stoma the Ancient", mapID = 77, x = 0.4800, y = 0.2400, location = "Stoma the Ancient, Irontree Woods, Felwood" },
-                { id = 7634, name = "Ancient Sinew Wrapped Lamina", npc = "Hastat the Ancient", mapID = 77, x = 0.4800, y = 0.2400, location = "Hastat the Ancient, Irontree Woods, Felwood" },
+                { id = 7636, name = "Stave of the Ancients", foreverOptional = true, npc = "Vartrus the Ancient", mapID = 77, x = 0.4800, y = 0.2400, location = "Vartrus the Ancient, Irontree Woods, Felwood" },
+                { id = 7635, name = "A Proper String", foreverOptional = true, npc = "Stoma the Ancient", mapID = 77, x = 0.4800, y = 0.2400, location = "Stoma the Ancient, Irontree Woods, Felwood" },
+                { id = 7634, name = "Ancient Sinew Wrapped Lamina", foreverOptional = true, npc = "Hastat the Ancient", mapID = 77, x = 0.4800, y = 0.2400, location = "Hastat the Ancient, Irontree Woods, Felwood" },
             },
         },
     },

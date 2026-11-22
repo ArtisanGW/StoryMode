@@ -98,6 +98,7 @@ export function parseDataFile(root, file, text) {
   let chapterMeta = {};
 
   let chapterHeader = false;
+  let guidanceBlock = false;
   for (const line of text.split(/\r?\n/)) {
     const chapterName = extractString(line, "chapter");
     if (chapterName) {
@@ -134,7 +135,13 @@ export function parseDataFile(root, file, text) {
       }
     }
 
+    // A guidance hint (guidanceQuest = {…}, or a line in a guidanceQuests =
+    // {…} block) points to what the quest above it needs first; it isn't a
+    // step of the story.
+    if (/^\s*guidanceQuests\s*=\s*\{\s*$/.test(line)) { guidanceBlock = true; continue; }
+    if (guidanceBlock && /^\s*\},?\s*$/.test(line)) { guidanceBlock = false; continue; }
     const quest = parseQuest(line, chapter, chapterMeta, dataMeta);
+    if (quest && (guidanceBlock || /^\s*guidanceQuest\s*=/.test(line))) quest.guidance = true;
     if (quest && chapter) quests.push(quest);
   }
 
