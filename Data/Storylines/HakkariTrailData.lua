@@ -50,6 +50,10 @@ SM.HakkariTrailData = {
         ["Brohann Caskbelly"] = { mapID = 84, x = 0.6940, y = 0.4040, location = "the Dwarven District, Stormwind" },
         ["Fel'zerul"] = { mapID = 51, x = 0.4800, y = 0.5500, location = "Stonard, Swamp of Sorrows" },
         ["Atal'ai Exile"] = { mapID = 26, x = 0.3360, y = 0.7520, location = "The Hinterlands" },
+        ["Apothecary Lydon"] = { mapID = 25, x = 0.6140, y = 0.1920, location = "Tarren Mill, Hillsbrad Foothills" },
+        ["Gryphon Master Talonaxe"] = { mapID = 26, x = 0.0975, y = 0.4447, location = "Aerie Peak, The Hinterlands" },
+        ["Itharius"] = { mapID = 51, x = 0.1367, y = 0.7172, location = "Swamp of Sorrows" },
+        ["Angelas Moonbreeze"] = { mapID = 69, x = 0.3183, y = 0.4561, location = "Feathermoon Stronghold, Feralas" },
     },
 
     chapterDisplayIDs = {
@@ -86,6 +90,10 @@ SM.HakkariTrailData = {
         ["Brohann Caskbelly"] = 5079,
         ["Fel'zerul"] = 4554,
         ["Atal'ai Exile"] = 6590,
+        ["Apothecary Lydon"] = 1660,
+        ["Gryphon Master Talonaxe"] = 7007,
+        ["Itharius"] = 4494,
+        ["Angelas Moonbreeze"] = 6987,
         -- Quest givers' models from Wowhead's WoW Forever data.
         ["Archmage Lan'dalock"] = 19744,
         ["Mazu'kon"] = 143984,
@@ -121,6 +129,8 @@ SM.HakkariTrailData = {
                         { id = 2935, name = "Consult Master Gadrin", npc = "Apothecary Lydon", mapID = 25, x = 0.6140, y = 0.1920 },
                     },
                 },
+                { id = 2937, name = "Summoning Shadra", npc = "Master Gadrin", faction = "Horde", optional = true },
+                { id = 2938, name = "Venom to the Undercity", npc = "Apothecary Lydon", faction = "Horde", optional = true, recap = "Master Gadrin turned the spider god's true name into a spell of summoning and sent me to read it at the altar of Shadra'Alor, deep in Witherbark country. I read it, and Shadra came. The Witherbark get their strongest venom from her. Now so did I.\n\nApothecary Lydon in Tarren Mill was delighted. One drop had killed nearly two dozen rabbits, he told me, though he admitted some of them had been very small. He wanted a sample sent to his superior in the Undercity, so I carried it there, and the Royal Apothecary Society called my service undeniable. Nobody asked the rabbits." },
                 { id = 96775, name = "Zum'rah's Head", npc = "Mazu'kon", faction = "Horde", optional = true, gameVersions = { forever = true }, recap = "Mazu'kon, out in Mulgore, wanted the head of Witch Doctor Zum'rah, who keeps the graveyard in Zul'Farrak and doesn't welcome visitors. Zum'rah raised the dead at us by the handful. The head came back with me anyway, which was the only part Mazu'kon cared about." },
                 { id = 2991, name = "Nekrum's Medallion", npc = "Thadius Grimshade", faction = "Alliance", optional = true, recap = "Thadius Grimshade at Nethergarde Keep offered to find a lost gryphon named Sharpbeak by magic, in exchange for Nekrum Gutchewer's medallion out of Zul'Farrak. Rumor said it gave its wearer an unnaturally long life at a price, and Grimshade was confident the price could be avoided. They always are.",
                     guidanceQuests = {
@@ -129,6 +139,9 @@ SM.HakkariTrailData = {
                         { id = 2990, name = "Thadius Grimshade", npc = "Gryphon Master Talonaxe", mapID = 26, x = 0.0980, y = 0.4440 },
                     },
                 },
+                { id = 2992, name = "The Divination", npc = "Thadius Grimshade", faction = "Alliance", optional = true },
+                { id = 2993, name = "Return to the Hinterlands", npc = "Thadius Grimshade", faction = "Alliance", optional = true },
+                { id = 2994, name = "Saving Sharpbeak", npc = "Gryphon Master Talonaxe", faction = "Alliance", optional = true, recap = "Grimshade kept his end of the bargain. He asked for room to work and warned me that if the ritual went wrong, I'd better close my eyes. It didn't. Sharpbeak was in a cage at the top of Jintha'Alor, and the high priestess of the Vilebranch trolls had the key.\n\nGryphon Master Talonaxe took the news about as calmly as a dwarf can, which is to say not at all. So up I went, all the way to the top of Jintha'Alor, took the key off the priestess, and opened the cage.\n\nSharpbeak's parents flew home with him and fussed over him like new parents, and Talonaxe admitted to a little mist in the eyes. The gryphons of Aerie Peak will sing my name, he says, for a long, long time." },
                 { id = 96770, name = "The Witch Doctor's Head", npc = "Archmage Lan'dalock", faction = "Alliance", optional = true, gameVersions = { forever = true }, recap = "Archmage Lan'dalock of Dalaran wanted the head of Witch Doctor Zum'rah, who keeps the graveyard in Zul'Farrak. Zum'rah's reply was to wake the graveyard up. The archmage got the head all the same, and I learned that the dead there stay down only once their witch doctor does." },
             },
         },
@@ -139,6 +152,7 @@ SM.HakkariTrailData = {
             quests = {
                 { id = 3528, name = "The God Hakkar", npc = "Yeh'kinya" },
                 { id = 3380, name = "The Sunken Temple", npc = "Witch Doctor Uzer'i", faction = "Horde", optional = true },
+                { id = 3445, name = "The Sunken Temple", npc = "Angelas Moonbreeze", faction = "Alliance", optional = true },
                 { id = 3446, name = "Into the Depths", npc = "Marvon Rivetseeker", optional = true, recap = "Marvon Rivetseeker, a goblin who studies troll ruins, had been inside the Sunken Temple once and nearly died poking a serpent statue. Marvon's theory was that the altar at the bottom of the round room held the secret, so down I went with a stone circle to test it. It fit exactly and locked in place, which in that temple is never the end of it.",
                     guidanceQuests = {
                         { id = 3444, name = "The Stone Circle", npc = "Marvon Rivetseeker", mapID = 71, x = 0.5260, y = 0.4580 },
@@ -168,6 +182,8 @@ SM.HakkariTrailData = {
                 },
                 { id = 1446, name = "Jammal'an the Prophet", npc = "Atal'ai Exile", optional = true, recap = "An Atal'ai exile out in the Hinterlands, cast out by the tribe, wanted the head of Jammal'an the Prophet, who had convinced them all that Hakkar would make them immortal. I brought the head. The exile had hoped it might free the tribe, and mourned them anyway." },
                 { id = 3373, name = "The Essence of Eranikus", npc = "Essence of Eranikus", optional = true, recap = "When the shade of Eranikus fell, it left a gem holding part of the dragon's essence, and a voice asking me to set it in the font in its lair so it could finally rest. I did, and the font turned out to be tainted as well, and the last I heard was Eranikus begging me to find the green dragonflight. I've done favors that went better." },
+                { id = 3374, name = "The Essence of Eranikus", npc = "Oathstone of Ysera's Dragonflight", optional = true },
+                { id = 3512, name = "In Eranikus' Own Words", npc = "Itharius", optional = true, recap = "Through an oathstone of the green dragonflight, a dragon named Itharius spoke straight into my mind. If I gave him the gem that had chained what was left of Eranikus, we would work together to redeem him. I gave it up. Itharius said my choices so far had been the right ones, and that my deeds from here on would decide whether that continued. No pressure.\n\nFirst we needed to speak with Eranikus through the gem, so Itharius sent me to the far east of Winterspring, to a medium named Umbranse who speaks for the dead. Umbranse was willing. But his best augury device had been taken from him, and without it there was nothing to be done.\n\nI'm still waiting to hear who took it." },
             },
         },
         {

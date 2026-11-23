@@ -34,6 +34,7 @@ SM.LinkenData = {
         ["Eridan Bluewind"] = { mapID = 77, x = 0.5100, y = 0.8200, location = "Emerald Sanctuary, Felwood" },
         ["Aquementas"] = { mapID = 78, x = 0.7100, y = 0.7600, location = "the lakes east of Fire Plume Ridge, Un'Goro Crater" },
         ["Blazerunner"] = { mapID = 78, x = 0.4900, y = 0.5100, location = "Fire Plume Ridge, Un'Goro Crater" },
+        ["Gregan Brewspewer"] = { mapID = 69, x = 0.4512, y = 0.2557, location = "the Twin Colossals, Feralas" },
     },
 
     npcDisplayIDs = {
@@ -45,6 +46,7 @@ SM.LinkenData = {
         ["Blazerunner"] = 1204,
         -- Quest givers' models from the cmangos Classic database.
         ["J.D. Collie"] = 8478,
+        ["Gregan Brewspewer"] = 6995,
     },
 
     chapterDisplayIDs = {
@@ -78,6 +80,8 @@ SM.LinkenData = {
             recap = "Donova Snowden took one look at Linken's sword and decided the answer was in a graveyard. Getting there was the strange part.\n\nIt took a trip to Feralas for something called the Videre Elixir, and then the graveyard outside Gadgetzan, where Donova's instructions were very clear. Drink the elixir by the gravestone. I drank it. I died.\n\nThat was the plan, mind you. As a ghost I could meet Gaeriyan, who told me which grave to look at once I had a body again. So I walked back to my body, got up, found the gravestone, and came away with a better sword than the one I'd brought.\n\nFirst time I ever died on instructions. Strangely restful.",
             quests = {
                 { id = 3909, name = "The Videre Elixir", npc = "Donova Snowden" },
+                -- Gregan makes the elixir; his quest only opens while Donova's is in the log.
+                { id = 4041, name = "The Videre Elixir", npc = "Gregan Brewspewer", parallel = true },
                 { id = 3912, name = "Meet at the Grave", npc = "Donova Snowden" },
                 { id = 3913, name = "A Grave Situation", npc = "Gaeriyan", mapID = 71, x = 0.5300, y = 0.2900, location = "the grave outside Gadgetzan, Tanaris" },
                 { id = 3914, name = "Linken's Sword", npc = "A Conspicuous Gravestone", mapID = 71, x = 0.5300, y = 0.2900, location = "the grave outside Gadgetzan, Tanaris" },
