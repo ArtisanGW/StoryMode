@@ -195,8 +195,9 @@ function SM.IsQuestDiscovered(questIndex, chapterQuests, nextQuestID)
 end
 
 -- ── Dungeon and raid quests ─────────────────────────────────────────────
--- A quest's kind comes from the game's own quest tag (Dungeon, Raid), or for
--- the few quests the game leaves untagged, the story data's instance field.
+-- A quest's kind comes from the game's own quest tag (Dungeon, Raid), unless
+-- the story data's instance field says otherwise: for the few quests the game
+-- leaves untagged, or tags wrong (The Mad King on WoW Forever).
 -- The game knows a tag once it has loaded the quest, and a quest's kind never
 -- changes, so the answer is kept per account (StoryModeDB.questInstanceTypes).
 local INSTANCE_TAG_TYPES = { [81] = "dungeon", [62] = "raid", [88] = "raid", [89] = "raid" }

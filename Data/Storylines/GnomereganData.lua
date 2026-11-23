@@ -124,9 +124,9 @@ SM.GnomereganData = {
             quests = {
                 { id = 2962, name = "The Only Cure is More Green Glow", npc = "Ozzie Togglevolt", faction = "Alliance" },
                 { id = 2929, name = "The Grand Betrayal", npc = "High Tinker Mekkatorque", faction = "Alliance", parallel = true },
-                { id = 80324, name = "The Mad King", npc = "Thermaplugg's Engineering Notes", location = "Gnomeregan", faction = "Alliance", parallel = true, gameVersions = { forever = true } },
+                { id = 80324, name = "The Mad King", npc = "Thermaplugg's Engineering Notes", location = "Gnomeregan", faction = "Alliance", parallel = true, instance = "dungeon", gameVersions = { forever = true } },
                 { id = 2841, name = "Rig Wars", npc = "Nogg", faction = "Horde" },
-                { id = 80325, name = "The Mad King", npc = "Thermaplugg's Engineering Notes", location = "Gnomeregan", faction = "Horde", parallel = true, gameVersions = { forever = true } },
+                { id = 80325, name = "The Mad King", npc = "Thermaplugg's Engineering Notes", location = "Gnomeregan", faction = "Horde", parallel = true, instance = "dungeon", gameVersions = { forever = true } },
                 { id = 2923, name = "Tinkmaster Overspark", npc = "Brother Sarno", faction = "Alliance", optional = true, parallel = true, breadcrumbFor = 2922 },
                 { id = 2922, name = "Save Techbot's Brain!", npc = "Tinkmaster Overspark", faction = "Alliance", optional = true, parallel = true, recap = "Tinkmaster Overspark built Techbot to help out around Gnomeregan, and when the city fell a stray spark flipped its positronic brain to negatronic, so every kind habit it had now runs backwards. I brought Overspark its memory core. Overspark told the core not to feel bad, promised to have it fixed, and went looking for the plug to a hydro-jack swivel spanner." },
                 { id = 2925, name = "Klockmort's Essentials", npc = "Mathiel", faction = "Alliance", optional = true, parallel = true, breadcrumbFor = 2924 },

@@ -248,13 +248,18 @@ local DUNGEON_ICON, RAID_ICON = "questlog-questtypeicon-dungeon", "questlog-ques
 local INSTANCE_QUEST_TAGS = { [81] = DUNGEON_ICON, [62] = RAID_ICON, [88] = RAID_ICON, [89] = RAID_ICON }
 -- A quest the game leaves untagged that still sends the player into a
 -- dungeon or raid (the rogue's solo jobs for C) says so in the story data:
--- instance = "dungeon" or "raid". Its label is the client's own word.
+-- instance = "dungeon" or "raid". So does one the game tags wrong, and the
+-- data wins: WoW Forever kept Season of Discovery's Raid tag on The Mad King,
+-- though its Gnomeregan is a five-player dungeon. Its label is the client's
+-- own word.
 local DATA_INSTANCE_TAGS = {
     dungeon = { label = "LFG_TYPE_DUNGEON", fallback = "Dungeon", icon = DUNGEON_ICON },
     raid = { label = "LFG_TYPE_RAID", fallback = "Raid", icon = RAID_ICON },
 }
 local function GetInstanceQuestTag(quest)
     if not quest then return nil end
+    local tag = quest.instance and DATA_INSTANCE_TAGS[quest.instance]
+    if tag then return _G[tag.label] or tag.fallback, tag.icon end
     if C_QuestLog and C_QuestLog.GetQuestTagInfo then
         for _, questID in ipairs(SM.GetQuestIDs(quest)) do
             local info = C_QuestLog.GetQuestTagInfo(questID)
@@ -263,8 +268,6 @@ local function GetInstanceQuestTag(quest)
             end
         end
     end
-    local tag = quest.instance and DATA_INSTANCE_TAGS[quest.instance]
-    if tag then return _G[tag.label] or tag.fallback, tag.icon end
     return nil
 end
 
