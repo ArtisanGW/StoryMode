@@ -62,10 +62,10 @@ for (const version of versions) {
   if (existing.test(en)) {
     en = en.replace(existing, () => entry);
   } else {
-    // After the newest notes already there, or after the hidden page's strings.
+    // After the newer version given with it, or else first, under the notes page title.
     const anchor = /^L\["Release Notes \d+\.\d+\.\d+"\] = ".*"$/m.exec(en) && versions.indexOf(version) > 0
       ? new RegExp(`^L\\["Release Notes ${versions[versions.indexOf(version) - 1].replace(/\./g, "\\.")}"\\] = ".*"$`, "m")
-      : /^L\["Back To Letter"\] = ".*"$/m;
+      : /^L\["Release Notes Version"\] = ".*"$/m;
     const m = en.match(anchor);
     if (!m) { console.error(`No anchor for ${key} in enUS.lua.`); process.exit(1); }
     en = en.replace(anchor, () => `${m[0]}\n${entry}`);

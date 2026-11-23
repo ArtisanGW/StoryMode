@@ -1,5 +1,35 @@
 # Changelog
 
+## 2.1.0
+
+### New stories
+- A story for each dungeon that had none, leading you in and listing the dungeon's quests: **Hidden Enemies** (Ragefire Chasm, Horde), **Blackfathom Villainy** (Blackfathom Deeps), **The Mad King** (Gnomeregan), and **Thorns of the Razorfen** (Razorfen Kraul and Razorfen Downs) on Classic Era, Burning Crusade Classic, and WoW Forever, and **The City of Dalaran**, **Lost in the Thicket**, and **An Ancient Grudge** (Alliance) on WoW Forever
+- Profession stories for characters who know the profession: **Master of the Wild Leather** (Leatherworking), **The Mithril Order** (Blacksmithing), and **The Pledge of Secrecy** (Engineering), each ending in your specialization. A story appears as soon as you learn its profession
+- WoW Forever: **Strahnbrad Mystery**, a short story about the Syndicate in Strahnbrad and a forge that works when no one is watching
+- WoW Forever has its first secret story. It stays out of the list until you find a way in
+
+### WoW Forever
+- The start page is now a letter from the author, with the settings on the facing page. The wax seal in its corner hides a few more pages
+- The Journal turns its pages like the spellbook instead of scrolling. The mouse wheel turns them too, and a page read aloud turns with the voice
+- A quest card whose giver or objective is cut off opens to show it whole
+
+### Fixes
+- Track Quest now leads to the quests a story quest needs first when the story doesn't include them, for 30 quests such as Incendius!, Scholomance, and Test of Lore
+- **Twilight in the Riverglades**: the Horde chain includes Krom'rosh's quests, so Tran'gul no longer has nothing for you
+- On WoW Forever, **The Scarlet Crusade** shows Past Due, and **The Brazier of Invocation** shows the Horde's Back to the Beginning again
+- Quests WoW Forever doesn't offer yet are optional there, so they can't hold a chapter open: the second Valor family quest in Duskwood, the quests after Onyxia's head, and the hunter's last Rhok'delar quests
+- On WoW Forever and Retail, shift-clicking a map pin no longer shows "StoryMode has been blocked from an action only available to the Blizzard UI". Track Quest no longer opens the map or quest log there, and its waypoint waits until the map is closed
+- The In progress filter lists only stories with a quest in your log, like Active Stories
+- Hidden quest log entries, such as tracking quests, no longer make a story look active on Retail and WoW Forever
+- The start page logo picks an image big enough for your screen again
+
+### Localization
+- All new text is in every client language, with the names the game uses
+- **Twilight in the Riverglades** names its people the way the game does in each language, and **The Secret Prison**, **The Dying God**, and **The Fate of Zephras** have translated titles
+
+### Maintenance
+- Bumped addon metadata to `2.1.0`
+
 ## 2.0.1
 
 ### New stories
