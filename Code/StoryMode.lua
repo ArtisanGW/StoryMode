@@ -948,6 +948,8 @@ end
 -- Full-size achievement card for chapters that have no quest list.
 -- Reuses SM.CreateAchievementRow(defined later) — forward-created after that function.
 local dChapterAchievementCard  -- assigned after CreateAchievementRow is defined
+-- WoW Forever: the Legacy challenge card after a chapter's quests (QuestCard.lua), made when first needed.
+local dLegacyChallengeCard
 
 -- ── Track node pool ─────────────────────────────────────────────────
 function SM.CreateTrackNode(parent)
@@ -1735,6 +1737,29 @@ LayoutSelectedChapter = function()
         end
     end
 
+    -- WoW Forever: a chapter that ends a chain with a Legacy challenge
+    -- (legacyChallenge) shows the challenge's own card after its quests.
+    local legacyID = SM.ForeverWindow and SM.GetLegacyChallengeID(ch.legacyChallenge) or nil
+    if legacyID then
+        dLegacyChallengeCard = dLegacyChallengeCard or SM.CreateLegacyChallengeCard(detailChild)
+        dLegacyChallengeCard:SetLegacyChallenge(legacyID)
+        dLegacyChallengeCard:ClearAllPoints()
+        dLegacyChallengeCard:SetWidth(CARD_W)
+        if prevCard then
+            dLegacyChallengeCard:SetPoint("TOP", prevCard, "BOTTOM", 0, -cardGap)
+        else
+            local anchor = dChapterNote:IsShown() and dChapterNote
+                        or dChapterSummary:IsShown() and dChapterSummary
+                        or dChapterTitle
+            dLegacyChallengeCard:SetPoint("TOP", anchor, "BOTTOM", 0, -20)
+        end
+        dLegacyChallengeCard:SetPoint("LEFT", detailChild, "CENTER", -CARD_W / 2, 0)
+        dLegacyChallengeCard:Show()
+        prevCard = dLegacyChallengeCard
+    elseif dLegacyChallengeCard then
+        dLegacyChallengeCard:Hide()
+    end
+
     -- Update scroll height.
     -- For achievement-card-only chapters (no quest cards), the card sits below a
     -- word-wrapped FontString whose height may not be resolved on the zero-delay tick.
@@ -1794,6 +1819,7 @@ function SM.ShowTab(tab)
     for _, node in ipairs(dTrackNodes) do node:Hide() end
     for _, arrow in ipairs(dTrackArrows) do arrow:Hide() end
     for _, card in ipairs(dQuestCards) do card:Hide() end
+    if dLegacyChallengeCard then dLegacyChallengeCard:Hide() end
     sTrackBtn:Hide(); sCompleteText:Hide()
     dCompleteText:Hide()
     aCoverFrame:Hide()
@@ -1950,6 +1976,7 @@ function SM.UpdateStoryDetail(data)
         for _, node in ipairs(dTrackNodes) do node:Hide() end
         for _, arrow in ipairs(dTrackArrows) do arrow:Hide() end
         for _, card in ipairs(dQuestCards) do card:Hide() end
+        if dLegacyChallengeCard then dLegacyChallengeCard:Hide() end
         sTrackBtn:Hide(); sCompleteText:Hide()
         SM.SetSecureOverlayActive(false)
         dCompleteText:Hide()

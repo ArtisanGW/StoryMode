@@ -289,6 +289,10 @@ SM.DungeonSetTwoData = {
         },
         {
             chapter = "Saving the Best for Last",
+            -- WoW Forever's Legacy challenge for this chain, Lord Valthalak Laid to
+            -- Rest ("from An Earnest Proposition to Saving the Best for Last").
+            -- Forever has it under two IDs; the one it lists is the player's.
+            legacyChallenge = { 62054, 64014 },
             summaryAlliance = "Back where it all began. Deliana in Ironforge is waiting for the last pieces of your old dungeon set, the cap and the tunic. After everything since the bracers, it seems a small thing to ask.",
             summaryHorde = "Back where it all began. Mokvar in Orgrimmar is waiting for the last pieces of your old dungeon set, the cap and the tunic. After everything since the bracers, it seems a small thing to ask.",
             recap = "The last stop was the first one. I went back to where all of this started, with the cap and tunic of my old set, and handed them over. Saving the best for last, apparently.\n\nWhat came back finished the set. To anyone else it's just good armor. But I know what's in it: a goblin's ghost machine, a race through Stratholme, a brawl in the Ring of Law, and one dead lord who got his amulet back from my own hand.\n\nPeople ask where I got it. I tell them it's a long story. Then, if they're buying, I tell them this one.",

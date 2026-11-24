@@ -79,6 +79,7 @@ L["Achievement Earned"] = "달성"
 L["Achievement Not Yet Earned"] = "아직 달성하지 못함"
 L["Achievement Reward Format"] = "보상: %s"
 L["Achievement Open Log"] = "클릭하여 업적 창에서 보기"
+L["Legacy Challenge Open Format"] = "클릭하여 %s에서 보기"
 L["Achievement Criteria"] = "달성 조건:"
 
 L["Banner Story Complete"] = "이야기 완료"

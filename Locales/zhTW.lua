@@ -79,6 +79,7 @@ L["Achievement Earned"] = "已獲得"
 L["Achievement Not Yet Earned"] = "尚未獲得"
 L["Achievement Reward Format"] = "獎勵：%s"
 L["Achievement Open Log"] = "點擊以在成就視窗中開啟"
+L["Legacy Challenge Open Format"] = "點擊以在%s中開啟"
 L["Achievement Criteria"] = "條件："
 
 L["Banner Story Complete"] = "故事完成"

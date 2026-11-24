@@ -27,6 +27,43 @@ function SM.ResolveAchievementID(data)
     end
 end
 
+-- WoW Forever's Legacy challenges are achievements, and a challenge can have
+-- several IDs (Lord Valthalak Laid to Rest is 62054 and 64014). The one
+-- the game lists in the challenge's category is the one the Legacy window
+-- shows. Returns it, or nil off Forever or before the list is ready.
+local legacyChallengeIDs = {}
+
+function SM.GetLegacyChallengeID(ids)
+    if not ids or not (SM.Client and SM.Client.isForever) then return nil end
+    if not (GetAchievementCategory and GetCategoryNumAchievements and GetAchievementInfo) then return nil end
+    if legacyChallengeIDs[ids] then return legacyChallengeIDs[ids] end
+    for _, id in ipairs(type(ids) == "table" and ids or { ids }) do
+        local category = GetAchievementCategory(id)
+        local count = category and GetCategoryNumAchievements(category) or 0
+        for index = 1, count do
+            if GetAchievementInfo(category, index) == id then
+                legacyChallengeIDs[ids] = id
+                return id
+            end
+        end
+    end
+    return nil
+end
+
+-- Opens the Legacy window at a challenge (Blizzard_LegacySystem's own
+-- ShowLegacyChallenge, loading it first if its bootstrap isn't there).
+function SM.OpenLegacyChallenge(id)
+    if not id then return end
+    if ShowLegacyChallenge then
+        ShowLegacyChallenge(id)
+        return
+    end
+    if not LegacySystemFrame then SM.LoadAddOn("Blizzard_LegacySystem") end
+    if LegacySystemFrame and LegacySystemFrame.OpenToChallenge then
+        LegacySystemFrame:OpenToChallenge(id)
+    end
+end
+
 function SM.InvalidateStoryStateCache()
     storyStateCache = setmetatable({}, { __mode = "k" })
 end

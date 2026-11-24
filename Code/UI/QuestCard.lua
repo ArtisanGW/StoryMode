@@ -187,6 +187,8 @@ local LEGACY = {
     selected = "Legacy-Challenge-Cards-selected",
     ribbon = "Legacy-Challenge-Cards-Ribbon-Brown",
     ribbonDim = "Legacy-Challenge-Cards-Ribbon-Brown-disable",
+    ribbonAccount = "Legacy-Challenge-Cards-Ribbon-Blue",          -- an account-wide challenge's
+    ribbonAccountDim = "Legacy-Challenge-Cards-Ribbon-Blue-Disable",
     iconFrame = "Legacy-Tree-Frame-icon-frame",
     iconMask = "UI-Frame-IconMask",
     statusBackground = "Legacy-Challenge-Cards-Date-BG",
@@ -194,6 +196,7 @@ local LEGACY = {
     criteria = "Legacy-Challenge-Cards-Bar",
     plus = "128-redbutton-plus",
     minus = "128-redbutton-minus",
+    shield = "Legacy-Tree-Frame-Points-icon",
 }
 local UNDISCOVERED_ICON = "Interface\\Icons\\INV_Misc_QuestionMark"
 
@@ -204,6 +207,7 @@ local CARD = {
     descriptionXOpenable = 100, -- 5 + 95, right of the plus/minus
     descriptionTop = 52,      -- below the ribbon: 4 + 46 + 2
     descriptionRight = 496,   -- rowInset short of the right edge, like the objective rows (Legacy's shield sits here)
+    challengeDescriptionWidth = 400, -- a challenge's, as Legacy's (LEGACY_CHALLENGE_BASE_DESCRIPTION_WIDTH)
     collapsedLines = 3,
     objectivesGap = 23,       -- from the description to the first row
     rowHeight = 30,
@@ -803,6 +807,138 @@ local function CreateLegacyQuestCard(parent)
         LayoutMiddle(self, expanded and (done and LEGACY.middle or LEGACY.middleDim) or nil, height)
     end
 
+    return card
+end
+
+-- The Legacy points a challenge gives, as the Legacy window reads them
+-- (AchievementFrame_GetOverridePoints), or nil.
+local function GetLegacyPoints(achievementID)
+    local consts = Constants and Constants.LegacyConsts
+    local currencyID = consts and consts.LEGACY_POINTS_TRAIT_CURRENCY_ID
+    if not (currencyID and C_Traits and C_Traits.GetTraitCurrencyForAchievement) then return nil end
+    local ok, points = pcall(C_Traits.GetTraitCurrencyForAchievement, currencyID, achievementID)
+    return ok and type(points) == "number" and points or nil
+end
+
+-- WoW Forever: a Legacy challenge a chapter's chain earns, on the card the
+-- Legacy window shows it on: its icon, name and description, its points on
+-- the shield, and once this character has earned it, the day and a check.
+-- Clicking it opens the Legacy window at the challenge.
+function SM.CreateLegacyChallengeCard(parent)
+    local SetAtlas = SM.ForeverWindow.SetAtlas
+    local card = CreateLegacyQuestCard(parent)
+    card.shield = card:CreateTexture(nil, "ARTWORK")
+    SetAtlas(card.shield, LEGACY.shield)
+    card.shield:SetSize(35, 51)
+    card.shield:SetPoint("TOPRIGHT", card, "TOPRIGHT", -14, -26)
+    card.points = card:CreateFontString(nil, "OVERLAY", "GameFontNormalMed3")
+    card.points:SetPoint("CENTER", card.shield, "CENTER", -1, -4)
+    -- Hovering the shield says what the challenge gives ("Earn 1 Legacy
+    -- Point."), as on the Legacy card: the same 64 x 64 corner (the shield's
+    -- Button in LegacyChallengeTemplate) and the game's own tooltip beside it
+    -- (AchievementShield_OnEnter). A click on it still goes to the card.
+    card.shieldHover = CreateFrame("Frame", nil, card)
+    card.shieldHover:SetSize(64, 64)
+    card.shieldHover:SetPoint("TOPRIGHT", card, "TOPRIGHT", -6, -2)
+    card.shieldHover:SetFrameLevel(card:GetFrameLevel() + 3)
+    if card.shieldHover.SetMouseClickEnabled then
+        card.shieldHover:SetMouseMotionEnabled(true)
+        card.shieldHover:SetMouseClickEnabled(false)
+    else
+        card.shieldHover:EnableMouse(true)
+    end
+    card.shieldHover:SetScript("OnEnter", function(self)
+        local rewardText = card.challengeID and select(11, GetAchievementInfo(card.challengeID))
+        if not GameTooltip or type(rewardText) ~= "string" or rewardText == "" then return end
+        SMTooltip:Hide()
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:AddLine(rewardText)
+        GameTooltip:Show()
+    end)
+    card.shieldHover:SetScript("OnLeave", function()
+        if GameTooltip then GameTooltip:Hide() end
+    end)
+
+    function card:SetLegacyChallenge(achievementID)
+        local _, name, _, completed, month, day, year, description, flags, icon, _, _, wasEarnedByMe =
+            GetAchievementInfo(achievementID)
+        -- As in the Legacy window, one earned by another character still
+        -- looks unfinished here.
+        local earned = completed and wasEarnedByMe
+        -- An account-wide challenge has Legacy's blue ribbon, any other the brown.
+        local accountFlag = ACHIEVEMENT_FLAGS_ACCOUNT or 0x20000
+        local accountWide = type(flags) == "number" and bit and bit.band(flags, accountFlag) == accountFlag
+        self.challengeID, self.challengeName = achievementID, name
+
+        SetAtlas(self.bg, earned and LEGACY.card or LEGACY.cardDim)
+        self.bg:Show()
+        self.top:Hide()
+        self.bottom:Hide()
+        LayoutMiddle(self, nil, SM.LegacyQuestCardHeight)
+        if accountWide then
+            SetAtlas(self.ribbon, earned and LEGACY.ribbonAccount or LEGACY.ribbonAccountDim)
+        else
+            SetAtlas(self.ribbon, earned and LEGACY.ribbon or LEGACY.ribbonDim)
+        end
+        SetOutlineShown(self.selected, false)
+        self.plusMinus:Hide()
+        self.footer:Hide()
+        self.trackButton:Hide()
+        self.instanceIcon:Hide()
+
+        self.portrait:SetTexture(icon or UNDISCOVERED_ICON)
+        self.portrait:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+        self.portrait:SetDesaturated(not earned)
+        self.title:SetText(name or "")
+        self.npcLabel:ClearAllPoints()
+        self.npcLabel:SetPoint("TOPLEFT", self, "TOPLEFT", CARD.descriptionX, -CARD.descriptionTop)
+        self.npcLabel:SetWidth(CARD.challengeDescriptionWidth)
+        self.npcLabel:SetMaxLines(CARD.collapsedLines)
+        self.npcLabel:SetText(description or "")
+        local color = earned and WHITE or GRAY
+        self.title:SetTextColor(color[1], color[2], color[3])
+        self.npcLabel:SetTextColor(color[1], color[2], color[3])
+
+        -- Legacy has no shield for a challenge worth no points.
+        local points = GetLegacyPoints(achievementID)
+        self.points:SetText(points and points > 0 and tostring(points) or "")
+        local hasPoints = points ~= nil and points > 0
+        self.shield:SetShown(hasPoints)
+        self.points:SetShown(hasPoints)
+        self.shieldHover:SetShown(hasPoints)
+
+        local dateText = earned and month and month > 0 and FormatShortDate and FormatShortDate(day, month, year) or ""
+        self.status:SetText(dateText)
+        self.status:ClearAllPoints()
+        self.status:SetPoint("RIGHT", self.check, "LEFT", 0, 0)
+        self.status:SetTextColor(1, 0.82, 0)
+        self.statusBackground:SetShown(earned)
+        self.check:SetShown(earned)
+        self:SetHeight(SM.LegacyQuestCardHeight)
+    end
+
+    card:SetScript("OnEnter", function(self)
+        if not (self.challengeID and LEGACY_CHALLENGE_FRAME_TITLE) then return end
+        SMTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        SMTooltip:ClearLines()
+        SMTooltip:AddLine(self.challengeName or "", 1, 1, 1)
+        SMTooltip:AddLine(string.format(L["Legacy Challenge Open Format"], LEGACY_CHALLENGE_FRAME_TITLE), 0.5, 0.5, 0.5)
+        SMTooltip:Show()
+    end)
+    card:SetScript("OnLeave", function() SMTooltip:Hide() end)
+    card:SetScript("OnClick", function(self)
+        if not self.challengeID then return end
+        -- Shift-click links it in chat, as Legacy does.
+        if IsShiftKeyDown() and GetAchievementLink and ChatEdit_InsertLink
+            and ChatEdit_InsertLink(GetAchievementLink(self.challengeID)) then
+            return
+        end
+        SMTooltip:Hide()
+        -- The Legacy window opens where ours sits.
+        local storyFrame = SM.GetStoryModeFrame and SM.GetStoryModeFrame()
+        if storyFrame then storyFrame:Hide() end
+        SM.OpenLegacyChallenge(self.challengeID)
+    end)
     return card
 end
 

@@ -79,6 +79,7 @@ L["Achievement Earned"] = "Obtida"
 L["Achievement Not Yet Earned"] = "Ainda não obtida"
 L["Achievement Reward Format"] = "Recompensa: %s"
 L["Achievement Open Log"] = "Clique para abrir na janela de Conquistas"
+L["Legacy Challenge Open Format"] = "Clique para abrir em %s"
 L["Achievement Criteria"] = "Critérios:"
 
 L["Banner Story Complete"] = "HISTÓRIA CONCLUÍDA"
