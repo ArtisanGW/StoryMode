@@ -90,7 +90,7 @@ local contentRegistry = {
     { key = "BlackfathomData", category = "Short Stories" },
     { key = "ThunderfuryData", category = "Short Stories" },
     -- WoW Forever's own questlines (Data/Forever).
-    { key = "ForeverCozySleepingBagData", category = "Short Stories" },
+    { key = "ForeverCozySleepingBagData", category = "Short Stories" },  -- a secret: hidden until the player finds a way in
     { key = "ForeverHighwayRobberyData", category = "Short Stories" },
     { key = "ForeverDalaranData", category = "Short Stories" },
     { key = "ForeverHallOfThanesData", category = "Short Stories" },

@@ -8,6 +8,10 @@ local addonName, SM = ...
 -- the sea, where the trail goes on for both.
 -- Quest IDs and places: Forever's /sm scan and the Forever Mastery and
 -- wow.gg guides (Wowhead data).
+--
+-- A secret story: nothing points the way to the first note, so the story
+-- stays out of the list until the player finds it. Either faction's
+-- "... and that note you found" in the log or done reveals it (revealedBy).
 -- =============================================================================
 
 SM.ForeverCozySleepingBagData = {
@@ -18,6 +22,7 @@ SM.ForeverCozySleepingBagData = {
     recommendedLevel = { min = 22, max = 32 },
     requiredLevel = 14,
     gameVersions = { forever = true },
+    revealedBy = { 79008, 79007 },  -- ... and that note you found (Alliance, Horde): in the log or done
     achievements = {},
     color = { 0.72, 0.55, 0.36 },
     icon = "Interface\\Icons\\INV_Misc_Note_02",
