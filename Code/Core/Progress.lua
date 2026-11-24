@@ -497,6 +497,25 @@ function SM.GetQuestLockReason(data, ch, questIndex)
     end
 
     local currentQuest = ch.quests and questIndex and ch.quests[questIndex] or nil
+    -- A quest that needs particular quests in the chapter first (afterQuest:
+    -- an ID, or a list of them) waits for each one that's for the player,
+    -- optional or not: the game won't offer it before. A list covers a quest
+    -- that needs each side's version of a step, or several steps.
+    local after = currentQuest and currentQuest.afterQuest
+    if after and ch.quests then
+        for _, afterID in ipairs(type(after) == "table" and after or { after }) do
+            for i, q in ipairs(ch.quests) do
+                -- On Forever a quest may carry Forever's ID, with the data's in classicId.
+                if q ~= currentQuest and (q.id == afterID or q.classicId == afterID)
+                    and SM.IsQuestForPlayer(q) and not SM.ShouldHideQuest(q) then
+                    if not SM.IsQuestEffectivelyComplete(i, ch.quests) then
+                        return string.format(L["Lock Complete Previous Quest Format"], QuestLink(q))
+                    end
+                    break
+                end
+            end
+        end
+    end
     if questIndex and questIndex > 1 and not (currentQuest and currentQuest.parallel) then
         local prevIndex = questIndex - 1
         local prevQuest = ch.quests and ch.quests[prevIndex]

@@ -1616,7 +1616,9 @@ LayoutSelectedChapter = function()
                     end
                 end
             end
-            local lockReason = (not qDoneDisplay and not qInLog and not qOptional and not qPassed) and SM.GetQuestLockReason(data, ch, i) or nil
+            -- Optional quests aren't locked, except one that needs a particular quest first.
+            local lockReason = (not qDoneDisplay and not qInLog and not qPassed and (not qOptional or q.afterQuest))
+                and SM.GetQuestLockReason(data, ch, i) or nil
 
             card.title:SetText(q.displayName or q.name)
             card.npcLabel:SetText(q.npc or "")

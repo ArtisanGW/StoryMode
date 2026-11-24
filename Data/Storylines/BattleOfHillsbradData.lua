@@ -68,7 +68,7 @@ SM.BattleOfHillsbradData = {
             quests = {
                 { id = 527, name = "Battle of Hillsbrad", displayName = "The Northern Farms", npc = "High Executor Darthalia" },
                 { id = 528, name = "Battle of Hillsbrad", displayName = "The Peasants", npc = "High Executor Darthalia" },
-                { id = 546, name = "Souvenirs of Death", npc = "Deathguard Samsa", optional = true, showIf = 527, recapAfter = 2, recap = "Deathguard Samsa had a sideline going too: thirty human skulls. Thirty. Samsa didn't explain, and in Tarren Mill you learn quickly which questions aren't worth the answer." },
+                { id = 546, name = "Souvenirs of Death", npc = "Deathguard Samsa", optional = true, afterQuest = 527, showIf = 527, recapAfter = 2, recap = "Deathguard Samsa had a sideline going too: thirty human skulls. Thirty. Samsa didn't explain, and in Tarren Mill you learn quickly which questions aren't worth the answer." },
             },
         },
         {

@@ -73,7 +73,7 @@ SM.DarrowshireData = {
                 { id = 5153, name = "A Strange Historian", npc = "Marlene Redpath" },
                 { id = 5154, name = "The Annals of Darrowshire", npc = "Chromie" },
                 { id = 5241, name = "Uncle Carlin", npc = "Pamela Redpath", optional = true },
-                { id = 5211, name = "Defenders of Darrowshire", npc = "Carlin Redpath", optional = true, recap = "Carlin wanted Darrowshire's old defenders freed from that town, and I freed fifteen of them. The dead of Darrowshire have waited long enough for everything." },
+                { id = 5211, name = "Defenders of Darrowshire", npc = "Carlin Redpath", optional = true, afterQuest = 5241, recap = "Carlin wanted Darrowshire's old defenders freed from that town, and I freed fifteen of them. The dead of Darrowshire have waited long enough for everything." },
                 { id = 5210, name = "Brother Carlin", npc = "Chromie" },
             },
         },

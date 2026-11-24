@@ -23,7 +23,7 @@ end
 local KNOWN_KEYS = {}
 for key in ([[id name npc faction gameVersions optional parallel recap recapAlliance recapHorde race class
     excludeRace ids altIds foreverId foreverOptional classicId guidanceQuest guidanceQuests location mapID x y item objective
-    breadcrumbFor displayName hideIf showIf instance recapAfter trackingHint trackingHintFormat
+    breadcrumbFor afterQuest displayName hideIf showIf instance recapAfter trackingHint trackingHintFormat
     trackingHintQuestID trackingHintQuestName trackingHintPlace trackingHintNPC trackingHintDestination]]):gmatch("%S+") do
     KNOWN_KEYS[key] = true
 end
@@ -75,6 +75,23 @@ for _, file in ipairs(files) do
                                                 tostring(type(value) == "table" and value.id), tostring(type(value) == "table" and value.name)))
                                     elseif not KNOWN_KEYS[field] then
                                         otherKeys[field] = (otherKeys[field] or 0) + 1
+                                    end
+                                end
+                                -- afterQuest names quests (an ID or a list) in the same chapter, each for a side the quest is for.
+                                if quest.afterQuest ~= nil then
+                                    local list = type(quest.afterQuest) == "table" and quest.afterQuest or { quest.afterQuest }
+                                    for _, afterID in ipairs(list) do
+                                        local found = false
+                                        for _, other in ipairs(chapter.quests) do
+                                            if type(other) == "table" and other.id == afterID and other ~= quest
+                                                and (other.faction == nil or quest.faction == nil or other.faction == quest.faction) then
+                                                found = true
+                                            end
+                                        end
+                                        if not found then
+                                            report(file, ("%s %q: quest %s %q has afterQuest %s, which isn't in the chapter for its side")
+                                                :format(key, chapterName, tostring(quest.id), tostring(quest.name), tostring(afterID)))
+                                        end
                                     end
                                 end
                                 if quest.id then

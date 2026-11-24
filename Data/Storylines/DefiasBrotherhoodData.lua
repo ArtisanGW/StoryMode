@@ -182,7 +182,7 @@ SM.DefiasBrotherhoodData = {
             quests = {
                 { id = 142, name = "The Defias Brotherhood", displayName = "The Messenger", npc = "Gryan Stoutmantle" },
                 { id = 155, name = "The Defias Brotherhood", displayName = "The Traitor", npc = "The Defias Traitor" },
-                { id = 214, name = "Red Silk Bandanas", npc = "Scout Riell", optional = true },
+                { id = 214, name = "Red Silk Bandanas", npc = "Scout Riell", optional = true, afterQuest = 155 },
             },
         },
         {
