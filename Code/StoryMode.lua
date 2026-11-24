@@ -1594,7 +1594,6 @@ LayoutSelectedChapter = function()
     -- Quest cards — skipped for replayable chapters (button is the sole interaction point)
     local nextQuest = SM.FindNextQuest(data)
     local nextQuestID = nextQuest and nextQuest.id
-    local stepNumber = 0
 
     for i, q in ipairs(ch.quests) do
         if not dQuestCards[i] then
@@ -1642,11 +1641,10 @@ LayoutSelectedChapter = function()
 
             if card.SetLegacyState then
                 -- WoW Forever's Legacy cards draw their state themselves.
-                stepNumber = stepNumber + 1
                 card:SetLegacyState((qDoneDisplay and "done") or (qInLog and "active")
                     or (qPassed and "passed")
                     or (qIsNextRecommended and "next") or (qOptional and "optional")
-                    or (lockReason and "locked") or "later", stepNumber, data, ch, q)
+                    or (lockReason and "locked") or "later", data, ch, q)
                 card:Show()
             else
             card.icon:SetSize(14, 14)

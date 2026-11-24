@@ -191,7 +191,6 @@ local LEGACY = {
     iconMask = "UI-Frame-IconMask",
     statusBackground = "Legacy-Challenge-Cards-Date-BG",
     check = "worldquest-tracker-checkmark",
-    shield = "Legacy-Tree-Frame-Points-icon",
     criteria = "Legacy-Challenge-Cards-Bar",
     plus = "128-redbutton-plus",
     minus = "128-redbutton-minus",
@@ -204,7 +203,7 @@ local CARD = {
     descriptionX = 77,        -- the ribbon's left (5) + 72
     descriptionXOpenable = 100, -- 5 + 95, right of the plus/minus
     descriptionTop = 52,      -- below the ribbon: 4 + 46 + 2
-    descriptionRight = 436,   -- 80 short of the right edge, clear of the shield
+    descriptionRight = 496,   -- rowInset short of the right edge, like the objective rows (Legacy's shield sits here)
     collapsedLines = 3,
     objectivesGap = 23,       -- from the description to the first row
     rowHeight = 30,
@@ -641,14 +640,6 @@ local function CreateLegacyQuestCard(parent)
     card.instanceIcon:SetPoint("RIGHT", card.status, "LEFT", -3, 0)
     card.instanceIcon:Hide()
 
-    -- The step's place in the chapter, on the Legacy points shield.
-    card.shield = card:CreateTexture(nil, "ARTWORK")
-    SetAtlas(card.shield, LEGACY.shield)
-    card.shield:SetSize(35, 51)
-    card.shield:SetPoint("TOPRIGHT", card, "TOPRIGHT", -14, -26)
-    card.step = card:CreateFontString(nil, "OVERLAY", "GameFontNormalMed3")
-    card.step:SetPoint("CENTER", card.shield, "CENTER", -1, -4)
-
     -- The open card's last line: who gives the quest (or what it needs
     -- first), and a button to track it.
     card.footer = card:CreateFontString(nil, "OVERLAY", "GameFontNormal")
@@ -673,12 +664,12 @@ local function CreateLegacyQuestCard(parent)
 
     -- state: "done", "active" (in the quest log), "next", "optional",
     -- "locked" (has a requirement) or "later".
-    function card:SetLegacyState(state, stepNumber, data, chapter, quest)
+    function card:SetLegacyState(state, data, chapter, quest)
         local done = state == "done"
         -- Explorer mode: a quest counts as discovered once it's done, in the
         -- log or passed, or it's the one the story sends the player to next.
         -- Passing an optional quest doesn't count: the player never saw it.
-        -- Until then its card keeps its place and step, nothing else; the
+        -- Until then its card keeps its place, nothing else; the
         -- next quest names its giver but not what they'll ask.
         local explorer = SM.IsExplorerMode and SM.IsExplorerMode()
         local passed = state == "passed" and not (quest and quest.optional)
@@ -779,10 +770,6 @@ local function CreateLegacyQuestCard(parent)
         local showIcon = instanceIcon ~= nil and (done or statusText == instanceTag)
         if showIcon then self.instanceIcon:SetAtlas(instanceIcon) end
         self.instanceIcon:SetShown(showIcon)
-
-        self.step:SetText(stepNumber and tostring(stepNumber) or "")
-        self.shield:SetShown(stepNumber ~= nil)
-        self.step:SetShown(stepNumber ~= nil)
 
         local color = dimmed and GRAY or WHITE
         self.title:SetTextColor(color[1], color[2], color[3])

@@ -6,8 +6,8 @@ local L = SM.L
 --
 -- On WoW Forever the Story Mode window is the Legacy window's challenge page:
 -- Blizzard's PortraitFrameTemplate shell at the Legacy window's size, opened
--- where the Legacy window opens, with the Legacy background, divider, points
--- shield and bar, side tabs, and cards for quests. Every size and offset is
+-- where the Legacy window opens, with the Legacy background, divider and
+-- progress bar, side tabs, and cards for quests. Every size and offset is
 -- copied from Forever's own Blizzard_LegacySystem XML (1.60.1), and every
 -- atlas is named by its element name, which is what SetAtlas resolves.
 --
@@ -22,7 +22,6 @@ local ATLAS = {
     barBackground = "Legacy-Progressbar-BG",
     barFill = "Legacy-Progressbar-Fill",
     barFrame = "Legacy-Progressbar-Frame",
-    shield = "UI-Legacy-Points-icon-c60",
 }
 
 local function HasArt()
@@ -44,13 +43,13 @@ local BACKGROUND_INSETS = { left = 1, top = 10, right = 2, bottom = 4 }
 local LIST = { x = 6, top = 78, w = 330, bottom = 4 }          -- CategoryList (Legacy: top 80, bottom 8)
 local DETAIL = { right = 24, bottom = 4, w = 560, h = 494 }      -- DetailPane (Legacy: bottom 8, h 490)
 local DIVIDER = { x = 328, top = 72, w = 12, h = 503 }           -- VerticalDivider
-local SUMMARY = { top = 25, w = 520, h = 36, shield = 32 }       -- LegacyChallengePointSummary
--- Legacy puts its summary at x 280. Ours centres the shield and bar as one
--- under the window title, which sits between the portrait and the close
--- button (PortraitFrameTemplate's title runs from 58 to 24 short of the
--- edges); the shield hangs 32 left of the bar.
-SUMMARY.x = math.floor(WINDOW_W / 2 + (58 - 24) / 2 - (SUMMARY.w + SUMMARY.shield) / 2 + SUMMARY.shield + 0.5)
-local OVER_FRAME_LEVEL = 800                                     -- the divider and shield sit over the frame's border
+local SUMMARY = { top = 25, w = 520, h = 36 }                    -- LegacyChallengePointSummary
+-- Legacy puts its summary at x 280, with its points shield left of the bar.
+-- Ours has no shield and centres the bar under the window title, which sits
+-- between the portrait and the close button (PortraitFrameTemplate's title
+-- runs from 58 to 24 short of the edges); the bar starts 6 left of the summary.
+SUMMARY.x = math.floor(WINDOW_W / 2 + (58 - 24) / 2 - (SUMMARY.w - 6) / 2 + 0.5)
+local OVER_FRAME_LEVEL = 800                                     -- the divider sits over the frame's border
 local TOP_OFFSET = -116                                          -- Blizzard's UI panel TOP_OFFSET
 local LEFT_OFFSET = 16                                           -- its LEFT_OFFSET
 local BOTTOM_CLAMP = 140                                         -- and its bottom clamp
@@ -1577,9 +1576,9 @@ function window.PlaceChapterArrow(arrow, fromNode, toNode, done)
 end
 
 -- ── Story progress ──────────────────────────────────────────────────────────
--- The header shows the selected story's progress the way the Legacy challenge
--- page shows its points: the shield counts finished chapters, the bar fills
--- with finished quests.
+-- The header shows the selected story's progress in the Legacy challenge
+-- page's bar: it fills with finished quests, and its text counts chapters
+-- and quests.
 
 local progress
 
@@ -1608,22 +1607,8 @@ function BuildProgressSummary(frame)
     local text = bar:CreateFontString(nil, "OVERLAY", "NumberFontNormal")
     text:SetPoint("CENTER")
 
-    -- Over the title bar's border, as in Legacy (LegacyPointShield, level 800).
-    local shield = CreateFrame("Frame", nil, summary)
-    shield:SetSize(46, 64)
-    shield:SetFrameLevel(OVER_FRAME_LEVEL)
-    shield:SetPoint("RIGHT", summary, "LEFT", 14, 4)
-    local shieldIcon = shield:CreateTexture(nil, "BACKGROUND")
-    shieldIcon:SetAtlas(ATLAS.shield)
-    shieldIcon:SetSize(46, 66)
-    shieldIcon:SetPoint("TOPRIGHT")
-    local points = shield:CreateFontString(nil, "OVERLAY", "GameFontNormalMed3")
-    points:SetSize(42, 16)
-    points:SetPoint("TOPRIGHT", shield, "TOPRIGHT", -2, -31)
-    points:SetTextColor(1, 1, 1)
-
     summary:Hide()
-    progress = { frame = summary, bar = bar, text = text, points = points }
+    progress = { frame = summary, bar = bar, text = text }
 end
 
 local function ShowProgress(data)
@@ -1639,7 +1624,6 @@ local function ShowProgress(data)
         if total > 0 and done == total then chaptersDone = chaptersDone + 1 end
     end
     local questsDone, questsTotal = SM.GetCampaignProgress(data)
-    progress.points:SetText(chaptersDone)
     progress.bar:SetValue(questsTotal > 0 and questsDone / questsTotal or 0)
     progress.text:SetText(string.format(L["Progress Summary Format"], chaptersDone, #chapters, questsDone, questsTotal))
     progress.frame:Show()
