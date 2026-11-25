@@ -1,7 +1,7 @@
 -- Fakes of the game shared by the story quest mark tests.
 local Fakes = {}
 
--- A texture or frame: records colour, grey, atlas, parent and anchor.
+-- A texture or frame: records colour, grey, atlas, crop, parent and anchor.
 function Fakes.NewRegion()
     local region = { color = { 1, 1, 1 }, desaturated = false, shown = false, children = {} }
     function region:SetVertexColor(red, green, blue) self.color = { red, green, blue } end
@@ -9,6 +9,11 @@ function Fakes.NewRegion()
     function region:SetAtlas(atlas) self.atlas = atlas end
     function region:SetSize(width) self.size = width end
     function region:SetAllPoints() end
+    function region:SetTexture(texture) self.texture = texture end
+    function region:GetTexture() return self.texture end
+    function region:SetTexCoord(left, right, top, bottom) self.texCoord = { left, right, top, bottom } end
+    function region:GetTexCoord() return 0, 0, 0, 1, 1, 0, 1, 1 end
+    function region:GetWidth() return 18 end
     function region:SetPoint(_, relativeTo, _, offsetX, offsetY)
         self.anchor, self.offsetX, self.offsetY = relativeTo, offsetX, offsetY
     end
