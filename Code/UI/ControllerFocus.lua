@@ -205,7 +205,8 @@ function ControllerFocus.New(window, options)
     hint:Hide()
 
     local function Leave()
-        if current and current:IsVisible() then
+        -- Also once the window closed: its tooltip would stay up.
+        if current then
             local onLeave = current:GetScript("OnLeave")
             if onLeave then pcall(onLeave, current) end
         end
