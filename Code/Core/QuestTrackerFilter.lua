@@ -38,6 +38,23 @@ local function WatchedQuestSet(questIDs)
     return watched
 end
 
+local function SameWatchedQuests(first, second)
+    if #first ~= #second then return false end
+    local watched = WatchedQuestSet(first)
+    for _, questID in ipairs(second) do
+        if not watched[questID] then return false end
+    end
+    return true
+end
+
+local function RefreshQuestTracker()
+    if ObjectiveTrackerManager and ObjectiveTrackerManager.UpdateAll then
+        ObjectiveTrackerManager:UpdateAll()
+    elseif QuestObjectiveTracker and QuestObjectiveTracker.MarkDirty then
+        QuestObjectiveTracker:MarkDirty()
+    end
+end
+
 local function IsInStory(questID, storyID)
     local story = SM.FindQuestStory(questID)
     return story and story.id == storyID or false
@@ -113,6 +130,10 @@ function SM.UpdateQuestTrackerStoryFilter()
         end
     else
         RestoreHiddenWatches(hidden, watched)
+    end
+    local currentWatches = ReadWatchedQuestIDs()
+    if currentWatches and not SameWatchedQuests(watchedQuestIDs, currentWatches) then
+        RefreshQuestTracker()
     end
     updating = false
 end

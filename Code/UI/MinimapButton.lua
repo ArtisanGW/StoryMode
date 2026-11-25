@@ -135,6 +135,16 @@ function SM.CreateMinimapButton(storyFrame, tooltip, bodyColor)
         ApplyIconStyle()
     end
 
+    local function IsStoryQuestFilterEnabled()
+        return StoryModeDB and StoryModeDB.hideUnrelatedQuestTrackerQuests == true
+    end
+
+    local function ToggleStoryQuestFilter()
+        if SM.SetQuestTrackerStoryFilterEnabled then
+            SM.SetQuestTrackerStoryFilterEnabled(not IsStoryQuestFilterEnabled())
+        end
+    end
+
     -- Hidden from the right-click menu, back with /sm minimap. One choice for
     -- the whole account, like the icon style.
     local function ApplyShown()
@@ -169,6 +179,12 @@ function SM.CreateMinimapButton(storyFrame, tooltip, bodyColor)
                     function() SetIconStyle(MINIMAP_STYLE_DEFAULT_BORDER) end
                 )
                 rootDescription:CreateDivider()
+                rootDescription:CreateCheckbox(
+                    L["Setting Story Quest Filter"],
+                    IsStoryQuestFilterEnabled,
+                    ToggleStoryQuestFilter
+                )
+                rootDescription:CreateDivider()
                 rootDescription:CreateButton(L["Minimap Hide Button"], function()
                     SM.SetMinimapButtonShown(false)
                 end)
@@ -195,6 +211,12 @@ function SM.CreateMinimapButton(storyFrame, tooltip, bodyColor)
                     text = L["Minimap Icon Style Default"],
                     checked = function() return GetMinimapIconStyle() == MINIMAP_STYLE_DEFAULT_BORDER end,
                     func = function() SetIconStyle(MINIMAP_STYLE_DEFAULT_BORDER) end,
+                },
+                {
+                    text = L["Setting Story Quest Filter"],
+                    isNotRadio = true,
+                    checked = IsStoryQuestFilterEnabled,
+                    func = ToggleStoryQuestFilter,
                 },
                 {
                     text = L["Minimap Hide Button"],

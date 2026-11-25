@@ -3,7 +3,7 @@
 ## Unreleased
 
 ### WoW Forever
-- Only show quests from the selected story in the objective tracker when enabled. Other quests stay in the Quest Log and are restored when the option is turned off (ArtisanGW)
+- Only show quests from the selected story in the objective tracker when enabled. Other quests stay in the Quest Log and are restored when the option is turned off; toggle it from Story Mode's minimap button right-click menu (ArtisanGW)
 
 ## 2.1.0
 
