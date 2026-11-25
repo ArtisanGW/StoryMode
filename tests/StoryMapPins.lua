@@ -79,12 +79,10 @@ assert(Fakes.IsPlain(inProgress.Display.Icon), "in-progress icon keeps its look"
 
 offerProvider:RefreshAllData()
 questProvider:RefreshAllData()
-assert(#inProgress.children == 1, "one dot mark per pin, made once")
-local dotMark = inProgress.children[1]
-assert(dotMark.shown and Fakes.IsColor(dotMark, FOLLOWED), "in-progress: the last dot is painted")
-assert(dotMark.texture == inProgress.Display.Icon.texture, "it is a copy of the pin's own icon")
-assert(dotMark.texCoord[1] > 0.66 and dotMark.texCoord[2] == 1, "cropped to the last dot")
-assert(#turnIn.children == 0, "turn-in pins get no dot mark")
+assert(#inProgress.children == 1, "one badge per pin, made once")
+local badge = inProgress.children[1]
+assert(badge.shown and badge.atlas == "QuestNormal" and Fakes.IsColor(badge, FOLLOWED), "in-progress badge is a painted !")
+assert(#turnIn.children == 0, "turn-in pins get no badge")
 
 -- A pooled pin reused for another quest gets the game's look back, and its
 -- own floor greying from the game's SetHeightIndicator.
@@ -100,12 +98,12 @@ SM.RefreshStoryQuestMarks()
 assert(Fakes.IsColor(giverFollowed.Texture, OTHER))
 assert(Fakes.IsColor(giverOther.Texture, FOLLOWED))
 
--- Turned off: everything back, dot mark hidden.
+-- Turned off: everything back, badge hidden.
 SM.SetStoryQuestMarks(false)
 assert(StoryModeDB.markStoryQuests == false)
 assert(Fakes.IsPlain(giverFollowed.Texture) and Fakes.IsPlain(giverOther.Texture))
 assert(Fakes.IsPlain(turnIn.Display.Icon))
-assert(not dotMark.shown, "dot mark hidden when turned off")
+assert(not badge.shown, "badge hidden when turned off")
 
 SM.SetStoryQuestMarks(true)
 assert(Fakes.IsColor(giverOther.Texture, FOLLOWED), "turned on again: painted right away")
