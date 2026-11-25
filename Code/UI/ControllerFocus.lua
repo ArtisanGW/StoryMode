@@ -193,13 +193,13 @@ function ControllerFocus.New(window, options)
     local labels = options.labels or {}
     local legend = addonTable.KeyLegend.New(window)
     legend:SetPoint("TOP", window, "BOTTOM", 0, -6)
-    legend:Hide()
     legend.SetPrompts({
         { key = "DIRPAD", fallback = "D-pad", label = labels.move or DEFAULT_LABELS.move },
         { key = KEYS.press, fallback = "A", label = labels.press or DEFAULT_LABELS.press },
         { key = KEYS.back, fallback = "B", label = labels.back or DEFAULT_LABELS.back },
         { key = KEYS.select, fallback = "Select", label = labels.select or DEFAULT_LABELS.select },
     })
+    legend:Hide()   -- until focused
 
     local function Leave()
         -- Also once the window closed: its tooltip would stay up.

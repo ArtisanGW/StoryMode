@@ -13,7 +13,8 @@
 --   local legend = addonTable.KeyLegend.New(parent)   -- a frame: anchor and show it
 --   legend.SetPrompts({ { key = "PAD1", fallback = "A", label = "Buy" }, ... })
 --   legend.Refresh()   -- again when the controller may have changed (on show)
--- SetPrompts lays it out and sizes it; prompts can change any time.
+-- SetPrompts lays it out and sizes it; prompts can change any time, and an
+-- empty list hides it. legend.Describe() says it in words ("A: Buy   B: Close").
 local _, addonTable = ...
 
 local KeyLegend = {
@@ -87,8 +88,15 @@ function KeyLegend.New(parent)
     end
 
     function legend.SetPrompts(newPrompts)
-        prompts = newPrompts
+        prompts = newPrompts or {}
+        legend:SetShown(#prompts > 0)
         legend.Refresh()
+    end
+
+    function legend.Describe()
+        local words = {}
+        for _, prompt in ipairs(prompts) do words[#words + 1] = prompt.fallback .. ": " .. prompt.label end
+        return table.concat(words, "   ")
     end
 
     return legend
