@@ -161,7 +161,7 @@ function SM.CreateMinimapButton(storyFrame, tooltip, bodyColor)
     end
 
     local function IsStoryQuestFilterEnabled()
-        return StoryModeDB and StoryModeDB.hideUnrelatedQuestTrackerQuests == true
+        return SM.IsQuestTrackerStoryFilterEnabled ~= nil and SM.IsQuestTrackerStoryFilterEnabled()
     end
 
     local function ToggleStoryQuestFilter()

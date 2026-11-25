@@ -93,7 +93,9 @@ assert(Contains(watchedQuestIDs, 202))
 assert(hidden[101] == true)
 assert(hidden[202] == nil)
 
+assert(SM.IsQuestTrackerStoryFilterEnabled() == true)
 SM.SetQuestTrackerStoryFilterEnabled(false)
+assert(SM.IsQuestTrackerStoryFilterEnabled() == false)
 assert(Contains(watchedQuestIDs, 101))
 assert(Contains(watchedQuestIDs, 202))
 assert(Contains(watchedQuestIDs, 303))
@@ -110,8 +112,16 @@ Fire("QUEST_WATCH_LIST_CHANGED")
 assert(not Contains(watchedQuestIDs, 202))
 assert(hidden[202] == true)
 
-questsInLog[202] = nil
+-- Right after login the quest log can be empty: hidden quests are kept.
+local loadedLog = questsInLog
+questsInLog = {}
 Fire("QUEST_LOG_UPDATE")
+assert(hidden[202] == true)
+questsInLog = loadedLog
+
+-- Turned in or abandoned: the game removes it, and it's forgotten.
+questsInLog[202] = nil
+Fire("QUEST_REMOVED", 202)
 assert(hidden[202] == nil)
 
 inCombat = true
@@ -122,6 +132,19 @@ assert(Contains(watchedQuestIDs, 202))
 inCombat = false
 Fire("PLAYER_REGEN_ENABLED")
 assert(not Contains(watchedQuestIDs, 202))
+
+-- Turned off while the log is still empty: the quests come back once it loads.
+questsInLog[202] = true
+SM.UpdateQuestTrackerStoryFilter()
+assert(hidden[202] == true)
+loadedLog = questsInLog
+questsInLog = {}
+SM.SetQuestTrackerStoryFilterEnabled(false)
+assert(hidden[202] == true and not Contains(watchedQuestIDs, 202))
+questsInLog = loadedLog
+Fire("QUEST_LOG_UPDATE")
+assert(Contains(watchedQuestIDs, 202) and hidden[202] == nil)
+SM.SetQuestTrackerStoryFilterEnabled(true)
 
 -- Back on the start page: the tracker keeps the last story.
 StoryModeDB.selectedQuestlineID = nil

@@ -63,19 +63,20 @@ local function IsQuestInLog(questID)
     return SM.IsQuestInLog(questID)
 end
 
+-- A hidden quest missing from the log stays on the list: right after login the
+-- log can still be empty, and forgetting them then lost every hidden quest. A
+-- quest leaves the list when it's watched again or the game removes it from
+-- the log (QUEST_REMOVED: turned in or abandoned).
 local function AddHiddenWatches(hidden, watched, selectedStoryID)
     for questID in pairs(hidden) do
-        if not IsQuestInLog(questID) then
-            hidden[questID] = nil
-        elseif IsInStory(questID, selectedStoryID) and not watched[questID] then
+        if IsQuestInLog(questID) and IsInStory(questID, selectedStoryID) and not watched[questID] then
             SM.AddQuestWatch(questID)
         end
     end
 
     watched = WatchedQuestSet(ReadWatchedQuestIDs())
     for questID in pairs(hidden) do
-        if not IsQuestInLog(questID)
-            or (IsInStory(questID, selectedStoryID) and watched[questID]) then
+        if IsInStory(questID, selectedStoryID) and watched[questID] then
             hidden[questID] = nil
         end
     end
@@ -83,19 +84,22 @@ end
 
 local function RestoreHiddenWatches(hidden, watched)
     for questID in pairs(hidden) do
-        if not IsQuestInLog(questID) then
-            hidden[questID] = nil
-        elseif not watched[questID] then
+        if IsQuestInLog(questID) and not watched[questID] then
             SM.AddQuestWatch(questID)
         end
     end
 
     watched = WatchedQuestSet(ReadWatchedQuestIDs())
     for questID in pairs(hidden) do
-        if not IsQuestInLog(questID) or watched[questID] then
+        if watched[questID] then
             hidden[questID] = nil
         end
     end
+end
+
+local function ForgetHiddenQuest(questID)
+    local hidden = CharacterWatches()
+    if hidden and questID then hidden[questID] = nil end
 end
 
 function SM.UpdateQuestTrackerStoryFilter()
@@ -132,6 +136,11 @@ function SM.SetQuestTrackerStory(storyID)
     SM.UpdateQuestTrackerStoryFilter()
 end
 
+-- Only story quests is on (other addons may read it through _G.StoryMode).
+function SM.IsQuestTrackerStoryFilterEnabled()
+    return StoryModeDB ~= nil and StoryModeDB.hideUnrelatedQuestTrackerQuests == true
+end
+
 function SM.SetQuestTrackerStoryFilterEnabled(enabled)
     if not StoryModeDB then return end
     StoryModeDB.hideUnrelatedQuestTrackerQuests = enabled == true
@@ -143,6 +152,11 @@ eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 eventFrame:RegisterEvent("QUEST_WATCH_LIST_CHANGED")
 eventFrame:RegisterEvent("QUEST_LOG_UPDATE")
 eventFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
-eventFrame:SetScript("OnEvent", function()
+eventFrame:RegisterEvent("QUEST_REMOVED")
+eventFrame:SetScript("OnEvent", function(_, event, questID)
+    if event == "QUEST_REMOVED" then
+        ForgetHiddenQuest(questID)
+        return
+    end
     SM.UpdateQuestTrackerStoryFilter()
 end)
