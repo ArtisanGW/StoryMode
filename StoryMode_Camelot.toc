@@ -113,6 +113,7 @@ Code\Core\Events.lua
 Code\Core\PingPin.xml
 Code\Core\Tracking.lua
 Code\Core\ShareLinks.lua
+Code\Core\QuestTrackerFilter.lua
 Code\Dev\ForeverQuestScan.lua
 Code\UI\Tooltip.lua
 Code\UI\Pools.lua

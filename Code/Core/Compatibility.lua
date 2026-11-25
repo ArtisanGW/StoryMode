@@ -224,6 +224,16 @@ function SM.AddQuestWatch(questID)
     end
 end
 
+function SM.RemoveQuestWatch(questID)
+    if C_QuestLog and C_QuestLog.RemoveQuestWatch then
+        return C_QuestLog.RemoveQuestWatch(questID)
+    end
+    if RemoveQuestWatch then
+        local logIndex = SM.GetLogIndexForQuestID(questID)
+        if logIndex then return RemoveQuestWatch(logIndex) end
+    end
+end
+
 -- Newer clients (WoW Forever, and retail since Midnight) leave the world map
 -- to the player. Addon code may not open it (C_Map.OpenWorldMap is
 -- restricted), and every pin the map places calls SetPassThroughButtons,

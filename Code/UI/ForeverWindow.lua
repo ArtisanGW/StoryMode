@@ -431,6 +431,13 @@ local SETTINGS = {
         set = function(value) SM.SetMinimapButtonShown(value) end,
         explain = function() return L["Setting Minimap Button Text"] end,
     },
+    {
+        label = "Setting Story Quest Filter", kind = "check",
+        available = function() return SM.SetQuestTrackerStoryFilterEnabled ~= nil end,
+        get = function() return StoryModeDB and StoryModeDB.hideUnrelatedQuestTrackerQuests == true end,
+        set = function(value) SM.SetQuestTrackerStoryFilterEnabled(value) end,
+        explain = function() return L["Setting Story Quest Filter Text"] end,
+    },
 }
 
 local startPage = { shown = false, rows = {}, page = 1 }

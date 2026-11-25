@@ -222,6 +222,7 @@ function SM.OpenStoryLink(encodedStoryID)
 
     StoryModeDB.selectedQuestlineID = storyID
     StoryModeDB.selectedChapter = StoryModeDB.selectedChapter or 1
+    if SM.UpdateQuestTrackerStoryFilter then SM.UpdateQuestTrackerStoryFilter() end
     if SM.SetActiveTab then SM.SetActiveTab("story") end
     if SM.ShowStoryModeFrame then SM.ShowStoryModeFrame() end
     return true

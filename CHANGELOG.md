@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### WoW Forever
+- Only show quests from the selected story in the objective tracker when enabled. Other quests stay in the Quest Log and are restored when the option is turned off (ArtisanGW)
+
 ## 2.1.0
 
 ### New stories
