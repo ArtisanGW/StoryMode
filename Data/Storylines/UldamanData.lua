@@ -87,13 +87,17 @@ SM.UldamanData = {
 
     chapterDisplayIDs = {
         ["Hammertoe's Warning"] = 1265,
+        ["Odd Jobs in the Badlands"] = 7033, -- Rigglefuzz
         ["The Shattered Necklace"] = 1466,
+        ["Theldurin's Doom"] = 4903, -- Theldurin the Lost
         ["The Platinum Discs"] = 6589, -- Stone Watcher of Norgannon
     },
 
     chapterIcons = {
         ["Hammertoe's Warning"] = 134332,
+        ["Odd Jobs in the Badlands"] = 133639,  -- inv_misc_bag_10
         ["The Shattered Necklace"] = 133315,
+        ["Theldurin's Doom"] = 134455,          -- inv_misc_stonetablet_01, the Tablet of Ryun'eh
         ["The Platinum Discs"] = 134459,
     },
 
@@ -114,16 +118,34 @@ SM.UldamanData = {
                 { id = 726, name = "Passing Word of a Threat", npc = "Advisor Belgrum" },
                 { id = 762, name = "An Ambassador of Evil", npc = "Historian Karnik" },
                 { id = 1139, name = "The Lost Tablets of Will", npc = "Advisor Belgrum" },
-                { id = 704, name = "Agmond's Fate", npc = "Prospector Ironband", optional = true, recap = "Prospector Ironband in Loch Modan had lost a prospector named Agmond, whose last report mentioned carved stone urns at the dig outside Uldaman, and Ironband suspected the urns were what had stirred up the troggs. I brought back four. The troggs did seem to feel strongly about them.",
+            },
+        },
+        {
+            chapter = "Odd Jobs in the Badlands",
+            requiredLevel = 35,
+            summaryAlliance = "Plenty of people want something out of the Badlands or Uldaman, and few of them want to fetch it themselves. Prospector Ironband has lost a prospector, Krom Stoutarm a treasure, Ghak Healtouch in Thelsamar needs reagents, and a tinkerer called Rigglefuzz is after power stones. None of it is urgent. All of it pays.",
+            summaryHorde = "Plenty of people want something out of the Badlands or Uldaman, and few of them want to fetch it themselves. Jarkal Mossmeld in Kargath needs reagents, Patrick Garrett in the Undercity wants the family weapon back, and a tinkerer called Rigglefuzz is after power stones. None of it is urgent. All of it pays.",
+            recap = "Between the big jobs, the Badlands kept me busy with small ones. Everybody out there wanted something fetched, found or carried home from Uldaman, and nobody wanted to go down and get it themselves. So I did.",
+            quests = {
+                -- Errands, none of them needed for the rest of the story. The chapter's
+                -- journal entry joins once one of them is done (JournalTab.lua).
+                { id = 2418, name = "Power Stones", npc = "Rigglefuzz", optional = true, recap = "Rigglefuzz, a tinkerer in the Badlands, had once shown the Shadowforge dwarves how to use the power stones they dig out of Uldaman, and was thanked by being thrown out. Now Rigglefuzz wanted sixteen of them, to run a robotic rodent forever. The Shadowforge were no better at sharing the second time." },
+                { id = 704, name = "Agmond's Fate", npc = "Prospector Ironband", faction = "Alliance", optional = true, recap = "Prospector Ironband in Loch Modan had lost a prospector named Agmond, whose last report mentioned carved stone urns at the dig outside Uldaman, and Ironband suspected the urns were what had stirred up the troggs. I brought back four. The troggs did seem to feel strongly about them.",
                     guidanceQuests = {
                         { id = 707, name = "Ironband Wants You!", npc = "Prospector Stormpike", mapID = 87, x = 0.7380, y = 0.1300 },
                         { id = 738, name = "Find Agmond", npc = "Prospector Ironband", mapID = 48, x = 0.6580, y = 0.6540 },
                         { id = 739, name = "Murdaloc" },
                     },
                 },
-                { id = 1360, name = "Reclaimed Treasures", npc = "Krom Stoutarm", optional = true, recap = "When the troggs overran Uldaman, Krom Stoutarm left his greatest treasure behind in a chest at the end of the North Common Hall. I fought my way to it and carried it home to Ironforge, and it was a beer stein. A Stoutarm without a stein, Krom explained with feeling, is hardly a Stoutarm at all." },
-                { id = 2398, name = "The Lost Dwarves", npc = "Prospector Stormpike", optional = true },
-                { id = 2240, name = "The Hidden Chamber", npc = "Baelog", optional = true, afterQuest = 2398, recap = "Prospector Stormpike of the Explorers' League sent me after Baelog, whose band had gone into Uldaman and got stuck there. Baelog couldn't go anywhere, but his journal told me how to open a hidden chamber behind a huge locked door, and the chamber was real. Stormpike admitted to having had doubts, which Baelog never had." },
+                -- Uldaman Reagent Run comes after the giver's Badlands Reagent Run.
+                { id = 2500, name = "Badlands Reagent Run", npc = "Ghak Healtouch", faction = "Alliance", optional = true, recap = "Ghak Healtouch in Thelsamar sent me into the Badlands with a shopping list: buzzard gizzards, crag coyote fangs and shards from the rock elementals. The buzzards and the coyotes gave theirs up easily enough. The elementals argued the point. Ghak went over every piece, decided I could be trusted with reagents, and had a harder errand ready before I'd sat down." },
+                { id = 17, name = "Uldaman Reagent Run", npc = "Ghak Healtouch", faction = "Alliance", optional = true, afterQuest = 2500, recap = "Ghak Healtouch, the alchemist in Thelsamar, wanted a dozen magenta fungus caps from the Uldaman tunnels, with a warning that they puff poison spores when jostled. They do. Ghak paid me with a restorative potion and called the caps an interesting study, yon verily, and I still don't know what yon verily means." },
+                { id = 2258, name = "Badlands Reagent Run", npc = "Jarkal Mossmeld", faction = "Horde", optional = true, recap = "Jarkal Mossmeld in Kargath wanted reagents from the Badlands outside the walls: five buzzard gizzards, ten crag coyote fangs and five shards of rock elemental. Out there everything bites, so I collected from whatever bit first. Jarkal counted it all twice and said the ingredient that really mattered was down in Uldaman." },
+                { id = 2202, name = "Uldaman Reagent Run", npc = "Jarkal Mossmeld", faction = "Horde", optional = true, afterQuest = 2258, recap = "Jarkal Mossmeld in Kargath wanted a dozen magenta fungus caps out of the Uldaman tunnels, which let off poison spores if you disturb them, so a little care was called for. I took a little care and a lot of poison. Jarkal paid me with a restorative potion, which was exactly the right reward." },
+                { id = 2398, name = "The Lost Dwarves", npc = "Prospector Stormpike", faction = "Alliance", optional = true },
+                { id = 2240, name = "The Hidden Chamber", npc = "Baelog", faction = "Alliance", optional = true, afterQuest = 2398, recap = "Prospector Stormpike of the Explorers' League sent me after Baelog, whose band had gone into Uldaman and got stuck there. Baelog couldn't go anywhere, but his journal told me how to open a hidden chamber behind a huge locked door, and the chamber was real. Stormpike admitted to having had doubts, which Baelog never had." },
+                { id = 1360, name = "Reclaimed Treasures", npc = "Krom Stoutarm", faction = "Alliance", optional = true, recap = "When the troggs overran Uldaman, Krom Stoutarm left his greatest treasure behind in a chest at the end of the North Common Hall. I fought my way to it and carried it home to Ironforge, and it was a beer stein. A Stoutarm without a stein, Krom explained with feeling, is hardly a Stoutarm at all." },
+                { id = 2342, name = "Reclaimed Treasures", npc = "Patrick Garrett", faction = "Horde", optional = true, recap = "Patrick Garrett swept the bat pens in the Undercity and felt it was beneath a Garrett. The family weapon was still in their old chest in Uldaman's South Common Hall, from back when the Garretts dug there. I brought it back, and Patrick turned straight to the bats and told them to tremble, which they didn't." },
             },
         },
         {
@@ -147,20 +169,21 @@ SM.UldamanData = {
                 { id = 2340, name = "Deliver the Gems", npc = "Jarkal Mossmeld", faction = "Horde" },
                 { id = 2341, name = "Necklace Recovery, Take 3", npc = "Dran Droffers", faction = "Horde" },
                 { id = 2361, name = "Restoring the Necklace", npc = "Talvash del Kissel", faction = "Alliance", optional = true, afterQuest = 2204, recap = "In the end Talvash del Kissel let me keep the necklace, on two conditions: that I tell everyone, loudly and often, who made it, and that I mention it really isn't cursed. Talvash made it, and it isn't cursed, as far as I know." },
-                -- Uldaman Reagent Run comes after the giver's Badlands Reagent Run.
-                { id = 2500, name = "Badlands Reagent Run", npc = "Ghak Healtouch", faction = "Alliance", optional = true, recap = "Ghak Healtouch in Thelsamar sent me into the Badlands with a shopping list: buzzard gizzards, crag coyote fangs and shards from the rock elementals. The buzzards and the coyotes gave theirs up easily enough. The elementals argued the point. Ghak went over every piece, decided I could be trusted with reagents, and had a harder errand ready before I'd sat down." },
-                { id = 17, name = "Uldaman Reagent Run", npc = "Ghak Healtouch", faction = "Alliance", optional = true, afterQuest = 2500, recap = "Ghak Healtouch, the alchemist in Thelsamar, wanted a dozen magenta fungus caps from the Uldaman tunnels, with a warning that they puff poison spores when jostled. They do. Ghak paid me with a restorative potion and called the caps an interesting study, yon verily, and I still don't know what yon verily means." },
-                { id = 2258, name = "Badlands Reagent Run", npc = "Jarkal Mossmeld", faction = "Horde", optional = true, recap = "Jarkal Mossmeld in Kargath wanted reagents from the Badlands outside the walls: five buzzard gizzards, ten crag coyote fangs and five shards of rock elemental. Out there everything bites, so I collected from whatever bit first. Jarkal counted it all twice and said the ingredient that really mattered was down in Uldaman." },
-                { id = 2202, name = "Uldaman Reagent Run", npc = "Jarkal Mossmeld", faction = "Horde", optional = true, afterQuest = 2258, recap = "Jarkal Mossmeld in Kargath wanted a dozen magenta fungus caps out of the Uldaman tunnels, which let off poison spores if you disturb them, so a little care was called for. I took a little care and a lot of poison. Jarkal paid me with a restorative potion, which was exactly the right reward." },
-                { id = 2342, name = "Reclaimed Treasures", npc = "Patrick Garrett", faction = "Horde", optional = true, recap = "Patrick Garrett swept the bat pens in the Undercity and felt it was beneath a Garrett. The family weapon was still in their old chest in Uldaman's South Common Hall, from back when the Garretts dug there. I brought it back, and Patrick turned straight to the bats and told them to tremble, which they didn't." },
-                { id = 709, name = "Solution to Doom", npc = "Theldurin the Lost", optional = true, recap = "Theldurin the Lost, a jumpy dwarf out in the Badlands, was sure a doom was coming and wouldn't say its name in case it heard him. He needed the Tablet of Ryun'eh, from a chest in Uldaman older than anything dwarves ever made. I brought it, and he said it might hold the secret to saving us all, though he still wouldn't say from what." },
-                { id = 727, name = "To Ironforge for Yagyin's Digest", npc = "Theldurin the Lost", faction = "Alliance", optional = true, afterQuest = 709 },
-                { id = 728, name = "To the Undercity for Yagyin's Digest", npc = "Theldurin the Lost", faction = "Horde", optional = true, afterQuest = 709 },
-                { id = 735, name = "The Star, the Hand and the Heart", npc = "Gerrig Bonegrip", faction = "Alliance", optional = true, afterQuest = 727 },
-                { id = 736, name = "The Star, the Hand and the Heart", npc = "Keeper Bel'dugur", faction = "Horde", optional = true, afterQuest = 728 },
-                { id = 737, name = "Forbidden Knowledge", npc = "Gerrig Bonegrip", faction = "Alliance", optional = true, afterQuest = 735, recap = "The tablet from Uldaman told Theldurin a lot, but not enough. He wanted Yagyin's Digest, a book kept by the very people he'd fled, and he gave me their sigil so they would take me for one of their own.\n\nThey did. Their contact in the city decided I was off to found a new chapter of their order and was glad to help, once I'd brought him three relics he wouldn't say out loud. He wrote them down instead. I brought them.\n\nThe book came with a warning that the truth can burn. Theldurin said they should build me a monument and praise my name until my grandchildren had grandchildren. Then he added that if THEY ever get loose, I can forget the grandchildren. We're all worm food." },
-                { id = 737, name = "Forbidden Knowledge", npc = "Keeper Bel'dugur", faction = "Horde", optional = true, afterQuest = 736, recap = "The tablet from Uldaman told Theldurin a lot, but not enough. He wanted Yagyin's Digest, a book kept by the very people he'd fled, and he gave me their sigil so they would take me for one of their own.\n\nThey did. Their contact in the city decided I was off to found a new chapter of their order and was glad to help, once I'd brought him three relics he wouldn't say out loud. He wrote them down instead. I brought them.\n\nThe book came with a warning that the truth can burn. Theldurin said they should build me a monument and praise my name until my grandchildren had grandchildren. Then he added that if THEY ever get loose, I can forget the grandchildren. We're all worm food." },
-                { id = 2418, name = "Power Stones", npc = "Rigglefuzz", optional = true, recap = "Rigglefuzz, a tinkerer in the Badlands, had once shown the Shadowforge dwarves how to use the power stones they dig out of Uldaman, and was thanked by being thrown out. Now Rigglefuzz wanted sixteen of them, to run a robotic rodent forever. The Shadowforge were no better at sharing the second time." },
+            },
+        },
+        {
+            chapter = "Theldurin's Doom",
+            requiredLevel = 35,
+            summary = "Out in the Badlands, Theldurin the Lost is sure a doom is coming. He won't say its name in case it hears him, but he knows what he needs to stop it, and it's somewhere down in Uldaman.",
+            recap = "Theldurin the Lost, a jumpy dwarf out in the Badlands, was sure a doom was coming and wouldn't say its name in case it heard him. He needed the Tablet of Ryun'eh, from a chest in Uldaman older than anything dwarves ever made. I brought it, and he said it might hold the secret to saving us all, though he still wouldn't say from what.\n\nThe tablet from Uldaman told Theldurin a lot, but not enough. He wanted Yagyin's Digest, a book kept by the very people he'd fled, and he gave me their sigil so they would take me for one of their own.\n\nThey did. Their contact in the city decided I was off to found a new chapter of their order and was glad to help, once I'd brought him three relics he wouldn't say out loud. He wrote them down instead. I brought them.\n\nThe book came with a warning that the truth can burn. Theldurin said they should build me a monument and praise my name until my grandchildren had grandchildren. Then he added that if THEY ever get loose, I can forget the grandchildren. We're all worm food.",
+            quests = {
+                { id = 709, name = "Solution to Doom", npc = "Theldurin the Lost" },
+                { id = 727, name = "To Ironforge for Yagyin's Digest", npc = "Theldurin the Lost", faction = "Alliance" },
+                { id = 728, name = "To the Undercity for Yagyin's Digest", npc = "Theldurin the Lost", faction = "Horde" },
+                { id = 735, name = "The Star, the Hand and the Heart", npc = "Gerrig Bonegrip", faction = "Alliance" },
+                { id = 736, name = "The Star, the Hand and the Heart", npc = "Keeper Bel'dugur", faction = "Horde" },
+                { id = 737, name = "Forbidden Knowledge", npc = "Gerrig Bonegrip", faction = "Alliance" },
+                { id = 737, name = "Forbidden Knowledge", npc = "Keeper Bel'dugur", faction = "Horde" },
             },
         },
         {
