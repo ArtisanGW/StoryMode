@@ -119,6 +119,7 @@ Code\UI\Tooltip.lua
 Code\UI\Pools.lua
 Code\UI\Style.lua
 Code\UI\ForeverWindow.lua
+Code\UI\StoryMapPins.lua
 Code\UI\AdventureCover.lua
 Code\UI\Banners.lua
 Code\UI\MinimapButton.lua

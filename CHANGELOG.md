@@ -5,6 +5,7 @@
 ### WoW Forever
 - Only show quests from the selected story in the objective tracker when enabled. Other quests stay in the Quest Log and are restored when the option is turned off; toggle it from Story Mode's minimap button right-click menu (ArtisanGW)
 - With a controller, right-clicking the minimap button opens Story Mode's settings page instead of a menu. The game's menu, opened by an addon, broke the controller's buttons with "Interface action failed" (ArtisanGW)
+- New setting, Story quests in green: on the world map, story quest givers show a green !, story quests ready to turn in a green ?, and story quests in progress a small green ! on their pin. The game draws the ! over NPCs and on the minimap itself, so those stay yellow (ArtisanGW)
 
 ## 2.1.0
 

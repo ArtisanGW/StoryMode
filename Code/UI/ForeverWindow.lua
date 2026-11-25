@@ -438,6 +438,13 @@ local SETTINGS = {
         set = function(value) SM.SetQuestTrackerStoryFilterEnabled(value) end,
         explain = function() return L["Setting Story Quest Filter Text"] end,
     },
+    {
+        label = "Setting Green Story Quests", kind = "check",
+        available = function() return SM.SetGreenStoryQuestsOnMap ~= nil end,
+        get = function() return StoryModeDB and StoryModeDB.greenStoryQuestsOnMap == true end,
+        set = function(value) SM.SetGreenStoryQuestsOnMap(value) end,
+        explain = function() return L["Setting Green Story Quests Text"] end,
+    },
 }
 
 local startPage = { shown = false, rows = {}, page = 1 }
