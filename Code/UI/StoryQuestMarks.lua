@@ -15,13 +15,13 @@ Marks.OTHER_STORY_COLOR = { 0.75, 1, 0.1 }
 Marks.GIVER_ATLAS = "QuestNormal"
 Marks.TURN_IN_ATLAS = "UI-QuestIcon-TurnIn-Normal"
 local BADGE_SIZE = 20
--- Where the "!" of a quest in progress sits, from the pin's centre, measured
--- on the game's art: the "..." (32 wide, centred) ends 8 right of the centre
--- with its dots' middle 1 above it; the "!" (20 wide) has its point 7 from
--- its left and 3.5 above its bottom. So the point sits one unit right of the
--- last dot, on the dots' line.
-local PROGRESS_BADGE_X = 2
-local PROGRESS_BADGE_Y = -2.5
+-- Where the "!" of a quest in progress sits, from the pin's centre. The
+-- game's "..." has its dots 5 apart, the last one centred 5 right of the
+-- pin's centre and 1 above it. The "!" (20 wide) has its point centred 10
+-- from its left and 4.5 above its bottom (measured on the map), so the point
+-- reads as a fourth dot.
+local PROGRESS_BADGE_X = 0
+local PROGRESS_BADGE_Y = -3.5
 
 local paintedTextures = setmetatable({}, { __mode = "k" })
 local progressBadges = setmetatable({}, { __mode = "k" })
