@@ -19,15 +19,17 @@
 --               that act on those, such as the game's side tabs)
 --       B       closes the window (options.onBack instead, if given)
 --   • the focused control gets the mouse's hover (its OnEnter: highlight,
---     tooltip) and a gold frame, and a hint under the window lists the keys.
+--     tooltip) and a gold frame; under the window, the keys in a bar like the
+--     game's own (KeyLegend.lua).
 -- Nothing of the game's is replaced: a post-hook (hooksecurefunc) on its
 -- ToggleUIFocus reads its state.
 --
 -- Use: addonTable.ControllerFocus.New(window, options), once, after the window
 -- exists. options (all optional):
 --   onBack()            B; default: window:Hide()
---   hintText            the hint's text, with {move} {press} {back} {select}
---                       replaced by the controller's icons
+--   labels              the key bar's words: { move =, press =, back =, select = }
+--                       (English by default)
+-- Needs KeyLegend.lua (the key bar) loaded before it.
 local _, addonTable = ...
 
 local ControllerFocus = {}
@@ -54,23 +56,11 @@ local SIDEWAYS_WEIGHT = 3       -- how much being off to the side counts against
 local BORDER_COLOR = { 1, 0.82, 0, 1 }
 local BORDER_SIZE = 2
 local BORDER_OUTSET = 3
-local HINT_ICON_SIZE = 20
-local DEFAULT_HINT = "{move} Move   {press} Select   {back} Close   {select} Back to game"
+local DEFAULT_LABELS = { move = "Move", press = "Select", back = "Close", select = "Back to game" }
 
 local function ControllerUIOn()
     return type(InputUtil) == "table" and type(InputUtil.IsGamepadUIEnabled) == "function"
         and InputUtil.IsGamepadUIEnabled() == true
-end
-
-local function IconMarkup(key, fallback)
-    local iconUtility = _G.InputIconTextureSetUtility
-    if type(iconUtility) == "table" and type(iconUtility.GetNormalActiveInputIconButtonTexture) == "function" then
-        local ok, atlas = pcall(iconUtility.GetNormalActiveInputIconButtonTexture, key)
-        if ok and type(atlas) == "string" then
-            return ("|A:%s:%d:%d|a"):format(atlas, HINT_ICON_SIZE, HINT_ICON_SIZE)
-        end
-    end
-    return fallback
 end
 
 local function Center(frame)
@@ -200,9 +190,16 @@ function ControllerFocus.New(window, options)
     local current, lastX, lastY
     local border = CreateBorder(window)
 
-    local hint = window:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-    hint:SetPoint("TOP", window, "BOTTOM", 0, -6)
-    hint:Hide()
+    local labels = options.labels or {}
+    local legend = addonTable.KeyLegend.New(window)
+    legend:SetPoint("TOP", window, "BOTTOM", 0, -6)
+    legend:Hide()
+    legend.SetPrompts({
+        { key = "DIRPAD", fallback = "D-pad", label = labels.move or DEFAULT_LABELS.move },
+        { key = KEYS.press, fallback = "A", label = labels.press or DEFAULT_LABELS.press },
+        { key = KEYS.back, fallback = "B", label = labels.back or DEFAULT_LABELS.back },
+        { key = KEYS.select, fallback = "Select", label = labels.select or DEFAULT_LABELS.select },
+    })
 
     local function Leave()
         -- Also once the window closed: its tooltip would stay up.
@@ -257,16 +254,11 @@ function ControllerFocus.New(window, options)
         focus.focused = focused and ControllerUIOn() and window:IsShown()
         window:EnableGamePadButton(focus.focused)
         if focus.focused then
-            local text = (options.hintText or DEFAULT_HINT)
-                :gsub("{move}", IconMarkup(GAMEPAD_DPAD_VERTICAL or "DIRPADVERTICAL", "D-pad"))
-                :gsub("{press}", IconMarkup(KEYS.press, "A"))
-                :gsub("{back}", IconMarkup(KEYS.back, "B"))
-                :gsub("{select}", IconMarkup(KEYS.select, "Select"))
-            hint:SetText(text)
-            hint:Show()
+            legend.Refresh()   -- the controller in use may have changed
+            legend:Show()
             Enter(FirstControl())
         else
-            hint:Hide()
+            legend:Hide()
             Leave()
         end
     end

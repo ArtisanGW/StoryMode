@@ -130,6 +130,7 @@ Code\UI\JournalTab.lua
 Code\UI\ScarletTab.lua
 Code\UI\ProgressTab.lua
 Code\UI\StoryList.lua
+Code\UI\KeyLegend.lua
 Code\UI\ControllerFocus.lua
 Code\StoryMode.lua
 Code\UI\ControllerWindow.lua

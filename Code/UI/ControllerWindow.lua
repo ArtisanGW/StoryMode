@@ -6,5 +6,10 @@ local L = SM.L
 -- which tainted the game's controller state ("Interface action failed",
 -- SetPreferredGamepadInteractTarget, the map from the radial menu).
 SM.ControllerFocus.New(StoryModeFrame, {
-    hintText = L["Controller Hint"],
+    labels = {
+        move = L["Controller Move"],
+        press = L["Controller Select"],
+        back = L["Controller Close"],
+        select = L["Controller Back To Game"],
+    },
 })
