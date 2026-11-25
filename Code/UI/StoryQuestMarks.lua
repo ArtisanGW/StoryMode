@@ -60,12 +60,12 @@ function Marks.NewIcon(parent, atlas, color, layer)
     return icon
 end
 
-local function ProgressBadge(button, color)
+local function ProgressBadge(button, icon, color)
     local badge = progressBadges[button]
     if not badge then
         badge = Marks.NewIcon(button, Marks.GIVER_ATLAS, color)
         badge:SetSize(BADGE_SIZE, BADGE_SIZE)
-        badge:SetPoint("CENTER", button, "TOPRIGHT", -3, -3)
+        badge:SetPoint("CENTER", icon or button, "CENTER")
         progressBadges[button] = badge
     end
     Marks.Paint(badge, color)
@@ -73,7 +73,8 @@ local function ProgressBadge(button, color)
 end
 
 -- A quest's POI button (on the map, or in the map's quest list): a story
--- quest ready to turn in gets its "?" painted, one in progress a small "!".
+-- quest ready to turn in gets its "?" painted, one in progress a "!" over
+-- its icon.
 function Marks.UpdateQuestButton(button)
     if button:IsForbidden() then return end
     local icon = button.Display and button.Display.Icon
@@ -86,7 +87,7 @@ function Marks.UpdateQuestButton(button)
     end
 
     if color and not isReadyToTurnIn then
-        ProgressBadge(button, color):Show()
+        ProgressBadge(button, icon, color):Show()
     elseif progressBadges[button] then
         progressBadges[button]:Hide()
     end
