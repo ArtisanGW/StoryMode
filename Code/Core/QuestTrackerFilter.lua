@@ -38,23 +38,6 @@ local function WatchedQuestSet(questIDs)
     return watched
 end
 
-local function SameWatchedQuests(first, second)
-    if #first ~= #second then return false end
-    local watched = WatchedQuestSet(first)
-    for _, questID in ipairs(second) do
-        if not watched[questID] then return false end
-    end
-    return true
-end
-
-local function RefreshQuestTracker()
-    if ObjectiveTrackerManager and ObjectiveTrackerManager.UpdateAll then
-        ObjectiveTrackerManager:UpdateAll()
-    elseif QuestObjectiveTracker and QuestObjectiveTracker.MarkDirty then
-        QuestObjectiveTracker:MarkDirty()
-    end
-end
-
 local function IsInStory(questID, storyID)
     local story = SM.FindQuestStory(questID)
     return story and story.id == storyID or false
@@ -67,22 +50,6 @@ local function FilteredStoryID()
     if not (StoryModeDB and StoryModeDB.hideUnrelatedQuestTrackerQuests) then return nil end
     local storyID = StoryModeDB.questTrackerStoryID or StoryModeDB.selectedQuestlineID
     return storyID and SM.GetQuestlineByID(storyID) and storyID or nil
-end
-
-local function InstallQuestTrackerFilter()
-    local tracker = QuestObjectiveTracker
-    if not (tracker and tracker.ShouldDisplayQuest) or tracker.storyModeFilterInstalled then return end
-
-    local shouldDisplayQuest = tracker.ShouldDisplayQuest
-    tracker.ShouldDisplayQuest = function(self, quest)
-        if not shouldDisplayQuest(self, quest) then return false end
-
-        local storyID = FilteredStoryID()
-        local questID = quest and quest.GetID and quest:GetID()
-        if storyID and questID and not IsInStory(questID, storyID) then return false end
-        return true
-    end
-    tracker.storyModeFilterInstalled = true
 end
 
 local function IsQuestInLog(questID)
@@ -134,7 +101,6 @@ end
 function SM.UpdateQuestTrackerStoryFilter()
     if updating or not StoryModeDB then return end
     if InCombatLockdown and InCombatLockdown() then return end
-    InstallQuestTrackerFilter()
 
     local hidden = CharacterWatches()
     local watchedQuestIDs = ReadWatchedQuestIDs()
@@ -155,10 +121,6 @@ function SM.UpdateQuestTrackerStoryFilter()
     else
         RestoreHiddenWatches(hidden, watched)
     end
-    local currentWatches = ReadWatchedQuestIDs()
-    if currentWatches and not SameWatchedQuests(watchedQuestIDs, currentWatches) then
-        RefreshQuestTracker()
-    end
     updating = false
 end
 
@@ -178,17 +140,9 @@ end
 
 local eventFrame = CreateFrame("Frame")
 eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-eventFrame:RegisterEvent("ADDON_LOADED")
 eventFrame:RegisterEvent("QUEST_WATCH_LIST_CHANGED")
 eventFrame:RegisterEvent("QUEST_LOG_UPDATE")
 eventFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
-eventFrame:SetScript("OnEvent", function(_, event, loadedAddon)
-    if event == "ADDON_LOADED" and loadedAddon ~= "Blizzard_ObjectiveTracker" then return end
-    if event == "PLAYER_REGEN_ENABLED"
-        or event == "PLAYER_ENTERING_WORLD"
-        or event == "ADDON_LOADED"
-        or event == "QUEST_WATCH_LIST_CHANGED"
-        or event == "QUEST_LOG_UPDATE" then
-        SM.UpdateQuestTrackerStoryFilter()
-    end
+eventFrame:SetScript("OnEvent", function()
+    SM.UpdateQuestTrackerStoryFilter()
 end)

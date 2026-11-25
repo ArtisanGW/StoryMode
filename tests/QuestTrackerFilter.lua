@@ -7,7 +7,6 @@ local storyData = { hillsbrad = { id = "hillsbrad" }, ["other-story"] = { id = "
 local inCombat = false
 local eventHandler
 local events = {}
-local trackerRefreshes = 0
 
 StoryModeDB = {
     hideUnrelatedQuestTrackerQuests = true,
@@ -16,11 +15,9 @@ StoryModeDB = {
 }
 UnitGUID = function() return "player-1" end
 InCombatLockdown = function() return inCombat end
-ObjectiveTrackerManager = {
-    UpdateAll = function()
-        trackerRefreshes = trackerRefreshes + 1
-    end,
-}
+-- The game's tracker redraws itself on QUEST_WATCH_LIST_CHANGED; the filter
+-- never calls into it.
+ObjectiveTrackerManager = setmetatable({}, { __index = function() error("the filter called the tracker") end })
 
 local eventFrame = {}
 function eventFrame:RegisterEvent(event)
@@ -80,10 +77,6 @@ local function Fire(event, ...)
     eventHandler(nil, event, ...)
 end
 
-local function TrackedQuest(questID)
-    return { GetID = function() return questID end }
-end
-
 SM.UpdateQuestTrackerStoryFilter()
 local hidden = StoryModeDB.hiddenQuestTrackerWatches["player-1"]
 assert(Contains(watchedQuestIDs, 101))
@@ -91,14 +84,7 @@ assert(not Contains(watchedQuestIDs, 202))
 assert(not Contains(watchedQuestIDs, 303))
 assert(hidden[202] == true)
 assert(hidden[303] == true)
-assert(trackerRefreshes == 1)
 
-QuestObjectiveTracker = {
-    ShouldDisplayQuest = function() return true end,
-}
-Fire("ADDON_LOADED", "Blizzard_ObjectiveTracker")
-assert(QuestObjectiveTracker:ShouldDisplayQuest(TrackedQuest(101)))
-assert(not QuestObjectiveTracker:ShouldDisplayQuest(TrackedQuest(202)))
 
 SM.SetQuestTrackerStory("other-story")
 assert(StoryModeDB.questTrackerStoryID == "other-story")
@@ -106,18 +92,12 @@ assert(not Contains(watchedQuestIDs, 101))
 assert(Contains(watchedQuestIDs, 202))
 assert(hidden[101] == true)
 assert(hidden[202] == nil)
-assert(trackerRefreshes == 2)
-assert(not QuestObjectiveTracker:ShouldDisplayQuest(TrackedQuest(101)))
-assert(QuestObjectiveTracker:ShouldDisplayQuest(TrackedQuest(202)))
 
 SM.SetQuestTrackerStoryFilterEnabled(false)
 assert(Contains(watchedQuestIDs, 101))
 assert(Contains(watchedQuestIDs, 202))
 assert(Contains(watchedQuestIDs, 303))
 assert(next(hidden) == nil)
-assert(trackerRefreshes == 3)
-assert(QuestObjectiveTracker:ShouldDisplayQuest(TrackedQuest(101)))
-assert(QuestObjectiveTracker:ShouldDisplayQuest(TrackedQuest(202)))
 
 SM.SetQuestTrackerStory("hillsbrad")
 -- Turned on from the start page: the Introduction has no story selected.
@@ -129,7 +109,6 @@ C_QuestLog.AddQuestWatch(202)
 Fire("QUEST_WATCH_LIST_CHANGED")
 assert(not Contains(watchedQuestIDs, 202))
 assert(hidden[202] == true)
-assert(trackerRefreshes == 5)
 
 questsInLog[202] = nil
 Fire("QUEST_LOG_UPDATE")
@@ -143,7 +122,6 @@ assert(Contains(watchedQuestIDs, 202))
 inCombat = false
 Fire("PLAYER_REGEN_ENABLED")
 assert(not Contains(watchedQuestIDs, 202))
-assert(trackerRefreshes == 6)
 
 -- Back on the start page: the tracker keeps the last story.
 StoryModeDB.selectedQuestlineID = nil
@@ -151,13 +129,11 @@ SM.SetQuestTrackerStory(nil)
 SM.UpdateQuestTrackerStoryFilter()
 assert(StoryModeDB.questTrackerStoryID == "hillsbrad")
 assert(not Contains(watchedQuestIDs, 202))
-assert(trackerRefreshes == 6)
 
 -- A story that no longer exists shows every quest again.
 StoryModeDB.questTrackerStoryID = "removed-story"
 SM.UpdateQuestTrackerStoryFilter()
 assert(Contains(watchedQuestIDs, 202))
 assert(hidden[202] == nil)
-assert(trackerRefreshes == 7)
 
 print("QuestTrackerFilter tests passed")
