@@ -75,9 +75,13 @@ local function Contains(list, value)
     return false
 end
 
-local function Fire(event)
+local function Fire(event, ...)
     assert(events[event], "event not registered: " .. event)
-    eventHandler(nil, event)
+    eventHandler(nil, event, ...)
+end
+
+local function TrackedQuest(questID)
+    return { GetID = function() return questID end }
 end
 
 SM.UpdateQuestTrackerStoryFilter()
@@ -89,6 +93,13 @@ assert(hidden[202] == true)
 assert(hidden[303] == true)
 assert(trackerRefreshes == 1)
 
+QuestObjectiveTracker = {
+    ShouldDisplayQuest = function() return true end,
+}
+Fire("ADDON_LOADED", "Blizzard_ObjectiveTracker")
+assert(QuestObjectiveTracker:ShouldDisplayQuest(TrackedQuest(101)))
+assert(not QuestObjectiveTracker:ShouldDisplayQuest(TrackedQuest(202)))
+
 StoryModeDB.selectedQuestlineID = "other-story"
 SM.UpdateQuestTrackerStoryFilter()
 assert(not Contains(watchedQuestIDs, 101))
@@ -96,6 +107,8 @@ assert(Contains(watchedQuestIDs, 202))
 assert(hidden[101] == true)
 assert(hidden[202] == nil)
 assert(trackerRefreshes == 2)
+assert(not QuestObjectiveTracker:ShouldDisplayQuest(TrackedQuest(101)))
+assert(QuestObjectiveTracker:ShouldDisplayQuest(TrackedQuest(202)))
 
 SM.SetQuestTrackerStoryFilterEnabled(false)
 assert(Contains(watchedQuestIDs, 101))
@@ -103,6 +116,8 @@ assert(Contains(watchedQuestIDs, 202))
 assert(Contains(watchedQuestIDs, 303))
 assert(next(hidden) == nil)
 assert(trackerRefreshes == 3)
+assert(QuestObjectiveTracker:ShouldDisplayQuest(TrackedQuest(101)))
+assert(QuestObjectiveTracker:ShouldDisplayQuest(TrackedQuest(202)))
 
 StoryModeDB.selectedQuestlineID = "hillsbrad"
 SM.SetQuestTrackerStoryFilterEnabled(true)

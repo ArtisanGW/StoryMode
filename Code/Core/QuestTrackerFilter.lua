@@ -60,6 +60,28 @@ local function IsInStory(questID, storyID)
     return story and story.id == storyID or false
 end
 
+local function SelectedStoryID()
+    local storyID = StoryModeDB and StoryModeDB.hideUnrelatedQuestTrackerQuests
+        and StoryModeDB.selectedQuestlineID
+    return storyID and SM.GetQuestlineByID(storyID) and storyID or nil
+end
+
+local function InstallQuestTrackerFilter()
+    local tracker = QuestObjectiveTracker
+    if not (tracker and tracker.ShouldDisplayQuest) or tracker.storyModeFilterInstalled then return end
+
+    local shouldDisplayQuest = tracker.ShouldDisplayQuest
+    tracker.ShouldDisplayQuest = function(self, quest)
+        if not shouldDisplayQuest(self, quest) then return false end
+
+        local storyID = SelectedStoryID()
+        local questID = quest and quest.GetID and quest:GetID()
+        if storyID and questID and not IsInStory(questID, storyID) then return false end
+        return true
+    end
+    tracker.storyModeFilterInstalled = true
+end
+
 local function IsQuestInLog(questID)
     if C_QuestLog and C_QuestLog.GetLogIndexForQuestID then
         return C_QuestLog.GetLogIndexForQuestID(questID) ~= nil
@@ -109,6 +131,7 @@ end
 function SM.UpdateQuestTrackerStoryFilter()
     if updating or not StoryModeDB then return end
     if InCombatLockdown and InCombatLockdown() then return end
+    InstallQuestTrackerFilter()
 
     local hidden = CharacterWatches()
     local watchedQuestIDs = ReadWatchedQuestIDs()
@@ -146,12 +169,15 @@ end
 
 local eventFrame = CreateFrame("Frame")
 eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+eventFrame:RegisterEvent("ADDON_LOADED")
 eventFrame:RegisterEvent("QUEST_WATCH_LIST_CHANGED")
 eventFrame:RegisterEvent("QUEST_LOG_UPDATE")
 eventFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
-eventFrame:SetScript("OnEvent", function(_, event)
+eventFrame:SetScript("OnEvent", function(_, event, loadedAddon)
+    if event == "ADDON_LOADED" and loadedAddon ~= "Blizzard_ObjectiveTracker" then return end
     if event == "PLAYER_REGEN_ENABLED"
         or event == "PLAYER_ENTERING_WORLD"
+        or event == "ADDON_LOADED"
         or event == "QUEST_WATCH_LIST_CHANGED"
         or event == "QUEST_LOG_UPDATE" then
         SM.UpdateQuestTrackerStoryFilter()
