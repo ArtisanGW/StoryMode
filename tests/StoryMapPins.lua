@@ -72,7 +72,7 @@ offerProvider:RefreshAllData()
 questProvider:RefreshAllData()
 
 assert(Fakes.IsColor(giverFollowed.Texture, FOLLOWED), "followed story giver ! is green")
-assert(Fakes.IsColor(giverOther.Texture, OTHER), "other story giver ! is pink")
+assert(Fakes.IsColor(giverOther.Texture, OTHER), "other story giver ! is lime green")
 assert(Fakes.IsPlain(giverNone.Texture), "other quests keep the game's look")
 assert(Fakes.IsColor(turnIn.Display.Icon, FOLLOWED), "story turn-in ? is painted")
 assert(Fakes.IsPlain(inProgress.Display.Icon), "in-progress icon keeps its look")

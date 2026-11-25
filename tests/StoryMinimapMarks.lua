@@ -62,7 +62,7 @@ assert(IsAt(giver, 7, 14), "10 yards east and 20 north of the player")
 
 local inProgress = MarkerFor(0.5, 0.6)
 assert(inProgress and inProgress.icon.atlas == Marks.GIVER_ATLAS and inProgress.size == 11, "in progress: a small !")
-assert(Fakes.IsColor(inProgress.icon, Marks.OTHER_STORY_COLOR), "other story: pink")
+assert(Fakes.IsColor(inProgress.icon, Marks.OTHER_STORY_COLOR), "other story: lime green")
 assert(IsAt(inProgress, 0, -64), "too far: waits on the edge, in its direction")
 
 local turnIn = MarkerFor(0.9, 0.5)

@@ -43,7 +43,7 @@ assert(Badge("nameplate1"), "followed story giver gets a badge")
 assert(Badge("nameplate1").icon.atlas == "QuestNormal", "the badge is a !")
 assert(Fakes.IsColor(Badge("nameplate1").icon, Marks.FOLLOWED_STORY_COLOR), "in green")
 assert(Badge("nameplate3"), "names match across apostrophe spellings")
-assert(Fakes.IsColor(Badge("nameplate3").icon, Marks.OTHER_STORY_COLOR), "other story giver in pink")
+assert(Fakes.IsColor(Badge("nameplate3").icon, Marks.OTHER_STORY_COLOR), "other story giver in lime green")
 assert(not Badge("nameplate2"), "other NPCs get none")
 assert(not Badge("nameplate4"), "players get none")
 

@@ -3,7 +3,7 @@ local _, SM = ...
 -- Story quest marks: the colours, the setting, and the parts shared by the
 -- places that show them (world map pins, the map's quest list, nameplates,
 -- the minimap). Quests of the story the player follows are green; quests of
--- the other stories are pink. Other quests stay as the game draws them.
+-- the other stories are lime green. Other quests stay as the game draws them.
 -- Each place registers a refresh, run when the setting or the followed
 -- story changes.
 
@@ -11,7 +11,7 @@ local Marks = {}
 SM.StoryQuestMarks = Marks
 
 Marks.FOLLOWED_STORY_COLOR = { 0.3, 1, 0.3 }
-Marks.OTHER_STORY_COLOR = { 1, 0.5, 0.8 }
+Marks.OTHER_STORY_COLOR = { 0.75, 1, 0.1 }
 Marks.GIVER_ATLAS = "QuestNormal"
 Marks.TURN_IN_ATLAS = "UI-QuestIcon-TurnIn-Normal"
 local BADGE_SIZE = 14
