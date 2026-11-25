@@ -48,7 +48,7 @@ assert(listUpdates == 1, "the game's list update still runs")
 assert(Fakes.IsColor(followedTurnIn.Display.Icon, Marks.FOLLOWED_STORY_COLOR), "followed story ? is green")
 assert(Fakes.IsColor(otherStoryTurnIn.Display.Icon, Marks.OTHER_STORY_COLOR), "other story ? is lime green")
 assert(Fakes.IsPlain(otherQuest.Display.Icon), "other quests keep their look")
-assert(#otherQuest.children == 0, "nothing is added to the game's button")
+assert(#otherQuest.children == 0, "other quests get no badge")
 
 SM.SetStoryQuestMarks(false)
 assert(Fakes.IsPlain(followedTurnIn.Display.Icon), "turned off: back to the game's look")

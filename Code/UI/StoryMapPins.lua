@@ -4,7 +4,7 @@ local _, SM = ...
 -- (see StoryQuestMarks).
 -- - quest givers: their "!" is painted
 -- - story quests ready to turn in: their "?" is painted
--- - story quests in progress: the dots on their pin are painted
+-- - story quests in progress: a small painted "!" on their pin
 -- Nothing of the game's is replaced: after the map's quest providers draw
 -- their pins (a post-hook on RefreshAllData), the pins are tinted. Pins are
 -- pooled, so each pass also puts back the colour of pins that no longer

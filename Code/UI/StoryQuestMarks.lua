@@ -14,8 +14,10 @@ Marks.FOLLOWED_STORY_COLOR = { 0.3, 1, 0.3 }
 Marks.OTHER_STORY_COLOR = { 0.75, 1, 0.1 }
 Marks.GIVER_ATLAS = "QuestNormal"
 Marks.TURN_IN_ATLAS = "UI-QuestIcon-TurnIn-Normal"
+local BADGE_SIZE = 20
 
 local paintedTextures = setmetatable({}, { __mode = "k" })
+local progressBadges = setmetatable({}, { __mode = "k" })
 local refreshes = {}
 
 function Marks.IsEnabled()
@@ -58,15 +60,36 @@ function Marks.NewIcon(parent, atlas, color, layer)
     return icon
 end
 
+local function ProgressBadge(button, color)
+    local badge = progressBadges[button]
+    if not badge then
+        badge = Marks.NewIcon(button, Marks.GIVER_ATLAS, color)
+        badge:SetSize(BADGE_SIZE, BADGE_SIZE)
+        badge:SetPoint("CENTER", button, "TOPRIGHT", -3, -3)
+        progressBadges[button] = badge
+    end
+    Marks.Paint(badge, color)
+    return badge
+end
+
 -- A quest's POI button (on the map, or in the map's quest list): a story
--- quest's own icon is painted, the "?" of one ready to turn in and the dots
--- of one in progress alike.
+-- quest ready to turn in gets its "?" painted, one in progress a small "!".
 function Marks.UpdateQuestButton(button)
     if button:IsForbidden() then return end
     local icon = button.Display and button.Display.Icon
-    if not icon then return end
-    local color = Marks.ColorForQuest(button.GetQuestID and button:GetQuestID())
-    if color then Marks.Paint(icon, color) else Marks.Restore(icon) end
+    local questID = button.GetQuestID and button:GetQuestID()
+    local color = Marks.ColorForQuest(questID)
+    local isReadyToTurnIn = color and C_QuestLog.IsComplete(questID)
+
+    if icon then
+        if isReadyToTurnIn then Marks.Paint(icon, color) else Marks.Restore(icon) end
+    end
+
+    if color and not isReadyToTurnIn then
+        ProgressBadge(button, color):Show()
+    elseif progressBadges[button] then
+        progressBadges[button]:Hide()
+    end
 end
 
 function Marks.OnChange(refresh)
