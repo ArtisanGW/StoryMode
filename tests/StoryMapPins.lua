@@ -1,42 +1,33 @@
--- Story quests on the world map: givers, turn-ins and quests in progress in green.
-local events = {}
-local eventHandler
-
-local function NewTexture()
-    local texture = { color = { 1, 1, 1 }, shown = true }
-    function texture:SetVertexColor(red, green, blue) self.color = { red, green, blue } end
-    function texture:SetAtlas(atlas) self.atlas = atlas end
-    function texture:SetSize() end
-    function texture:SetPoint() end
-    function texture:Show() self.shown = true end
-    function texture:Hide() self.shown = false end
-    return texture
-end
+-- Story quests on the world map: the game's pins in the story's colour.
+local Fakes = dofile("tests/StoryMarksFakes.lua")
+local Fire = Fakes.EventFrames()
+Fakes.InstallGlobals()
 
 local function NewPin(fields)
-    local pin = fields
-    function pin:IsForbidden() return false end
-    pin.createdTextures = {}
-    function pin:CreateTexture()
-        local texture = NewTexture()
-        self.createdTextures[#self.createdTextures + 1] = texture
-        return texture
-    end
+    local pin = Fakes.NewRegion()
+    for key, value in pairs(fields) do pin[key] = value end
     return pin
 end
 
-local storyQuestIDs = { [101] = true, [102] = true }
+-- 101 and 102: the followed story; 103: another story; 900: not a story quest.
+local SM = Fakes.NewStoryMode({ [101] = "hillsbrad", [102] = "hillsbrad", [103] = "other" }, "hillsbrad")
 local completeQuestIDs = { [102] = true }
 
-local giverStory = NewPin({ questID = 101, Texture = NewTexture() })
-local giverOther = NewPin({ questID = 900, Texture = NewTexture() })
-local inProgress = NewPin({ Display = { Icon = NewTexture() } })
+local giverFollowed = NewPin({ questID = 101, Texture = Fakes.NewRegion() })
+local giverOther = NewPin({ questID = 103, Texture = Fakes.NewRegion() })
+local giverNone = NewPin({ questID = 900, Texture = Fakes.NewRegion() })
+local heightIndicatorCalls = 0
+function giverFollowed:SetHeightIndicator()
+    heightIndicatorCalls = heightIndicatorCalls + 1
+    self.Texture:SetDesaturated(false)
+end
+local inProgress = NewPin({ Display = { Icon = Fakes.NewRegion() } })
 function inProgress:GetQuestID() return 101 end
-local turnIn = NewPin({ Display = { Icon = NewTexture() } })
+local turnIn = NewPin({ Display = { Icon = Fakes.NewRegion() } })
 function turnIn:GetQuestID() return 102 end
 
 local pinsByTemplate = {
-    QuestOfferPinTemplate = { giverStory, giverOther },
+    QuestOfferPinTemplate = { giverFollowed, giverOther, giverNone },
     QuestPinTemplate = { inProgress, turnIn },
 }
 
@@ -67,56 +58,54 @@ function hooksecurefunc(target, key, hook)
 end
 
 C_QuestLog = { IsComplete = function(questID) return completeQuestIDs[questID] == true end }
-StoryModeDB = { greenStoryQuestsOnMap = true }
+StoryModeDB = { markStoryQuests = true }
 
-local eventFrame = {}
-function eventFrame:RegisterEvent(event) events[event] = true end
-function eventFrame:SetScript(_, handler) eventHandler = handler end
-CreateFrame = function() return eventFrame end
-
-local SM = {
-    FindQuestStory = function(questID) return storyQuestIDs[questID] and { id = "story" } or nil end,
-}
+assert(loadfile("Code/UI/StoryQuestMarks.lua"))("StoryMode", SM)
 assert(loadfile("Code/UI/StoryMapPins.lua"))("StoryMode", SM)
+local Marks = SM.StoryQuestMarks
+local FOLLOWED, OTHER = Marks.FOLLOWED_STORY_COLOR, Marks.OTHER_STORY_COLOR
 
-local function IsGreen(texture) return texture.color[1] < 1 and texture.color[2] == 1 end
-local function IsWhite(texture) return texture.color[1] == 1 and texture.color[2] == 1 and texture.color[3] == 1 end
-
-assert(events.PLAYER_LOGIN)
-eventHandler(nil, "PLAYER_LOGIN")
-eventHandler(nil, "ADDON_LOADED", "Blizzard_WorldMap") -- hooks only once
+Fire("PLAYER_LOGIN")
+Fire("ADDON_LOADED", "Blizzard_WorldMap") -- hooks only once
 
 offerProvider:RefreshAllData()
 questProvider:RefreshAllData()
 
-assert(IsGreen(giverStory.Texture), "story giver ! is green")
-assert(IsWhite(giverOther.Texture), "other giver keeps its colour")
-assert(IsGreen(turnIn.Display.Icon), "story turn-in ? is green")
-assert(IsWhite(inProgress.Display.Icon), "in-progress icon keeps its colour")
+assert(Fakes.IsColor(giverFollowed.Texture, FOLLOWED), "followed story giver ! is green")
+assert(Fakes.IsColor(giverOther.Texture, OTHER), "other story giver ! is pink")
+assert(Fakes.IsPlain(giverNone.Texture), "other quests keep the game's look")
+assert(Fakes.IsColor(turnIn.Display.Icon, FOLLOWED), "story turn-in ? is painted")
+assert(Fakes.IsPlain(inProgress.Display.Icon), "in-progress icon keeps its look")
 
--- The in-progress pin gets one badge, made once and reused.
 offerProvider:RefreshAllData()
 questProvider:RefreshAllData()
-assert(IsGreen(giverStory.Texture), "a second refresh keeps the green")
-assert(#inProgress.createdTextures == 1, "one badge per pin")
-local badge = inProgress.createdTextures[1]
-assert(badge.shown and IsGreen(badge) and badge.atlas == "QuestNormal", "in-progress badge is a green !")
-assert(#turnIn.createdTextures == 0, "turn-in pins get no badge")
+assert(#inProgress.children == 1, "one badge per pin, made once")
+local badge = inProgress.children[1]
+assert(badge.shown and badge.atlas == "QuestNormal" and Fakes.IsColor(badge, FOLLOWED), "in-progress badge is a painted !")
+assert(#turnIn.children == 0, "turn-in pins get no badge")
 
--- A pooled pin reused for another quest goes back to its own colour.
-giverStory.questID = 900
+-- A pooled pin reused for another quest gets the game's look back, and its
+-- own floor greying from the game's SetHeightIndicator.
+giverFollowed.questID = 900
 offerProvider:RefreshAllData()
-assert(IsWhite(giverStory.Texture), "reused pin is white again")
+assert(Fakes.IsPlain(giverFollowed.Texture), "reused pin is plain again")
+assert(heightIndicatorCalls == 1, "the pin's own floor look is put back")
+
+-- Following another story swaps the colours.
+giverFollowed.questID = 101
+SM.followedStoryID = "other"
+SM.RefreshStoryQuestMarks()
+assert(Fakes.IsColor(giverFollowed.Texture, OTHER))
+assert(Fakes.IsColor(giverOther.Texture, FOLLOWED))
 
 -- Turned off: everything back, badge hidden.
-giverStory.questID = 101
-SM.SetGreenStoryQuestsOnMap(false)
-assert(StoryModeDB.greenStoryQuestsOnMap == false)
-assert(IsWhite(giverStory.Texture))
-assert(IsWhite(turnIn.Display.Icon))
+SM.SetStoryQuestMarks(false)
+assert(StoryModeDB.markStoryQuests == false)
+assert(Fakes.IsPlain(giverFollowed.Texture) and Fakes.IsPlain(giverOther.Texture))
+assert(Fakes.IsPlain(turnIn.Display.Icon))
 assert(not badge.shown, "badge hidden when turned off")
 
-SM.SetGreenStoryQuestsOnMap(true)
-assert(IsGreen(giverStory.Texture), "turned on again: green right away")
+SM.SetStoryQuestMarks(true)
+assert(Fakes.IsColor(giverOther.Texture, FOLLOWED), "turned on again: painted right away")
 
 print("StoryMapPins tests passed")

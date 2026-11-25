@@ -43,13 +43,18 @@ local function IsInStory(questID, storyID)
     return story and story.id == storyID or false
 end
 
--- The story the tracker keeps: the last story the player opened. The start
--- page (the Introduction) clears selectedQuestlineID, so the filter keeps its
--- own story and doesn't turn off whenever the player goes back to it.
-local function FilteredStoryID()
-    if not (StoryModeDB and StoryModeDB.hideUnrelatedQuestTrackerQuests) then return nil end
+-- The story the player follows: the last story they opened. The start page
+-- (the Introduction) clears selectedQuestlineID, so the tracker keeps its own
+-- story and doesn't lose it whenever the player goes back to that page.
+function SM.GetFollowedStoryID()
+    if not StoryModeDB then return nil end
     local storyID = StoryModeDB.questTrackerStoryID or StoryModeDB.selectedQuestlineID
     return storyID and SM.GetQuestlineByID(storyID) and storyID or nil
+end
+
+local function FilteredStoryID()
+    if not (StoryModeDB and StoryModeDB.hideUnrelatedQuestTrackerQuests) then return nil end
+    return SM.GetFollowedStoryID()
 end
 
 local function IsQuestInLog(questID)
@@ -134,6 +139,7 @@ function SM.SetQuestTrackerStory(storyID)
     if not (StoryModeDB and storyID and SM.GetQuestlineByID(storyID)) then return end
     StoryModeDB.questTrackerStoryID = storyID
     SM.UpdateQuestTrackerStoryFilter()
+    if SM.RefreshStoryQuestMarks then SM.RefreshStoryQuestMarks() end
 end
 
 -- Only story quests is on (other addons may read it through _G.StoryMode).

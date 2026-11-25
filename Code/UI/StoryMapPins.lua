@@ -1,96 +1,43 @@
 local _, SM = ...
 
--- Story quests on the world map: the game's own pins, in green.
--- • quest givers: their "!" turns green
--- • story quests ready to turn in: their "?" turns green
--- • story quests in progress: a small green "!" on their pin
+-- Story quests on the world map: the game's own pins, in the story's colour
+-- (see StoryQuestMarks).
+-- - quest givers: their "!" is painted
+-- - story quests ready to turn in: their "?" is painted
+-- - story quests in progress: a small painted "!" on their pin
 -- Nothing of the game's is replaced: after the map's quest providers draw
 -- their pins (a post-hook on RefreshAllData), the pins are tinted. Pins are
 -- pooled, so each pass also puts back the colour of pins that no longer
--- show a story quest. The game never colours these textures itself, so
--- white is their own colour to go back to.
+-- show a story quest.
 
--- Times the yellow "!" and "?" (about 1, 0.82, 0) into a clear green.
-local STORY_GREEN = { 0.25, 1, 0.25 }
-local BADGE_ATLAS = "QuestNormal"
-local BADGE_SIZE = 14
-
-local tintedTextures = setmetatable({}, { __mode = "k" })
-local progressBadges = setmetatable({}, { __mode = "k" })
+local Marks = SM.StoryQuestMarks
 local hookedProviders = {}
 
-local function IsEnabled()
-    return StoryModeDB ~= nil and StoryModeDB.greenStoryQuestsOnMap == true
-end
-
-local function IsStoryQuest(questID)
-    return questID ~= nil and SM.FindQuestStory(questID) ~= nil
-end
-
-local function TintGreen(texture)
-    texture:SetVertexColor(STORY_GREEN[1], STORY_GREEN[2], STORY_GREEN[3])
-    tintedTextures[texture] = true
-end
-
-local function RestoreColor(texture)
-    if not tintedTextures[texture] then return end
-    texture:SetVertexColor(1, 1, 1)
-    tintedTextures[texture] = nil
-end
-
-local function ProgressBadge(pin)
-    local badge = progressBadges[pin]
-    if not badge then
-        badge = pin:CreateTexture(nil, "OVERLAY", nil, 7)
-        badge:SetAtlas(BADGE_ATLAS)
-        badge:SetSize(BADGE_SIZE, BADGE_SIZE)
-        badge:SetPoint("CENTER", pin, "TOPRIGHT", -3, -3)
-        badge:SetVertexColor(STORY_GREEN[1], STORY_GREEN[2], STORY_GREEN[3])
-        progressBadges[pin] = badge
-    end
-    return badge
-end
-
+-- An offer pin greys its "!" when the giver is on another floor: after a
+-- restore, the pin's own SetHeightIndicator puts that back.
 local function UpdateQuestOfferPin(pin)
-    if not pin.Texture then return end
-    if IsEnabled() and IsStoryQuest(pin.questID) then
-        TintGreen(pin.Texture)
-    else
-        RestoreColor(pin.Texture)
-    end
-end
-
-local function UpdateQuestPin(pin)
-    local icon = pin.Display and pin.Display.Icon
-    local questID = pin.GetQuestID and pin:GetQuestID()
-    local isStoryQuest = IsEnabled() and IsStoryQuest(questID)
-    local isReadyToTurnIn = isStoryQuest and C_QuestLog.IsComplete(questID)
-
-    if icon then
-        if isReadyToTurnIn then TintGreen(icon) else RestoreColor(icon) end
-    end
-
-    local showBadge = isStoryQuest and not isReadyToTurnIn
-    if showBadge then
-        ProgressBadge(pin):Show()
-    elseif progressBadges[pin] then
-        progressBadges[pin]:Hide()
+    if pin:IsForbidden() or not pin.Texture then return end
+    local color = Marks.ColorForQuest(pin.questID)
+    if color then
+        Marks.Paint(pin.Texture, color)
+    elseif Marks.Restore(pin.Texture) and pin.SetHeightIndicator then
+        pin:SetHeightIndicator(pin.floorLocation)
     end
 end
 
 local PIN_UPDATERS = {
     QuestOfferPinTemplate = UpdateQuestOfferPin,
-    QuestPinTemplate = UpdateQuestPin,
+    QuestPinTemplate = Marks.UpdateQuestButton,
 }
 
 local function UpdatePins(map, pinTemplate)
     local updatePin = PIN_UPDATERS[pinTemplate]
     for pin in map:EnumeratePinsByTemplate(pinTemplate) do
-        if not pin:IsForbidden() then updatePin(pin) end
+        updatePin(pin)
     end
 end
 
-function SM.RefreshStoryMapPins()
+local function RefreshMapPins()
     if not WorldMapFrame then return end
     for pinTemplate in pairs(PIN_UPDATERS) do
         UpdatePins(WorldMapFrame, pinTemplate)
@@ -126,11 +73,7 @@ local function HookWorldMapProviders()
     end
 end
 
-function SM.SetGreenStoryQuestsOnMap(enabled)
-    if not StoryModeDB then return end
-    StoryModeDB.greenStoryQuestsOnMap = enabled == true
-    SM.RefreshStoryMapPins()
-end
+Marks.OnChange(RefreshMapPins)
 
 local eventFrame = CreateFrame("Frame")
 eventFrame:RegisterEvent("PLAYER_LOGIN")
