@@ -458,7 +458,7 @@ function SM.SelectStory(index, chapterIndex, quest)
     local selectedData = storyIndexToData[index]
     StoryModeDB.selectedQuestlineID = selectedData and selectedData.id or nil
     StoryModeDB.selectedChapter = chapterIndex or 1  -- reset to first chapter when switching stories
-    if SM.UpdateQuestTrackerStoryFilter then SM.UpdateQuestTrackerStoryFilter() end
+    if SM.SetQuestTrackerStory then SM.SetQuestTrackerStory(StoryModeDB.selectedQuestlineID) end
     for i, row in pairs(storyLeftRows) do
         local sel = (i == index)
         if row.btn then row.btn:UnlockHighlight() end

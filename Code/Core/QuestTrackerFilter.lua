@@ -60,9 +60,12 @@ local function IsInStory(questID, storyID)
     return story and story.id == storyID or false
 end
 
-local function SelectedStoryID()
-    local storyID = StoryModeDB and StoryModeDB.hideUnrelatedQuestTrackerQuests
-        and StoryModeDB.selectedQuestlineID
+-- The story the tracker keeps: the last story the player opened. The start
+-- page (the Introduction) clears selectedQuestlineID, so the filter keeps its
+-- own story and doesn't turn off whenever the player goes back to it.
+local function FilteredStoryID()
+    if not (StoryModeDB and StoryModeDB.hideUnrelatedQuestTrackerQuests) then return nil end
+    local storyID = StoryModeDB.questTrackerStoryID or StoryModeDB.selectedQuestlineID
     return storyID and SM.GetQuestlineByID(storyID) and storyID or nil
 end
 
@@ -74,7 +77,7 @@ local function InstallQuestTrackerFilter()
     tracker.ShouldDisplayQuest = function(self, quest)
         if not shouldDisplayQuest(self, quest) then return false end
 
-        local storyID = SelectedStoryID()
+        local storyID = FilteredStoryID()
         local questID = quest and quest.GetID and quest:GetID()
         if storyID and questID and not IsInStory(questID, storyID) then return false end
         return true
@@ -139,11 +142,9 @@ function SM.UpdateQuestTrackerStoryFilter()
 
     updating = true
     local watched = WatchedQuestSet(watchedQuestIDs)
-    local selectedStoryID = StoryModeDB.hideUnrelatedQuestTrackerQuests
-        and StoryModeDB.selectedQuestlineID
-    local selectedStory = selectedStoryID and SM.GetQuestlineByID(selectedStoryID)
+    local selectedStoryID = FilteredStoryID()
 
-    if selectedStory then
+    if selectedStoryID then
         AddHiddenWatches(hidden, watched, selectedStoryID)
         for _, questID in ipairs(ReadWatchedQuestIDs()) do
             if not IsInStory(questID, selectedStoryID) then
@@ -159,6 +160,14 @@ function SM.UpdateQuestTrackerStoryFilter()
         RefreshQuestTracker()
     end
     updating = false
+end
+
+-- Called when the player opens a story. No story (the Introduction) keeps the
+-- one the tracker already follows.
+function SM.SetQuestTrackerStory(storyID)
+    if not (StoryModeDB and storyID and SM.GetQuestlineByID(storyID)) then return end
+    StoryModeDB.questTrackerStoryID = storyID
+    SM.UpdateQuestTrackerStoryFilter()
 end
 
 function SM.SetQuestTrackerStoryFilterEnabled(enabled)

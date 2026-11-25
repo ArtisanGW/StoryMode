@@ -1138,7 +1138,7 @@ function SM.OpenStoryModeToSelection(storyID, chapterIndex, tab)
 
     StoryModeDB.selectedQuestlineID = storyID
     StoryModeDB.selectedChapter = chapterIndex or StoryModeDB.selectedChapter or 1
-    if SM.UpdateQuestTrackerStoryFilter then SM.UpdateQuestTrackerStoryFilter() end
+    if SM.SetQuestTrackerStory then SM.SetQuestTrackerStory(storyID) end
     if tab and SM.SetActiveTab then
         SM.SetActiveTab(tab)
     end

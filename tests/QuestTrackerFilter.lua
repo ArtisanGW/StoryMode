@@ -100,8 +100,8 @@ Fire("ADDON_LOADED", "Blizzard_ObjectiveTracker")
 assert(QuestObjectiveTracker:ShouldDisplayQuest(TrackedQuest(101)))
 assert(not QuestObjectiveTracker:ShouldDisplayQuest(TrackedQuest(202)))
 
-StoryModeDB.selectedQuestlineID = "other-story"
-SM.UpdateQuestTrackerStoryFilter()
+SM.SetQuestTrackerStory("other-story")
+assert(StoryModeDB.questTrackerStoryID == "other-story")
 assert(not Contains(watchedQuestIDs, 101))
 assert(Contains(watchedQuestIDs, 202))
 assert(hidden[101] == true)
@@ -119,8 +119,12 @@ assert(trackerRefreshes == 3)
 assert(QuestObjectiveTracker:ShouldDisplayQuest(TrackedQuest(101)))
 assert(QuestObjectiveTracker:ShouldDisplayQuest(TrackedQuest(202)))
 
-StoryModeDB.selectedQuestlineID = "hillsbrad"
+SM.SetQuestTrackerStory("hillsbrad")
+-- Turned on from the start page: the Introduction has no story selected.
+StoryModeDB.selectedQuestlineID = nil
 SM.SetQuestTrackerStoryFilterEnabled(true)
+assert(Contains(watchedQuestIDs, 101))
+assert(not Contains(watchedQuestIDs, 202))
 C_QuestLog.AddQuestWatch(202)
 Fire("QUEST_WATCH_LIST_CHANGED")
 assert(not Contains(watchedQuestIDs, 202))
@@ -141,7 +145,16 @@ Fire("PLAYER_REGEN_ENABLED")
 assert(not Contains(watchedQuestIDs, 202))
 assert(trackerRefreshes == 6)
 
+-- Back on the start page: the tracker keeps the last story.
 StoryModeDB.selectedQuestlineID = nil
+SM.SetQuestTrackerStory(nil)
+SM.UpdateQuestTrackerStoryFilter()
+assert(StoryModeDB.questTrackerStoryID == "hillsbrad")
+assert(not Contains(watchedQuestIDs, 202))
+assert(trackerRefreshes == 6)
+
+-- A story that no longer exists shows every quest again.
+StoryModeDB.questTrackerStoryID = "removed-story"
 SM.UpdateQuestTrackerStoryFilter()
 assert(Contains(watchedQuestIDs, 202))
 assert(hidden[202] == nil)

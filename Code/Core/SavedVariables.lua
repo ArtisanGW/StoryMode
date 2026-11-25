@@ -6,6 +6,7 @@ local defaults = {
     selectedQuestlineID = nil,
     hideUnrelatedQuestTrackerQuests = false,
     hiddenQuestTrackerWatches = {},
+    questTrackerStoryID = nil,
     minimapIconStyle = "borderless",
     characterChapterFlags = {},
     viewedLoreChapters = {},
