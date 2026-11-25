@@ -2086,7 +2086,6 @@ end
 storyFrame:SetScript("OnShow", function()
     PlaySound(SOUNDKIT.IG_MAINMENU_OPEN)
     SM.BuildStoryWindow()
-    SM.GamepadFrameShown(storyFrame)
     -- Frame 1: let layout settle so detailScroll has a real width
     C_Timer.After(0, function()
         local w = detailScroll:GetWidth()
@@ -2111,7 +2110,6 @@ end)
 
 storyFrame:SetScript("OnHide", function()
     PlaySound(SOUNDKIT.IG_MAINMENU_CLOSE)
-    SM.GamepadFrameHidden(storyFrame)
 end)
 
 

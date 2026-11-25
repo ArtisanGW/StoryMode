@@ -63,6 +63,7 @@ L["No Factions Tracked"] = "No factions tracked."
 
 L["Minimap Tooltip Title"] = "Story Mode"
 L["Minimap Tooltip Open"] = "Left-click to open"
+L["Controller Hint"] = "{move} Move   {press} Select   {back} Close   {select} Back to game"
 L["Binding Toggle Story Mode"] = "Open or close Story Mode"
 L["Minimap Tooltip Settings"] = "Right-click for options"
 L["Minimap Icon Style"] = "Minimap Icon Style"
