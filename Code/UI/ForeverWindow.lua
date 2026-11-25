@@ -1279,14 +1279,27 @@ end
 -- Shows the start page with the intro and hides it with it, and the journal
 -- page under it.
 function window.ShowStartPage(shown)
-    -- It opens on the letter.
-    if shown and not startPage.shown then startPage.page, startPage.hidden = 1, false end
+    -- It opens on the letter, or on the settings when asked (ShowSettingsPage).
+    if shown and not startPage.shown then
+        startPage.page, startPage.hidden = startPage.openOnSettings and 2 or 1, false
+        startPage.openOnSettings = nil
+    end
     startPage.shown = shown
     if startPage.frame then startPage.frame:SetShown(shown) end
     journal.start = shown
     UpdateJournalPage()
     if shown and startPage.frame then
         if startPage.hidden then ShowHiddenPage(startPage.hiddenPage) else ShowStartPageNumber(startPage.page) end
+    end
+end
+
+-- Turns the start page to the settings: now if it's shown, else the next
+-- time it shows.
+function window.ShowSettingsPage()
+    if startPage.shown and startPage.frame then
+        ShowStartPageNumber(2)
+    else
+        startPage.openOnSettings = true
     end
 end
 

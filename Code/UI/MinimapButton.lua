@@ -34,6 +34,31 @@ local function ToggleStoryFrame(storyFrame)
     end)
 end
 
+-- With the controller UI on, the game's menu joins the controller's window
+-- list (forever branch, Blizzard_GamepadSharedUtility/FrameControlsManager.lua,
+-- line 248). Opened from addon code, it taints the controller's code when it
+-- opens and closes ("Interface action failed", ADDON_ACTION_FORBIDDEN
+-- SetPreferredGamepadInteractTarget), and the chat after it. There,
+-- right-click opens the window on its settings page instead.
+local function UsesSettingsPageForOptions()
+    return InputUtil and InputUtil.IsGamepadUIEnabled and InputUtil.IsGamepadUIEnabled()
+        and SM.ForeverWindow and SM.ForeverWindow.HasStartPage and SM.ForeverWindow.HasStartPage() or false
+end
+
+-- The settings are on the start page, shown with the Introduction.
+local function OpenSettingsPage(storyFrame)
+    if InCombatLockdown() then
+        UIErrorsFrame:AddMessage(L["Error In Combat"], 1, 0.1, 0.1)
+        return
+    end
+
+    C_Timer.After(0, function()
+        StoryModeDB.selectedQuestline, StoryModeDB.selectedQuestlineID = 0, nil
+        if storyFrame:IsShown() then SM.SelectStory(0) else storyFrame:Show() end
+        SM.ForeverWindow.ShowSettingsPage()
+    end)
+end
+
 local function RegisterDataBrokerLauncher(storyFrame)
     if SM.DataBrokerObject or type(LibStub) ~= "function" then return end
 
@@ -259,7 +284,7 @@ function SM.CreateMinimapButton(storyFrame, tooltip, bodyColor)
 
     minimapBtn:SetScript("OnClick", function(self, button)
         if button == "RightButton" then
-            ShowIconStyleMenu(self)
+            if UsesSettingsPageForOptions() then OpenSettingsPage(storyFrame) else ShowIconStyleMenu(self) end
             return
         end
 
