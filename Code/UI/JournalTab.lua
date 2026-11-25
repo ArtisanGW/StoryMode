@@ -33,6 +33,24 @@ local function GetJournalRecap(ch)
     return table.concat(out, "\n\n")
 end
 
+-- A chapter's entry joins the journal once the chapter is done. A chapter of
+-- optional errands only is rarely done in full, so when its quests carry
+-- lines of their own, its entry joins once one of those is done and grows
+-- with the others. A chapter whose entry tells all of its quests itself (no
+-- lines of their own) still waits for all of them.
+local function IsChapterInJournal(ch)
+    local done, total = SM.GetChapterProgress(ch)
+    if total > 0 and done == total then return true end
+    local anyDone = false
+    for _, q in ipairs(ch.quests or {}) do
+        if SM.IsQuestForPlayer(q) and not SM.ShouldHideQuest(q) then
+            if not q.optional then return false end
+            if q.recap and SM.IsQuestEntryComplete(q) then anyDone = true end
+        end
+    end
+    return anyDone
+end
+
 -- ── Read aloud ──────────────────────────────────────────────────────
 -- The journal read in the character's own voice through the game's
 -- text-to-speech: a system voice of the character's sex that speaks the
@@ -682,8 +700,7 @@ local function LayoutJournalPages(data, contentW)
     -- The finished chapters' entries, as the scrolling journal has them.
     local shown, entries = {}, {}
     for _, ch in ipairs(SM.GetAllChapters(data)) do
-        local cd, ct = SM.GetChapterProgress(ch)
-        local recap = cd == ct and ct > 0 and GetJournalRecap(ch)
+        local recap = IsChapterInJournal(ch) and GetJournalRecap(ch)
         if recap then
             local index = #shown + 1
             shown[index] = { chapter = ch, title = ch.chapter, recap = recap }
@@ -797,8 +814,7 @@ function SM.LayoutJournalTab(data, w, contentW, visibleContentW)
         sJournalSubline:Show()
 
         for ci, ch in ipairs(chapters) do
-            local cd, ct = SM.GetChapterProgress(ch)
-            local chComplete = cd == ct and ct > 0
+            local chComplete = IsChapterInJournal(ch)
             local recap = GetJournalRecap(ch)
             if chComplete and recap then
                 journalIdx = journalIdx + 1
