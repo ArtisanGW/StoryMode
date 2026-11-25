@@ -15,10 +15,13 @@ Marks.OTHER_STORY_COLOR = { 0.75, 1, 0.1 }
 Marks.GIVER_ATLAS = "QuestNormal"
 Marks.TURN_IN_ATLAS = "UI-QuestIcon-TurnIn-Normal"
 local BADGE_SIZE = 20
--- The "..." of a quest in progress: the share of the icon its last dot
--- takes, and the gap that keeps the "!" off that dot.
-local LAST_DOT_SHARE = 1 / 3
-local LAST_DOT_GAP = 1
+-- Where the "!" of a quest in progress sits, from the pin's centre, measured
+-- on the game's art: the "..." (32 wide, centred) ends 8 right of the centre
+-- with its dots' middle 1 above it; the "!" (20 wide) has its point 7 from
+-- its left and 3.5 above its bottom. So the point sits one unit right of the
+-- last dot, on the dots' line.
+local PROGRESS_BADGE_X = 2
+local PROGRESS_BADGE_Y = -2.5
 
 local paintedTextures = setmetatable({}, { __mode = "k" })
 local progressBadges = setmetatable({}, { __mode = "k" })
@@ -64,8 +67,9 @@ function Marks.NewIcon(parent, atlas, color, layer)
     return icon
 end
 
--- The "!" rises from the last dot of the pin's "...", covering none of them.
-local function ProgressBadge(button, icon, color)
+-- The "!" rises from beside the last dot of the pin's "...", covering none
+-- of them.
+local function ProgressBadge(button, color)
     local badge = progressBadges[button]
     if not badge then
         badge = Marks.NewIcon(button, Marks.GIVER_ATLAS, color)
@@ -73,12 +77,7 @@ local function ProgressBadge(button, icon, color)
         progressBadges[button] = badge
     end
     badge:ClearAllPoints()
-    if icon then
-        local lastDotOffset = icon:GetWidth() * LAST_DOT_SHARE / 2
-        badge:SetPoint("BOTTOMLEFT", icon, "RIGHT", -lastDotOffset + LAST_DOT_GAP, LAST_DOT_GAP)
-    else
-        badge:SetPoint("CENTER", button, "TOPRIGHT", -3, -3)
-    end
+    badge:SetPoint("BOTTOMLEFT", button, "CENTER", PROGRESS_BADGE_X, PROGRESS_BADGE_Y)
     Marks.Paint(badge, color)
     return badge
 end
@@ -98,7 +97,7 @@ function Marks.UpdateQuestButton(button)
     end
 
     if color and not isReadyToTurnIn then
-        ProgressBadge(button, icon, color):Show()
+        ProgressBadge(button, color):Show()
     elseif progressBadges[button] then
         progressBadges[button]:Hide()
     end
