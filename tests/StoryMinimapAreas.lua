@@ -21,6 +21,13 @@ C_QuestLog = {
     end,
 }
 StoryModeDB = { markStoryQuests = true }
+local timers = {}
+C_Timer = { After = function(_, callback) timers[#timers + 1] = callback end }
+local function RunTimers()
+    local waiting = timers
+    timers = {}
+    for _, callback in ipairs(waiting) do callback() end
+end
 
 -- 201, 202: the followed story; 301: another story; 900: no story.
 local SM = Fakes.NewStoryMode({ [201] = "hillsbrad", [202] = "hillsbrad", [301] = "other" }, "hillsbrad")
@@ -44,6 +51,11 @@ local function IsOther() return IsStory("Other") end
 
 watched, onMap = { 201, 202 }, { 201, 202, 301, 900 }
 OnMapChanged()
+assert(IsGame(), "still loading: the game's own (a texture set now stays 'not found')")
+Fire("PLAYER_ENTERING_WORLD")
+OnMapChanged()
+assert(IsGame(), "just in the world: not yet")
+RunTimers()
 assert(IsFollowed(), "every tracked quest of the followed story: green")
 
 watched = { 301 }
@@ -74,5 +86,18 @@ assert(IsFollowed(), "turned on: back right away")
 watched = {}
 Fire("QUEST_WATCH_LIST_CHANGED")
 assert(IsGame(), "nothing tracked: the game's own")
+
+-- A loading screen: nothing changes until the player has settled again, and
+-- a timer from before it doesn't count.
+watched = { 201 }
+Fire("PLAYER_ENTERING_WORLD")
+Fire("PLAYER_LEAVING_WORLD")
+Fire("QUEST_WATCH_LIST_CHANGED")
+assert(IsGame(), "loading screen: left alone")
+RunTimers()
+assert(IsGame(), "the timer from before the loading screen doesn't settle")
+Fire("PLAYER_ENTERING_WORLD")
+RunTimers()
+assert(IsFollowed(), "settled again: green")
 
 print("StoryMinimapAreas tests passed")

@@ -10,6 +10,13 @@ local _, SM = ...
 -- "selected" texture this client has no setter for: it stays blue, so
 -- turning that filter on drops the focus. The game has no getters either:
 -- its own textures go back by file ID.
+--
+-- Once an area texture is set while the game loads, the minimap draws every
+-- custom one as "not found" (solid green) until the game restarts, /reload
+-- included (measured: set at login it failed, and so did art set later; set
+-- 6 s after PLAYER_ENTERING_WORLD it drew right). So the textures change only
+-- after the player has been in the world for SETTLE_SECONDS, and not across
+-- a loading screen.
 
 local Marks = SM.StoryQuestMarks
 local OnMap = SM.StoryQuestsOnMap
@@ -26,8 +33,13 @@ local STORY_TEXTURES = {
     [Marks.OTHER_STORY_COLOR] = { outside = ART .. "QuestAreaOutsideOther.tga", ring = ART .. "QuestAreaRingOther.tga" },
 }
 
+local SETTLE_SECONDS = 6
+
 -- nil: the game's own textures are on.
 local appliedColor
+local settled = false
+-- Counts loading screens, so a timer from before one doesn't settle.
+local loadingScreens = 0
 
 -- The tracked quests on the player's map: those the minimap draws areas for.
 local function TrackedQuestsOnMap()
@@ -55,7 +67,7 @@ local function SharedColor()
 end
 
 local function Refresh()
-    if Minimap:IsForbidden() then return end
+    if not settled or Minimap:IsForbidden() then return end
     local color = SharedColor()
     if color == appliedColor then return end
     appliedColor = color
@@ -69,4 +81,20 @@ Marks.OnChange(Refresh)
 
 local eventFrame = CreateFrame("Frame")
 eventFrame:RegisterEvent("QUEST_WATCH_LIST_CHANGED")
-eventFrame:SetScript("OnEvent", Refresh)
+eventFrame:RegisterEvent("PLAYER_LEAVING_WORLD")
+eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+eventFrame:SetScript("OnEvent", function(_, event)
+    if event == "PLAYER_LEAVING_WORLD" then
+        settled = false
+        loadingScreens = loadingScreens + 1
+    elseif event == "PLAYER_ENTERING_WORLD" then
+        local loadingScreen = loadingScreens
+        C_Timer.After(SETTLE_SECONDS, function()
+            if loadingScreen ~= loadingScreens then return end
+            settled = true
+            Refresh()
+        end)
+    else
+        Refresh()
+    end
+end)
