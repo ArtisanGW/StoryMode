@@ -41,6 +41,18 @@ function Marks.ColorForQuest(questID)
     return Marks.OTHER_STORY_COLOR
 end
 
+-- The colour every one of these quests has, or nil (none, or not all the
+-- same).
+function Marks.SharedColor(questIDs)
+    local sharedColor
+    for _, questID in ipairs(questIDs) do
+        local color = Marks.ColorForQuest(questID)
+        if not color or (sharedColor and color ~= sharedColor) then return nil end
+        sharedColor = color
+    end
+    return sharedColor
+end
+
 -- The game's icons are yellow: grey first, so any colour shows true. The game
 -- never colours or greys the POI buttons' icons itself, so plain is their own
 -- look to go back to. (Quest offer pins grey themselves for another floor:

@@ -22,14 +22,6 @@ C_QuestLog = {
 }
 StoryModeDB = { markStoryQuests = true }
 
--- One drawn frame: the art textures load when loaded is true.
-local function DrawFrame(loaded)
-    for _, frame in ipairs(frames) do
-        for _, texture in ipairs(frame.children) do texture.loaded = loaded or texture.loaded end
-        if frame.scripts.OnUpdate then frame.scripts.OnUpdate(frame, 0.016) end
-    end
-end
-
 -- 201, 202: the followed story; 301: another story; 900: no story.
 local SM = Fakes.NewStoryMode({ [201] = "hillsbrad", [202] = "hillsbrad", [301] = "other" }, "hillsbrad")
 SM.StoryQuestsOnMap = { mapID = 1424 }
@@ -40,6 +32,7 @@ local function OnMapChanged()
 end
 
 assert(loadfile("Code/UI/StoryQuestMarks.lua"))("StoryMode", SM)
+assert(loadfile("Code/UI/StoryAreaArt.lua"))("StoryMode", SM)
 assert(loadfile("Code/UI/StoryMinimapAreas.lua"))("StoryMode", SM)
 
 local ART = "Interface\\AddOns\\StoryMode\\Art\\Minimap\\"
@@ -50,22 +43,11 @@ end
 local function IsFollowed() return IsStory("Followed") end
 local function IsOther() return IsStory("Other") end
 
-local artFiles = {}
-for _, frame in ipairs(frames) do
-    for _, texture in ipairs(frame.children) do
-        assert(texture.alpha == 0, "the art textures can't be seen")
-        artFiles[#artFiles + 1] = texture.texture
-    end
-end
-table.sort(artFiles)
-assert(table.concat(artFiles, " ") == table.concat({ ART .. "QuestAreaOutsideFollowed.tga", ART .. "QuestAreaOutsideOther.tga",
-    ART .. "QuestAreaRingFollowed.tga", ART .. "QuestAreaRingOther.tga" }, " "), "every file is loaded by a texture")
-
 watched, onMap = { 201, 202 }, { 201, 202, 301, 900 }
 OnMapChanged()
-DrawFrame(false)
-assert(IsGame(), "art not loaded: the game's own (given now, it stays 'not found' until a restart)")
-DrawFrame(true)
+Fakes.DrawFrame(frames, false)
+assert(IsGame() and textureCalls == 0, "art not loaded: left alone")
+Fakes.DrawFrame(frames, true)
 assert(IsFollowed(), "art loaded, every tracked quest of the followed story: green")
 
 watched = { 301 }

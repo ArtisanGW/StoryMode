@@ -77,6 +77,15 @@ function Fakes.EventFrames()
     end, frames
 end
 
+-- One drawn frame: runs each frame's OnUpdate. With artLoaded, the textures
+-- made on those frames have loaded their files first.
+function Fakes.DrawFrame(frames, artLoaded)
+    for _, frame in ipairs(frames) do
+        for _, texture in ipairs(frame.children) do texture.loaded = artLoaded or texture.loaded end
+        if frame.scripts.OnUpdate then frame.scripts.OnUpdate(frame, 0.016) end
+    end
+end
+
 function Fakes.InstallGlobals()
     CreateFramePool = Fakes.CreateFramePool
     UIParent = Fakes.NewRegion()
