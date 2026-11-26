@@ -374,3 +374,386 @@ id,name,status,quests,faction,classes,level,min_level,zone_id,quest_ids,quest_na
 98072,Crocs of the Sky,routine,3,Alliance,,27,19,11,98072 98240 98245,Crocs of the Sky | Crimson Crate Delivery | Razormaw Needling
 98322,Secure the Mountain,routine,3,Alliance,,8,4,1,98322 98319 98323,Secure the Mountain | Secure the Mountain | Secure the Mountain
 99046,The Lost Runner,routine,3,Alliance,,9,4,141,99046 99047 99050,The Lost Runner | Not Dead Yet | The Great Tree Provides
+15,Investigate Echo Ridge,trivial,2,Alliance,,3,1,12,15 21,Investigate Echo Ridge | Skirmish at Echo Ridge
+20,Blackrock Menace,trivial,2,Alliance,,21,18,44,20/98386/98387 19,Blackrock Menace / Alther's Mill / Blackrock Blockade | Tharil'zun
+60,Kobold Candles,trivial,2,Alliance,,7,3,12,60 61,Kobold Candles | Shipment to Stormwind
+62,The Fargodeep Mine,trivial,2,Alliance,,7,4,12,62 76,The Fargodeep Mine | The Jasperlode Mine
+94,A Watchful Eye,trivial,2,Alliance,,21,20,44,94 248,A Watchful Eye | Looking Further
+118,The Price of Shoes,trivial,2,Alliance,,18,14,44,118 119,The Price of Shoes | Return to Verner
+120,Messenger to Stormwind,trivial,2,Alliance,,14,14,44,120 121,Messenger to Stormwind | Messenger to Stormwind
+124,A Baying of Gnolls,trivial,2,Alliance,,20,15,44,124 126,A Baying of Gnolls | Howling in the Hills
+143,Messenger to Westfall,trivial,2,Alliance,,14,14,44,143 144,Messenger to Westfall | Messenger to Westfall
+145,Messenger to Darkshire,trivial,2,Alliance,,18,18,44,145 146,Messenger to Darkshire | Messenger to Darkshire
+155,The Defias Brotherhood,trivial,2,Alliance,,18,14,40,155 166,The Defias Brotherhood | The Defias Brotherhood
+207,Kurzen's Mystery,trivial,2,Alliance,,38,30,33,207 205,Kurzen's Mystery | Troll Witchery
+233,Coldridge Valley Mail Delivery,trivial,2,Alliance,,3,1,1,233 234,Coldridge Valley Mail Delivery | Coldridge Valley Mail Delivery
+239,Westbrook Garrison Needs Help!,trivial,2,Alliance,,10,6,12,239 11,Westbrook Garrison Needs Help! | Riverpaw Gnoll Bounty
+244,Encroaching Gnolls,trivial,2,Alliance,,16,11,44,244 246,Encroaching Gnolls | Assessing the Threat
+257,A Hunter's Boast,trivial,2,Alliance,,16,11,38,257 258,A Hunter's Boast | A Hunter's Challenge
+271,Vyrin's Revenge,trivial,2,Alliance,,20,15,38,271 531,Vyrin's Revenge | Vyrin's Revenge
+287,Frostmane Hold,trivial,2,Alliance,,9,7,1,287 291,Frostmane Hold | The Reports
+305,In Search of the Excavation Team,trivial,2,Alliance,,24,21,11,305 306,In Search of the Excavation Team | In Search of the Excavation Team
+310,Bitter Rivals,trivial,2,Alliance,,6,2,1,310 311,Bitter Rivals | Return to Marleth
+335,A Noble Brew,trivial,2,Alliance,,30,25,1519,335 336,A Noble Brew | A Noble Brew
+351,Find OOX-17/TN!,trivial,2,Both,,48,43,440,351 648,Find OOX-17/TN! | Rescue OOX-17/TN!
+355,Speak with Sevren,trivial,2,Horde,,10,7,85,355 408,Speak with Sevren | The Family Crypt
+356,Rear Guard Patrol,trivial,2,Horde,,11,6,85,356 99156,Rear Guard Patrol | Rear Guard Patrol
+359,Forsaken Duties,trivial,2,Horde,,9,6,85,359 360,Forsaken Duties | Return to the Magistrate
+363,Rude Awakening,trivial,2,Horde,,1,1,85,363 364,Rude Awakening | The Mindless Ones
+365,Fields of Grief,trivial,2,Horde,,7,4,85,365 407,Fields of Grief | Fields of Grief
+401,Wait for Sirra to Finish,trivial,2,Alliance,,30,20,10,401 252,Wait for Sirra to Finish | Translation to Ello
+419,The Lost Pilot,trivial,2,Alliance,,10,8,1,419 417,The Lost Pilot | A Pilot's Revenge
+436,Ironband's Excavation,trivial,2,Alliance,,18,13,38,436 297,Ironband's Excavation | Gathering Idols
+458,The Woodland Protector,trivial,2,Alliance,,1,1,141,458 459,The Woodland Protector | The Woodland Protector
+467,Stonegear's Search,trivial,2,Alliance,,23,20,1,467 466,Stonegear's Search | Search for Incendicite
+468,Report to Mountaineer Rockgar,trivial,2,Alliance,,21,19,11,468 455,Report to Mountaineer Rockgar | The Algaz Gauntlet
+485,Find OOX-09/HL!,trivial,2,Both,,48,43,47,485 836,Find OOX-09/HL! | Rescue OOX-09/HL!
+496,Elixir of Suffering,trivial,2,Horde,,22,19,267,496 499,Elixir of Suffering | Elixir of Suffering
+500,Crushridge Bounty,trivial,2,Alliance,,36,30,36,500 504,Crushridge Bounty | Crushridge Warmongers
+501,Elixir of Pain,trivial,2,Horde,,24,21,267,501 502,Elixir of Pain | Elixir of Pain
+510,Foreboding Plans,trivial,2,Alliance,,34,26,36,510 512,Foreboding Plans | Noble Deaths
+522,Assassin's Contract,trivial,2,Alliance,,38,30,36,522 523,Assassin's Contract | Baron's Demise
+544,Prison Break In,trivial,2,Horde,,33,30,267,544 545,Prison Break In | Dalaran Patrols
+551,The Ensorcelled Parchment,trivial,2,Alliance,,40,30,36,551 554,The Ensorcelled Parchment | Stormpike's Deciphering
+552,Helcular's Revenge,trivial,2,Horde,,33,29,267,552 553,Helcular's Revenge | Helcular's Revenge
+568,The Defense of Grom'gol,trivial,2,Horde,,36,33,33,568 569,The Defense of Grom'gol | The Defense of Grom'gol
+574,Special Forces,trivial,2,Alliance,,38,30,33,574 202,Special Forces | Colonel Kurzen
+577,Some Assembly Required,trivial,2,Both,,36,31,33,577 628,Some Assembly Required | Excelsior
+581,Hunt for Yenniku,trivial,2,Horde,,34,30,33,581 582,Hunt for Yenniku | Headhunting
+594,Message in a Bottle,trivial,2,Both,,45,45,33,594 630,Message in a Bottle | Message in a Bottle
+605,Singing Blue Shards,trivial,2,Both,,35,30,33,605 600,Singing Blue Shards | Venture Company Mining
+615,The Captain's Cutlass,trivial,2,Both,,50,35,33,615/8553 8554,The Captain's Cutlass / The Captain's Cutlass | Facing Negolash
+654,Tanaris Field Sampling,trivial,2,Horde,,46,38,440,654 864,Tanaris Field Sampling | Return to Apothecary Zinge
+660,Hints of a New Plague?,trivial,2,Alliance,,37,30,267,660 661,Hints of a New Plague? | Hints of a New Plague?
+686,A King's Tribute,trivial,2,Alliance,,30,25,1537,686 689,A King's Tribute | A King's Tribute
+713,Coolant Heads Prevail,trivial,2,Both,,37,35,3,713 714,Coolant Heads Prevail | Gyro... What?
+718,Mirages,trivial,2,Alliance,,38,35,3,718 733,Mirages | Scrounging
+730,Trouble In Darkshore?,trivial,2,Alliance,,14,14,1657,730 729,Trouble In Darkshore? | The Absent Minded Prospector
+732,Tremors of the Earth,trivial,2,Alliance,,43,40,3,732 717,Tremors of the Earth | Tremors of the Earth
+749,The Ravaged Caravan,trivial,2,Horde,,8,5,215,749 751,The Ravaged Caravan | The Ravaged Caravan
+750,The Hunt Continues,trivial,2,Horde,,3,1,215,750 780,The Hunt Continues | The Battleboars
+760,Wildmane Cleansing,trivial,2,Horde,,10,4,215,760 98435,Wildmane Cleansing | Thunderhorn's Report
+767,Rite of Vision,trivial,2,Horde,,6,3,215,767 771,Rite of Vision | Rite of Vision
+782,Broken Alliances,trivial,2,Horde,,43,40,3,782 793,Broken Alliances | Broken Alliances
+783,A Threat Within,trivial,2,Alliance,,1,1,12,783 7,A Threat Within | Kobold Camp Cleanup
+784,Vanquish the Betrayers,trivial,2,Horde,,7,3,14,784 825,Vanquish the Betrayers | From The Wreckage....
+787,The New Horde,trivial,2,Both,,1,1,14,787/4641 788,The New Horde / Your Place in the World | Cutting Teeth
+790,Sarkoth,trivial,2,Horde,,5,1,14,790 804,Sarkoth | Sarkoth
+828,Margoz,trivial,2,Horde,,12,4,14,828 827,Margoz | Skull Rock
+830,The Admiral's Orders,trivial,2,Horde,,7,1,14,830 831,The Admiral's Orders | The Admiral's Orders
+834,Winds in the Desert,trivial,2,Both,,9,7,14,834 835,Winds in the Desert | Securing the Lines
+840,Conscript of the Horde,trivial,2,Horde,,12,10,14,840 842,Conscript of the Horde | Crossroads Conscription
+851,Verog the Dervish,trivial,2,Horde,,18,11,17,851 852,Verog the Dervish | Hezrul Bloodmark
+869,Raptor Thieves,trivial,2,Horde,,13,9,17,869 3281,Raptor Thieves | Stolen Silver
+879,Betrayal from Within,trivial,2,Horde,,25,17,17,879 906,Betrayal from Within | Betrayal from Within
+916,Webwood Venom,trivial,2,Alliance,,4,3,141,916 917,Webwood Venom | Webwood Egg
+932,Twisted Hatred,trivial,2,Alliance,,8,4,141,932 98403,Twisted Hatred | Twisted Hatred
+936,Assisting Arch Druid Runetotem,trivial,2,Horde,,50,47,1637,936/3762/3784 3761,Assisting Arch Druid Runetotem / Assisting Arch Druid Runetotem / Assisting Arch Druid Runetotem | Un'Goro Soil
+939,Flute of Xavaric,trivial,2,Alliance,,54,49,361,939 4441,Flute of Xavaric | Felbound Ancients
+969,Luck Be With You,trivial,2,Both,,60,55,618,969 975,Luck Be With You | Cache of Mau'ari
+978,Moontouched Wildkin,trivial,2,Alliance,,55,52,702,978 979,Moontouched Wildkin | Find Ranshalla
+984,How Big a Threat?,trivial,2,Alliance,,14,10,148,984 985,How Big a Threat? | How Big a Threat?
+988,,trivial,2,Both,,20,10,148,988 995, | Escape Through Stealth
+989,,trivial,2,Both,,22,10,148,989 994, | Escape Through Force
+991,Raene's Cleansing,trivial,2,Alliance,,19,18,331,991 1023,Raene's Cleansing | Raene's Cleansing
+992,Gadgetzan Water Survey,trivial,2,Both,,46,38,440,992 82,Gadgetzan Water Survey | Noxious Lair Investigation
+1016,Elemental Bracers,trivial,2,Alliance,,24,20,331,1016 1017,Elemental Bracers | Mage Summoner
+1021,Vile Satyr! Dryads in Danger!,trivial,2,Alliance,,32,26,331,1021 1031,Vile Satyr! Dryads in Danger! | The Branch of Cenarius
+1036,"Avast Ye, Scallywag",trivial,2,Both,,60,55,33,1036 4621,"Avast Ye, Scallywag | Avast Ye, Admiral!"
+1057,Reclaiming the Charred Vale,trivial,2,Alliance,,27,20,406,1057 1059,Reclaiming the Charred Vale | Reclaiming the Charred Vale
+1061,The Spirits of Stonetalon,trivial,2,Horde,,17,13,406,1061 1062,The Spirits of Stonetalon | Goblin Invaders
+1075,A Scroll from Mauren,trivial,2,Alliance,,21,17,406,1075 1076,A Scroll from Mauren | Devils in Westfall
+1082,Update for Sentinel Thenysil,trivial,2,Alliance,,22,17,406,1082 1081,Update for Sentinel Thenysil | Reception from Tyrande
+1090,Gerenzo's Orders,trivial,2,Both,,22,17,406,1090 1092,Gerenzo's Orders | Gerenzo's Orders
+1100,Lonebrow's Journal,trivial,2,Alliance,,34,29,400,1100 1101,Lonebrow's Journal | The Crone of the Kraul
+1106,Martek the Exiled,trivial,2,Both,,35,26,400,1106 1108,Martek the Exiled | Indurium
+1109,"Going, Going, Guano!",trivial,2,Horde,,33,30,491,1109 1113,"Going, Going, Guano! | Hearts of Zeal"
+1111,Wharfmaster Dizzywig,trivial,2,Both,,36,30,400,1111 1112,Wharfmaster Dizzywig | Parts for Kravel
+1130,Melor Sends Word,trivial,2,Horde,,30,20,1638,1130 1131,Melor Sends Word | Steelsnap
+1132,Fiora Longears,trivial,2,Alliance,,30,30,11,1132 1133,Fiora Longears | Journey to Astranaar
+1148,Parts of the Swarm,trivial,2,Horde,,35,28,400,1148 1184,Parts of the Swarm | Parts of the Swarm
+1190,Keeping Pace,trivial,2,Both,,41,29,400,1190 1194,Keeping Pace | Rizzle's Schematics
+1198,In Search of Thaelrid,trivial,2,Alliance,,24,18,719,1198 1200,In Search of Thaelrid | Blackfathom Villainy
+1201,Theramore Spies,trivial,2,Horde,,35,30,15,1201 1202,Theramore Spies | The Theramore Docks
+1218,Soothing Spices,trivial,2,Both,,35,30,15,1218 1206,Soothing Spices | Jarl Needs Eyes
+1219,The Orc Report,trivial,2,Alliance,,35,30,15,1219 1220,The Orc Report | Captain Vimes
+1239,The Severed Head,trivial,2,Horde,,35,30,15,1239 1240,The Severed Head | The Troll Witchdoctor
+1261,Marg Speaks,trivial,2,Horde,,40,30,15,1261 1262,Marg Speaks | Report to Zor
+1339,Mountaineer Stormpike's Task,trivial,2,Alliance,,15,9,38,1339 1338,Mountaineer Stormpike's Task | Stormpike's Order
+1361,Regthar Deathgate,trivial,2,Horde,,32,30,405,1361 1362,Regthar Deathgate | The Kolkar of Desolace
+1363,Mazen's Behest,trivial,2,Alliance,,41,37,1519,1363 1364,Mazen's Behest | Mazen's Behest
+1372,Nothing But The Truth,trivial,2,Horde,,42,37,10,1372 1383,Nothing But The Truth | Nothing But The Truth
+1375,Khan Shaka,trivial,2,Both,,37,30,405,1375 1381,Khan Shaka | Khan Hratha
+1388,Nothing But The Truth,trivial,2,Horde,,42,37,10,1388 1391,Nothing But The Truth | Nothing But The Truth
+1418,Neeka Bloodscar,trivial,2,Horde,,35,30,8,1418 1420,Neeka Bloodscar | Report to Helgrum
+1431,Alliance Relations,trivial,2,Horde,,30,30,1637,1431 1432,Alliance Relations | Alliance Relations
+1433,Alliance Relations,trivial,2,Horde,,33,30,405,1433 1435,Alliance Relations | The Burning of Spirits
+1437,Vahlarriel's Search,trivial,2,Alliance,,33,30,405,1437 1465,Vahlarriel's Search | Vahlarriel's Search
+1438,Vahlarriel's Search,trivial,2,Alliance,,33,30,405,1438 1439,Vahlarriel's Search | Search for Tyranis
+1469,Rhapsody's Tale,trivial,2,Alliance,,43,38,47,1469 1475,Rhapsody's Tale | Into The Temple of Atal'Hakkar
+1476,Hearts of the Pure,trivial,2,Horde,WARLOCK,20,20,-61,1476 1474,Hearts of the Pure | The Binding
+1477,Vital Supplies,trivial,2,Alliance,,45,40,1519,1477 1395,Vital Supplies | Supplies for Nethergarde
+1579,Gaffer Jacks,trivial,2,Alliance,,12,10,-101,1579 1580,Gaffer Jacks | Electropellers
+1649,The Tome of Valor,trivial,2,Alliance,PALADIN,20,20,-141,1649 1650,The Tome of Valor | The Tome of Valor
+1666,Marshal Haggard,trivial,2,Alliance,WARRIOR,10,10,-81,1666 1667,Marshal Haggard | Dead-tooth Jack
+1684,Elanaria,trivial,2,Alliance,WARRIOR,10,10,-81,1684 1683,Elanaria | Vorlus Vilehoof
+1686,The Shade of Elura,trivial,2,Alliance,WARRIOR,10,10,-81,1686 1692,The Shade of Elura | Smith Mathiel
+1690,Wastewander Justice,trivial,2,Both,,43,40,440,1690 1691,Wastewander Justice | More Wastewander Justice
+1698,Yorus Barleybrew,trivial,2,Alliance,WARRIOR,20,20,-81,1698 1699,Yorus Barleybrew | The Rethban Gauntlet
+1700,Grimand Elmore,trivial,2,Alliance,WARRIOR,28,20,-81,1700 1705,Grimand Elmore | Burning Blood
+1702,The Shieldsmith,trivial,2,Alliance,WARRIOR,22,20,-81,1702 1701,The Shieldsmith | Fire Hardened Mail
+1703,Mathiel,trivial,2,Alliance,WARRIOR,28,20,-81,1703 1710,Mathiel | Sunscorched Shells
+1704,Klockmort Spannerspan,trivial,2,Alliance,WARRIOR,28,20,-81,1704 1708,Klockmort Spannerspan | Iron Coral
+1717,Gakin's Summons,trivial,2,Alliance,WARLOCK,20,20,-61,1717 1716,Gakin's Summons | Devourer of Souls
+1718,The Islander,trivial,2,Both,WARRIOR,30,30,-81,1718 1719,The Islander | The Affray
+1738,Heartswood,trivial,2,Alliance,WARLOCK,20,20,-61,1738 1739,Heartswood | The Binding
+1839,Ula'elek and the Brutal Gauntlets,trivial,2,Horde,WARRIOR,30,20,-81,1839 1842,Ula'elek and the Brutal Gauntlets | Satyr Hooves
+1840,Orm Stonehoof and the Brutal Helm,trivial,2,Horde,WARRIOR,30,20,-81,1840 1844,Orm Stonehoof and the Brutal Helm | Chimaeric Horn
+1841,Velora Nitely and the Brutal Legguards,trivial,2,Horde,WARRIOR,30,20,-81,1841 1846,Velora Nitely and the Brutal Legguards | Dragonmaw Shinbones
+1860,Speak with Jennea,trivial,2,Alliance,MAGE,10,10,-161,1860 1861,Speak with Jennea | Mirror Lake
+1879,Speak with Bink,trivial,2,Alliance,MAGE,10,10,-161,1879 1880,Speak with Bink | Mage-tastic Gizmonitor
+1881,Speak with Anastasia,trivial,2,Horde,MAGE,10,10,-161,1881 1882,Speak with Anastasia | The Balnir Farmstead
+1883,Speak with Un'thuwa,trivial,2,Horde,MAGE,10,10,-161,1883 1884,Speak with Un'thuwa | Ju-Ju Heaps
+1918,The Befouled Element,trivial,2,Horde,,27,23,331,1918 824,The Befouled Element | Je'neu of the Earthen Ring
+1998,Fenwick Thatros,trivial,2,Horde,ROGUE,16,16,-162,1998 1999,Fenwick Thatros | Tools of the Trade
+2039,Find Bingles,trivial,2,Alliance,,15,12,38,2039 2038,Find Bingles | Bingles' Missing Supplies
+2041,Speak with Shoni,trivial,2,Alliance,,15,15,1537,2041 2040,Speak with Shoni | Underground Assault
+2098,Gyromast's Retrieval,trivial,2,Alliance,,20,14,148,2098 2078,Gyromast's Retrieval | Gyromast's Revenge
+2118,Plagued Lands,trivial,2,Alliance,,14,10,148,2118 2138,Plagued Lands | Cleansing of the Infected
+2258,Badlands Reagent Run,trivial,2,Horde,,39,36,3,2258 2202,Badlands Reagent Run | Uldaman Reagent Run
+2259,Erion Shadewhisper,trivial,2,Alliance,ROGUE,16,16,-162,2259 2260,Erion Shadewhisper | Erion's Behest
+2279,The Platinum Discs,trivial,2,Alliance,,47,40,1337,2279 2439,The Platinum Discs | The Platinum Discs
+2281,Redridge Rendezvous,trivial,2,Alliance,ROGUE,16,16,-162,2281 2282,Redridge Rendezvous | Alther's Mill
+2299,To Hulfdan!,trivial,2,Alliance,ROGUE,16,16,-162,2299 2298,To Hulfdan! | Kingly Shakedown
+2340,Deliver the Gems,trivial,2,Horde,,44,37,1337,2340 2341,"Deliver the Gems | Necklace Recovery, Take 3"
+2398,The Lost Dwarves,trivial,2,Alliance,,40,35,1337,2398 2240,The Lost Dwarves | The Hidden Chamber
+2438,The Emerald Dreamcatcher,trivial,2,Alliance,,6,1,141,2438 2459,The Emerald Dreamcatcher | Ferocitas the Dream Eater
+2460,The Shattered Salute,trivial,2,Horde,ROGUE,20,20,-162,2460 2458,The Shattered Salute | Deep Cover
+2498,Return to Denalan,trivial,2,Alliance,,9,4,141,2498 2499,Return to Denalan | Oakenscowl
+2541,The Sleeping Druid,trivial,2,Alliance,,8,3,141,2541 2561,The Sleeping Druid | Druid of the Claw
+2661,Delivery for Marin,trivial,2,Both,,49,44,440,2661 2662,Delivery for Marin | Noggenfogger Elixir
+2742,Rin'ji is Trapped!,trivial,2,Horde,,47,42,47,2742 2782,Rin'ji is Trapped! | Rin'ji's Secret
+2766,Find OOX-22/FE!,trivial,2,Both,,45,40,357,2766 2767,Find OOX-22/FE! | Rescue OOX-22/FE!
+2769,The Brassbolts Brothers,trivial,2,Alliance,,46,40,400,2769 2770,The Brassbolts Brothers | Gahz'rilla
+2842,Chief Engineer Scooty,trivial,2,Horde,,35,20,721,2842 2843,Chief Engineer Scooty | Gnomer-gooooone!
+2844,The Giant Guardian,trivial,2,Alliance,,49,44,357,2844 2845,The Giant Guardian | Wandering Shay
+2861,Tabetha's Task,trivial,2,Both,,46,40,1176,2861 2846,Tabetha's Task | Tiara of the Deep
+2864,Tran'rek,trivial,2,Both,,45,40,1176,2864 2865,Tran'rek | Scarab Shells
+2866,The Ruins of Solarsal,trivial,2,Alliance,,43,40,357,2866 2867,The Ruins of Solarsal | Return to Feathermoon Stronghold
+2879,The Stave of Equinex,trivial,2,Alliance,,50,42,357,2879 2942,The Stave of Equinex | The Morrow Stone
+2923,Tinkmaster Overspark,trivial,2,Alliance,,26,20,721,2923 2922,Tinkmaster Overspark | Save Techbot's Brain!
+2925,Klockmort's Essentials,trivial,2,Alliance,,30,24,721,2925 2924,Klockmort's Essentials | Essential Artificials
+2931,Castpipe's Task,trivial,2,Alliance,,28,25,721,2931 2930,Castpipe's Task | Data Rescue
+2949,Return of the Ring,trivial,2,Horde,,34,28,721,2949 2950,Return of the Ring | Nogg's Ring Redo
+2963,Portents of Uldum,trivial,2,Alliance,,50,45,1537,2963 2946,Portents of Uldum | Seeing What Happens
+2965,Portents of Uldum,trivial,2,Horde,,50,45,1638,2965 2966,Portents of Uldum | Seeing What Happens
+2967,Return to Thunder Bluff,trivial,2,Horde,,50,45,1638,2967 2968,Return to Thunder Bluff | A Future Task
+2977,Return to Ironforge,trivial,2,Alliance,,50,45,1537,2977 2964,Return to Ironforge | A Future Task
+3121,A Strange Request,trivial,2,Horde,,45,40,357,3121 3122,A Strange Request | Return to Witch Doctor Uzer'i
+3181,The Horn of the Beast,trivial,2,Alliance,,48,40,51,3181 3182,The Horn of the Beast | Proof of Deed
+3377,Prayer to Elune,trivial,2,Alliance,,50,40,51,3377 3378,Prayer to Elune | Prayer to Elune
+3380,The Sunken Temple,trivial,2,Horde,,51,46,1477,3380/3445 3444,The Sunken Temple / The Sunken Temple | The Stone Circle
+3450,An Easy Pickup,trivial,2,Alliance,,52,45,1537,3450 3451,An Easy Pickup | Signal for Pickup
+3462,Squire Maltrake,trivial,2,Both,,50,40,51,3462 3463,Squire Maltrake | Set Them Ablaze!
+3501,Everything Counts In Large Amounts,trivial,2,Both,,55,45,4,3501 3502,Everything Counts In Large Amounts | One Draenei's Junk...
+3506,Betrayed,trivial,2,Horde,,56,44,1637,3506 3507,Betrayed | Betrayed
+3513,The Runed Scroll,trivial,2,Horde,,25,15,17,3513 3514,The Runed Scroll | Horde Presence
+3518,Delivery to Magatha Grimtotem,trivial,2,Horde,,52,45,16,3518 3562,Delivery to Magatha Grimtotem | Magatha's Payment to Jediga
+3523,Scourge of the Downs,trivial,2,Both,,37,32,722,3523 3525,Scourge of the Downs | Extinguishing the Idol
+3524,Washed Ashore,trivial,2,Alliance,,13,11,148,3524 4681,Washed Ashore | Washed Ashore
+3541,Delivery to Jes'rimon,trivial,2,Horde,,52,45,16,3541 3563,Delivery to Jes'rimon | Jes'rimon's Payment to Jediga
+3542,Delivery to Andron Gant,trivial,2,Horde,,52,45,16,3542 3564,Delivery to Andron Gant | Andron's Payment to Jediga
+3561,Delivery to Archmage Xylem,trivial,2,Horde,,52,45,16,3561 3565,Delivery to Archmage Xylem | Xylem's Payment to Jediga
+3631,Summon Felsteed,trivial,2,Horde,WARLOCK,40,40,-61,3631/4487/4488/4489 4490,Summon Felsteed / Summon Felsteed / Summon Felsteed / Summon Felsteed | Summon Felsteed
+3638,The Pledge of Secrecy,trivial,2,Both,,47,30,-201,3638 3639,The Pledge of Secrecy | Show Your Work
+3640,The Pledge of Secrecy,trivial,2,Alliance,,47,30,-201,3640 3641,The Pledge of Secrecy | Show Your Work
+3642,The Pledge of Secrecy,trivial,2,Horde,,47,30,-201,3642 3643,The Pledge of Secrecy | Show Your Work
+3702,The Smoldering Ruins of Thaurissan,trivial,2,Alliance,,54,50,1537,3702 3701,The Smoldering Ruins of Thaurissan | The Smoldering Ruins of Thaurissan
+3763,Assisting Arch Druid Staghelm,trivial,2,Alliance,,50,47,1657,3763/3789/3790 3764,Assisting Arch Druid Staghelm / Assisting Arch Druid Staghelm / Assisting Arch Druid Staghelm | Un'Goro Soil
+3765,The Corruption Abroad,trivial,2,Alliance,,24,18,1519,3765 1275,The Corruption Abroad | Researching the Corruption
+3781,Morrowgrain Research,trivial,2,Alliance,,50,47,1657,3781 3785,Morrowgrain Research | Morrowgrain Research
+3782,Morrowgrain Research,trivial,2,Horde,,50,47,1638,3782 3786,Morrowgrain Research | Morrowgrain Research
+3787,Jonespyre's Request,trivial,2,Alliance,,50,47,1519,3787/3788 3791,Jonespyre's Request / Jonespyre's Request | The Mystery of Morrowgrain
+3801,Dark Iron Legacy,trivial,2,Both,,52,48,1584,3801 3802,Dark Iron Legacy | Dark Iron Legacy
+3821,Dreadmaul Rock,trivial,2,Horde,,52,48,3,3821 3822,Dreadmaul Rock | Krom'Grul
+3841,An Orphan Looking For a Home,trivial,2,Alliance,,47,38,357,3841 3842,An Orphan Looking For a Home | A Short Incubation
+3906,Disharmony of Flame,trivial,2,Horde,,52,48,25,3906 3907,Disharmony of Flame | Disharmony of Fire
+3921,Wenikee Boltbucket,trivial,2,Horde,,14,10,17,3921 3922,Wenikee Boltbucket | Nugget Slugs
+3923,Rilli Greasygob,trivial,2,Horde,,18,10,17,3923 3924,Rilli Greasygob | Samophlange Manual
+3961,Linken's Adventure,trivial,2,Both,,54,47,490,3961 3962,Linken's Adventure | It's Dangerous to Go Alone
+4022,A Taste of Flame,trivial,2,Both,,54,52,46,4022/4023 4024,A Taste of Flame / A Taste of Flame | A Taste of Flame
+4128,Ragnar Thunderbrew,trivial,2,Alliance,,55,50,1584,4128 4126,Ragnar Thunderbrew | Hurley Blackbreath
+4133,Vivian Lagrave,trivial,2,Horde,,55,50,1584,4133 4134,Vivian Lagrave | Lost Thunderbrew Recipe
+4243,Chasing A-Me 01,trivial,2,Both,,53,48,490,4243 4244,Chasing A-Me 01 | Chasing A-Me 01
+4262,Overmaster Pyron,trivial,2,Alliance,,52,48,25,4262 4263,Overmaster Pyron | Incendius!
+4264,A Crumpled Up Note,trivial,2,Alliance,,58,50,1584,4264 4282,A Crumpled Up Note | A Shred of Hope
+4322,Jail Break!,trivial,2,Alliance,,58,50,1584,4322 6402,Jail Break! | Stormwind Rendezvous
+4324,Yuka Screwspigot,trivial,2,Both,,53,48,1584,4324 4136,Yuka Screwspigot | Ribbly Screwspigot
+4449,Caught!,trivial,2,Both,,45,43,51,4449 4450,Caught! | Ledger from Tanaris
+4493,March of the Silithid,trivial,2,Alliance,,53,50,1657,4493/4494 4496,March of the Silithid / March of the Silithid | Bungle in the Jungle
+4508,Calm Before the Storm,trivial,2,Alliance,,54,50,440,4508 4510,Calm Before the Storm | Calm Before the Storm
+4509,Calm Before the Storm,trivial,2,Horde,,54,50,440,4509 4511,Calm Before the Storm | Calm Before the Storm
+4542,Message to Freewind Post,trivial,2,Horde,,25,23,400,4542 4841,Message to Freewind Post | Pacify the Centaur
+4742,Seal of Ascension,trivial,2,Both,,60,57,1583,4742 4743,Seal of Ascension | Seal of Ascension
+4761,Thundris Windweaver,trivial,2,Alliance,,15,11,148,4761 4762,Thundris Windweaver | The Cliffspring River
+4769,Vivian Lagrave and the Darkstone Tablet,trivial,2,Horde,,60,57,1583,4769 4768,Vivian Lagrave and the Darkstone Tablet | The Darkstone Tablet
+4865,Serpent Wild,trivial,2,Horde,,26,24,400,4865 5062,Serpent Wild | Sacred Fire
+4881,Assassination Plot,trivial,2,Horde,,28,23,400,4881 4966,Assassination Plot | Protect Kanati Greycloud
+4882,Guarding Secrets,trivial,2,Horde,,59,52,618,4882 4883,Guarding Secrets | Guarding Secrets
+4907,Tinkee Steamboil,trivial,2,Both,,60,57,1583,4907 4734,Tinkee Steamboil | Egg Freezing
+4921,Lost in Battle,trivial,2,Horde,,20,14,17,4921 95774,Lost in Battle | Her Name Is Olgra
+4984,The Wildlife Suffers Too,trivial,2,Both,,54,51,28,4984 4985,The Wildlife Suffers Too | The Wildlife Suffers Too
+5065,The Lost Tablets of Mosh'aru,trivial,2,Both,,58,40,139,5065 4788,The Lost Tablets of Mosh'aru | The Final Tablets
+5066,A Call to Arms: The Plaguelands!,trivial,2,Alliance,,50,50,1519,5066/5090/5091 5092,A Call to Arms: The Plaguelands! / A Call to Arms: The Plaguelands! / A Call to Arms: The Plaguelands! | Clear the Way
+5089,General Drakkisath's Command,trivial,2,Alliance,,60,55,1583,5089 5102,General Drakkisath's Command | General Drakkisath's Demise
+5093,A Call to Arms: The Plaguelands!,trivial,2,Horde,,50,50,28,5093/5094/5095 5096,A Call to Arms: The Plaguelands! / A Call to Arms: The Plaguelands! / A Call to Arms: The Plaguelands! | Scarlet Diversions
+5103,Hot Fiery Death,trivial,2,Both,WARRIOR PALADIN SHAMAN,60,55,-121,5103 5124,Hot Fiery Death | Fiery Plate Gauntlets
+5142,Little Pamela,trivial,2,Both,,55,50,139,5142/5601 5149,Little Pamela / Sister Pamela | Pamela's Doll
+5159,Cleansed Water Returns to Felwood,trivial,2,Both,,54,48,361,5159 5165,Cleansed Water Returns to Felwood | Dousing the Flames of Protection
+5210,Brother Carlin,trivial,2,Both,,56,50,139,5210 5181,Brother Carlin | Villains of Darrowshire
+5212,The Flesh Does Not Lie,trivial,2,Both,,60,55,2017,5212 5213,The Flesh Does Not Lie | The Active Agent
+5261,Eagan Peltskinner,trivial,2,Alliance,,2,1,12,5261 33,Eagan Peltskinner | Wolves Across the Border
+5262,The Truth Comes Crashing Down,trivial,2,Both,,60,55,2017,5262 5263,The Truth Comes Crashing Down | Above and Beyond
+5264,Lord Maxwell Tyrosus,trivial,2,Both,,60,55,139,5264 5265,Lord Maxwell Tyrosus | The Argent Hold
+5281,The Restless Souls,trivial,2,Both,,60,55,139,5281 5282,The Restless Souls | The Restless Souls
+5341,Barov Family Fortune,trivial,2,Horde,,60,52,2057,5341 5342,Barov Family Fortune | The Last Barov
+5343,Barov Family Fortune,trivial,2,Alliance,,60,52,2057,5343 5344,Barov Family Fortune | The Last Barov
+5381,Hand of Iruxos,trivial,2,Horde,,38,32,405,5381 5581,Hand of Iruxos | Portals of the Legion
+5441,Lazy Peons,trivial,2,Horde,,4,3,14,5441 6394,Lazy Peons | Thazz'ril's Pick
+5481,Gordo's Task,trivial,2,Horde,,5,5,85,5481 5482,Gordo's Task | Doom Weed
+5527,A Reliquary of Purity,trivial,2,Both,,60,56,493,5527 5526,A Reliquary of Purity | Shards of the Felvine
+5622,In Favor of Elune,trivial,2,Alliance,PRIEST,4,5,-262,5622 5621,In Favor of Elune | Garments of the Moon
+5623,In Favor of the Light,trivial,2,Alliance,PRIEST,4,5,-262,5623 5624,In Favor of the Light | Garments of the Light
+5626,In Favor of the Light,trivial,2,Alliance,PRIEST,4,5,-262,5626 5625,In Favor of the Light | Garments of the Light
+5649,In Favor of Spirituality,trivial,2,Horde,PRIEST,4,5,-262,5649 5648,In Favor of Spirituality | Garments of Spirituality
+5651,In Favor of Darkness,trivial,2,Horde,PRIEST,4,5,-262,5651 5650,In Favor of Darkness | Garments of Darkness
+5653,Hex of Weakness,trivial,2,Horde,PRIEST,10,10,-262,5653 5652,Hex of Weakness | Hex of Weakness
+5659,Touch of Weakness,trivial,2,Horde,PRIEST,10,10,-262,5659 5658,Touch of Weakness | Touch of Weakness
+5665,,trivial,2,Alliance,PRIEST,15,15,-262,5665/5666/5667 5664, / <UNUSED> / <UNUSED> | <UNUSED>
+5692,In the Dark It was Created,trivial,2,Horde,PRIEST,15,15,-262,5692/5693 5691,In the Dark It was Created / <NYI> In the Dark It was Created | <NYI> <TXT> In the Dark it was Created
+5705,No Longer a Shadow,trivial,2,Horde,PRIEST,25,25,-262,5705/5706 5704,No Longer a Shadow / <NYI> No Longer a Shadow | <NYI> <TXT> Undead Priest Robe
+5708,Flirting With Darkness,trivial,2,Horde,PRIEST,35,35,-262,5708/5709 5707,Flirting With Darkness / <NYI> Flirting With Darkness | <NYI> <TXT> Flirting With Darkness
+5722,Searching for the Lost Satchel,trivial,2,Horde,,16,9,2437,5722 5724,Searching for the Lost Satchel | Returning the Lost Satchel
+5741,Sceptre of Light,trivial,2,Both,,33,30,405,5741 6027,Sceptre of Light | Book of the Ancients
+6026,That's Asking A Lot,trivial,2,Both,,58,54,139,6026 6041,"That's Asking A Lot | When Smokey Sings, I Get Violent"
+6282,Harpies Threaten,trivial,2,Horde,,26,18,406,6282 6283,Harpies Threaten | Bloodfury Bloodline
+6522,An Unholy Alliance,trivial,2,Horde,,36,28,722,6522 6521,An Unholy Alliance | An Unholy Alliance
+6523,Protect Kaya,trivial,2,Horde,,18,12,406,6523 6401,Protect Kaya | Kaya's Alive
+6541,Report to Kadrak,trivial,2,Horde,,19,17,17,6541/6542 6543,Report to Kadrak / Report to Kadrak | The Warsong Reports
+6548,Avenge My Village,trivial,2,Horde,,18,12,406,6548 6629,Avenge My Village | Kill Grundig Darkcloud
+6562,Trouble in the Deeps,trivial,2,Horde,,22,17,719,6562 6563,Trouble in the Deeps | The Essence of Aku'Mai
+6564,Allegiance to the Old Gods,trivial,2,Horde,,22,17,719,6564 6565,Allegiance to the Old Gods | Allegiance to the Old Gods
+6603,Trouble in Winterspring!,trivial,2,Both,,56,52,618,6603 5082,Trouble in Winterspring! | Threat of the Winterfall
+6605,A Strange One,trivial,2,Horde,,54,49,618,6605 4505,A Strange One | Well of Corruption
+6964,The Reason for the Season,trivial,2,Horde,,60,10,-1001,6964 7061,The Reason for the Season | The Feast of Winter Veil
+7062,The Reason for the Season,trivial,2,Alliance,,60,10,-1001,7062 7063,The Reason for the Season | The Feast of Winter Veil
+7221,Speak with Prospector Stonehewer,trivial,2,Both,,60,51,2597,7221 7141,Speak with Prospector Stonehewer | The Battle of Alterac
+7222,Speak with Voggah Deathgrip,trivial,2,Both,,60,51,2597,7222 7142,Speak with Voggah Deathgrip | The Battle for Alterac
+7461,The Madness Within,trivial,2,Both,,60,56,2557,7461 7877,The Madness Within | The Treasure of the Shen'dralar
+7490,Victory for the Horde,trivial,2,Horde,,60,60,1637,7490 7491,Victory for the Horde | For All To See
+7492,Camp Mojache,trivial,2,Horde,,57,54,2557,7492 7489,Camp Mojache | Lethtendris's Web
+7494,Feathermoon Stronghold,trivial,2,Alliance,,57,54,2557,7494 7488,Feathermoon Stronghold | Lethtendris's Web
+7495,Victory for the Alliance,trivial,2,Alliance,,60,60,1519,7495 7496,Victory for the Alliance | Celebrating Good Times
+7508,The Forging of Quel'Serrar,trivial,2,Both,,60,60,2557,7508 7509,The Forging of Quel'Serrar | The Forging of Quel'Serrar
+7641,The Work of Grimand Elmore,trivial,2,Alliance,PALADIN,60,60,-141,7641 7642,The Work of Grimand Elmore | Collection of Goods
+7667,Material Assistance,trivial,2,Horde,SHAMAN,60,58,-82,7667 8258,Material Assistance | The Darkreaver Menace
+7781,The Lord of Blackrock,trivial,2,Alliance,,60,60,1519,7781 7782,The Lord of Blackrock | The Lord of Blackrock
+7783,The Lord of Blackrock,trivial,2,Horde,,60,60,1637,7783 7784,The Lord of Blackrock | The Lord of Blackrock
+7785,Examine the Vessel,trivial,2,Both,,60,60,-344,7785 7786,Examine the Vessel | Thunderaan the Windseeker
+8288,Only One May Rise,trivial,2,Both,,60,60,2677,8288 8301,Only One May Rise | The Path of the Righteous
+8304,Dearest Natalia,trivial,2,Both,,60,58,1377,8304 8306,Dearest Natalia | Into The Maw of Madness
+8314,Unraveling the Mystery,trivial,2,Both,,60,58,1377,8314 8315,Unraveling the Mystery | The Calling
+8320,Twilight Geolords,trivial,2,Both,,60,60,1377,8320 8321,Twilight Geolords | Vyral the Vile
+8322,Rotten Eggs,trivial,2,Horde,,60,30,-1003,8322 8409,Rotten Eggs | Ruined Kegs
+8410,Elemental Mastery,trivial,2,Horde,SHAMAN,52,50,-82,8410/8411 8412,Elemental Mastery / Mastering the Elements | Spirit Totem
+8415,Chillwind Point,trivial,2,Alliance,PALADIN,52,50,-141,8415 8414,Chillwind Point | Dispelling Evil
+8416,Inert Scourgestones,trivial,2,Alliance,PALADIN,52,50,-141,8416 8418,Inert Scourgestones | Forging the Mightstone
+8446,Shrouded in Nightmare,trivial,2,Both,,60,60,-1,8446 8447,Shrouded in Nightmare | Waking Legends
+8577,"Stewvul, Ex-B.F.F.",trivial,2,Both,,60,60,440,8577 8578,"Stewvul, Ex-B.F.F. | Scrying Goggles? No Problem!"
+8728,The Good News and The Bad News,trivial,2,Both,,60,60,440,8728 8729,The Good News and The Bad News | The Wrath of Neptulon
+8736,The Nightmare Manifests,trivial,2,Both,,60,60,493,8736 8741,The Nightmare Manifests | The Champion Returns
+8801,C'Thun's Legacy,trivial,2,Both,,60,60,3428,8801 8802,C'Thun's Legacy | The Savior of Kalimdor
+9229,The Fate of Ramaladni,trivial,2,Both,,60,60,3456,9229 9230,The Fate of Ramaladni | Ramaladni's Icy Grasp
+9250,Frame of Atiesh,trivial,2,Both,,60,60,-344,9250 9251,"Frame of Atiesh | Atiesh, the Befouled Greatstaff"
+9362,Warlord Krellian,trivial,2,Both,MAGE,60,60,-161,9362/90789 9364,Warlord Krellian / Scalebeard | Fragmented Magic
+9415,Report to Marshal Bluewall,trivial,2,Alliance,,60,1,1377,9415 9419,Report to Marshal Bluewall | Scouring the Desert
+9416,Report to General Kirika,trivial,2,Horde,,60,1,1377,9416 9422,Report to General Kirika | Scouring the Desert
+65593,Hearts of the Lovers,trivial,2,Horde,WARLOCK,20,20,-61,65593 65597,Hearts of the Lovers | The Binding
+65602,What Is Love?,trivial,2,Alliance,WARLOCK,20,20,-61,65602 65603,What Is Love? | The Binding
+78261,The Horn of Xelthos,trivial,2,Both,ROGUE,23,1,-162,78261 78307,The Horn of Xelthos | The Horn of Xelthos
+79229,Highway Robbery,trivial,2,Both,,40,30,405,79229 79235,Highway Robbery | On the Lam
+81766,The Bloody Missive,trivial,2,Alliance,PALADIN,50,45,-141,81766 96476,The Bloody Missive | In Search of Aeonas
+81885,The Ritual,trivial,2,Alliance,PALADIN,53,45,-141,81885 82135,The Ritual | The Price of Hope
+84137,Mechanical Romance,trivial,2,Both,,60,55,2317,84137 84138,Mechanical Romance | Frosty Favors
+84377,End of the Dark Horde,trivial,2,Alliance,,60,60,1519,84377 97883,End of the Dark Horde | End of the Dark Horde
+86752,Report to Rageroar,trivial,2,Both,,53,47,16,86752 86791,Report to Rageroar | Missing Blackmaw Scouts
+88809,Preserving Eldarath,trivial,2,Alliance,,52,45,16,88809/88812 88813,Preserving Eldarath / Reclaiming Ravencrest | The Head of the Serpent
+89228,Winter Frontier Fishery,trivial,2,Alliance,,48,45,16,89228/91610 89015,Winter Frontier Fishery / Winter Frontier Fishery | Deadliest Catch
+91208,Coming to Terms,trivial,2,Horde,PALADIN,4,4,-141,91208 91209,Coming to Terms | Continue Your Training
+91285,Murlocs at the Gates,trivial,2,Horde,PALADIN,11,7,-141,91285 91294,Murlocs at the Gates | Touring the Grounds
+91569,Blue Gold,trivial,2,Horde,,53,45,16,91569 91685,Blue Gold | Ley of the Land
+91734,Remote Contact,trivial,2,Horde,,52,44,16,91734/91735/91737 3517,Remote Contact / Remote Contact / Remote Contact | Stealing Knowledge
+92109,My First Alchemy Set,trivial,2,Alliance,,10,10,40,92109 92110,My First Alchemy Set | My First Real Potion
+92111,Of Friend and Fur,trivial,2,Both,,57,54,616,92111 93831,Of Friend and Fur | Sweetpaw Jam
+92171,Taking to New Heights,trivial,2,Both,,58,54,616,92171 92500,Taking to New Heights | A Bit of the Sky
+92345,Beneath Nordrassil,trivial,2,Alliance,,55,45,16,92345 92344,Beneath Nordrassil | Get to the Roots of It
+92346,Beneath Nordrassil,trivial,2,Horde,,55,45,16,92346 92343,Beneath Nordrassil | Get to the Roots of It
+92415,Remember That I Love You,trivial,2,Alliance,,22,15,16611,92415 95161,Remember That I Love You | Remember That I Love You
+92460,Coming of Age,trivial,2,Both,,1,1,16593,92460 92461,Coming of Age | Harmony in Balance
+92466,Call of Earth,trivial,2,Horde,SHAMAN,4,3,16593,92466 92467,Call of Earth | Call of Earth
+92514,Welcome to Shen'dar Village,trivial,2,Horde,,6,4,16593,92514/93461 92517,Welcome to Shen'dar Village / Welcome to Shen'dar Village | The Criminal Element
+92679,Blood Tithe,trivial,2,Both,,9,5,16593,92679 92682,Blood Tithe | Make Yourself Useful
+92693,Standing Our Ground,trivial,2,Both,,9,5,16593,92693 92703,Standing Our Ground | Deliver the News
+92960,Siphoned Ephemeral Essence,trivial,2,Both,,59,54,616,92960 96003,Siphoned Ephemeral Essence | Drawing Down the Malevolent
+93030,The Knight of Mourning,trivial,2,Horde,,58,50,85,93030 99187,The Knight of Mourning | The Reliquary of Tyr
+93173,(UNUSED) The Rusty Gadget,trivial,2,Both,,11,6,16593,93173 93161,(UNUSED) The Rusty Gadget | The Ancient Hilt
+93407,A Thorn in the Paw,trivial,2,Both,,60,57,616,93407 93547,A Thorn in the Paw | A Thorny Solution
+93464,The Visiting Mage,trivial,2,Both,,38,30,8,93464 93465,The Visiting Mage | Notes on Draenethyst
+93737,The Broken Construct,trivial,2,Horde,,9,4,16593,93737 93738,The Broken Construct | The Broken Construct
+93786,A Message in Blood,trivial,2,Horde,,36,35,16591,93786 93787,A Message in Blood | Food for the Taking
+93791,Speak with Belann,trivial,2,Alliance,MAGE,10,10,-161,93791 93797,Speak with Belann | Boughs in the Wind
+93926,The Western Watch,trivial,2,Both,,8,5,16593,93926 93927,The Western Watch | A Last Request
+94480,A Gift From Our Enemies,trivial,2,Horde,,36,36,16591,94480 94481,A Gift From Our Enemies | A Serving of Strength
+94680,Twilight Missives,trivial,2,Horde,,41,36,16591,94680 94727,Twilight Missives | Digging for Answers
+94829,What We Lost,trivial,2,Alliance,,40,36,16591,94829 94858,What We Lost | All That's Left
+94890,Bring Me His Head,trivial,2,Alliance,,46,38,16591,94890 94891,Bring Me His Head | News to Farholde
+94907,A Small Favor,trivial,2,Alliance,,44,36,16591,94907 94984,A Small Favor | Tome of Twilight
+94961,Biting the Hand,trivial,2,Both,,40,36,16591,94961 94963,Biting the Hand | Biting the Hand
+94973,Krol'dok Moulding,trivial,2,Horde,,41,38,16842,94973 94974,Krol'dok Moulding | Key Ingredients
+94980,Krol'dok Moulding,trivial,2,Alliance,,41,38,16842,94980 94981,Krol'dok Moulding | Key Ingredients
+95147,The Lost Scout,trivial,2,Alliance,,37,36,16591,95147 95148,The Lost Scout | Southern Watch Gnoll Report
+95183,Step One: Rock,trivial,2,Horde,,41,38,16591,95183/96027/96028 96026,Step One: Rock / Might Over Magic / Magic Over Might | Step Two: More Rock
+95318,Taste of Ash,trivial,2,Both,,57,54,616,95318 95319,Taste of Ash | Crystalline Collection
+95428,Clugfist's Decree,trivial,2,Horde,,41,36,16591,95428 94744,Clugfist's Decree | The Wayward Warrior
+95647,Lost in the Thicket Things,trivial,2,Alliance,,31,24,16732,95647 95809,Lost in the Thicket Things | Heartwoven
+95663,Dragonmaw Rumors,trivial,2,Horde,,31,24,16732,95663 95682,Dragonmaw Rumors | Open the Maw
+95664,Elder Knowledge,trivial,2,Horde,,31,24,16732,95664 98823,Elder Knowledge | Earthen Echo
+95751,Odd Totems,trivial,2,Both,SHAMAN,50,45,-82,95751 95753,Odd Totems | Challenge of the Desert Wolf
+95810,Lost Relic Carry,trivial,2,Alliance,,31,24,16732,95810 98824,Lost Relic Carry | Prehistoric Prism
+96391,Underground Map,trivial,2,Alliance,,15,9,1,96391 96393,Underground Map | Old Ironforge Incursion
+96638,The Adventurer,trivial,2,Both,,6,4,-666,96638 96101,The Adventurer | The Great Outdoors
+96781,What's the Big Idea?,trivial,2,Both,ROGUE,36,24,-162,96781 96782,What's the Big Idea? | Covert Extraction
+96939,The Balance of Life and Death,trivial,2,Both,,58,54,616,96939 92317,The Balance of Life and Death | Stolen Life
+96959,Blademaster's Bonfires,trivial,2,Both,,59,56,616,96959 96983,Blademaster's Bonfires | Yashiro's Windwalk
+96998,Tribal Colors,trivial,2,Horde,,58,54,616,96998 96999,Tribal Colors | Wrap Return
+97009,Maerion's Misery,trivial,2,Both,,59,56,616,97009 97010,Maerion's Misery | Blind Vengeance
+97022,Report to Danitha,trivial,2,Horde,PALADIN,40,40,-141,97022 94971,Report to Danitha | A Paladin's Steed
+97168,Material Assistance,trivial,2,Alliance,SHAMAN,60,58,-82,97168 97169,Material Assistance | The Darkreaver Menace
+97178,Ott of Tarren Mill,trivial,2,Horde,PALADIN,60,60,-141,97178 97179,Ott of Tarren Mill | Collection of Goods
+97205,Learning to Ride,trivial,2,Both,,40,40,16593,97205/99203 96996,Learning to Ride / Swift as the Wind | Your First Riding Galestrider
+97234,Reading Room,trivial,2,Alliance,,18,13,1519,97234 97237,Reading Room | Shelf Picked
+97245,Call of Fire,trivial,2,Horde,,10,10,-82,97245 97257,Call of Fire | Call of Fire
+97281,A Simmering Storm,trivial,2,Horde,,11,7,14,97281 97282,A Simmering Storm | Stormy Potential
+97539,Silky Sutures,trivial,2,Horde,,36,30,45,97539 92519,Silky Sutures | Ward Restocking
+97894,Business in Auberdine,trivial,2,Alliance,,17,13,148,97894 982,"Business in Auberdine | Deep Ocean, Vast Sea"
+97914,Expanding Horizons,trivial,2,Alliance,,17,13,1519,97914 97926,Expanding Horizons | Making Do
+98046,Crown of the Earth,trivial,2,Alliance,,11,1,141,98046 98065,Crown of the Earth | Crown of the Earth
+98094,Scout Support,trivial,2,Horde,,25,19,267,98094 98095,Scout Support | Valuable Vantages
+98155,Pristine Pesterhide Pelts,trivial,2,Alliance,,29,24,400,98155 98156,Pristine Pesterhide Pelts | Packaged Pristine Pelts
+98208,Bloom of the Heavens,trivial,2,Alliance,,29,22,11,98208 98209,Bloom of the Heavens | Bloom of the Heavens
+98251,Never Coming Back,trivial,2,Horde,,23,18,1638,98251 98252,Never Coming Back | A Void Path
+98404,The Great Windborne Cat Spirit,trivial,2,Both,DRUID,20,20,-263,98404 98738,The Great Windborne Cat Spirit | Blessings of the Great Windborne Cat Spirit
+98417,Vengeful Trail,trivial,2,Alliance,,28,23,331,98417 98418,Vengeful Trail | Shared Fury
+98424,Fizsprocket's Notes,trivial,2,Horde,,10,5,215,98424 98427,Fizsprocket's Notes | Ceasing Operations
+98601,A Difficult Path,trivial,2,Horde,PALADIN,1,1,-141,98601 90902,A Difficult Path | Rediscovering the Light
+99257,A Heart of Crystal,trivial,2,Both,,43,35,16651,99257 99258,A Heart of Crystal | Mana Mania

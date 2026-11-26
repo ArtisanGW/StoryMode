@@ -8,8 +8,8 @@ const step = (id, name) => [{ id, name }];
 const steps = (count, firstID) => Array.from({ length: count }, (_, index) => step(firstID + index, `Quest ${firstID + index}`));
 
 test("status by number of steps", () => {
-  assert.equal(seriesStatus(2), null);
-  assert.deepEqual([3, 5, 6, 9, 10, 14, 15, 40].map(seriesStatus), ["routine", "routine", "immersive", "immersive", "epic", "epic", "legendary", "legendary"]);
+  assert.equal(seriesStatus(1), null);
+  assert.deepEqual([2, 3, 5, 6, 9, 10, 14, 15, 40].map(seriesStatus), ["trivial", "routine", "routine", "immersive", "immersive", "epic", "epic", "legendary", "legendary"]);
 });
 
 test("balanced skips brackets inside strings", () => {
@@ -26,11 +26,12 @@ test("listRows reads the quest Listview, inline or by variable", () => {
   assert.equal(listRows("<html>no list</html>"), null);
 });
 
-test("seriesRows keeps 3+ steps once, with faction and classes", () => {
+test("seriesRows keeps 2+ steps once, with faction and classes", () => {
   const scan = {
     starts: {
       10: { id: 10, name: "Quest 10", side: 1, level: 12, reqlevel: 10, category: 40 },
       20: { id: 20, name: "Quest 20", side: 3 },
+      25: { id: 25, name: "Quest 25", side: 3 },
       30: { id: 30, name: "Quest 30", side: 2, reqclass: 128 | 1024 },
       40: { id: 40, name: "Quest 40", side: 3 },
       50: { id: 50, name: "Quest 50", side: 3 },
@@ -38,13 +39,15 @@ test("seriesRows keeps 3+ steps once, with faction and classes", () => {
     series: {
       10: { steps: steps(3, 10) },
       20: { steps: steps(2, 20) },
+      25: { steps: steps(1, 25) },
       30: { steps: [...steps(15, 30), [{ id: 98, name: "Left" }, { id: 99, name: "Right" }]] },
       40: { steps: steps(3, 10) },
       50: { steps: [] },
     },
   };
   const rows = seriesRows(scan);
-  assert.deepEqual(rows.map((row) => row.id), [30, 10]);
+  assert.deepEqual(rows.map((row) => row.id), [30, 10, 20]);
+  assert.equal(rows[2].status, "trivial");
   assert.equal(rows[0].status, "legendary");
   assert.equal(rows[0].faction, "Horde");
   assert.equal(rows[0].classes, "MAGE DRUID");

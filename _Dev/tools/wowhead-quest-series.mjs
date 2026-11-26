@@ -13,7 +13,7 @@
 //     console while it runs, shows how many series it has read and the time left.
 //
 //   node _Dev/tools/wowhead-quest-series.mjs save <file.json> [root]
-//     Writes _Dev/forever-quest-series.csv: every series of 3 or more steps,
+//     Writes _Dev/forever-quest-series.csv: every series of 2 or more steps,
 //     with its status by length, faction, classes, level and quests.
 //
 //   node _Dev/tools/wowhead-quest-series.mjs list [root] [--faction horde] [--class mage] [--status epic]
@@ -32,7 +32,7 @@ export const SNIPPET_FILE = path.join("_Dev", "snippets", "wowhead-quest-series.
 const COLUMNS = ["id", "name", "status", "quests", "faction", "classes", "level", "min_level", "zone_id", "quest_ids", "quest_names"];
 
 // Fewest steps for each status, longest first.
-const STATUS_BY_LENGTH = [[15, "legendary"], [10, "epic"], [6, "immersive"], [3, "routine"]];
+const STATUS_BY_LENGTH = [[15, "legendary"], [10, "epic"], [6, "immersive"], [3, "routine"], [2, "trivial"]];
 
 // Wowhead's side and class IDs; classes as the game's class file names.
 const FACTIONS = { 1: "Alliance", 2: "Horde" };
@@ -215,7 +215,7 @@ export function seriesStatus(steps) {
 
 const classNames = (mask) => Object.entries(CLASSES).filter(([id]) => mask & (1 << (id - 1))).map(([, name]) => name);
 
-// One row per series of 3 or more steps, longest first; a series that two
+// One row per series of 2 or more steps, longest first; a series that two
 // first quests share is kept once.
 export function seriesRows(scan) {
   const starts = Object.values(scan.starts);
