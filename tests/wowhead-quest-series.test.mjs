@@ -2,7 +2,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
-import { REWARDS_SNIPPET_FILE, SNIPPET_FILE, balanced, filterSeries, listRows, parseCsv, readQuestList, rewardRows, rewardsSnippet, seriesRows, seriesStatus, snippet, toCsv } from "../_Dev/tools/wowhead-quest-series.mjs";
+import { CSV_FILE, GIVERS_SNIPPET_FILE, REWARDS_SNIPPET_FILE, SNIPPET_FILE, balanced, filterSeries, giverRows, giversSnippet, listRows, parseCsv, questStarts, readQuestList, rewardRows, rewardsSnippet, seriesQuestIDs, seriesRows, seriesStatus, snippet, toCsv } from "../_Dev/tools/wowhead-quest-series.mjs";
 
 const step = (id, name) => [{ id, name }];
 const steps = (count, firstID) => Array.from({ length: count }, (_, index) => step(firstID + index, `Quest ${firstID + index}`));
@@ -90,6 +90,9 @@ test("snippets parse as scripts, and the saved one matches the tool", async () =
   assert.doesNotThrow(() => new Function(progress));
   assert.doesNotThrow(() => new Function(rewardsSnippet()));
   assert.equal(await readFile(new URL(REWARDS_SNIPPET_FILE, root), "utf8"), rewardsSnippet() + "\n", "run: node _Dev/tools/wowhead-quest-series.mjs rewards-snippet .");
+  const questIDs = seriesQuestIDs(parseCsv(await readFile(new URL(CSV_FILE, root), "utf8")));
+  assert.doesNotThrow(() => new Function(giversSnippet(questIDs)));
+  assert.equal(await readFile(new URL(GIVERS_SNIPPET_FILE, root), "utf8"), giversSnippet(questIDs) + "\n", "run: node _Dev/tools/wowhead-quest-series.mjs givers-snippet .");
 });
 
 test("readQuestList splits by level, then by required level, while Wowhead cuts the list at 1000", async () => {
@@ -134,4 +137,25 @@ test("rewardRows: the series' quests with their rewards, by quest ID", () => {
   const rows = rewardRows(scan, [{ quest_ids: "182 5/6" }]);
   assert.deepEqual(rows.map((row) => row.id), [5, 182], "only the series' quests that Wowhead's list has");
   assert.deepEqual(rows[1], { id: 182, xp: 355, money: 120, items: "961:3", choices: "2047:1 2048:1", reputation: "47:100 87:-250" });
+});
+
+// Quest 7's map, as Wowhead's page writes it (2026-11-26), and quest 2's, started by an item.
+const mapperPage = (objectives) => `<script>var g_mapperData = {};\nvar myMapper = new Mapper(${JSON.stringify({ parent: "x", objectives, zones: [[12, 2]] })});</script>`;
+
+test("questStarts: where the page's map puts the quest giver", () => {
+  const kobolds = mapperPage({ 12: { zone: "Elwynn Forest", mappable: 1, levels: [[
+    { type: 1, point: "start", name: "Marshal McBride", coord: [48.8, 41.6], coords: [[48.8, 41.4], [48.8, 41.6]], id: 197 },
+    { type: 1, point: "end", name: "Marshal McBride", coord: [48.8, 41.6], id: 197 },
+  ]] } });
+  assert.deepEqual(questStarts(kobolds), [{ zone: 12, x: 48.8, y: 41.6 }]);
+  const itemStart = mapperPage({ 331: { zone: "Ashenvale", levels: [[{ type: 1, point: "end", name: "Senani Thunderheart", coord: [73.6, 61.4] }]] } });
+  assert.deepEqual(questStarts(itemStart), [], "started by an item: no giver on the map");
+  assert.deepEqual(questStarts("<html>no map</html>"), []);
+});
+
+test("giverRows: the game's map for Wowhead's zone, others counted", () => {
+  const scan = { givers: { 7: [{ zone: 1584, x: 1, y: 2 }, { zone: 12, x: 48.8, y: 41.6 }], 2: [], 8: [{ zone: 16591, x: 10, y: 20 }] } };
+  const { rows, skipped } = giverRows(scan, [{ quest_ids: "7 2/8" }]);
+  assert.deepEqual(rows, [{ id: 7, map: 1429, x: 48.8, y: 41.6 }], "the zone the game has a map of: Elwynn Forest, map 1429");
+  assert.deepEqual(skipped, { noGiver: 1, otherMap: 1 });
 });

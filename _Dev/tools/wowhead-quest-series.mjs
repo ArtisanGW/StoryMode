@@ -31,6 +31,17 @@
 //     Writes _Dev/forever-quest-rewards.csv: the rewards of every quest of the
 //     series in the series CSV.
 //
+//   node _Dev/tools/wowhead-quest-series.mjs givers-snippet [root] [--delay 2000]
+//     Writes _Dev/snippets/wowhead-quest-givers.js, a script for the same
+//     console: it reads the page of every quest of the series in the series
+//     CSV, a page every few seconds, for where its quest giver stands (the
+//     page's map). It keeps its progress in the page's storage, as the series
+//     script does; the browser downloads wowhead-forever-quest-givers.json.
+//
+//   node _Dev/tools/wowhead-quest-series.mjs save-givers <file.json> [root]
+//     Writes _Dev/forever-quest-givers.csv: per quest, the game's map
+//     (uiMapID) and where on it the giver stands, x and y from 0 to 100.
+//
 // The first quests are the list to read: a series' first quest is where a
 // story begins, and its page shows the whole series.
 
@@ -42,8 +53,20 @@ export const CSV_FILE = path.join("_Dev", "forever-quest-series.csv");
 export const SNIPPET_FILE = path.join("_Dev", "snippets", "wowhead-quest-series.js");
 export const REWARDS_CSV_FILE = path.join("_Dev", "forever-quest-rewards.csv");
 export const REWARDS_SNIPPET_FILE = path.join("_Dev", "snippets", "wowhead-quest-rewards.js");
+export const GIVERS_CSV_FILE = path.join("_Dev", "forever-quest-givers.csv");
+export const GIVERS_SNIPPET_FILE = path.join("_Dev", "snippets", "wowhead-quest-givers.js");
 const COLUMNS = ["id", "name", "status", "quests", "faction", "classes", "level", "min_level", "zone_id", "quest_ids", "quest_names"];
 const REWARD_COLUMNS = ["id", "xp", "money", "items", "choices", "reputation"];
+const GIVER_COLUMNS = ["id", "map", "x", "y"];
+// Wowhead's zones (the game's area IDs) -> the WoW Forever client's maps
+// (uiMapID): Classic Era's UiMapAssignment table (wago.tools, wow_classic_era).
+const UI_MAP_OF_AREA = {
+  1: 1426, 3: 1418, 4: 1419, 8: 1435, 10: 1431, 11: 1437, 12: 1429, 14: 1411, 15: 1445, 16: 1447, 17: 1413,
+  28: 1422, 33: 1434, 36: 1416, 38: 1432, 40: 1436, 41: 1430, 44: 1433, 45: 1417, 46: 1428, 47: 1425, 51: 1427,
+  85: 1420, 130: 1421, 139: 1423, 141: 1438, 148: 1439, 215: 1412, 267: 1424, 331: 1440, 357: 1444, 361: 1448,
+  400: 1441, 405: 1443, 406: 1442, 440: 1446, 490: 1449, 493: 1450, 618: 1452, 1377: 1451, 1497: 1458,
+  1519: 1453, 1537: 1455, 1637: 1454, 1638: 1456, 1657: 1457, 2597: 1459, 3277: 1460, 3358: 1461,
+};
 
 // Fewest steps for each status, longest first.
 const STATUS_BY_LENGTH = [[15, "legendary"], [10, "epic"], [6, "immersive"], [3, "routine"], [2, "trivial"]];
@@ -212,6 +235,21 @@ export async function readQuestList(filter, delay) {
   return byLevel.concat(outside);
 }
 
+// Where a quest page's map puts its giver: one { zone (Wowhead's area ID), x, y }
+// per zone it stands in, x and y from 0 to 100 on that zone's map; none for a
+// quest started by an item.
+export function questStarts(page) {
+  const mapperAt = page.indexOf("new Mapper(");
+  if (mapperAt < 0) return [];
+  const mapper = JSON.parse(balanced(page, page.indexOf("{", mapperAt)));
+  const starts = [];
+  for (const [zone, objective] of Object.entries(mapper.objectives || {})) {
+    const start = (objective.levels || []).flat().find((point) => point.point === "start" && Array.isArray(point.coord));
+    if (start) starts.push({ zone: Number(zone), x: start.coord[0], y: start.coord[1] });
+  }
+  return starts;
+}
+
 // The browser saves data as fileName.
 function downloadJson(fileName, data) {
   const file = new Blob([JSON.stringify(data)], { type: "application/json" });
@@ -274,11 +312,39 @@ async function readWowheadQuestRewards(delay) {
   console.log(`Read ${rows.length} quests; downloaded wowhead-forever-quest-rewards.json.`);
 }
 
+// Where each quest's giver stands, from its page: a page every few seconds.
+async function readWowheadQuestGivers(questIDs, delay) {
+  const STORE = "storyModeQuestGivers";
+  const sleep = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
+  const givers = JSON.parse(localStorage.getItem(STORE) || "{}");
+  const ids = questIDs.filter((id) => !(id in givers));
+  console.log(`${questIDs.length - ids.length} of ${questIDs.length} quests read; about ${Math.ceil((ids.length * (delay + 500)) / 60000)} min left.`);
+  for (const [index, id] of ids.entries()) {
+    const page = await readWowheadPage(`/forever/quest=${id}`);
+    if (page === null) {
+      return console.log(`Stopped: Wowhead refused quest ${id}. Reload this page (it passes Wowhead's check), then paste the script again; it carries on.`);
+    }
+    try {
+      givers[id] = page === "missing" ? [] : questStarts(page);
+    } catch (error) {
+      return console.log(`Stopped: quest ${id}'s map didn't read (${error.message}).`);
+    }
+    localStorage.setItem(STORE, JSON.stringify(givers));
+    if (index < 3) console.log(`Quest ${id}: ${JSON.stringify(givers[id])}`);
+    else if ((index + 1) % 25 === 0) console.log(`${questIDs.length - ids.length + index + 1} of ${questIDs.length} quests read.`);
+    await sleep(delay);
+  }
+  downloadJson("wowhead-forever-quest-givers.json", { read: new Date().toISOString(), givers });
+  console.log(`Read all ${questIDs.length} quests; downloaded wowhead-forever-quest-givers.json. To read again from scratch: localStorage.removeItem("${STORE}")`);
+}
+
 const SHARED_PARTS = [balanced, listRows, readWowheadPage, readQuestList, downloadJson];
 const snippetOf = (parts, call) => parts.map((part) => part.toString()).join("\n\n") + `\n\n${call};`;
 
 export const snippet = (delay = 5000) => snippetOf([...SHARED_PARTS, seriesSteps, readWowheadQuestSeries], `readWowheadQuestSeries(${delay})`);
 export const rewardsSnippet = (delay = 5000) => snippetOf([...SHARED_PARTS, readWowheadQuestRewards], `readWowheadQuestRewards(${delay})`);
+export const giversSnippet = (questIDs, delay = 2000) =>
+  snippetOf([balanced, readWowheadPage, downloadJson, questStarts, readWowheadQuestGivers], `readWowheadQuestGivers(${JSON.stringify(questIDs)}, ${delay})`);
 
 // ---------------------------------------------------------------------------
 // The series table
@@ -336,6 +402,24 @@ export function rewardRows(rewardsScan, seriesRows) {
     const quest = rewardsScan.quests[id];
     return { id, xp: quest.xp, money: quest.money, items: pairs(quest.items), choices: pairs(quest.choices), reputation: pairs(quest.reputation) };
   });
+}
+
+// The series' quests in ID order, as the givers snippet reads them.
+export const seriesQuestIDs = (seriesRows) => [...questIDsOf(seriesRows)].sort((first, second) => first - second);
+
+// One row per quest of the series whose giver Wowhead puts on a map the game
+// has (UI_MAP_OF_AREA), the first such zone; the others are counted in skipped.
+export function giverRows(giversScan, seriesRows) {
+  const rows = [];
+  const skipped = { noGiver: 0, otherMap: 0 };
+  for (const id of seriesQuestIDs(seriesRows)) {
+    const starts = giversScan.givers[id] || [];
+    const giver = starts.find((start) => UI_MAP_OF_AREA[start.zone]);
+    if (giver) rows.push({ id, map: UI_MAP_OF_AREA[giver.zone], x: giver.x, y: giver.y });
+    else if (starts.length) skipped.otherMap++;
+    else skipped.noGiver++;
+  }
+  return { rows, skipped };
 }
 
 export function parseCsv(text) {
@@ -426,6 +510,22 @@ async function main() {
     const csvFile = path.join(root, REWARDS_CSV_FILE);
     await writeFile(csvFile, toCsv(rows, REWARD_COLUMNS));
     console.log(`Wrote the rewards of ${rows.length} of the series' ${questIDsOf(series).size} quests to ${csvFile}.`);
+  } else if (command === "givers-snippet") {
+    const root = path.resolve(positional[0] || process.cwd());
+    const series = parseCsv(await readFile(path.join(root, CSV_FILE), "utf8"));
+    const snippetFile = path.join(root, GIVERS_SNIPPET_FILE);
+    await mkdir(path.dirname(snippetFile), { recursive: true });
+    await writeFile(snippetFile, giversSnippet(seriesQuestIDs(series), Number(option("delay")) || 2000) + "\n");
+    console.log(`Wrote ${snippetFile}.`);
+  } else if (command === "save-givers") {
+    if (!positional[0]) throw new Error("save-givers needs the downloaded wowhead-forever-quest-givers.json");
+    const root = path.resolve(positional[1] || process.cwd());
+    const scan = JSON.parse(await readFile(positional[0], "utf8"));
+    const series = parseCsv(await readFile(path.join(root, CSV_FILE), "utf8"));
+    const { rows, skipped } = giverRows(scan, series);
+    const csvFile = path.join(root, GIVERS_CSV_FILE);
+    await writeFile(csvFile, toCsv(rows, GIVER_COLUMNS));
+    console.log(`Wrote where ${rows.length} of the series' ${questIDsOf(series).size} quest givers stand to ${csvFile}; ${skipped.noGiver} have no giver on Wowhead's map, ${skipped.otherMap} stand on a map the game's table doesn't have.`);
   } else if (command === "list") {
     const csvFile = path.join(path.resolve(positional[0] || process.cwd()), CSV_FILE);
     const rows = filterSeries(parseCsv(await readFile(csvFile, "utf8")), { faction: option("faction"), className: option("class"), status: option("status") });
@@ -434,7 +534,7 @@ async function main() {
     }
     console.log(`${rows.length} series.`);
   } else {
-    console.log("Commands: snippet [root], save <file.json> [root], list [root] [--faction] [--class] [--status], rewards-snippet [root], save-rewards <file.json> [root]");
+    console.log("Commands: snippet [root], save <file.json> [root], list [root] [--faction] [--class] [--status], rewards-snippet [root], save-rewards <file.json> [root], givers-snippet [root], save-givers <file.json> [root]");
     process.exitCode = 1;
   }
 }
