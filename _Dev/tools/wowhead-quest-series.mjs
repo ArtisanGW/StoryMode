@@ -145,11 +145,30 @@ export async function readWowheadPage(url) {
 }
 
 // The rows of Wowhead's Forever quest list (filter: "" or "?filter=..."). When
-// Wowhead cuts it at 1000 rows: by level, halving the range while it's cut,
-// plus the cut list's rows outside levels 1-80.
+// Wowhead cuts it at 1000 rows: by level, halving the range while it's cut
+// (a level still cut: by required level), plus the cut list's rows outside
+// levels 1-80.
 export async function readQuestList(filter, delay) {
   const LIST_LIMIT = 1000;
   const sleep = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
+  // One level's quests, required levels low to high, halving while it's cut.
+  async function readRequiredLevels(level, low, high) {
+    const page = await readWowheadPage(`/forever/quests/min-level:${level}/max-level:${level}/min-req-level:${low}/max-req-level:${high}${filter}`);
+    if (page === null || page === "missing") throw new Error(`Wowhead refused the list for level ${level}, required levels ${low}-${high}`);
+    const rows = listRows(page) || [];
+    if (rows.some((row) => row.reqlevel < low || row.reqlevel > high)) throw new Error("Wowhead ignored the required level filter");
+    console.log(`Level ${level}, required levels ${low}-${high}: ${rows.length} quests.`);
+    if (rows.length < LIST_LIMIT) return rows;
+    if (low === high) {
+      console.log(`Level ${level}, required level ${low}: Wowhead cut the list at ${LIST_LIMIT}; some quests are missing.`);
+      return rows;
+    }
+    const middle = Math.floor((low + high) / 2);
+    await sleep(delay);
+    const lower = await readRequiredLevels(level, low, middle);
+    await sleep(delay);
+    return lower.concat(await readRequiredLevels(level, middle + 1, high));
+  }
   async function readLevels(low, high) {
     const page = await readWowheadPage(`/forever/quests/min-level:${low}/max-level:${high}${filter}`);
     if (page === null || page === "missing") throw new Error(`Wowhead refused the list for levels ${low}-${high}`);
@@ -159,8 +178,15 @@ export async function readQuestList(filter, delay) {
     console.log(`Levels ${low}-${high}: ${rows.length} quests.`);
     if (rows.length < LIST_LIMIT) return rows;
     if (low === high) {
-      console.log(`Level ${low}: Wowhead cut the list at ${LIST_LIMIT}; some quests of that level are missing.`);
-      return rows;
+      let split = [];
+      try {
+        await sleep(delay);
+        split = await readRequiredLevels(low, 0, low);
+      } catch (error) {
+        console.log(`Level ${low}: Wowhead cut the list at ${LIST_LIMIT} and ${error.message}; some quests of that level are missing.`);
+      }
+      const splitIDs = new Set(split.map((row) => row.id));
+      return split.concat(rows.filter((row) => !splitIDs.has(row.id)));
     }
     const middle = Math.floor((low + high) / 2);
     await sleep(delay);

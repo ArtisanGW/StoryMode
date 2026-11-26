@@ -92,25 +92,33 @@ test("snippets parse as scripts, and the saved one matches the tool", async () =
   assert.equal(await readFile(new URL(REWARDS_SNIPPET_FILE, root), "utf8"), rewardsSnippet() + "\n", "run: node _Dev/tools/wowhead-quest-series.mjs rewards-snippet .");
 });
 
-test("readQuestList splits by level while Wowhead cuts the list, and keeps rows outside 1-80", async () => {
-  const rowsAt = (low, high, count) => Array.from({ length: count }, (_, index) => ({ id: low * 10000 + index, level: low + (index % (high - low + 1)) }));
-  const lower = rowsAt(1, 40, 600);
-  const upper = rowsAt(41, 80, 700);
-  const lists = {
-    "/forever/quests": [...lower, ...upper].slice(0, 999).concat({ id: 7, level: 0 }),
-    "/forever/quests/min-level:1/max-level:80": [...lower, ...upper].slice(0, 1000),
-    "/forever/quests/min-level:1/max-level:40": lower,
-    "/forever/quests/min-level:41/max-level:80": upper,
+test("readQuestList splits by level, then by required level, while Wowhead cuts the list at 1000", async () => {
+  // A fake Wowhead: one pool of quests, filtered by the URL's levels and cut at 1000 rows.
+  // A quest outside levels 1-80 is only found in the unfiltered list's first 1000.
+  const quests = [
+    { id: 9999, level: 0, reqlevel: 1 },
+    ...Array.from({ length: 1300 }, (_, index) => ({ id: 1 + index, level: 1 + (index % 59), reqlevel: 1 })),
+    ...Array.from({ length: 1100 }, (_, index) => ({ id: 5000 + index, level: 60, reqlevel: index % 61 })),
+  ];
+  const range = (url, name, fallback) => {
+    const match = url.match(new RegExp(`min-${name}:(\\d+)/max-${name}:(\\d+)`));
+    return match ? [Number(match[1]), Number(match[2])] : fallback;
   };
   const page = (rows) => `<script>new Listview({"template":"quest","id":"quests","data":${JSON.stringify(rows)}});</script>`;
   const realFetch = globalThis.fetch;
   const realLog = console.log;
-  globalThis.fetch = async (url) => ({ status: lists[url] ? 200 : 404, headers: { get: () => null }, text: async () => (lists[url] ? page(lists[url]) : "") });
+  globalThis.fetch = async (url) => {
+    const [lowLevel, highLevel] = range(url, "level", [-Infinity, Infinity]);
+    const [lowRequired, highRequired] = range(url, "req-level", [-Infinity, Infinity]);
+    const rows = quests.filter((quest) => quest.level >= lowLevel && quest.level <= highLevel
+      && quest.reqlevel >= lowRequired && quest.reqlevel <= highRequired).slice(0, 1000);
+    return { status: 200, headers: { get: () => null }, text: async () => page(rows) };
+  };
   console.log = () => {};
   try {
     const rows = await readQuestList("", 0);
-    assert.equal(rows.length, 600 + 700 + 1);
-    assert.ok(rows.some((row) => row.id === 7), "a row outside levels 1-80 is kept from the cut list");
+    assert.equal(new Set(rows.map((row) => row.id)).size, rows.length, "each quest once");
+    assert.equal(rows.length, quests.length, "every quest, the level-60 ones split by required level");
   } finally {
     globalThis.fetch = realFetch;
     console.log = realLog;
