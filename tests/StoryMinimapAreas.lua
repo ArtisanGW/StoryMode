@@ -37,7 +37,7 @@ assert(loadfile("Code/UI/StoryMinimapAreas.lua"))("StoryMode", SM)
 local ART = "Interface\\AddOns\\StoryMode\\Art\\Minimap\\"
 local function IsGame() return outsideTexture == 533895 and ringTexture == 533893 end
 local function IsStory(story)
-    return outsideTexture == ART .. "QuestAreaOutside" .. story and ringTexture == ART .. "QuestAreaRing" .. story
+    return outsideTexture == ART .. "QuestAreaOutside" .. story .. ".tga" and ringTexture == ART .. "QuestAreaRing" .. story .. ".tga"
 end
 local function IsFollowed() return IsStory("Followed") end
 local function IsOther() return IsStory("Other") end

@@ -18,10 +18,12 @@ local GAME_OUTSIDE_TEXTURE = 533895   -- Interface\Minimap\UI-QuestBlobMinimap-O
 local GAME_RING_TEXTURE = 533893      -- Interface\Minimap\UI-QuestBlob-MinimapRing
 local ART = "Interface\\AddOns\\StoryMode\\Art\\Minimap\\"
 -- The game's textures, recoloured: each pixel takes the story's colour at
--- the brightness of its strongest channel, alpha kept.
+-- the brightness of its strongest channel, alpha kept. Named with .tga: the
+-- minimap drew an uncompressed .blp as "not found" (solid green), and
+-- without an extension it looks for a .blp first.
 local STORY_TEXTURES = {
-    [Marks.FOLLOWED_STORY_COLOR] = { outside = ART .. "QuestAreaOutsideFollowed", ring = ART .. "QuestAreaRingFollowed" },
-    [Marks.OTHER_STORY_COLOR] = { outside = ART .. "QuestAreaOutsideOther", ring = ART .. "QuestAreaRingOther" },
+    [Marks.FOLLOWED_STORY_COLOR] = { outside = ART .. "QuestAreaOutsideFollowed.tga", ring = ART .. "QuestAreaRingFollowed.tga" },
+    [Marks.OTHER_STORY_COLOR] = { outside = ART .. "QuestAreaOutsideOther.tga", ring = ART .. "QuestAreaRingOther.tga" },
 }
 
 -- nil: the game's own textures are on.
