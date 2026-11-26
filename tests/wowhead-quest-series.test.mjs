@@ -2,7 +2,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
-import { SNIPPET_FILE, balanced, filterSeries, listRows, parseCsv, seriesRows, seriesStatus, snippet, toCsv } from "../_Dev/tools/wowhead-quest-series.mjs";
+import { REWARDS_SNIPPET_FILE, SNIPPET_FILE, balanced, filterSeries, listRows, parseCsv, readQuestList, rewardRows, rewardsSnippet, seriesRows, seriesStatus, snippet, toCsv } from "../_Dev/tools/wowhead-quest-series.mjs";
 
 const step = (id, name) => [{ id, name }];
 const steps = (count, firstID) => Array.from({ length: count }, (_, index) => step(firstID + index, `Quest ${firstID + index}`));
@@ -88,4 +88,42 @@ test("snippets parse as scripts, and the saved one matches the tool", async () =
   assert.equal(await readFile(new URL(SNIPPET_FILE, root), "utf8"), snippet() + "\n", "run: node _Dev/tools/wowhead-quest-series.mjs snippet .");
   const progress = await readFile(new URL("_Dev/snippets/wowhead-quest-series-progress.js", root), "utf8");
   assert.doesNotThrow(() => new Function(progress));
+  assert.doesNotThrow(() => new Function(rewardsSnippet()));
+  assert.equal(await readFile(new URL(REWARDS_SNIPPET_FILE, root), "utf8"), rewardsSnippet() + "\n", "run: node _Dev/tools/wowhead-quest-series.mjs rewards-snippet .");
+});
+
+test("readQuestList splits by level while Wowhead cuts the list, and keeps rows outside 1-80", async () => {
+  const rowsAt = (low, high, count) => Array.from({ length: count }, (_, index) => ({ id: low * 10000 + index, level: low + (index % (high - low + 1)) }));
+  const lower = rowsAt(1, 40, 600);
+  const upper = rowsAt(41, 80, 700);
+  const lists = {
+    "/forever/quests": [...lower, ...upper].slice(0, 999).concat({ id: 7, level: 0 }),
+    "/forever/quests/min-level:1/max-level:80": [...lower, ...upper].slice(0, 1000),
+    "/forever/quests/min-level:1/max-level:40": lower,
+    "/forever/quests/min-level:41/max-level:80": upper,
+  };
+  const page = (rows) => `<script>new Listview({"template":"quest","id":"quests","data":${JSON.stringify(rows)}});</script>`;
+  const realFetch = globalThis.fetch;
+  const realLog = console.log;
+  globalThis.fetch = async (url) => ({ status: lists[url] ? 200 : 404, headers: { get: () => null }, text: async () => (lists[url] ? page(lists[url]) : "") });
+  console.log = () => {};
+  try {
+    const rows = await readQuestList("", 0);
+    assert.equal(rows.length, 600 + 700 + 1);
+    assert.ok(rows.some((row) => row.id === 7), "a row outside levels 1-80 is kept from the cut list");
+  } finally {
+    globalThis.fetch = realFetch;
+    console.log = realLog;
+  }
+});
+
+test("rewardRows: the series' quests with their rewards, by quest ID", () => {
+  const scan = { quests: {
+    5: { xp: 390, money: 0, items: [], choices: [], reputation: [[72, 25]] },
+    182: { xp: 355, money: 120, items: [[961, 3]], choices: [[2047, 1], [2048, 1]], reputation: [[47, 100], [87, -250]] },
+    999: { xp: 1, money: 1, items: [], choices: [], reputation: [] },
+  } };
+  const rows = rewardRows(scan, [{ quest_ids: "182 5/6" }]);
+  assert.deepEqual(rows.map((row) => row.id), [5, 182], "only the series' quests that Wowhead's list has");
+  assert.deepEqual(rows[1], { id: 182, xp: 355, money: 120, items: "961:3", choices: "2047:1 2048:1", reputation: "47:100 87:-250" });
 });

@@ -42,6 +42,61 @@ function listRows(page) {
   }
 }
 
+async function readWowheadPage(url) {
+  const response = await fetch(url);
+  const page = await response.text();
+  if (response.status === 404) return "missing";
+  if (response.status !== 200 || response.headers.get("x-amzn-waf-action") || /Human Verification/i.test(page.slice(0, 3000))) return null;
+  return page;
+}
+
+async function readQuestList(filter, delay) {
+  const LIST_LIMIT = 1000;
+  const sleep = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
+  async function readLevels(low, high) {
+    const page = await readWowheadPage(`/forever/quests/min-level:${low}/max-level:${high}${filter}`);
+    if (page === null || page === "missing") throw new Error(`Wowhead refused the list for levels ${low}-${high}`);
+    const rows = listRows(page);
+    if (!rows) throw new Error(`no quest list on the page for levels ${low}-${high}`);
+    if (rows.some((row) => row.level < low || row.level > high)) throw new Error("Wowhead ignored the level filter");
+    console.log(`Levels ${low}-${high}: ${rows.length} quests.`);
+    if (rows.length < LIST_LIMIT) return rows;
+    if (low === high) {
+      console.log(`Level ${low}: Wowhead cut the list at ${LIST_LIMIT}; some quests of that level are missing.`);
+      return rows;
+    }
+    const middle = Math.floor((low + high) / 2);
+    await sleep(delay);
+    const lower = await readLevels(low, middle);
+    await sleep(delay);
+    return lower.concat(await readLevels(middle + 1, high));
+  }
+
+  const page = await readWowheadPage(`/forever/quests${filter}`);
+  if (page === null || page === "missing") throw new Error("Wowhead refused the quest list");
+  const rows = listRows(page);
+  if (!rows) {
+    console.log(page.slice(0, 500));
+    throw new Error("no quest list on the page (its start is above)");
+  }
+  console.log(`${rows.length} quests.`);
+  if (rows.length < LIST_LIMIT) return rows;
+  await sleep(delay);
+  const byLevel = await readLevels(1, 80);
+  const levelIDs = new Set(byLevel.map((row) => row.id));
+  const outside = rows.filter((row) => !levelIDs.has(row.id));
+  if (outside.length) console.log(`${outside.length} quests outside levels 1-80 kept from the cut list; others may be missing.`);
+  return byLevel.concat(outside);
+}
+
+function downloadJson(fileName, data) {
+  const file = new Blob([JSON.stringify(data)], { type: "application/json" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(file);
+  link.download = fileName;
+  link.click();
+}
+
 function seriesSteps(page, questID) {
   const pageDocument = new DOMParser().parseFromString(page, "text/html");
   for (const table of pageDocument.querySelectorAll("table")) {
@@ -70,7 +125,6 @@ function seriesSteps(page, questID) {
 
 async function readWowheadQuestSeries(delay) {
   const STORE = "storyModeQuestSeries";
-  const LIST_LIMIT = 1000;
   const FILTER = "?filter=7;1;0";
   const sleep = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
   const saved = JSON.parse(localStorage.getItem(STORE) || "{}");
@@ -78,48 +132,9 @@ async function readWowheadQuestSeries(delay) {
   const store = () => localStorage.setItem(STORE, JSON.stringify(saved));
   const stop = (reason) => console.log(`Stopped: ${reason}. Reload this page (it passes Wowhead's check), then paste the script again; it carries on.`);
 
-  // A page's text, "missing" for a 404, or null when Wowhead holds the request back.
-  async function readPage(url) {
-    const response = await fetch(url);
-    const page = await response.text();
-    if (response.status === 404) return "missing";
-    if (response.status !== 200 || response.headers.get("x-amzn-waf-action") || /Human Verification/i.test(page.slice(0, 3000))) return null;
-    return page;
-  }
-
-  // The first quests with levels low to high, halving the range while Wowhead cuts the list.
-  async function readList(low, high) {
-    const page = await readPage(`/forever/quests/min-level:${low}/max-level:${high}${FILTER}`);
-    if (page === null || page === "missing") throw new Error(`Wowhead refused the list for levels ${low}-${high}`);
-    const rows = listRows(page);
-    if (!rows) throw new Error(`no quest list on the page for levels ${low}-${high}`);
-    if (rows.some((row) => row.level < low || row.level > high)) throw new Error("Wowhead ignored the level filter");
-    console.log(`Levels ${low}-${high}: ${rows.length} first quests.`);
-    if (rows.length < LIST_LIMIT || low === high) return rows;
-    const middle = Math.floor((low + high) / 2);
-    await sleep(delay);
-    const lower = await readList(low, middle);
-    await sleep(delay);
-    return lower.concat(await readList(middle + 1, high));
-  }
-
   if (!saved.starts) {
     try {
-      const page = await readPage(`/forever/quests${FILTER}`);
-      if (page === null || page === "missing") return stop("Wowhead refused the first quest list");
-      let rows = listRows(page);
-      if (!rows) {
-        console.log(page.slice(0, 500));
-        return stop("no quest list on the page (its start is above)");
-      }
-      console.log(`${rows.length} first quests.`);
-      if (rows.length >= LIST_LIMIT) {
-        const byLevel = await readList(1, 80);
-        const levelIDs = new Set(byLevel.map((row) => row.id));
-        const outside = rows.filter((row) => !levelIDs.has(row.id));
-        if (outside.length) console.log(`${outside.length} first quests outside levels 1-80 kept from the cut list; others may be missing.`);
-        rows = byLevel.concat(outside);
-      }
+      const rows = await readQuestList(FILTER, delay);
       saved.starts = {};
       for (const row of rows) saved.starts[row.id] = row;
       store();
@@ -132,7 +147,7 @@ async function readWowheadQuestSeries(delay) {
   const total = Object.keys(saved.starts).length;
   console.log(`${total - ids.length} of ${total} series read; about ${Math.ceil((ids.length * delay) / 60000)} min left.`);
   for (const [index, id] of ids.entries()) {
-    const page = await readPage(`/forever/quest=${id}`);
+    const page = await readWowheadPage(`/forever/quest=${id}`);
     if (page === null) return stop(`Wowhead refused quest ${id}`);
     saved.series[id] = { steps: page === "missing" ? [] : seriesSteps(page, Number(id)) };
     store();
@@ -141,11 +156,7 @@ async function readWowheadQuestSeries(delay) {
     await sleep(delay);
   }
 
-  const file = new Blob([JSON.stringify({ read: new Date().toISOString(), filter: FILTER, starts: saved.starts, series: saved.series })], { type: "application/json" });
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(file);
-  link.download = "wowhead-forever-quest-series.json";
-  link.click();
+  downloadJson("wowhead-forever-quest-series.json", { read: new Date().toISOString(), filter: FILTER, starts: saved.starts, series: saved.series });
   console.log(`Read all ${total} series; downloaded wowhead-forever-quest-series.json. To read again from scratch: localStorage.removeItem("${STORE}")`);
 }
 
