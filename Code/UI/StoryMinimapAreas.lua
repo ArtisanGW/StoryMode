@@ -6,10 +6,10 @@ local _, SM = ...
 -- SetQuestBlobOutsideTexture, SetQuestBlobRingTexture): no colour, nothing
 -- per quest. So the areas take a story's colour only when every tracked quest
 -- on the player's map has that colour (the tracker's selected-story filter
--- does that), and stay the game's blue otherwise. The super-tracked quest's
--- border uses a "selected" texture this client has no setter for: it stays
--- blue, its fill is coloured. The game has no getters either: its own
--- textures go back by file ID.
+-- does that), and stay the game's blue otherwise. The focused quest's
+-- (C_SuperTrack) border uses a "selected" texture this client has no
+-- setter for: it stays blue, its fill is coloured. The game has no getters
+-- either: its own textures go back by file ID.
 
 local Marks = SM.StoryQuestMarks
 local OnMap = SM.StoryQuestsOnMap
