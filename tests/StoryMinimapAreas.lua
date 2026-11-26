@@ -1,12 +1,12 @@
--- Story quests' areas on the minimap: the fill, border and ring take the
+-- Story quests' areas on the minimap: the border and ring take the
 -- story's colour when every tracked quest on the map shares it.
 local Fakes = dofile("tests/StoryMarksFakes.lua")
 local Fire = Fakes.EventFrames()
 Fakes.InstallGlobals()
 
-local insideTexture, outsideTexture, ringTexture, textureCalls = 533894, 533895, 533893, 0
+local outsideTexture, ringTexture, textureCalls = 533895, 533893, 0
 Minimap = Fakes.NewRegion()
-function Minimap:SetQuestBlobInsideTexture(texture) insideTexture = texture end
+function Minimap:SetQuestBlobInsideTexture() error("the fill stays the game's (empty)") end
 function Minimap:SetQuestBlobOutsideTexture(texture) outsideTexture = texture; textureCalls = textureCalls + 1 end
 function Minimap:SetQuestBlobRingTexture(texture) ringTexture = texture end
 
@@ -35,10 +35,9 @@ assert(loadfile("Code/UI/StoryQuestMarks.lua"))("StoryMode", SM)
 assert(loadfile("Code/UI/StoryMinimapAreas.lua"))("StoryMode", SM)
 
 local ART = "Interface\\AddOns\\StoryMode\\Art\\Minimap\\"
-local function IsGame() return insideTexture == 533894 and outsideTexture == 533895 and ringTexture == 533893 end
+local function IsGame() return outsideTexture == 533895 and ringTexture == 533893 end
 local function IsStory(story)
-    return insideTexture == ART .. "QuestAreaFill" .. story and outsideTexture == ART .. "QuestAreaOutside" .. story
-        and ringTexture == ART .. "QuestAreaRing" .. story
+    return outsideTexture == ART .. "QuestAreaOutside" .. story and ringTexture == ART .. "QuestAreaRing" .. story
 end
 local function IsFollowed() return IsStory("Followed") end
 local function IsOther() return IsStory("Other") end

@@ -14,6 +14,11 @@ StoryModeDB = {
     hiddenQuestTrackerWatches = {},
 }
 UnitGUID = function() return "player-1" end
+local focusedQuestID = 0
+C_SuperTrack = {
+    GetSuperTrackedQuestID = function() return focusedQuestID end,
+    SetSuperTrackedQuestID = function(questID) focusedQuestID = questID end,
+}
 InCombatLockdown = function() return inCombat end
 -- The game's tracker redraws itself on QUEST_WATCH_LIST_CHANGED; the filter
 -- never calls into it.
@@ -94,8 +99,10 @@ assert(hidden[101] == true)
 assert(hidden[202] == nil)
 
 assert(SM.IsQuestTrackerStoryFilterEnabled() == true)
+focusedQuestID = 202
 SM.SetQuestTrackerStoryFilterEnabled(false)
 assert(SM.IsQuestTrackerStoryFilterEnabled() == false)
+assert(focusedQuestID == 202, "turning the filter off keeps the focus")
 assert(Contains(watchedQuestIDs, 101))
 assert(Contains(watchedQuestIDs, 202))
 assert(Contains(watchedQuestIDs, 303))
@@ -105,6 +112,7 @@ SM.SetQuestTrackerStory("hillsbrad")
 -- Turned on from the start page: the Introduction has no story selected.
 StoryModeDB.selectedQuestlineID = nil
 SM.SetQuestTrackerStoryFilterEnabled(true)
+assert(focusedQuestID == 0, "turning the filter on drops the focus: its minimap border can't be recoloured")
 assert(Contains(watchedQuestIDs, 101))
 assert(not Contains(watchedQuestIDs, 202))
 C_QuestLog.AddQuestWatch(202)

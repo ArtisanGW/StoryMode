@@ -150,6 +150,10 @@ end
 function SM.SetQuestTrackerStoryFilterEnabled(enabled)
     if not StoryModeDB then return end
     StoryModeDB.hideUnrelatedQuestTrackerQuests = enabled == true
+    -- The focused quest's minimap border is always the game's blue (nothing
+    -- can set it): turning the filter on drops the focus.
+    local focusedQuestID = enabled and C_SuperTrack and C_SuperTrack.GetSuperTrackedQuestID()
+    if focusedQuestID and focusedQuestID ~= 0 then C_SuperTrack.SetSuperTrackedQuestID(0) end
     SM.UpdateQuestTrackerStoryFilter()
 end
 
