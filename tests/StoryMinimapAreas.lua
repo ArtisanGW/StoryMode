@@ -1,15 +1,16 @@
--- Story quests' areas on the minimap: the borders take the story's colour
--- when every tracked quest on the map (but the super-tracked one) shares it.
+-- Story quests' areas on the minimap: the fill, border and ring take the
+-- story's colour when every tracked quest on the map shares it.
 local Fakes = dofile("tests/StoryMarksFakes.lua")
 local Fire = Fakes.EventFrames()
 Fakes.InstallGlobals()
 
-local outsideTexture, ringTexture, textureCalls = 533895, 533893, 0
+local insideTexture, outsideTexture, ringTexture, textureCalls = 533894, 533895, 533893, 0
 Minimap = Fakes.NewRegion()
+function Minimap:SetQuestBlobInsideTexture(texture) insideTexture = texture end
 function Minimap:SetQuestBlobOutsideTexture(texture) outsideTexture = texture; textureCalls = textureCalls + 1 end
 function Minimap:SetQuestBlobRingTexture(texture) ringTexture = texture end
 
-local watched, onMap, superTracked = {}, {}, 0
+local watched, onMap = {}, {}
 C_QuestLog = {
     GetNumQuestWatches = function() return #watched end,
     GetQuestIDForQuestWatchIndex = function(index) return watched[index] end,
@@ -19,7 +20,6 @@ C_QuestLog = {
         return quests
     end,
 }
-C_SuperTrack = { GetSuperTrackedQuestID = function() return superTracked end }
 StoryModeDB = { markStoryQuests = true }
 
 -- 201, 202: the followed story; 301: another story; 900: no story.
@@ -35,9 +35,13 @@ assert(loadfile("Code/UI/StoryQuestMarks.lua"))("StoryMode", SM)
 assert(loadfile("Code/UI/StoryMinimapAreas.lua"))("StoryMode", SM)
 
 local ART = "Interface\\AddOns\\StoryMode\\Art\\Minimap\\"
-local function IsGame() return outsideTexture == 533895 and ringTexture == 533893 end
-local function IsFollowed() return outsideTexture == ART .. "QuestAreaOutsideFollowed" and ringTexture == ART .. "QuestAreaRingFollowed" end
-local function IsOther() return outsideTexture == ART .. "QuestAreaOutsideOther" and ringTexture == ART .. "QuestAreaRingOther" end
+local function IsGame() return insideTexture == 533894 and outsideTexture == 533895 and ringTexture == 533893 end
+local function IsStory(story)
+    return insideTexture == ART .. "QuestAreaFill" .. story and outsideTexture == ART .. "QuestAreaOutside" .. story
+        and ringTexture == ART .. "QuestAreaRing" .. story
+end
+local function IsFollowed() return IsStory("Followed") end
+local function IsOther() return IsStory("Other") end
 
 watched, onMap = { 201, 202 }, { 201, 202, 301, 900 }
 OnMapChanged()
@@ -55,11 +59,7 @@ watched = { 201, 900 }
 Fire("QUEST_WATCH_LIST_CHANGED")
 assert(IsGame(), "a quest of no story: the game's own")
 
-superTracked = 900
-Fire("SUPER_TRACKING_CHANGED")
-assert(IsFollowed(), "the super-tracked quest keeps the game's own border, so it doesn't count")
-
-watched, onMap, superTracked = { 201, 900 }, { 201 }, 0
+onMap = { 201 }
 Fire("QUEST_WATCH_LIST_CHANGED")
 assert(IsFollowed(), "a tracked quest of no story off this map doesn't count")
 
