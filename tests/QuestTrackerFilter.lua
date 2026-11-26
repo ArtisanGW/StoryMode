@@ -41,9 +41,10 @@ C_QuestLog = {
     GetLogIndexForQuestID = function(questID)
         if questsInLog[questID] or hiddenQuestEntries[questID] then return questID end
     end,
+    -- The game puts a new watch first (measured with DevTrackerProbe).
     AddQuestWatch = function(questID)
         if not FindWatchedIndex(questID) then
-            watchedQuestIDs[#watchedQuestIDs + 1] = questID
+            table.insert(watchedQuestIDs, 1, questID)
         end
     end,
     RemoveQuestWatch = function(questID)
@@ -158,5 +159,30 @@ StoryModeDB.questTrackerStoryID = "removed-story"
 SM.UpdateQuestTrackerStoryFilter()
 assert(Contains(watchedQuestIDs, 202))
 assert(hidden[202] == nil)
+
+-- Turned off: the game puts each new watch first and a full tracker leaves out
+-- the last ones, so the story quests go back in front: the followed story's,
+-- then other stories', then the rest.
+StoryModeDB.questTrackerStoryID = "hillsbrad"
+questsInLog[404] = true
+C_QuestLog.AddQuestWatch(404)
+SM.UpdateQuestTrackerStoryFilter()
+assert(#watchedQuestIDs == 1 and watchedQuestIDs[1] == 101)
+SM.SetQuestTrackerStoryFilterEnabled(false)
+assert(#watchedQuestIDs == 4, "every hidden quest is back")
+assert(watchedQuestIDs[1] == 101, "the followed story's quest is first")
+assert(storiesByQuestID[watchedQuestIDs[2]] == "other-story" and storiesByQuestID[watchedQuestIDs[3]] == "other-story",
+    "other stories' quests come next")
+assert(watchedQuestIDs[4] == 404, "the quest in no story is last")
+
+-- Nothing to bring back: the watch list is left alone.
+local removeQuestWatch, removals = SM.RemoveQuestWatch, 0
+SM.RemoveQuestWatch = function(questID)
+    removals = removals + 1
+    return removeQuestWatch(questID)
+end
+Fire("QUEST_LOG_UPDATE")
+assert(removals == 0, "no quest is watched again when none came back")
+SM.RemoveQuestWatch = removeQuestWatch
 
 print("QuestTrackerFilter tests passed")
