@@ -12,3 +12,4 @@ ignore:
   - _Dev
   - DESCRIPTION.md
   - README.md
+  - tests
