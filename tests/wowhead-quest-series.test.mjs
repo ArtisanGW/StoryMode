@@ -1,7 +1,8 @@
 // node --test tests/wowhead-quest-series.test.mjs
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
-import { balanced, filterSeries, listRows, parseCsv, seriesRows, seriesStatus, snippet, toCsv } from "../_Dev/tools/wowhead-quest-series.mjs";
+import { SNIPPET_FILE, balanced, filterSeries, listRows, parseCsv, seriesRows, seriesStatus, snippet, toCsv } from "../_Dev/tools/wowhead-quest-series.mjs";
 
 const step = (id, name) => [{ id, name }];
 const steps = (count, firstID) => Array.from({ length: count }, (_, index) => step(firstID + index, `Quest ${firstID + index}`));
@@ -78,6 +79,10 @@ test("filters match what a faction and class can do", () => {
   assert.deepEqual(ids({ faction: "Alliance", className: "mage", status: "Epic" }), []);
 });
 
-test("snippet parses as a script", () => {
+test("snippets parse as scripts, and the saved one matches the tool", async () => {
   assert.doesNotThrow(() => new Function(snippet()));
+  const root = new URL("../", import.meta.url);
+  assert.equal(await readFile(new URL(SNIPPET_FILE, root), "utf8"), snippet() + "\n", "run: node _Dev/tools/wowhead-quest-series.mjs snippet .");
+  const progress = await readFile(new URL("_Dev/snippets/wowhead-quest-series-progress.js", root), "utf8");
+  assert.doesNotThrow(() => new Function(progress));
 });

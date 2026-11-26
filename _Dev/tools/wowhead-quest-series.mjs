@@ -1,13 +1,16 @@
 // Quest series from Wowhead's WoW Forever data, to pick new stories from.
 //
-//   node _Dev/tools/wowhead-quest-series.mjs snippet
-//     Prints a script for the console of any www.wowhead.com page in a
-//     browser (Wowhead refuses scripts outside one). It reads Wowhead's
+//   node _Dev/tools/wowhead-quest-series.mjs snippet [root]
+//     Writes _Dev/snippets/wowhead-quest-series.js, a script for the console
+//     of any www.wowhead.com page in a browser (Wowhead refuses scripts
+//     outside one). It reads Wowhead's
 //     "first quest in series" list (split by level when Wowhead cuts it at
 //     1000), then each first quest's page for its series, a page every few
 //     seconds. It keeps its progress in the page's storage: if it stops at
 //     Wowhead's check, reload the page and paste it again. At the end the
 //     browser downloads wowhead-forever-quest-series.json.
+//     _Dev/snippets/wowhead-quest-series-progress.js, pasted in the same
+//     console while it runs, shows how many series it has read and the time left.
 //
 //   node _Dev/tools/wowhead-quest-series.mjs save <file.json> [root]
 //     Writes _Dev/forever-quest-series.csv: every series of 3 or more steps,
@@ -20,11 +23,12 @@
 // The first quests are the list to read: a series' first quest is where a
 // story begins, and its page shows the whole series.
 
-import { readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 
 export const CSV_FILE = path.join("_Dev", "forever-quest-series.csv");
+export const SNIPPET_FILE = path.join("_Dev", "snippets", "wowhead-quest-series.js");
 const COLUMNS = ["id", "name", "status", "quests", "faction", "classes", "level", "min_level", "zone_id", "quest_ids", "quest_names"];
 
 // Fewest steps for each status, longest first.
@@ -306,7 +310,10 @@ async function main() {
   };
 
   if (command === "snippet") {
-    process.stdout.write(snippet(Number(option("delay")) || 5000) + "\n");
+    const snippetFile = path.join(path.resolve(positional[0] || process.cwd()), SNIPPET_FILE);
+    await mkdir(path.dirname(snippetFile), { recursive: true });
+    await writeFile(snippetFile, snippet(Number(option("delay")) || 5000) + "\n");
+    console.log(`Wrote ${snippetFile}.`);
   } else if (command === "save") {
     if (!positional[0]) throw new Error("save needs the downloaded wowhead-forever-quest-series.json");
     const scan = JSON.parse(await readFile(positional[0], "utf8"));
@@ -325,7 +332,7 @@ async function main() {
     }
     console.log(`${rows.length} series.`);
   } else {
-    console.log("Commands: snippet, save <file.json> [root], list [root] [--faction] [--class] [--status]");
+    console.log("Commands: snippet [root], save <file.json> [root], list [root] [--faction] [--class] [--status]");
     process.exitCode = 1;
   }
 }
