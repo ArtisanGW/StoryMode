@@ -1,7 +1,7 @@
 -- Story quests' areas on the minimap: the border and ring take the
 -- story's colour when every tracked quest on the map shares it.
 local Fakes = dofile("tests/StoryMarksFakes.lua")
-local Fire = Fakes.EventFrames()
+local Fire, frames = Fakes.EventFrames()
 Fakes.InstallGlobals()
 
 local outsideTexture, ringTexture, textureCalls = 533895, 533893, 0
@@ -21,12 +21,13 @@ C_QuestLog = {
     end,
 }
 StoryModeDB = { markStoryQuests = true }
-local timers = {}
-C_Timer = { After = function(_, callback) timers[#timers + 1] = callback end }
-local function RunTimers()
-    local waiting = timers
-    timers = {}
-    for _, callback in ipairs(waiting) do callback() end
+
+-- One drawn frame: the art textures load when loaded is true.
+local function DrawFrame(loaded)
+    for _, frame in ipairs(frames) do
+        for _, texture in ipairs(frame.children) do texture.loaded = loaded or texture.loaded end
+        if frame.scripts.OnUpdate then frame.scripts.OnUpdate(frame, 0.016) end
+    end
 end
 
 -- 201, 202: the followed story; 301: another story; 900: no story.
@@ -49,14 +50,23 @@ end
 local function IsFollowed() return IsStory("Followed") end
 local function IsOther() return IsStory("Other") end
 
+local artFiles = {}
+for _, frame in ipairs(frames) do
+    for _, texture in ipairs(frame.children) do
+        assert(texture.alpha == 0, "the art textures can't be seen")
+        artFiles[#artFiles + 1] = texture.texture
+    end
+end
+table.sort(artFiles)
+assert(table.concat(artFiles, " ") == table.concat({ ART .. "QuestAreaOutsideFollowed.tga", ART .. "QuestAreaOutsideOther.tga",
+    ART .. "QuestAreaRingFollowed.tga", ART .. "QuestAreaRingOther.tga" }, " "), "every file is loaded by a texture")
+
 watched, onMap = { 201, 202 }, { 201, 202, 301, 900 }
 OnMapChanged()
-assert(IsGame(), "still loading: the game's own (a texture set now stays 'not found')")
-Fire("PLAYER_ENTERING_WORLD")
-OnMapChanged()
-assert(IsGame(), "just in the world: not yet")
-RunTimers()
-assert(IsFollowed(), "every tracked quest of the followed story: green")
+DrawFrame(false)
+assert(IsGame(), "art not loaded: the game's own (given now, it stays 'not found' until a restart)")
+DrawFrame(true)
+assert(IsFollowed(), "art loaded, every tracked quest of the followed story: green")
 
 watched = { 301 }
 Fire("QUEST_WATCH_LIST_CHANGED")
@@ -86,18 +96,5 @@ assert(IsFollowed(), "turned on: back right away")
 watched = {}
 Fire("QUEST_WATCH_LIST_CHANGED")
 assert(IsGame(), "nothing tracked: the game's own")
-
--- A loading screen: nothing changes until the player has settled again, and
--- a timer from before it doesn't count.
-watched = { 201 }
-Fire("PLAYER_ENTERING_WORLD")
-Fire("PLAYER_LEAVING_WORLD")
-Fire("QUEST_WATCH_LIST_CHANGED")
-assert(IsGame(), "loading screen: left alone")
-RunTimers()
-assert(IsGame(), "the timer from before the loading screen doesn't settle")
-Fire("PLAYER_ENTERING_WORLD")
-RunTimers()
-assert(IsFollowed(), "settled again: green")
 
 print("StoryMinimapAreas tests passed")

@@ -7,6 +7,10 @@ function Fakes.NewRegion()
     function region:SetVertexColor(red, green, blue) self.color = { red, green, blue } end
     function region:SetDesaturated(desaturated) self.desaturated = desaturated end
     function region:SetAtlas(atlas) self.atlas = atlas end
+    function region:SetTexture(texture) self.texture = texture end
+    function region:SetAlpha(alpha) self.alpha = alpha end
+    -- The game loads a texture's file a few frames after it is first drawn.
+    function region:IsObjectLoaded() return self.loaded == true end
     function region:SetSize(width) self.size = width end
     function region:SetAllPoints() end
     function region:GetWidth() return 18 end
@@ -54,11 +58,13 @@ function Fakes.CreateFramePool(_, _, _, resetter)
     return pool
 end
 
--- An event frame that keeps its handlers so a test can fire events.
+-- Frames that keep their handlers so a test can fire events. Also returns
+-- the frames.
 function Fakes.EventFrames()
     local frames = {}
     CreateFrame = function()
-        local frame = { events = {}, scripts = {} }
+        local frame = Fakes.NewRegion()
+        frame.events, frame.scripts = {}, {}
         function frame:RegisterEvent(event) self.events[event] = true end
         function frame:SetScript(script, handler) self.scripts[script] = handler end
         frames[#frames + 1] = frame
@@ -68,7 +74,7 @@ function Fakes.EventFrames()
         for _, frame in ipairs(frames) do
             if frame.events[event] then frame.scripts.OnEvent(frame, event, ...) end
         end
-    end
+    end, frames
 end
 
 function Fakes.InstallGlobals()

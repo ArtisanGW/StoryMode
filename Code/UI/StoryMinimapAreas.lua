@@ -11,12 +11,12 @@ local _, SM = ...
 -- turning that filter on drops the focus. The game has no getters either:
 -- its own textures go back by file ID.
 --
--- Once an area texture is set while the game loads, the minimap draws every
--- custom one as "not found" (solid green) until the game restarts, /reload
--- included (measured: set at login it failed, and so did art set later; set
--- 6 s after PLAYER_ENTERING_WORLD it drew right). So the textures change only
--- after the player has been in the world for SETTLE_SECONDS, and not across
--- a loading screen.
+-- The minimap draws an addon's file only once the UI has loaded it. Given
+-- it before, the minimap draws "not found" (solid green) for that file until
+-- the game restarts, /reload included, and a texture on a hidden frame
+-- doesn't load it (measured with devAddons/DevBlobProbe). So textures the
+-- player can't see keep each file loaded, and the minimap gets the files
+-- once IsObjectLoaded says they're in.
 
 local Marks = SM.StoryQuestMarks
 local OnMap = SM.StoryQuestsOnMap
@@ -25,21 +25,16 @@ local GAME_OUTSIDE_TEXTURE = 533895   -- Interface\Minimap\UI-QuestBlobMinimap-O
 local GAME_RING_TEXTURE = 533893      -- Interface\Minimap\UI-QuestBlob-MinimapRing
 local ART = "Interface\\AddOns\\StoryMode\\Art\\Minimap\\"
 -- The game's textures, recoloured: each pixel takes the story's colour at
--- the brightness of its strongest channel, alpha kept. Named with .tga: the
--- minimap drew an uncompressed .blp as "not found" (solid green), and
--- without an extension it looks for a .blp first.
+-- the brightness of its strongest channel, alpha kept. Named with .tga:
+-- without an extension the game looks for a .blp first.
 local STORY_TEXTURES = {
     [Marks.FOLLOWED_STORY_COLOR] = { outside = ART .. "QuestAreaOutsideFollowed.tga", ring = ART .. "QuestAreaRingFollowed.tga" },
     [Marks.OTHER_STORY_COLOR] = { outside = ART .. "QuestAreaOutsideOther.tga", ring = ART .. "QuestAreaRingOther.tga" },
 }
 
-local SETTLE_SECONDS = 6
-
 -- nil: the game's own textures are on.
 local appliedColor
-local settled = false
--- Counts loading screens, so a timer from before one doesn't settle.
-local loadingScreens = 0
+local artLoaded = false
 
 -- The tracked quests on the player's map: those the minimap draws areas for.
 local function TrackedQuestsOnMap()
@@ -67,7 +62,7 @@ local function SharedColor()
 end
 
 local function Refresh()
-    if not settled or Minimap:IsForbidden() then return end
+    if not artLoaded or Minimap:IsForbidden() then return end
     local color = SharedColor()
     if color == appliedColor then return end
     appliedColor = color
@@ -81,20 +76,28 @@ Marks.OnChange(Refresh)
 
 local eventFrame = CreateFrame("Frame")
 eventFrame:RegisterEvent("QUEST_WATCH_LIST_CHANGED")
-eventFrame:RegisterEvent("PLAYER_LEAVING_WORLD")
-eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-eventFrame:SetScript("OnEvent", function(_, event)
-    if event == "PLAYER_LEAVING_WORLD" then
-        settled = false
-        loadingScreens = loadingScreens + 1
-    elseif event == "PLAYER_ENTERING_WORLD" then
-        local loadingScreen = loadingScreens
-        C_Timer.After(SETTLE_SECONDS, function()
-            if loadingScreen ~= loadingScreens then return end
-            settled = true
-            Refresh()
-        end)
-    else
-        Refresh()
+eventFrame:SetScript("OnEvent", Refresh)
+
+-- One texture per file, at alpha 0. The frame has no parent, so hiding the
+-- UI doesn't hide it: the files stay loaded.
+local artFrame = CreateFrame("Frame")
+artFrame:SetSize(64, 64)
+artFrame:SetPoint("BOTTOMLEFT")
+local artTextures = {}
+for _, textures in pairs(STORY_TEXTURES) do
+    for _, file in pairs(textures) do
+        local texture = artFrame:CreateTexture()
+        texture:SetAllPoints()
+        texture:SetAlpha(0)
+        texture:SetTexture(file)
+        artTextures[#artTextures + 1] = texture
     end
+end
+artFrame:SetScript("OnUpdate", function(self)
+    for _, texture in ipairs(artTextures) do
+        if not texture:IsObjectLoaded() then return end
+    end
+    self:SetScript("OnUpdate", nil)
+    artLoaded = true
+    Refresh()
 end)
