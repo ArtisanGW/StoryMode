@@ -136,6 +136,8 @@ Forever added quests to the original chains, so the stories need a quest scan:
 
 `/sm scan retry` asks again, more slowly, for only the quests the last scan didn't get, to tell quests the server holds back from dropped requests. `node _Dev/tools/forever-quest-scan.mjs quest . <id> …` prints a cached quest's level, zone, text, follow-up and the quests that lead into it.
 
+Candidates for new stories: `_Dev/forever-quest-series.csv` holds every Wowhead Forever quest series of 3 or more steps, with its status (routine 3-5 steps, immersive 6-9, epic 10-14, legendary 15+), faction and classes. `node _Dev/tools/wowhead-quest-series.mjs snippet` prints the browser-console script that reads it from Wowhead, `save <file.json> .` writes the CSV from what it downloads, and `list . --faction horde --class mage --status epic` filters it.
+
 Story data marks Forever differences per line:
 
 - `gameVersions = { forever = true }` for a quest only Forever has.
