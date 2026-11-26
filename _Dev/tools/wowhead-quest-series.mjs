@@ -185,7 +185,8 @@ async function readWowheadQuestSeries(delay) {
     if (page === null) return stop(`Wowhead refused quest ${id}`);
     saved.series[id] = { steps: page === "missing" ? [] : seriesSteps(page, Number(id)) };
     store();
-    if ((index + 1) % 25 === 0) console.log(`${total - ids.length + index + 1} of ${total} series read.`);
+    if (index < 3) console.log(`Quest ${id}: ${saved.series[id].steps.length} steps.`);
+    else if ((index + 1) % 10 === 0) console.log(`${total - ids.length + index + 1} of ${total} series read.`);
     await sleep(delay);
   }
 
