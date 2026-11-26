@@ -1,12 +1,11 @@
 local _, SM = ...
 
--- The story quests on the player's map, as the game reports them:
--- - offered: quests a giver there has for the player (the same quest lines
---   the world map shows as "!"), with the giver's name from the story data
--- - in the log: quests the game places on that map
--- Each with its map position. Listeners run whenever the list is rebuilt.
+-- The player's map, and the story quests a giver there has for the player
+-- (the same quest lines the world map shows as "!"), as the game reports
+-- them: each with its map position and the giver's name from the story data.
+-- Listeners run whenever the list is rebuilt: on zone and quest log changes.
 
-local OnMap = { mapID = nil, offered = {}, inLog = {} }
+local OnMap = { mapID = nil, offered = {} }
 SM.StoryQuestsOnMap = OnMap
 
 local listeners = {}
@@ -32,22 +31,10 @@ local function CollectOffered(mapID)
     end
 end
 
-local function CollectInLog(mapID)
-    for _, questOnMap in ipairs(C_QuestLog.GetQuestsOnMap(mapID) or {}) do
-        if SM.FindQuestStory(questOnMap.questID) then
-            OnMap.inLog[#OnMap.inLog + 1] = { questID = questOnMap.questID, x = questOnMap.x, y = questOnMap.y }
-        end
-    end
-end
-
 function OnMap.Rebuild()
     OnMap.mapID = C_Map.GetBestMapForUnit("player")
     wipe(OnMap.offered)
-    wipe(OnMap.inLog)
-    if OnMap.mapID then
-        CollectOffered(OnMap.mapID)
-        CollectInLog(OnMap.mapID)
-    end
+    if OnMap.mapID then CollectOffered(OnMap.mapID) end
     for _, listener in ipairs(listeners) do listener() end
 end
 

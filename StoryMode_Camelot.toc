@@ -124,7 +124,7 @@ Code\UI\StoryQuestMarks.lua
 Code\UI\StoryMapPins.lua
 Code\UI\StoryQuestListPins.lua
 Code\UI\StoryNameplates.lua
-Code\UI\StoryMinimapMarks.lua
+Code\UI\StoryMinimapAreas.lua
 Code\UI\AdventureCover.lua
 Code\UI\Banners.lua
 Code\UI\MinimapButton.lua
