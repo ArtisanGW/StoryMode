@@ -10,6 +10,7 @@ ignore:
   - .packager
   - .quest-audit-cache
   - _Dev
+  - tests
   - DESCRIPTION.md
   - README.md
   - tests
