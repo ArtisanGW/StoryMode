@@ -87,6 +87,7 @@ Data\Forever\QuestText\ruRU.lua
 Data\Forever\QuestText\zhCN.lua
 Data\Forever\QuestText\zhTW.lua
 Data\Forever\ForeverStoryLevels.lua
+Data\Forever\ForeverQuestInstances.lua
 Data\Forever\ForeverNPCDisplayIDs.lua
 Data\Forever\AlcazPrisonData.lua
 Data\Forever\DrownedCityData.lua

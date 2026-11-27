@@ -161,8 +161,8 @@ SM.OnyxiaData = {
             summary = "Marshal Maxwell at Morgan's Vigil has word from Marshal Windsor: he's bound for Stormwind and wants you there when he arrives. Go to the city gates and find Squire Rowe, who will let Windsor know you've come.",
             recap = "A squire at the gates of Stormwind had one job that day: let Marshal Windsor know I'd come. Then Windsor arrived, and we walked into the city together, and I kept him alive all the way up to the keep. That took some doing.\n\nIn the throne room he faced Lady Katrana Prestor, the most trusted voice at court, and called her by her real name. Onyxia. The whole court got a good look at what had been whispering in the Highlord's ear all this time.\n\nShe killed him for it, right there. But the secret was out, and there's no spell in the world that puts that back.\n\nI never got to buy him a drink. So this one's his.",
             quests = {
-                { id = 6402, name = "Stormwind Rendezvous", npc = "Marshal Maxwell" },
-                { id = 6403, altIds = { 99435 }, name = "The Great Masquerade", npc = "Reginald Windsor" },
+                { id = 6402, name = "Stormwind Rendezvous", npc = "Marshal Maxwell", attunement = true },
+                { id = 6403, altIds = { 99435 }, name = "The Great Masquerade", npc = "Reginald Windsor", attunement = true },
             },
         },
         {
@@ -171,7 +171,7 @@ SM.OnyxiaData = {
             summary = "Highlord Bolvar Fordragon in Stormwind Keep hands you a fragment of the Dragon's Eye. Someone out there can restore its power. That is the whole of what anyone knows about them, so the search may take a while.",
             recap = "Afterward the Highlord handed me a fragment of something called the Dragon's Eye and told me to find someone who could restore its power. Who? Nobody knew. Where? Nobody knew that either. All anyone could say for certain was that such a someone existed. I've had better directions from drunks.\n\nThe someone turned out to be Haleh, up at Mazthoril in Winterspring, and Haleh's price for the Drakefire Amulet was the blood of the black dragonflight's champion. General Drakkisath, on his throne at the top of Blackrock Spire.\n\nI went up with friends. Drakkisath had a great many guards and a bad temper, and by the end a lot less blood. Haleh made the amulet. Onyxia keeps a lair down in Dustwallow Marsh, and now I can let myself in.",
             quests = {
-                { id = 6501, name = "The Dragon's Eye", npc = "Highlord Bolvar Fordragon" },
+                { id = 6501, name = "The Dragon's Eye", npc = "Highlord Bolvar Fordragon", attunement = true },
                 { id = 6502, name = "Drakefire Amulet", npc = "Haleh" },
                 { id = 5001, name = "Bijou's Belongings", npc = "Bijou", optional = true },
                 { id = 5002, name = "Message to Maxwell", npc = "Bijou", optional = true, afterQuest = 5001 },
@@ -234,10 +234,10 @@ SM.OnyxiaData = {
             summary = "Emberstrife, in a den deep in the Wyrmbog of Dustwallow Marsh, won't take you on faith. The test is skulls: one from a champion of each of the blue, green, bronze and red dragonflights.",
             recap = "Emberstrife wanted proof, and dragons keep their proof in skulls. Four of them, one from the champion of each of the other flights: blue up in Winterspring, green in the Swamp of Sorrows, red on the road to Grim Batol, and bronze guarding the Caverns of Time. That's a lot of map for one shopping list, and not one of them went down easy.\n\nI hauled the lot back to the Wyrmbog, still wearing my borrowed face, and came away with a dull old amulet and one large problem. The next step was inside Blackrock Spire, and the disguise wouldn't hold up in there.\n\nThe charade was over. So I went to find Rexxar again, which, as you'll remember, takes a while.",
             quests = {
-                { id = 6582, name = "The Test of Skulls, Scryer", npc = "Emberstrife" },
-                { id = 6583, name = "The Test of Skulls, Somnus", npc = "Emberstrife" },
-                { id = 6584, name = "The Test of Skulls, Chronalis", npc = "Emberstrife" },
-                { id = 6585, name = "The Test of Skulls, Axtroz", npc = "Emberstrife" },
+                { id = 6582, name = "The Test of Skulls, Scryer", npc = "Emberstrife", attunement = true },
+                { id = 6583, name = "The Test of Skulls, Somnus", npc = "Emberstrife", attunement = true },
+                { id = 6584, name = "The Test of Skulls, Chronalis", npc = "Emberstrife", attunement = true },
+                { id = 6585, name = "The Test of Skulls, Axtroz", npc = "Emberstrife", attunement = true },
                 { id = 6601, name = "Ascension...", npc = "Emberstrife" },
             },
         },

@@ -23,7 +23,7 @@ end
 local KNOWN_KEYS = {}
 for key in ([[id name npc faction gameVersions optional parallel recap recapAlliance recapHorde race class
     excludeRace ids altIds foreverId foreverOptional classicId guidanceQuest guidanceQuests location mapID x y item objective
-    breadcrumbFor afterQuest displayName hideIf showIf instance recapAfter trackingHint trackingHintFormat
+    breadcrumbFor afterQuest attunement displayName hideIf showIf instance recapAfter trackingHint trackingHintFormat
     trackingHintQuestID trackingHintQuestName trackingHintPlace trackingHintNPC trackingHintDestination]]):gmatch("%S+") do
     KNOWN_KEYS[key] = true
 end

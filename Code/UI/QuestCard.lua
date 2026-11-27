@@ -121,6 +121,11 @@ function SM.RefreshQuestCardTooltip(card, requestQuestData)
     if card.tooltipNPC then
         SMTooltip:AddLine(card.tooltipNPC, C_BODY[1], C_BODY[2], C_BODY[3])
     end
+    -- A dungeon or raid quest names its instance, with the quest log's icon:
+    -- the card's corner shows the date instead once the quest is done.
+    if card.tooltipInstance then
+        SMTooltip:AddLine(card.tooltipInstance, C_BODY[1], C_BODY[2], C_BODY[3])
+    end
 
     -- Objectives are only useful for active, incomplete quests. Completed
     -- quests no longer keep live counters, which makes old objective lines stale.
@@ -259,19 +264,41 @@ local DATA_INSTANCE_TAGS = {
     dungeon = { label = "LFG_TYPE_DUNGEON", fallback = "Dungeon", icon = DUNGEON_ICON },
     raid = { label = "LFG_TYPE_RAID", fallback = "Raid", icon = RAID_ICON },
 }
+-- Where the quest's dungeon or raid is known (Data/Forever/
+-- ForeverQuestInstances.lua: quest ID -> its area), the card names it
+-- ("Uldaman") in the client's language instead of saying "Dungeon".
+local function GetInstanceName(quest)
+    local areas = SM.ForeverQuestInstances
+    if not (areas and C_Map and C_Map.GetAreaInfo) then return nil end
+    local area
+    for _, questID in ipairs(SM.GetQuestIDs(quest)) do
+        area = area or areas[questID]
+    end
+    area = area or (quest.classicId and areas[quest.classicId])
+    local name = area and C_Map.GetAreaInfo(area)
+    return name ~= "" and name or nil
+end
+
 local function GetInstanceQuestTag(quest)
     if not quest then return nil end
+    local label, icon
     local tag = quest.instance and DATA_INSTANCE_TAGS[quest.instance]
-    if tag then return _G[tag.label] or tag.fallback, tag.icon end
-    if C_QuestLog and C_QuestLog.GetQuestTagInfo then
+    if tag then
+        label, icon = _G[tag.label] or tag.fallback, tag.icon
+    elseif C_QuestLog and C_QuestLog.GetQuestTagInfo then
         for _, questID in ipairs(SM.GetQuestIDs(quest)) do
             local info = C_QuestLog.GetQuestTagInfo(questID)
             if info and INSTANCE_QUEST_TAGS[info.tagID] and info.tagName and info.tagName ~= "" then
-                return info.tagName, INSTANCE_QUEST_TAGS[info.tagID]
+                label, icon = info.tagName, INSTANCE_QUEST_TAGS[info.tagID]
+                break
             end
         end
     end
-    return nil
+    if not label then return nil end
+    -- A quest that opens a raid without taking place in it (Onyxia's
+    -- attunement, attunement = true) says so; its tooltip names the raid.
+    if quest.attunement then return L["Quest Status Attunement"], icon end
+    return GetInstanceName(quest) or label, icon
 end
 
 -- A turn-in day the way Legacy writes a challenge's date (13/11/26 or
@@ -631,6 +658,12 @@ local function CreateLegacyQuestCard(parent)
     card.statusBackground = card:CreateTexture(nil, "OVERLAY")
     SetAtlas(card.statusBackground, LEGACY.statusBackground, true)
     card.statusBackground:SetPoint("TOPRIGHT", card, "TOPRIGHT", -6, -3)
+    local artWidth = card.statusBackground:GetWidth()
+    card.statusBackgroundWidth = (artWidth and artWidth > 0) and artWidth or 124   -- the art's own width
+    -- When it widens for a long dungeon name, its rounded ends keep their shape.
+    if card.statusBackground.SetTextureSliceMargins then
+        pcall(card.statusBackground.SetTextureSliceMargins, card.statusBackground, 10, 4, 10, 4)
+    end
     card.check = card:CreateTexture(nil, "OVERLAY", nil, 1)
     SetAtlas(card.check, LEGACY.check, true)
     card.check:SetScale(0.5)
@@ -755,6 +788,10 @@ local function CreateLegacyQuestCard(parent)
         local turnedIn = done and SM.GetQuestTurnInDate and SM.GetQuestTurnInDate(quest)
         local instanceTag, instanceIcon
         if not undiscovered then instanceTag, instanceIcon = GetInstanceQuestTag(quest) end
+        local instanceName = instanceTag and GetInstanceName(quest)
+        self.tooltipInstance = instanceName
+            and ((CreateAtlasMarkup and instanceIcon) and (CreateAtlasMarkup(instanceIcon, 14, 14) .. " ") or "") .. instanceName
+            or nil
         -- WoW keeps no completion dates, so quests finished before Story
         -- Mode started saving them say Completed instead.
         local statusText = (turnedIn and FormatTurnInDate(turnedIn))
@@ -774,6 +811,10 @@ local function CreateLegacyQuestCard(parent)
         local showIcon = instanceIcon ~= nil and (done or statusText == instanceTag)
         if showIcon then self.instanceIcon:SetAtlas(instanceIcon) end
         self.instanceIcon:SetShown(showIcon)
+        -- A dungeon's name can be longer than the corner's art: the art widens
+        -- to hold it (the check or right edge, the text, the icon, a margin).
+        local needed = (self.status:GetStringWidth() or 0) + (done and 30 or 8) + (showIcon and 19 or 0) + 14
+        self.statusBackground:SetWidth(math.max(self.statusBackgroundWidth, needed))
 
         local color = dimmed and GRAY or WHITE
         self.title:SetTextColor(color[1], color[2], color[3])

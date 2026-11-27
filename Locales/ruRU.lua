@@ -166,6 +166,7 @@ L["Story Suggested Level Format"] = "Рекомендуемый уровень: 
 L["Quest Status Completed"] = "Завершено"
 L["Quest Status In Progress"] = "В процессе"
 L["Quest Status Optional"] = "Необязательно"
+L["Quest Status Attunement"] = "Допуск"
 L["Quest Status Not Available"] = "Пока недоступно"
 L["Quest Mode Guided"] = "С подсказками"
 L["Quest Mode Explorer"] = "Исследователь"
