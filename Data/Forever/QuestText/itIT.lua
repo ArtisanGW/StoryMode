@@ -1130,6 +1130,7 @@ SM.ForeverQuestTextLocalized = {
     [8995] = "Usa il Braciere del richiamo per evocare Sire Valthalak. Eliminalo e usa l'Amuleto di Sire Valthalak sul suo cadavere. Poi riporta l'Amuleto di Sire Valthalak allo Spirito di Sire Valthalak.",
     [8996] = "Torna da Bodley nel Massiccio Roccianera e consegnagli il Braciere del richiamo.",
     [8997] = "Parla con Deliana al Trono Supremo di Forgiardente.",
+    [8998] = "Parla con Mokvar nel Mastio Grommash, nella Valle della Saggezza di Orgrimmar.",
     [9015] = "Recati all'Anello della Legge nei Sotterranei di Roccianera e pianta lo Stendardo della provocazione al centro mentre l'Alto Giudice Grimstone pronuncia la tua sentenza. Uccidi Theldren e i suoi gladiatori e torna da Anthion Harmon nelle Terre Infette Orientali con il primo pezzo dell'amuleto di Sire Valthalak.",
     [9362] = "Recupera la Conchiglia prismatica per l'Arcimago Xylem. L'Arcimago risiede in una torre in cima alle scogliere di Azshara.",
     [9364] = "Usa Metamorfosi sui naga Spitelash di Azshara e uccidi i cloni che appaiono alcuni secondi dopo. Dopo aver ucciso 50 Cloni Metamorfizzati, torna dall'Arcimago Xylem ad Azshara.",

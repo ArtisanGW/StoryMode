@@ -1131,6 +1131,7 @@ SM.ForeverQuestTextLocalized = {
     [8995] = "Usa el Blandón de Invocación para conjurar a Lord Valthalak. Despáchalo y usa el amuleto de Lord Valthalak sobre el cadáver. Después devuélvele el amuleto de Lord Valthalak al espíritu de Lord Valthalak.",
     [8996] = "Vuelve junto a Bodley en el interior de la Montaña Roca Negra y dale el Blandón de Señalización.",
     [8997] = "Habla con Deliana en El Trono en Forjaz.",
+    [8998] = "Habla con Mokvar en el Fuerte Grommash en el Valle de los Espíritus de Orgrimmar.",
     [9015] = "Dirígete al Círculo de la Ley en las Profundidades de Roca Negra y coloca el estandarte de la Provocación en el centro cuando el Alto justiciero Pedrasiniestra pronuncie tu veredicto. Mata a Theldren y a sus gladiadores y regresa junto a Anthion Harmon en las Tierras de la Peste del Este con la primera pieza del amuleto de Lord Valthalak.",
     [9362] = "Recupera la concha prismática para el archimago Xylem. El archimago vive en una torre en lo alto del precipicio de Azshara.",
     [9364] = "Aplica el hechizo polimórfico al Látigo de Ira de Azshara y mata a los clones que aparezcan pasados unos segundos. Cuando hayas matado a suficientes, vuelve junto al archimago Xylem en Azshara.",

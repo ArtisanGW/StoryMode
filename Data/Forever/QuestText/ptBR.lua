@@ -1131,6 +1131,7 @@ SM.ForeverQuestTextLocalized = {
     [8995] = "Use o Braseiro de Sinalização para evocar o Lorde Valthalak. Acabe com ele e use o Amuleto do Lorde Valthalak no cadáver. Em seguida, devolva o Amuleto do Lorde Valthalak ao Espírito de Lorde Valthalak.",
     [8996] = "Fale novamente com Bodley na Montanha Rocha Negra e dê a ele o Braseiro de Sinalização.",
     [8997] = "Fale com Deliana na Sala do Trono em Altaforja.",
+    [8998] = "Fale com Mokvar no Castelo Grommash, que fica no Vale da Sabedoria, em Orgrimmar.",
     [9015] = "Viaje até o Círculo da Lei no Abismo Rocha Negra e coloque o Estandarte da Provocação no centro enquanto ouve a sentença do Supremo Juiz Durólito. Mate Theldren e seus gladiadores e fale novamente com Anthion Harmon nas Terras Pestilentas Orientais em posse da primeira parte do amuleto de Lorde Valthalak.",
     [9362] = "Recupere a Concha Prismática para o Arquimago Tauriel. O Arquimago reside numa torre no topo dos penhascos de Azshara.",
     [9364] = "Polimorfe as Iraliscas de Azshara e mate os clones que aparecerem. Quando matar 50 Clones Polimorfados, volte e fale com o Arquimago Tauriel, em Azshara.",

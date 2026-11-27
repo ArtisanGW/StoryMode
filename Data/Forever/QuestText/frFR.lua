@@ -1131,6 +1131,7 @@ SM.ForeverQuestTextLocalized = {
     [8995] = "Utilisez le Brasero de signal pour invoquer le seigneur Valthalak. Tuez-le, puis utilisez l’Amulette du seigneur Valthalak sur le corps. Ensuite, rendez l’amulette à l’Esprit du seigneur Valthalak.",
     [8996] = "Retournez voir Bodley à l'intérieur du mont Blackrock et donnez-lui le Brasero de signal.",
     [8997] = "Parlez à Deliana au Haut Siège d'Ironforge.",
+    [8998] = "Parlez à Mokvar au Fort Grommash, dans la Vallée de la Sagesse d'Orgrimmar.",
     [9015] = "Rendez-vous dans le Cercle de la loi, dans les profondeurs de Blackrock, et placez la Bannière de provocation en son centre lorsque vous serez $Gcondamné:condamnée; par le Juge supérieur Grimstone. Tuez Theldren et ses gladiateurs, puis retournez voir Anthion Harmon dans les Maleterres de l’est avec le premier morceau de l’amulette du seigneur Valthalak.",
     [9362] = "Récupérez la Coquille prismatique pour l'archimage Xylem. L'archimage réside dans une tour au sommet des falaises d'Azshara.",
     [9364] = "Métamorphosez les Fouette-bile d’Azshara, puis tuez les clones qui apparaissent quelques instants plus tard. Quand vous aurez tué 50 clones de métamorphose, retournez voir l’archimage Xylem en Azshara.",

@@ -1131,6 +1131,7 @@ SM.ForeverQuestTextLocalized = {
     [8995] = "Benutzt das Räuchergefäß der Beschwörung, um Lord Valthalak zu beschwören. Macht ihn unschädlich und benutzt dann Lord Valthalaks Amulett bei seiner Leiche. Danach werdet Ihr dem Geist von Lord Valthalak sein Amulett zurückgeben müssen.",
     [8996] = "Bringt das Räuchergefäß der Beschwörung zurück zu Bodley im Blackrock.",
     [8997] = "Sprecht mit Deliana am Hohen Sitz von Ironforge.",
+    [8998] = "Sprecht mit Mokvar in der Feste Grommash im Tal der Weisheit von Orgrimmar.",
     [9015] = "Reist zum Ring des Gesetzes der Blackrocktiefen und errichtet das Banner der Provokation in dessen Mitte, während Ihr von Oberrichter Grimmstein verurteilt werdet. Tötet Theldren und seine Gladiatoren und kehrt dann mit dem ersten Stück von Lord Valthalaks Amulett zu Anthion Harmon in den östlichen Pestländern zurück.",
     [9362] = "Beschafft die prismatische Muschel für Erzmagier Xylem. Der Erzmagier befindet sich in einem Turm auf den Klippen von Azshara.",
     [9364] = "Verwandelt die Grollflossen von Azshara und tötet die Kopien, die einige Sekunden später auftauchen. Wenn Ihr 50 verwandelte Kopien vernichtet habt, kehrt zu Erzmagier Xylem in Azshara zurück.",

@@ -1130,6 +1130,7 @@ SM.ForeverQuestText = {
     [8995] = "Use the Brazier of Beckoning to summon Lord Valthalak. Dispatch him, and use Lord Valthalak's Amulet on the corpse. Then, return Lord Valthalak's Amulet to the Spirit of Lord Valthalak.",
     [8996] = "Return to Bodley inside Blackrock Mountain and give him the Brazier of Beckoning.",
     [8997] = "Speak with Deliana at The High Seat in Ironforge.",
+    [8998] = "Speak with Mokvar at Grommash Hold in Orgrimmar's Valley of Wisdom.",
     [9015] = "Travel to the Ring of the Law in Blackrock Depths and place the Banner of Provocation in its center as you are sentenced by High Justice Grimstone.  Slay Theldren and his gladiators and return to Anthion Harmon in the Eastern Plaguelands with the first piece of Lord Valthalak's amulet.",
     [9362] = "Retrieve the Prismatic Shell for Archmage Xylem.  The Archmage resides in a tower atop the cliffs of Azshara.",
     [9364] = "Polymorph the Spitelash of Azshara and kill the clones that appear several seconds later.  When you have slain 50 Polymorph Clones, return to Archmage Xylem in Azshara.",
