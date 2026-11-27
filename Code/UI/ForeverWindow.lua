@@ -438,6 +438,13 @@ local SETTINGS = {
         set = function(value) SM.SetQuestTrackerStoryFilterEnabled(value) end,
         explain = function() return L["Setting Story Quest Filter Text"] end,
     },
+    {
+        label = "Setting Story Quest Marks", kind = "check",
+        available = function() return SM.SetStoryQuestMarks ~= nil end,
+        get = function() return StoryModeDB and StoryModeDB.markStoryQuests == true end,
+        set = function(value) SM.SetStoryQuestMarks(value) end,
+        explain = function() return L["Setting Story Quest Marks Text"] end,
+    },
 }
 
 local startPage = { shown = false, rows = {}, page = 1 }

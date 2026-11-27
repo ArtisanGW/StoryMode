@@ -5,6 +5,7 @@
 ### WoW Forever
 - Only show quests from the selected story in the objective tracker when enabled. Other quests stay in the Quest Log and are restored when the option is turned off; toggle it from Story Mode's minimap button right-click menu (ArtisanGW)
 - With a controller, right-clicking the minimap button opens Story Mode's settings page instead of a menu. The game's menu, opened by an addon, broke the controller's buttons with "Interface action failed" (ArtisanGW)
+- New setting, Mark story quests: story quests get a coloured mark, green for the story you follow and lime green for the other stories. On the world map and in its quest list, givers, turn-ins, quests in progress and quest areas are marked; on the minimap, tracked quests' areas take the colour when every tracked quest there shares it (the game uses one look for all of them; the focused quest's border can't change, so turning on Only story quests clears the focus); NPCs who offer one get a mark above their nameplate when friendly NPC nameplates are on. The game's own ! over NPCs and on the minimap can't be recoloured, so it stays yellow (ArtisanGW)
 
 ## 2.1.0
 
