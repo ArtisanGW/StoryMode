@@ -87,12 +87,40 @@ local function AddHiddenWatches(hidden, watched, selectedStoryID)
     end
 end
 
+local function Rewatch(questID)
+    SM.RemoveQuestWatch(questID)
+    SM.AddQuestWatch(questID)
+end
+
+-- The game puts each new watch first, and a full tracker leaves out the last
+-- ones: once the hidden quests were back, the followed story's quests were
+-- last and out of the tracker (measured with DevTrackerProbe). So the story
+-- quests are watched again in front: the followed story's, then other
+-- stories', each in the order they had.
+local function PutStoryQuestsFirst(followedStoryID)
+    local followedQuests, otherStoryQuests = {}, {}
+    for _, questID in ipairs(ReadWatchedQuestIDs()) do
+        local story = SM.FindQuestStory(questID)
+        if story and story.id == followedStoryID then
+            followedQuests[#followedQuests + 1] = questID
+        elseif story then
+            otherStoryQuests[#otherStoryQuests + 1] = questID
+        end
+    end
+    -- Last to first, so the first ends up on top.
+    for index = #otherStoryQuests, 1, -1 do Rewatch(otherStoryQuests[index]) end
+    for index = #followedQuests, 1, -1 do Rewatch(followedQuests[index]) end
+end
+
 local function RestoreHiddenWatches(hidden, watched)
+    local restored = false
     for questID in pairs(hidden) do
         if IsQuestInLog(questID) and not watched[questID] then
             SM.AddQuestWatch(questID)
+            restored = true
         end
     end
+    if restored then PutStoryQuestsFirst(SM.GetFollowedStoryID()) end
 
     watched = WatchedQuestSet(ReadWatchedQuestIDs())
     for questID in pairs(hidden) do
