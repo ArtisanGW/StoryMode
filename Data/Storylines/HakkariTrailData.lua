@@ -73,6 +73,9 @@ SM.HakkariTrailData = {
     },
 
     npcDisplayIDs = {
+        -- Lead-up quest givers: AzerothCore creature_template_model (same models as Classic).
+        ["Falstad Wildhammer"] = 7005,
+        ["Rhapsody Shindigger"] = 3874,
         -- Quest givers' models from the cmangos Classic database.
         ["Yeh'kinya"] = 7902,
         ["Prospector Ironboot"] = 10195,
@@ -150,33 +153,21 @@ SM.HakkariTrailData = {
                 { id = 3528, name = "The God Hakkar", npc = "Yeh'kinya" },
                 { id = 3380, name = "The Sunken Temple", npc = "Witch Doctor Uzer'i", faction = "Horde", optional = true },
                 { id = 3445, name = "The Sunken Temple", npc = "Angelas Moonbreeze", faction = "Alliance", optional = true },
-                { id = 3446, name = "Into the Depths", npc = "Marvon Rivetseeker", optional = true, recap = "Marvon Rivetseeker, a goblin who studies troll ruins, had been inside the Sunken Temple once and nearly died poking a serpent statue. Marvon's theory was that the altar at the bottom of the round room held the secret, so down I went with a stone circle to test it. It fit exactly and locked in place, which in that temple is never the end of it.",
-                    guidanceQuests = {
-                        { id = 3444, name = "The Stone Circle", npc = "Marvon Rivetseeker", mapID = 71, x = 0.5260, y = 0.4580 },
-                    },
-                },
-                { id = 3447, name = "Secret of the Circle", npc = "Marvon Rivetseeker", optional = true, recap = "Marvon Rivetseeker had a hazy memory of lights over the ring of serpent statues in the Sunken Temple, and a hunch they guarded treasure. Light them in the right order and something does happen: a very large guardian turns up to object. Behind the idol's glass eye sat the Atal'ai treasure, worth every bit of the argument.",
-                    guidanceQuests = {
-                        { id = 3444, name = "The Stone Circle", npc = "Marvon Rivetseeker", mapID = 71, x = 0.5260, y = 0.4580 },
-                    },
-                },
-                { id = 1475, name = "Into The Temple of Atal'Hakkar", npc = "Brohann Caskbelly", faction = "Alliance", optional = true, recap = "Brohann Caskbelly in Stormwind had one last assignment for the Explorers' League before retiring: ten Atal'ai tablets out of the Sunken Temple. Pride kept him from asking for help, right up until he asked me. I brought the tablets, and Brohann said both our names would go into the League's history, though I've never gone to check.",
-                    guidanceQuests = {
-                        { id = 1448, name = "In Search of The Temple", npc = "Brohann Caskbelly", mapID = 84, x = 0.6940, y = 0.4040 },
-                        { id = 1449, name = "To The Hinterlands", npc = "Brohann Caskbelly", mapID = 84, x = 0.6940, y = 0.4040 },
-                        { id = 1450, name = "Gryphon Master Talonaxe", npc = "Falstad Wildhammer", mapID = 26, x = 0.1180, y = 0.4680 },
-                        { id = 1451, name = "Rhapsody Shindigger", npc = "Gryphon Master Talonaxe", mapID = 26, x = 0.0980, y = 0.4440 },
-                        { id = 1452, name = "Rhapsody's Kalimdor Kocktail", npc = "Rhapsody Shindigger", mapID = 26, x = 0.2680, y = 0.4840 },
-                        { id = 1469, name = "Rhapsody's Tale", npc = "Rhapsody Shindigger", mapID = 26, x = 0.2680, y = 0.4840 },
-                    },
-                },
-                { id = 1445, name = "The Temple of Atal'Hakkar", npc = "Fel'zerul", faction = "Horde", optional = true, recap = "Fel'zerul in Stonard didn't trust the Atal'ai or their talk of Hakkar making them immortal, and wanted twenty of their Fetishes of Hakkar to learn what they were for. Twenty is a lot of fetishes. Every one of them came off an Atal'ai who believed very sincerely.",
-                    guidanceQuests = {
-                        { id = 1424, name = "Pool of Tears", npc = "Fel'zerul", mapID = 51, x = 0.4800, y = 0.5500 },
-                        { id = 1429, name = "The Atal'ai Exile", npc = "Fel'zerul", mapID = 51, x = 0.4800, y = 0.5500 },
-                        { id = 1444, name = "Return to Fel'Zerul", npc = "Atal'ai Exile", mapID = 26, x = 0.3360, y = 0.7520 },
-                    },
-                },
+                { id = 3444, name = "The Stone Circle", npc = "Marvon Rivetseeker", optional = true, recap = "Marvon Rivetseeker had left something called the Stone Circle in a workshop in Ratchet and wanted it fetched. I fetched it, and Marvon had plans for it." },
+                { id = 3446, name = "Into the Depths", npc = "Marvon Rivetseeker", optional = true, afterQuest = 3444, recap = "Marvon Rivetseeker, a goblin who studies troll ruins, had been inside the Sunken Temple once and nearly died poking a serpent statue. Marvon's theory was that the altar at the bottom of the round room held the secret, so down I went with a stone circle to test it. It fit exactly and locked in place, which in that temple is never the end of it." },
+                { id = 3447, name = "Secret of the Circle", npc = "Marvon Rivetseeker", optional = true, afterQuest = 3444, recap = "Marvon Rivetseeker had a hazy memory of lights over the ring of serpent statues in the Sunken Temple, and a hunch they guarded treasure. Light them in the right order and something does happen: a very large guardian turns up to object. Behind the idol's glass eye sat the Atal'ai treasure, worth every bit of the argument." },
+                -- Brohann Caskbelly's temple quest comes after the search that leads to Rhapsody Shindigger.
+                { id = 1448, name = "In Search of The Temple", npc = "Brohann Caskbelly", faction = "Alliance", optional = true },
+                { id = 1449, name = "To The Hinterlands", npc = "Brohann Caskbelly", faction = "Alliance", optional = true, afterQuest = 1448 },
+                { id = 1450, name = "Gryphon Master Talonaxe", npc = "Falstad Wildhammer", faction = "Alliance", optional = true, afterQuest = 1449, mapID = 26, x = 0.1180, y = 0.4680 },
+                { id = 1451, name = "Rhapsody Shindigger", npc = "Gryphon Master Talonaxe", faction = "Alliance", optional = true, afterQuest = 1450 },
+                { id = 1452, name = "Rhapsody's Kalimdor Kocktail", npc = "Rhapsody Shindigger", faction = "Alliance", optional = true, afterQuest = 1451, mapID = 26, x = 0.2680, y = 0.4840 },
+                { id = 1469, name = "Rhapsody's Tale", npc = "Rhapsody Shindigger", faction = "Alliance", optional = true, afterQuest = 1452, mapID = 26, x = 0.2680, y = 0.4840, recap = "Brohann Caskbelly of the Explorers' League in Stormwind wanted the Temple of Atal'Hakkar found, and the trail started in the Hinterlands. High Thane Falstad Wildhammer at Aerie Peak sent me to Gryphon Master Talonaxe, who sent me to Rhapsody Shindigger, who knew a tale about the temple and would tell it for a cocktail of roc gizzards, groddoc livers and ironfur livers. I brought the ingredients, heard the tale, and carried a fragment of an Atal'ai tablet back to Brohann." },
+                { id = 1475, name = "Into The Temple of Atal'Hakkar", npc = "Brohann Caskbelly", faction = "Alliance", optional = true, afterQuest = 1469, recap = "Brohann Caskbelly in Stormwind had one last assignment for the Explorers' League before retiring: ten Atal'ai tablets out of the Sunken Temple. Pride kept him from asking for help, right up until he asked me. I brought the tablets, and Brohann said both our names would go into the League's history, though I've never gone to check." },
+                { id = 1424, name = "Pool of Tears", npc = "Fel'zerul", faction = "Horde", optional = true },
+                { id = 1429, name = "The Atal'ai Exile", npc = "Fel'zerul", faction = "Horde", optional = true, afterQuest = 1424 },
+                { id = 1444, name = "Return to Fel'Zerul", npc = "Atal'ai Exile", faction = "Horde", optional = true, afterQuest = 1429, recap = "Fel'zerul in Stonard wanted to know more about the trolls at the Pool of Tears, and sent me to collect ten of their Atal'ai artifacts. Fel'zerul couldn't make sense of them and sent me with the bundle to an Atal'ai exile hiding in the Hinterlands, who could. Then I took what the exile had to say back to Stonard." },
+                { id = 1445, name = "The Temple of Atal'Hakkar", npc = "Fel'zerul", faction = "Horde", optional = true, afterQuest = 1444, recap = "Fel'zerul in Stonard didn't trust the Atal'ai or their talk of Hakkar making them immortal, and wanted twenty of their Fetishes of Hakkar to learn what they were for. Twenty is a lot of fetishes. Every one of them came off an Atal'ai who believed very sincerely." },
                 { id = 1446, name = "Jammal'an the Prophet", npc = "Atal'ai Exile", optional = true, recap = "An Atal'ai exile out in the Hinterlands, cast out by the tribe, wanted the head of Jammal'an the Prophet, who had convinced them all that Hakkar would make them immortal. I brought the head. The exile had hoped it might free the tribe, and mourned them anyway." },
                 { id = 3373, name = "The Essence of Eranikus", npc = "Essence of Eranikus", optional = true, recap = "When the shade of Eranikus fell, it left a gem holding part of the dragon's essence, and a voice asking me to set it in the font in its lair so it could finally rest. I did, and the font turned out to be tainted as well, and the last I heard was Eranikus begging me to find the green dragonflight. I've done favors that went better." },
                 { id = 3374, name = "The Essence of Eranikus", npc = "Oathstone of Ysera's Dragonflight", optional = true, afterQuest = 3373 },
