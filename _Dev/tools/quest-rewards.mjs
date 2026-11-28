@@ -1,5 +1,5 @@
 // The rewards of the series' quests: EG Link's data first, Wowhead's for what
-// EG Link doesn't have.
+// EG Link doesn't have, Blizzard's Game Data API for what neither has.
 //
 //   node _Dev/tools/quest-rewards.mjs eglink <eg-link-output-wowf folder> [root]
 //     Reads data/wowf/<build>/quests.enUS.json of a clone of
@@ -7,7 +7,7 @@
 //     _Dev/eglink-quest-rewards.json: the level and rewards of the series'
 //     quests, each from the newest build that has the quest.
 //
-//   node _Dev/tools/quest-rewards.mjs merge [root]
+//   node _Dev/tools/quest-rewards.mjs merge [root] [--blizzard <blizzard cache.json>]
 //     Writes _Dev/forever-quest-rewards.csv from _Dev/eglink-quest-rewards.json,
 //     _Dev/wowhead-quest-rewards.csv and the client tables in _Dev/client-tables
 //     (QuestXP and QuestFactionReward, from wago.tools). Each field of a quest
@@ -15,16 +15,21 @@
 //     value for it, else Wowhead's. EG Link's XP is QuestXP's value for the
 //     quest's level and XP difficulty, times its multiplier, rounded as the
 //     server rounds it; its reputation tiers are QuestFactionReward's amounts.
+//     With --blizzard (the cache blizzard-quest-rewards.py writes), a field
+//     that neither has is the API's. The API never replaces a value, its item
+//     counts are always 1, and its XP and money are only taken for quests
+//     known to be below level 60: for the others it gives what a level 60
+//     character is paid. Without --blizzard those fields stay empty.
 //
 //   node _Dev/tools/quest-rewards.mjs check <blizzard cache.json> [root]
 //     Prints the quests whose merged rewards differ from Blizzard's Game Data
-//     API (the cache blizzard-quest-rewards.py writes). A check only: nothing
-//     of Blizzard's goes into the CSV.
+//     API (the same cache).
 //
 // Data from Efficient Games (https://efficient.games), licensed under CC BY 4.0
 // (https://creativecommons.org/licenses/by/4.0/). Changed here: only the
 // series' quests and their reward fields are kept, XP and reputation are
-// worked out as amounts, and Wowhead's values fill what is missing.
+// worked out as amounts, and Wowhead's values, then Blizzard's, fill what is
+// missing.
 
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
@@ -139,53 +144,72 @@ export function wowheadRewards(row) {
   return { ...rewards, xp: roundQuestXP(rewards.xp) };
 }
 
+// The level 60 is the game's last: for a quest of that level Blizzard's API
+// gives the XP and money a level 60 character is paid, not the quest's own.
+const LEVEL_CAP = 60;
+
+// One quest of the Blizzard cache as the reward fields that can be trusted:
+// items, choices and reputation always; xp and money only when the quest's
+// level is known (EG Link has it) and below the level cap. undefined for a
+// quest the API doesn't have.
+export function blizzardRewards(cacheQuest, questLevel) {
+  if (!cacheQuest || cacheQuest.missing) return undefined;
+  const rewards = { items: cacheQuest.items, choices: cacheQuest.choices, reputation: cacheQuest.reputation };
+  if (questLevel !== undefined && questLevel < LEVEL_CAP) {
+    rewards.xp = cacheQuest.xp;
+    rewards.money = cacheQuest.money;
+  }
+  return rewards;
+}
+
 // Does a source have something for this field? 0 and an empty list are
 // "nothing", so the next source is asked.
 const hasValue = (value) => (Array.isArray(value) ? value.length > 0 : Boolean(value));
 
 // One quest's rewards: each field from the first source (EG Link, then
-// Wowhead) that has a value for it. sources says which one gave each field
-// ("eglink", "wowhead", or "none" when neither has it). A source is the
-// quest's reward fields, or undefined when it doesn't have the quest.
-export function mergeQuest(eglink, wowhead) {
+// Wowhead, then Blizzard) that has a value for it. sources says which one
+// gave each field ("eglink", "wowhead", "blizzard", or "none" when none has
+// it). A source is the quest's reward fields, or undefined when it doesn't
+// have the quest.
+export function mergeQuest(eglink, wowhead, blizzard) {
+  const rewardsBySource = [["eglink", eglink], ["wowhead", wowhead], ["blizzard", blizzard]];
   const rewards = {};
   const sources = {};
   for (const field of REWARD_FIELDS) {
-    const empty = field === "xp" || field === "money" ? 0 : [];
-    if (hasValue(eglink?.[field])) {
-      rewards[field] = eglink[field];
-      sources[field] = "eglink";
-    } else if (hasValue(wowhead?.[field])) {
-      rewards[field] = wowhead[field];
-      sources[field] = "wowhead";
-    } else {
-      rewards[field] = empty;
-      sources[field] = "none";
-    }
+    const [source, sourceRewards] = rewardsBySource.find(([, candidate]) => hasValue(candidate?.[field])) || ["none"];
+    sources[field] = source;
+    rewards[field] = sourceRewards ? sourceRewards[field] : (field === "xp" || field === "money" ? 0 : []);
   }
   return { rewards, sources };
 }
 
 // The rewards CSV's rows for the series' quests, and per field how many
-// quests each source gave: counts[field][source].
-export function mergeRewards(questIDs, eglinkQuests, wowheadRows, questXPTable, factionRewardTable) {
+// quests each source gave: counts[field][source]. blizzardQuests is the
+// Blizzard cache's quests ({} for none); blizzardFills lists what it gave:
+// [{ id, field, value }].
+export function mergeRewards(questIDs, eglinkQuests, wowheadRows, blizzardQuests, questXPTable, factionRewardTable) {
   const wowheadByID = new Map(wowheadRows.map((row) => [Number(row.id), wowheadRewards(row)]));
-  const counts = Object.fromEntries(REWARD_FIELDS.map((field) => [field, { eglink: 0, wowhead: 0, none: 0 }]));
+  const counts = Object.fromEntries(REWARD_FIELDS.map((field) => [field, { eglink: 0, wowhead: 0, blizzard: 0, none: 0 }]));
   const rows = [];
   const inNoSource = [];
+  const blizzardFills = [];
   for (const questID of questIDs) {
     const eglinkQuest = eglinkQuests[questID];
     const eglink = eglinkQuest && eglinkRewards(eglinkQuest, questXPTable, factionRewardTable);
     const wowhead = wowheadByID.get(questID);
-    if (!eglink && !wowhead) {
+    const blizzard = blizzardRewards(blizzardQuests[questID], eglinkQuest?.level);
+    if (!eglink && !wowhead && !blizzard) {
       inNoSource.push(questID);
       continue;
     }
-    const { rewards, sources } = mergeQuest(eglink, wowhead);
-    for (const field of REWARD_FIELDS) counts[field][sources[field]]++;
+    const { rewards, sources } = mergeQuest(eglink, wowhead, blizzard);
+    for (const field of REWARD_FIELDS) {
+      counts[field][sources[field]]++;
+      if (sources[field] === "blizzard") blizzardFills.push({ id: questID, field, value: rewards[field] });
+    }
     rows.push({ id: questID, xp: rewards.xp, money: rewards.money, items: formatPairs(rewards.items), choices: formatPairs(rewards.choices), reputation: formatPairs(rewards.reputation) });
   }
-  return { rows, counts, inNoSource };
+  return { rows, counts, inNoSource, blizzardFills };
 }
 
 // ---------------------------------------------------------------------------
@@ -257,19 +281,22 @@ async function saveEglink(eglinkFolder, root) {
   console.log(`Wrote ${Object.keys(quests).length} of the series' ${questIDs.length} quests to ${eglinkFile}, from ${builds.length} builds (${builds[0]} to ${builds.at(-1)}).`);
 }
 
-async function merge(root) {
+async function merge(root, blizzardCacheFile) {
   const questIDs = await readSeriesQuestIDs(root);
   const eglink = await readJson(path.join(root, EGLINK_FILE));
   const wowheadRows = parseCsv(await readFile(path.join(root, WOWHEAD_REWARDS_CSV_FILE), "utf8"));
   const questXPTable = difficultyTable(await readFile(path.join(root, QUEST_XP_FILE), "utf8"));
   const factionRewardTable = difficultyTable(await readFile(path.join(root, FACTION_REWARD_FILE), "utf8"));
-  const { rows, counts, inNoSource } = mergeRewards(questIDs, eglink.quests, wowheadRows, questXPTable, factionRewardTable);
+  const blizzardQuests = blizzardCacheFile ? (await readJson(blizzardCacheFile)).quests : {};
+  if (!blizzardCacheFile) console.log("No --blizzard cache: the fields only Blizzard's API has stay empty.");
+  const { rows, counts, inNoSource, blizzardFills } = mergeRewards(questIDs, eglink.quests, wowheadRows, blizzardQuests, questXPTable, factionRewardTable);
   const csvFile = path.join(root, REWARDS_CSV_FILE);
   await writeFile(csvFile, toCsv(rows, REWARD_COLUMNS));
   console.log(`Wrote the rewards of ${rows.length} of the series' ${questIDs.length} quests to ${csvFile}.`);
   for (const field of REWARD_FIELDS) {
-    console.log(`  ${field.padEnd(10)} EG Link ${counts[field].eglink}, Wowhead ${counts[field].wowhead}, none ${counts[field].none}`);
+    console.log(`  ${field.padEnd(10)} EG Link ${counts[field].eglink}, Wowhead ${counts[field].wowhead}, Blizzard ${counts[field].blizzard}, none ${counts[field].none}`);
   }
+  for (const fill of blizzardFills) console.log(`  from Blizzard: quest ${fill.id} ${fill.field} ${JSON.stringify(fill.value)}`);
   if (inNoSource.length) console.log(`In no source: ${inNoSource.join(" ")}`);
 }
 
@@ -289,11 +316,14 @@ async function main() {
   if (command === "eglink" && rest[0]) {
     await saveEglink(path.resolve(rest[0]), path.resolve(rest[1] || process.cwd()));
   } else if (command === "merge") {
-    await merge(path.resolve(rest[0] || process.cwd()));
+    const blizzardOption = rest.indexOf("--blizzard");
+    const blizzardCacheFile = blizzardOption >= 0 ? path.resolve(rest[blizzardOption + 1]) : undefined;
+    const root = rest.find((argument, index) => !argument.startsWith("--") && rest[index - 1] !== "--blizzard");
+    await merge(path.resolve(root || process.cwd()), blizzardCacheFile);
   } else if (command === "check" && rest[0]) {
     await check(path.resolve(rest[0]), path.resolve(rest[1] || process.cwd()));
   } else {
-    console.log("Commands: eglink <eg-link-output-wowf folder> [root], merge [root], check <blizzard cache.json> [root]");
+    console.log("Commands: eglink <eg-link-output-wowf folder> [root], merge [root] [--blizzard <cache.json>], check <blizzard cache.json> [root]");
     process.exitCode = 1;
   }
 }

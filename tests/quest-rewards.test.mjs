@@ -2,7 +2,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
-import { blizzardDifferences, checkAgainstBlizzard, difficultyTable, eglinkRewards, mergeQuest, mergeRewards, newestQuests, questXP, reputationAmount, roundQuestXP, wowheadRewards } from "../_Dev/tools/quest-rewards.mjs";
+import { blizzardDifferences, blizzardRewards, checkAgainstBlizzard, difficultyTable, eglinkRewards, mergeQuest, mergeRewards, newestQuests, questXP, reputationAmount, roundQuestXP, wowheadRewards } from "../_Dev/tools/quest-rewards.mjs";
 import { parseCsv } from "../_Dev/tools/wowhead-quest-series.mjs";
 
 const readTable = async (name) => difficultyTable(await readFile(new URL(`../_Dev/client-tables/${name}.csv`, import.meta.url), "utf8"));
@@ -83,15 +83,45 @@ test("mergeQuest takes each field from EG Link, then Wowhead", () => {
 test("mergeRewards writes the CSV's rows and counts each field's source", () => {
   const eglinkQuests = { 11: { level: 10, rewards: { xpDifficulty: 5, xpMultiplier: 1, choices: [{ itemId: 2249, count: 1 }], reputation: [{ factionId: 72, tier: 5 }] } } };
   const wowheadRows = parseCsv("id,xp,money,items,choices,reputation\n11,840,0,,2249:1 2238:1,72:100\n12,905,500,5:2,,72:100\n");
-  const { rows, counts, inNoSource } = mergeRewards([11, 12, 13], eglinkQuests, wowheadRows, questXPTable, factionRewardTable);
+  const { rows, counts, inNoSource } = mergeRewards([11, 12, 13], eglinkQuests, wowheadRows, {}, questXPTable, factionRewardTable);
   assert.deepEqual(rows, [
     { id: 11, xp: 850, money: 0, items: "", choices: "2249:1", reputation: "72:100" },
     { id: 12, xp: 900, money: 500, items: "5:2", choices: "", reputation: "72:100" },
   ]);
-  assert.deepEqual(counts.xp, { eglink: 1, wowhead: 1, none: 0 });
-  assert.deepEqual(counts.money, { eglink: 0, wowhead: 1, none: 1 });
-  assert.deepEqual(counts.choices, { eglink: 1, wowhead: 0, none: 1 });
+  assert.deepEqual(counts.xp, { eglink: 1, wowhead: 1, blizzard: 0, none: 0 });
+  assert.deepEqual(counts.money, { eglink: 0, wowhead: 1, blizzard: 0, none: 1 });
+  assert.deepEqual(counts.choices, { eglink: 1, wowhead: 0, blizzard: 0, none: 1 });
   assert.deepEqual(inNoSource, [13]);
+});
+
+test("blizzardRewards: XP and money only for a quest known to be below level 60", () => {
+  const cacheQuest = { xp: 725, money: 19800, items: [[21640, 1]], choices: [], reputation: [[72, 100]], spell: 0 };
+  const always = { items: [[21640, 1]], choices: [], reputation: [[72, 100]] };
+  assert.deepEqual(blizzardRewards(cacheQuest, 59), { ...always, xp: 725, money: 19800 });
+  assert.deepEqual(blizzardRewards(cacheQuest, 60), always, "level 60: the API gives a level 60 character's payout");
+  assert.deepEqual(blizzardRewards(cacheQuest, undefined), always, "level unknown: could be level 60");
+  assert.equal(blizzardRewards({ missing: true }, 10), undefined);
+  assert.equal(blizzardRewards(undefined, 10), undefined);
+});
+
+test("Blizzard fills only what EG Link and Wowhead both lack, and never replaces a value", () => {
+  const eglink = { xp: 850, money: 0, items: [], choices: [[2249, 2]], reputation: [] };
+  const wowhead = { xp: 840, money: 0, items: [], choices: [], reputation: [[72, 100]] };
+  const blizzard = { xp: 999, money: 700, items: [[21640, 1]], choices: [[2249, 1], [9, 1]], reputation: [[72, 5]] };
+  assert.deepEqual(mergeQuest(eglink, wowhead, blizzard), {
+    rewards: { xp: 850, money: 700, items: [[21640, 1]], choices: [[2249, 2]], reputation: [[72, 100]] },
+    sources: { xp: "eglink", money: "blizzard", items: "blizzard", choices: "eglink", reputation: "wowhead" },
+  });
+  const eglinkQuests = { 11: { level: 10, rewards: { xpDifficulty: 5 } }, 12: { level: 60, rewards: { xpDifficulty: 5 } } };
+  const blizzardQuests = { 11: { xp: 850, money: 700, items: [], choices: [], reputation: [] }, 12: { xp: 725, money: 19800, items: [[5, 1]], choices: [], reputation: [] }, 13: { xp: 75, money: 900, items: [], choices: [], reputation: [] } };
+  const { rows, counts, blizzardFills } = mergeRewards([11, 12, 13], eglinkQuests, [], blizzardQuests, questXPTable, factionRewardTable);
+  assert.deepEqual(rows, [
+    { id: 11, xp: 850, money: 700, items: "", choices: "", reputation: "" },
+    { id: 12, xp: 6600, money: 0, items: "5:1", choices: "", reputation: "" },
+    { id: 13, xp: 0, money: 0, items: "", choices: "", reputation: "" },
+  ]);
+  assert.deepEqual(blizzardFills, [{ id: 11, field: "money", value: 700 }, { id: 12, field: "items", value: [[5, 1]] }]);
+  assert.equal(counts.money.blizzard, 1);
 });
 
 test("the check against Blizzard's API compares items by ID and lists what differs", () => {
@@ -115,4 +145,7 @@ test("the saved lists: every series quest has a row, EG Link's values win", asyn
   assert.equal(wowhead.get("166").xp, "2600");
   assert.equal(rows.get("1367").reputation, "93:250 92:-1250", "a gain and a loss from overrides");
   assert.ok(!eglink.quests[5708] && rows.get("5708").xp === "700", "a quest EG Link lacks: Wowhead's XP, rounded");
+  assert.equal(rows.get("79007").money, "700", "money only Blizzard's API has");
+  assert.equal(wowhead.get("79007").money, "0");
+  assert.equal(rows.get("8288").money, "0", "a quest of unknown level: the API's money is left out");
 });

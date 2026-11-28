@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-"""Reads the rewards of the series' quests from Blizzard's Game Data API into a local cache,
-to check the rewards CSV against (quest-rewards.mjs check).
+"""Reads the rewards of the series' quests from Blizzard's Game Data API into a local cache:
+quest-rewards.mjs fills from it what no other source has (merge --blizzard) and checks
+the rewards CSV against it (check).
 
     python3 _Dev/tools/blizzard-quest-rewards.py <cache.json> [root]
 
@@ -11,9 +12,9 @@ items and choices are [itemID, count] pairs (count 1 when the API gives none), r
 [factionID, amount] pairs. A quest the API doesn't know is kept as {"missing": true}.
 Quests already in the cache aren't asked again; delete the file to read them all again.
 
-The cache stays on this machine, outside every repo: Blizzard's API terms don't allow
-passing its data on. It is a check only; nothing of it goes into the rewards CSV.
-The API gives no item counts, and for level 60 quests its XP is not what the game pays.
+The cache stays on this machine, outside every repo; only the few values no other
+source has reach the rewards CSV. The API gives no item counts, and for level 60
+quests its XP and money are what a level 60 character is paid, not the quest's own.
 
 The API client and its credentials are AuctionFuturePrices' (tools/blizzard_api.py);
 BLIZZARD_API_TOOLS points at another copy of that folder.
