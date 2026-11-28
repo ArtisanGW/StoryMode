@@ -7,6 +7,33 @@
 - With a controller, right-clicking the minimap button opens Story Mode's settings page instead of a menu. The game's menu, opened by an addon, broke the controller's buttons with "Interface action failed" (ArtisanGW)
 - New setting, Mark story quests: story quests get a coloured mark, green for the story you follow and lime green for the other stories. On the world map and in its quest list, givers, turn-ins, quests in progress and quest areas are marked; on the minimap, tracked quests' areas take the colour when every tracked quest there shares it (the game uses one look for all of them; the focused quest's border can't change, so turning on Only story quests clears the focus); NPCs who offer one get a mark above their nameplate when friendly NPC nameplates are on. The game's own ! over NPCs and on the minimap can't be recoloured, so it stays yellow (ArtisanGW)
 
+## 2.1.1
+
+### Stories
+- Quests that need a chain first now show that chain, in order, so you know what to do before you set out: Zul'Farrak's **The Spider God** and **Nekrum's Medallion**, and dungeon and raid quests in **The Defias Brotherhood**, **Secrets of Uldaman**, **The Hakkari Trail**, **The Scarlet Crusade**, **The Key to Scholomance**, **The Princess of Ironforge**, **The Drakefire Amulet**, and **The Brazier of Invocation**
+- Seven stories now follow their chains to the end, among them **Secrets of Uldaman**, **The Hakkari Trail**, **The Scarlet Crusade**, **Linken's Adventure**, and the warrior and shaman class stories
+- An optional quest the game only offers after another one waits for it, and its card says which quest to complete first
+- **Secrets of Uldaman** has five chapters: the Badlands' odd jobs and Theldurin's chain have their own
+- A chapter of optional quests only joins the Journal once you've done one of them, and its entry grows with the rest
+
+### WoW Forever
+- Quest cards name their dungeon or raid, such as Uldaman or Onyxia's Lair, instead of only saying Dungeon or Raid, and so do their tooltips. Onyxia's attunement quests say Attunement
+- **The Brazier of Invocation** ends on Legacy's card for its questline challenge, with its points and the day you earned it. Click it to open the challenge in the Legacy window
+- One more story is secret. It stays out of the list until you find a way in
+- **Twilight in the Riverglades** no longer says Krol'dok's key gets you in, and tells you what it opens
+- The header and quest cards no longer show Legacy's points shield and step numbers
+- **The Mad King**'s quests show as dungeon quests, not raid quests
+
+### Fixes
+- **The Cenarion Path**: the Aquatic Form chapter waits for your own faction's A Lesson to Learn, not the other faction's
+- On WoW Forever, Back to the Beginning shows its objective on the quest card
+
+### Localization
+- All new text is in every client language. Chinese names Gryphon Master Talonaxe, and Korean names Rog'mar, the way the game does
+
+### Maintenance
+- Bumped addon metadata to `2.1.1`
+
 ## 2.1.0
 
 ### New stories

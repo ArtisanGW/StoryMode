@@ -55,6 +55,8 @@ SM.DungeonSetTwoData = {
     },
 
     npcDisplayIDs = {
+        -- Lead-up quest givers: AzerothCore creature_template_model (same models as Classic).
+        ["Geologist Larksbane"] = 15316,
         ["Deliana"] = 15965,
         ["Mokvar"] = 15966,
         ["Mux Manascrambler"] = 15998,
@@ -251,13 +253,10 @@ SM.DungeonSetTwoData = {
             summaryHorde = "Mokvar in Orgrimmar has one more name for you: Bodley. Look near Blackrock Spire, in Blackrock Mountain, with the Ghost Revealer switched on. Without it, you won't see Bodley at all.",
             recap = "Back home they pointed me at Blackrock Mountain, Ghost Revealer in hand. Somewhere near the Spire, they said, I'd find somebody. I switched it on, and there was Bodley. Dead, like most of my acquaintances that season, and with a great deal to say about Lord Valthalak.\n\nWhat it came down to was fire. Three kings of flame, Bodley called them. I fetched a piece of each, and a hallowed brazier to hold them, and brought the lot back to a ghost inside a mountain.\n\nWhat came out of that was a brazier for calling up the dead. Bodley seemed to think that was good news. Bodley's standards have changed.",
             quests = {
-                { id = 8323, name = "True Believers", npc = "Hermit Ortell", optional = true,
-                    guidanceQuests = {
-                        { id = 8284, name = "The Twilight Mystery", npc = "Geologist Larksbane", mapID = 81, x = 0.4940, y = 0.3720 },
-                        { id = 8285, name = "The Deserter", npc = "Geologist Larksbane", mapID = 81, x = 0.4940, y = 0.3720 },
-                        { id = 8279, name = "The Twilight Lexicon", npc = "Hermit Ortell", mapID = 81, x = 0.6700, y = 0.6960 },
-                    },
-                },
+                { id = 8284, name = "The Twilight Mystery", npc = "Geologist Larksbane", optional = true, mapID = 81, x = 0.4940, y = 0.3720 },
+                { id = 8285, name = "The Deserter", npc = "Geologist Larksbane", optional = true, afterQuest = 8284, mapID = 81, x = 0.4940, y = 0.3720 },
+                { id = 8279, name = "The Twilight Lexicon", npc = "Hermit Ortell", optional = true, afterQuest = 8285, recap = "Geologist Larksbane at Cenarion Hold had found pieces of a tablet left by the Twilight's Hammer and wanted the rest. I brought eight fragments, and the restored tablet went to Hermit Ortell, who once ran with the cult and now lives alone out in the desert. Ortell wanted the three chapters of the Twilight Lexicon to read the rest of it. The cultists carrying them did not hand them over politely." },
+                { id = 8323, name = "True Believers", npc = "Hermit Ortell", optional = true, afterQuest = 8279 },
                 { id = 8960, name = "Bodley's Unfortunate Fate", npc = "Deliana", faction = "Alliance" },
                 { id = 9032, foreverId = 8960, name = "Bodleys Unfortunate Fate", displayName = "Bodley's Unfortunate Fate", npc = "Mokvar", faction = "Horde" },
                 { id = 8961, name = "Three Kings of Flame", npc = "Bodley" },

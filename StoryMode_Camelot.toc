@@ -13,7 +13,7 @@
 ## Notes-zhTW: 逐章追隨魔獸世界的故事，了解來龍去脈並追蹤進度。|n|n使用聊天指令開啟 Story Mode：|n/sm 或 /storymode
 ## SavedVariables: StoryModeDB
 ## OptionalDeps: LibDataBroker-1.1
-## Version: 2.1.0
+## Version: 2.1.1
 ## X-Build: @project-revision@
 ## Author: Rafael Polutta
 ## IconTexture: Interface\AddOns\StoryMode\Art\Icons\storymode_icon
@@ -87,6 +87,7 @@ Data\Forever\QuestText\ruRU.lua
 Data\Forever\QuestText\zhCN.lua
 Data\Forever\QuestText\zhTW.lua
 Data\Forever\ForeverStoryLevels.lua
+Data\Forever\ForeverQuestInstances.lua
 Data\Forever\ForeverNPCDisplayIDs.lua
 Data\Forever\AlcazPrisonData.lua
 Data\Forever\DrownedCityData.lua

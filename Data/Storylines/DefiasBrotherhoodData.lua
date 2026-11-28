@@ -20,7 +20,7 @@ SM.DefiasBrotherhoodData = {
     adventureCoverTexture = 131833,
     adventureCoverIsLoadingScreen = true,
 
-    startQuest = { id = 18, name = "Brotherhood of Thieves", npc = "Deputy Willem", location = "Northshire Abbey, Elwynn Forest" },
+    startQuest = { id = 783, name = "A Threat Within", npc = "Deputy Willem", location = "Northshire Abbey, Elwynn Forest" },
     startMapID = 37,
     startX = 0.4820,
     startY = 0.4290,
@@ -62,6 +62,7 @@ SM.DefiasBrotherhoodData = {
     },
 
     npcDisplayIDs = {
+        ["Eagan Peltskinner"] = 3251,
         ["Deputy Willem"] = 2072,
         ["Milly Osworth"] = 8489,
         ["Garrick Padfoot"] = 2073,
@@ -125,18 +126,11 @@ SM.DefiasBrotherhoodData = {
             summary = "Deputy Willem, outside Northshire Abbey, has a new gang of thieves on his hands. They call themselves the Defias Brotherhood, they've been seen across the river to the east, and nobody knows what they're up to.",
             recap = "Northshire was supposed to be the quiet part. I'd barely found the abbey before the deputy had me pulling red bandanas off thieves, and every thief had a friend. In the vineyards, across the river, out at the logging camp: same masks, same red. Apparently they have a dress code.\n\nThe best of it was the Collector. A schedule turned up with that name on it, and Marshal Dughan read it and sent me hunting. A thief who goes by the Collector is asking for a certain kind of visitor. The Collector had a ring, and the Collector had my full attention, and only one of those two made it through the day.\n\nThat's a lot of matching masks for a few bandits. Bandits don't coordinate.",
             quests = {
-                { id = 18, name = "Brotherhood of Thieves", npc = "Deputy Willem",
-                    guidanceQuests = {
-                        { id = 783, name = "A Threat Within", npc = "Deputy Willem", mapID = 37, x = 0.4820, y = 0.4280 },
-                    },
-                },
-                { id = 3903, name = "Milly Osworth", npc = "Deputy Willem",
-                    guidanceQuests = {
-                        { id = 783, name = "A Threat Within", npc = "Deputy Willem", mapID = 37, x = 0.4820, y = 0.4280 },
-                        { id = 5261, name = "Eagan Peltskinner", npc = "Deputy Willem", mapID = 37, x = 0.4820, y = 0.4280 },
-                        { id = 33, name = "Wolves Across the Border", npc = "Eagan Peltskinner", mapID = 37, x = 0.4880, y = 0.4020 },
-                    },
-                },
+                { id = 783, name = "A Threat Within", npc = "Deputy Willem" },
+                { id = 18, name = "Brotherhood of Thieves", npc = "Deputy Willem" },
+                { id = 5261, name = "Eagan Peltskinner", npc = "Deputy Willem" },
+                { id = 33, name = "Wolves Across the Border", npc = "Eagan Peltskinner", mapID = 37, x = 0.4880, y = 0.4020 },
+                { id = 3903, name = "Milly Osworth", npc = "Deputy Willem" },
                 { id = 3904, name = "Milly's Harvest", npc = "Milly Osworth" },
                 { id = 6, name = "Bounty on Garrick Padfoot", npc = "Deputy Willem" },
                 { id = 83, name = "Red Linen Goods", displayName = "Fine Linen Goods", npc = "Sara Timberlain" },
@@ -207,11 +201,8 @@ SM.DefiasBrotherhoodData = {
                 { id = 373, name = "The Unsent Letter", npc = "Edwin VanCleef" },
                 { id = 389, name = "Bazil Thredd", npc = "Baros Alexston" },
                 { id = 391, name = "The Stockade Riots", npc = "Warden Thelwater" },
-                { id = 378, name = "The Fury Runs Deep", npc = "Motley Garmason", optional = true, recap = "Motley Garmason at Dun Modr hates the Dark Irons in general and Kam Deepfury in particular, since Deepfury helped plan the attack on the Thandol Span. Stormwind kept Deepfury tucked away in the Stockade for reasons of politics. Motley had no use for politics, and after my visit, neither did Deepfury.",
-                    guidanceQuests = {
-                        { id = 303, name = "The Dark Iron War", npc = "Motley Garmason", mapID = 56, x = 0.4960, y = 0.1820 },
-                    },
-                },
+                { id = 303, name = "The Dark Iron War", npc = "Motley Garmason", optional = true },
+                { id = 378, name = "The Fury Runs Deep", npc = "Motley Garmason", optional = true, afterQuest = 303, recap = "Motley Garmason at Dun Modr hates the Dark Irons in general and Kam Deepfury in particular, since Deepfury helped plan the attack on the Thandol Span. Stormwind kept Deepfury tucked away in the Stockade for reasons of politics. Motley had no use for politics, and after my visit, neither did Deepfury." },
                 { id = 377, name = "Crime and Punishment", npc = "Councilman Millstipe", optional = true, recap = "Councilman Millstipe of Darkshire wanted Dextren Ward's hand. Ward had sold bodies out of Duskwood's cemetery, and Darkshire sentenced him to death, but the nobles in Stormwind kept him in the Stockade instead. I carried out Darkshire's sentence, and the councilman took the hand as a message to the nobles." },
                 { id = 388, name = "The Color of Blood", npc = "Nikova Raskol", optional = true, recap = "Nikova Raskol's grandson Mac was fourteen and a guard in the Stockade, and he got a knife in the back for telling the Defias to stop tearing their blankets into bandanas. Nikova wanted ten of those bandanas, and I brought them. They didn't bring Mac back, and Nikova knew that better than I did." },
                 { id = 386, name = "What Comes Around...", npc = "Guard Berton", optional = true, recap = "Guard Berton in Lakeshire remembered Targorr the Dread, who tortured Stormwind's soldiers for Gath'Ilzogg, and didn't trust the noble who kept putting off the execution. So Berton skipped the courts and sent me. Berton called it justice beyond the reach of politics, and Targorr didn't get a say." },

@@ -25,7 +25,7 @@ SM.ScholomanceData = {
     adventureCoverTexture = 131868,
     adventureCoverIsLoadingScreen = true,
 
-    startQuest = { id = 5533, name = "Scholomance", npc = "Commander Ashlam Valorfist", location = "Chillwind Camp, Western Plaguelands", faction = "Alliance" },
+    startQuest = { id = 5092, name = "Clear the Way", npc = "Commander Ashlam Valorfist", location = "Chillwind Camp, Western Plaguelands", faction = "Alliance" },
     startMapID = 22,
     startX = 0.4300,
     startY = 0.8400,
@@ -64,6 +64,8 @@ SM.ScholomanceData = {
     },
 
     npcDisplayIDs = {
+        -- Lead-up quest givers: AzerothCore creature_template_model (same models as Classic).
+        ["Tinkee Steamboil"] = 9791,
         -- Quest givers' models from the cmangos Classic database.
         ["Commander Ashlam Valorfist"] = 10151,
         ["High Executor Derrington"] = 10150,
@@ -88,18 +90,13 @@ SM.ScholomanceData = {
             recapAlliance = "Scholomance has one front door and nobody hands out keys, so you make your own. Alchemist Arbington at Chillwind Camp had the recipe, and it was mostly a tour of the worst corners of the world: bones from the Plaguelands, a lava lake at the top of Fire Plume Ridge, a scarab off a summoner in Andorhal.\n\nThe best stop was Gadgetzan. A goblin called Krinkle Goodsteel would turn my bones into a key mold for fifteen gold. Mold rhymes with gold. I noticed. I paid.\n\nWhen it was all done, Arbington fitted the pieces together, handed me the Skeleton Key, and called it as certain to work as anything could be. Then suggested I go and find out.\n\nThat's an alchemist for you. Confident right up to the door.",
             recapHorde = "High Executor Derrington wanted me inside Scholomance, and Apothecary Dithers explained the catch. The door is locked, and the only key is one you build yourself, out of bones from the Plaguelands, a lava lake at the top of Fire Plume Ridge and a scarab from a summoner in Andorhal.\n\nThe bit I remember is Gadgetzan. A goblin called Krinkle Goodsteel would make the key mold, for fifteen gold. Mold, gold. I noticed. I paid anyway. You don't haggle with a goblin over something you can't make yourself.\n\nDithers put the pieces together and handed over the Skeleton Key, with a send-off about fame and power and laying waste to Scholomance.\n\nNow that's how you see somebody out the door.",
             quests = {
-                { id = 5533, name = "Scholomance", npc = "Commander Ashlam Valorfist", faction = "Alliance",
-                    guidanceQuests = {
-                        { id = 5092, name = "Clear the Way", npc = "Commander Ashlam Valorfist", mapID = 22, x = 0.4280, y = 0.8400 },
-                        { id = 5097, name = "All Along the Watchtowers", npc = "Commander Ashlam Valorfist", mapID = 22, x = 0.4280, y = 0.8400 },
-                    },
-                },
-                { id = 838, name = "Scholomance", npc = "High Executor Derrington", faction = "Horde",
-                    guidanceQuests = {
-                        { id = 5096, name = "Scarlet Diversions", npc = "High Executor Derrington", mapID = 18, x = 0.8280, y = 0.7020 },
-                        { id = 5098, name = "All Along the Watchtowers", npc = "High Executor Derrington", mapID = 18, x = 0.8280, y = 0.7020 },
-                    },
-                },
+                -- The key starts after the commander's errands in Sorrow Hill and Andorhal.
+                { id = 5092, name = "Clear the Way", npc = "Commander Ashlam Valorfist", faction = "Alliance" },
+                { id = 5097, name = "All Along the Watchtowers", npc = "Commander Ashlam Valorfist", faction = "Alliance", recapAfter = 0, recap = "Before anyone at Chillwind Camp would talk to me about Scholomance, Commander Ashlam Valorfist wanted Sorrow Hill cleared of skeletal flayers and slavering ghouls, and then the four watchtowers of Andorhal marked with a beacon torch, standing in each doorway in turn. Only then did the commander mention the school." },
+                { id = 5533, name = "Scholomance", npc = "Commander Ashlam Valorfist", faction = "Alliance" },
+                { id = 5096, name = "Scarlet Diversions", npc = "High Executor Derrington", faction = "Horde" },
+                { id = 5098, name = "All Along the Watchtowers", npc = "High Executor Derrington", faction = "Horde", recapAfter = 0, recap = "Before High Executor Derrington at the Bulwark would talk to me about Scholomance, the Scarlet Crusade's camp between Felstone Field and Dalson's Tears had to lose its command tent and gain a Scourge banner, and the four watchtowers of Andorhal had to be marked with a beacon torch, from each doorway in turn. Only then did the executor mention the school." },
+                { id = 838, name = "Scholomance", npc = "High Executor Derrington", faction = "Horde" },
                 { id = 5537, name = "Skeletal Fragments", npc = "Alchemist Arbington", faction = "Alliance" },
                 { id = 964, name = "Skeletal Fragments", npc = "Apothecary Dithers", faction = "Horde" },
                 { id = 5538, name = "Mold Rhymes With...", npc = "Alchemist Arbington", faction = "Alliance" },
@@ -149,13 +146,10 @@ SM.ScholomanceData = {
                 { id = 5464, name = "Menethil's Gift", npc = "Menethil's Gift", mapID = 23, x = 0.2700, y = 0.1200, location = "Stratholme" },  -- inside the instance; the pin is its gate
                 { id = 5465, name = "Soulbound Keepsake", npc = "Leonid Barthalomew the Revered" },
                 { id = 5466, name = "The Lich, Ras Frostwhisper", npc = "Magistrate Marduke" },
-                { id = 5531, name = "Betina Bigglezink", npc = "Leonid Barthalomew the Revered", optional = true,
-                    guidanceQuests = {
-                        { id = 4734, name = "Egg Freezing", npc = "Tinkee Steamboil", mapID = 36, x = 0.6520, y = 0.2380 },
-                        { id = 4735, name = "Egg Collection", npc = "Tinkee Steamboil", mapID = 36, x = 0.6520, y = 0.2380 },
-                        { id = 5522, name = "Leonid Barthalomew", npc = "Tinkee Steamboil", mapID = 36, x = 0.6520, y = 0.2380 },
-                    },
-                },
+                { id = 4734, name = "Egg Freezing", npc = "Tinkee Steamboil", optional = true, mapID = 36, x = 0.6520, y = 0.2380 },
+                { id = 4735, name = "Egg Collection", npc = "Tinkee Steamboil", optional = true, afterQuest = 4734, mapID = 36, x = 0.6520, y = 0.2380, recap = "Tinkee Steamboil at Flame Crest had built a gadget for freezing black dragon eggs solid and needed someone to try it in the Rookery atop the Spire. It worked, so I went back up and collected eight. Freeze them first, Tinkee said, or they might hatch before you get them, which is advice you only need once." },
+                { id = 5522, name = "Leonid Barthalomew", npc = "Tinkee Steamboil", optional = true, afterQuest = 4735, mapID = 36, x = 0.6520, y = 0.2380 },
+                { id = 5531, name = "Betina Bigglezink", npc = "Leonid Barthalomew the Revered", optional = true, afterQuest = 5522 },
                 { id = 4771, name = "Dawn's Gambit", npc = "Betina Bigglezink", optional = true, afterQuest = 5531, recap = "Leonid Barthalomew sent me over to Betina Bigglezink with some frozen eggs, and Betina sent me back into Scholomance with something called Dawn's Gambit, to set down in the Viewing Room. A gambit, as I understand it, means giving up a piece to win the game. I made sure the piece was Vectus." },
                 { id = 5529, name = "Plagued Hatchlings", npc = "Betina Bigglezink", optional = true },
                 { id = 5582, name = "Healthy Dragon Scale", location = "Scholomance", optional = true, afterQuest = 5529, recap = "Betina Bigglezink at Light's Hope wanted twenty plagued dragon hatchlings put down in Scholomance. Somewhere in all that plague I found one healthy dragon scale, and brought that back too. I don't know what Betina wanted it for. In Scholomance, anything healthy is worth a second look." },

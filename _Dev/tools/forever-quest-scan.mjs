@@ -731,6 +731,22 @@ const NO_OBJECTIVE = new Set([
   78307, 78699,  // C's payments at the dead drop: "Log"
 ]);
 
+// Quests the game has that the client's QuestV2 table doesn't list, so their
+// absence from Forever's table says nothing: the audit doesn't call them
+// unknown. The Classic ones are missing from Classic Era's table too; the
+// Dawn Waker's hidden steps are missing from every Forever build so far.
+const NOT_IN_QUEST_TABLES = new Set([
+  98685, 99267,  // The Dawn Waker: Libram of Binding, An Unfortunate End
+
+  1442,  // Seeking the Kor Gem
+  1655,  // Bailor's Ore Shipment
+  1714,  // Essence of the Exile
+  1793,  // The Tome of Valor
+  4041,  // The Videre Elixir
+  5122,  // The Medallion of Faith (Stratholme)
+  5582,  // Healthy Dragon Scale (Scholomance)
+]);
+
 function readTextFile(text) {
   const unescapeLua = (value) => value.replace(/\\(n|"|\\)/g, (_, c) => (c === "n" ? "\n" : c));
   const lines = new Map();
@@ -1083,7 +1099,7 @@ async function writeAudit() {
         }
         const title = scan?.titles.get(id);
         if (title === false) unknown.push(`${id} (no answer in /sm scan)`);
-        else if (!title && idSets?.forever && !idSets.forever.has(id)) unknown.push(`${id} (not in Forever's quest table${scan ? " or the scan" : ""})`);
+        else if (!title && idSets?.forever && !idSets.forever.has(id) && !NOT_IN_QUEST_TABLES.has(id)) unknown.push(`${id} (not in Forever's quest table${scan ? " or the scan" : ""})`);
       }
     }
     const issues = [];
@@ -1160,7 +1176,7 @@ async function checkQuests() {
       // No answer can mean the request timed out: Wowhead's Forever data has
       // some of these quests, so it's worth a look, not proof they're gone.
       if (title === false) add(story, quest, "no-answer", "/sm scan got no answer for this quest ID");
-      else if (!title && idSets?.forever && !idSets.forever.has(quest.id)) add(story, quest, "unknown", "not in Forever's quest table or the scan");
+      else if (!title && idSets?.forever && !idSets.forever.has(quest.id) && !NOT_IN_QUEST_TABLES.has(quest.id)) add(story, quest, "unknown", "not in Forever's quest table or the scan");
       const classic = db.quests[quest.classicId || quest.id];
       if (typeof title === "string" && norm(title) !== norm(quest.name)) add(story, quest, "title", `Forever calls it "${title}"`);
       else if (!title && classic && norm(classic.title) !== norm(quest.name)) add(story, quest, "title", `Classic calls it "${classic.title}"`);
