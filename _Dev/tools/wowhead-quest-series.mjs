@@ -28,8 +28,10 @@
 //     items, choices and reputation.
 //
 //   node _Dev/tools/wowhead-quest-series.mjs save-rewards <file.json> [root]
-//     Writes _Dev/forever-quest-rewards.csv: the rewards of every quest of the
-//     series in the series CSV.
+//     Writes _Dev/wowhead-quest-rewards.csv: Wowhead's rewards of every quest
+//     of the series in the series CSV. quest-rewards.mjs then writes
+//     _Dev/forever-quest-rewards.csv from EG Link's data, with these for what
+//     EG Link doesn't have.
 //
 // The first quests are the list to read: a series' first quest is where a
 // story begins, and its page shows the whole series.
@@ -41,9 +43,10 @@ import { pathToFileURL } from "node:url";
 export const CSV_FILE = path.join("_Dev", "forever-quest-series.csv");
 export const SNIPPET_FILE = path.join("_Dev", "snippets", "wowhead-quest-series.js");
 export const REWARDS_CSV_FILE = path.join("_Dev", "forever-quest-rewards.csv");
+export const WOWHEAD_REWARDS_CSV_FILE = path.join("_Dev", "wowhead-quest-rewards.csv");
 export const REWARDS_SNIPPET_FILE = path.join("_Dev", "snippets", "wowhead-quest-rewards.js");
 const COLUMNS = ["id", "name", "status", "quests", "faction", "classes", "level", "min_level", "zone_id", "quest_ids", "quest_names"];
-const REWARD_COLUMNS = ["id", "xp", "money", "items", "choices", "reputation"];
+export const REWARD_COLUMNS = ["id", "xp", "money", "items", "choices", "reputation"];
 
 // Fewest steps for each status, longest first.
 const STATUS_BY_LENGTH = [[15, "legendary"], [10, "epic"], [6, "immersive"], [3, "routine"], [2, "trivial"]];
@@ -426,7 +429,7 @@ async function main() {
     const scan = JSON.parse(await readFile(positional[0], "utf8"));
     const series = parseCsv(await readFile(path.join(root, CSV_FILE), "utf8"));
     const rows = rewardRows(scan, series);
-    const csvFile = path.join(root, REWARDS_CSV_FILE);
+    const csvFile = path.join(root, WOWHEAD_REWARDS_CSV_FILE);
     await writeFile(csvFile, toCsv(rows, REWARD_COLUMNS));
     console.log(`Wrote the rewards of ${rows.length} of the series' ${questIDsOf(series).size} quests to ${csvFile}.`);
   } else if (command === "list") {
