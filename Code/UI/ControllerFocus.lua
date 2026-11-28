@@ -1,6 +1,6 @@
 -- A window of ours, used with the controller, without joining the game's
 -- controller window list: a snippet to copy as is into an addon
--- (devAddons/luaSnippets; README.md there says how to use it).
+-- (DevTools/luaSnippets; README.md there says how to use it).
 --
 -- Joining that list (GamepadMode.FrameControlsManager:FrameShown) from addon
 -- code taints the game's controller state: "Interface action failed", then

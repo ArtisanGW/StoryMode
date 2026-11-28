@@ -1,6 +1,6 @@
 -- A bar of controller keys and what they do, drawn like the game's own (its
 -- input legend, under the bags in the controller UI): a snippet to copy as is
--- into an addon (devAddons/luaSnippets; README.md there says how to use it).
+-- into an addon (DevTools/luaSnippets; README.md there says how to use it).
 --
 -- Built from the game's art and sizes, not its legend code (which belongs to
 -- the game's controller UI): the gamepad-footer slot, 24 px icons, GameFontNormal,

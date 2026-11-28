@@ -9,7 +9,7 @@ local _, SM = ...
 -- The minimap draws an addon's file only once the UI has loaded it. Given
 -- it before, the minimap draws "not found" (solid green) for that file until
 -- the game restarts, /reload included, and a texture on a hidden frame
--- doesn't load it (measured with devAddons/DevBlobProbe). So textures the
+-- doesn't load it (measured with DevTools/DevBlobProbe). So textures the
 -- player can't see keep each file loaded, and the game's frames get the
 -- files only once IsObjectLoaded says they're all in.
 
